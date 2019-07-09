@@ -1,5 +1,8 @@
 language: node_js
 
+node_js:
+  - "10"
+
 branches:
   only:
     - master
@@ -16,5 +19,5 @@ before_script:
   - npm install --save-dev node-sass
 
 script:
-  - ng build --prod
+#  - ng build --prod
   - sonar-scanner
