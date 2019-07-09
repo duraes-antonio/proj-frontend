@@ -8,7 +8,8 @@ branches:
     - master
 
 before_script:
+  - cd frontend
   - yarn global add @angular/cli
 
 script:
-  build.sh
+  - ng build --prod
