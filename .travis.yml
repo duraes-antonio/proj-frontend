@@ -14,7 +14,7 @@ addons:
 before_script:
   - cd frontend
   - npm install
-  - npm rebuild node-sass --force
+  - npm install --save-dev node-sass
 
 script:
   - ng build --prod
