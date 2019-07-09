@@ -11,6 +11,7 @@ before_script:
   - cd frontend
   - npm install -g --save-dev @angular/cli@latest
   - npm install -g --save-dev @angular-devkit/build-angular
+  - npm install
 
 script:
   - ng build --prod
