@@ -1,4 +1,7 @@
 # PROJ_20201 - FRONTEND
+![](https://travis-ci.org/duraes-antonio/proj-frontend.svg?branch=master)
+
+<br><br>
 Projeto usado como meio de aprendizado das ferramentas C#, Angular, TypeScript, CSS, HTML e a plataforma .NET Core como um todo.
 
 Repositório principal: https://github.com/duraes-antonio/Proj
