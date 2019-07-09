@@ -9,8 +9,8 @@ branches:
 
 before_script:
   - cd frontend
-  - npm install -g @angular/cli
-  - npm install -g @angular-devkit/build-angular --dev
+  - npm install -g --save-dev @angular/cli@latest
+  - npm install -g --save-dev @angular-devkit/build-angular
 
 script:
   - ng build --prod
