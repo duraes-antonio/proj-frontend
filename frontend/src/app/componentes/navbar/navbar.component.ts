@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-navbar',
   templateUrl: 'navbar.component.html',
   styleUrls: [
-    'navbar.component.css',
+    'navbar.component.scss',
     '../../../../node_modules/materialize-css/dist/css/materialize.min.css'
   ]
 })

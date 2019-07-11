@@ -1,0 +1,44 @@
+$val-padding: 15;
+
+.navbar {
+  height: 65px;
+}
+
+%nav-itens {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-itens {
+  @extend %nav-itens;
+  background: linear-gradient(#060606 45%, #1c1c1c);
+}
+
+.nav-itens-esquerda {
+  @extend %nav-itens;
+  justify-content: flex-start;
+  padding-left: $val-padding;
+}
+
+.nav-itens-centro {
+  @extend %nav-itens;
+  justify-content: center;
+}
+
+.nav-itens-direita {
+  @extend %nav-itens;
+  justify-content: flex-end;
+  padding-right: $val-padding;
+}
+
+.icone {
+  padding: 0 10px;
+}
+
+.icone-important {
+  padding-right: 20px;
+  font-size: 150% !important;
+}
+
+
