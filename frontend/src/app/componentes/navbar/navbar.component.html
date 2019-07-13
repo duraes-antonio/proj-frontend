@@ -1,12 +1,14 @@
 <head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" rel="stylesheet">
+  <title>Teste</title>
 </head>
 
 <nav class="nav-itens navbar black">
 
   <div class="nav-itens-esquerda">
     <ul class="nav col s4">
-      <li><i class="fas fa-bars icone"></i></li>
+      <li><i aria-hidden="true" class="fas fa-bars icone"></i></li>
     </ul>
   </div>
 
@@ -18,21 +20,13 @@
 
   <div class="nav-itens-direita">
     <ul class="nav col s4">
-      <li><i class="fas fa-search icone-important"></i></li>
-      <li><i class="fas fa-bell icone-important"></i></li>
-      <li><i class="fas fa-shopping-cart icone-important"></i></li>
+      <li><i aria-hidden="true" class="fas fa-search icone-important"></i></li>
+      <li><i aria-hidden="true" class="fas fa-bell icone-important"></i></li>
+      <li><i aria-hidden="true" class="fas fa-shopping-cart icone-important"></i></li>
     </ul>
   </div>
-</nav>
 
-<nav>
-  <div class="nav-wrapper">
-    <form>
-      <div class="input-field black">
-        <input id="se arch" type="search" required>
-        <i class="fas fa-search white" style="color: black">search</i>
-        <i class="fas fa-times" style="color: black">close</i>
-      </div>
-    </form>
-  </div>
 </nav>
+<app-barra-busca></app-barra-busca>
+
+
