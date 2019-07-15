@@ -1,35 +1,39 @@
-$val-padding: 15;
+$val-padding: 15px;
+$altura-barra: 70px;
 
-.navbar {
-  height: 65px;
-}
-
-%nav-itens {
-  width: 100%;
+.nav-itens-base {
+  width: auto;
+  height: auto;
+  max-height: 100%;
   display: flex;
+  margin: 0 !important;
+  padding: 0;
   align-items: center;
 }
 
-.nav-itens {
-  @extend %nav-itens;
-  background: linear-gradient(#060606 45%, #1c1c1c);
+.navbar {
+  height: $altura-barra;
+  background: linear-gradient(#060606 35%, #272727);
 }
 
-.nav-itens-esquerda {
-  @extend %nav-itens;
+.nav-cols {
+  @extend .nav-itens-base;
+  height: $altura-barra;
+}
+
+.nav-col-esquerda {
+  @extend .nav-itens-base;
   justify-content: flex-start;
-  padding-left: $val-padding;
 }
 
-.nav-itens-centro {
-  @extend %nav-itens;
+.nav-col-centro {
+  @extend .nav-itens-base;
   justify-content: center;
 }
 
-.nav-itens-direita {
-  @extend %nav-itens;
+.nav-col-direita {
+  @extend .nav-itens-base;
   justify-content: flex-end;
-  padding-right: $val-padding;
 }
 
 .icone {
@@ -37,8 +41,17 @@ $val-padding: 15;
 }
 
 .icone-important {
-  padding-right: 20px;
-  font-size: 150% !important;
+  padding-right: 16px;
 }
 
+.img-col-centro {
+  max-height: 55px;
+  width: auto;
+}
 
+@media (max-width: 430px) {
+  .icone-important {
+    padding-right: 10px;
+    font-size: 140% !important;
+  }
+}

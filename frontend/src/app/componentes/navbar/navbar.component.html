@@ -4,29 +4,46 @@
   <title>Teste</title>
 </head>
 
-<nav class="nav-itens navbar black">
+<nav class="navbar">
+  <div class="row nav-cols">
 
-  <div class="nav-itens-esquerda">
-    <ul class="nav col s4">
-      <li><i aria-hidden="true" class="fas fa-bars icone"></i></li>
-    </ul>
+    <!--  Coluna da esquerda: Contém o menu hamburger  -->
+    <div class="col s4 m4 nav-col-esquerda">
+      <ul>
+        <li><i aria-hidden="true" class="fas fa-bars icone"></i></li>
+      </ul>
+    </div>
+
+    <!--  Coluna centro: contém a logo da loja  -->
+    <!--  TODO: Trabalhar com logo escolhida pela loja -->
+    <div class="col s4 m4 nav-col-centro">
+      <img alt="yugioh_logo"
+           class="responsive-img img-col-centro" src="../../../assets/yugioh-logo.png"/>
+    </div>
+
+    <!--  Coluna da direita: contém o botão de busca, sino e carrinho  -->
+    <div class="col s4 m4 nav-col-direita">
+      <ul class="">
+
+        <li>
+          <i (click)="toggleBusca()" aria-hidden="true"
+             class="fas fa-search icone-important"></i>
+        </li>
+
+        <li>
+          <i aria-hidden="true" class="fas fa-bell icone-important"></i>
+        </li>
+
+        <li>
+          <i aria-hidden="true" class="fas fa-shopping-cart icone-important"></i>
+        </li>
+
+      </ul>
+    </div>
+
   </div>
-
-  <div class="nav-itens-centro">
-    <ul class="nav col s4">
-      <li><i>LOGO</i></li>
-    </ul>
-  </div>
-
-  <div class="nav-itens-direita">
-    <ul class="nav col s4">
-      <li><i aria-hidden="true" class="fas fa-search icone-important"></i></li>
-      <li><i aria-hidden="true" class="fas fa-bell icone-important"></i></li>
-      <li><i aria-hidden="true" class="fas fa-shopping-cart icone-important"></i></li>
-    </ul>
-  </div>
-
 </nav>
-<app-barra-busca></app-barra-busca>
+<app-barra-busca *ngIf="exibirBusca" [fadeOutAplicar]="aplicarFadeOut">
+</app-barra-busca>
 
 
