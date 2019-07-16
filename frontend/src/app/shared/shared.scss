@@ -1,0 +1,25 @@
+@mixin btn-circle($largura: 35px, $altura: 35px) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border-radius: 100%;
+  width: $largura;
+  height: $altura;
+  line-height: $altura;
+}
+
+@mixin btn-circle--blue($largura, $altura) {
+  @include btn-circle($largura, $altura);
+  background-color: dodgerblue;
+}
+
+@mixin btn-circle--red($largura, $altura) {
+  @include btn-circle($largura, $altura);
+  background-color: red;
+}
+
+@mixin btn-circle--green($largura, $altura) {
+  @include btn-circle($largura, $altura);
+  background-color: green;
+}
