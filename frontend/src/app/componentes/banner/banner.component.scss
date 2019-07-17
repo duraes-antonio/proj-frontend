@@ -1,9 +1,11 @@
 @import "../../shared/shared";
 
+$altura-banner: 250px;
+
 .banner {
   width: 100%;
-  height: 250px;
-  background-image: radial-gradient(#191919, black);
+  height: $altura-banner;
+  background-image: radial-gradient(#2d2d2d, black);
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -20,17 +22,25 @@
   position: absolute;
   height: auto;
   font-size: small;
+  padding: 0 0 15px 20px;
+  z-index: 1;
+  text-shadow: 1px 1px 3px #000;
 
   @media (max-width: 500px) {
     font-size: smaller;
   }
 }
 
-.img-central {
+a {
+  width: auto;
   display: flex;
-  transition: 700ms;
+  height: $altura-banner;
+  align-items: flex-end;
 }
 
-.img-central:hover {
-  filter: drop-shadow(0px 0px 7px rgba(255, 255, 255, 0.4)) drop-shadow(0px 0px 2px rgba(255, 255, 255, 1));
+.img-central {
+  width: auto;
+  max-height: 95%;
 }
+
+

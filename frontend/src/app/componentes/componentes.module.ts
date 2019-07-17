@@ -4,12 +4,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {BarraBuscaComponent} from './barra-busca/barra-busca.component';
 import {FormsModule} from '@angular/forms';
 import {BannerComponent} from './banner/banner.component';
+import {RodapeComponent} from './rodape/rodape.component';
 
 @NgModule({
-  declarations: [NavbarComponent, BarraBuscaComponent, BannerComponent],
+  declarations: [NavbarComponent, BarraBuscaComponent, BannerComponent, RodapeComponent],
   exports: [
     NavbarComponent,
-    BannerComponent
+    BannerComponent,
+    RodapeComponent
   ],
   imports: [
     CommonModule,
