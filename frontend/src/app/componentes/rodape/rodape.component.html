@@ -1,7 +1,43 @@
 <div>
+
+  <!-- imagem da Dark Magician Girl-->
   <div class="img-area">
     <img class="responsive-img img-central"
-         src="../../../assets/dark-magician-girl.png">
+         alt="Dark Magician Girl" src="../../../assets/dark-magician-girl.png">
   </div>
-  <div class="rodape-background"></div>
+
+  <div class="area-rodape" id="rodape">
+
+    <!-- Área das MÍDIAS SOCIAIS -->
+    <div class="col">
+      <span>Nos acompanhe nas mídias sociais:</span>
+      <br>
+      <div style="min-height: 50px">
+        <i class="fab fa-facebook-square icone-facebook"></i>
+        <i class="fab fa-twitter-square icone-twitter"></i>
+        <i class="fab fa-instagram icone-insta"></i>
+        <i class="fab fa-github-square icone-github"></i>
+      </div>
+    </div>
+
+    <!-- Área contendo as colunas e seus links -->
+    <div class="row" id="lista-cols">
+      <div *ngFor="let listaLink of links" class="col s12 m4 l3 xl2 col-links-important">
+        <h6 class="titulo-col_links">{{listaLink.titulo}}:</h6>
+        <div class="lista-links">
+          <a *ngFor="let link of listaLink.links" class="link"
+             href="{{link.url}}">{{link.texto}}<br>
+          </a>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- Área dos DIREITOS AUTORAIS -->
+    <div class="col-direitos_autorais">
+      <span>Todos direitos reservados. ©</span>
+    </div>
+    <br>
+
+  </div>
 </div>
