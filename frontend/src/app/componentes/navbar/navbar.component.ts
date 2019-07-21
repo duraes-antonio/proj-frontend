@@ -12,12 +12,13 @@ export class NavbarComponent implements OnInit {
 
   constructor() { }
 
-  public exibirBusca: boolean;
+  public exibirBusca: boolean = false;
   public aplicarFadeOut: boolean;
+  public exibirSidenav: boolean = false;
 
   ngOnInit() {
-    this.exibirBusca = false;
-    this.aplicarFadeOut = true;
+    // this.exibirBusca = false;
+    // this.aplicarFadeOut = true;
   }
 
   /**
@@ -29,5 +30,12 @@ export class NavbarComponent implements OnInit {
       Se a barra está oculta, exiba-a*/
     this.exibirBusca = !this.exibirBusca;
     this.aplicarFadeOut = !this.aplicarFadeOut;
+  }
+
+  /**
+   * Oculta o menu lateral se já estiver sendo exibido, senão, exibe-o.
+   */
+  public toggleSidenav() {
+    this.exibirSidenav = !this.exibirSidenav;
   }
 }

@@ -68,22 +68,17 @@
 .slideDown {
   height: 56px !important;
   opacity: 1 !important;
-  //transition: opacity ease-out;
 
   .form-busca {
-    //transition: opacity ease;
     height: auto !important;
     opacity: 1 !important;
   }
 }
 
 .slideUp {
-
-  //height: 0 !important;
   opacity: 0 !important;
 
   .form-busca {
-    //height: 0 !important;
     opacity: 0 !important;
   }
 }

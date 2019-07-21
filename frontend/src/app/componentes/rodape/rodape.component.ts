@@ -10,6 +10,8 @@ export class RodapeComponent implements OnInit {
 
   @Input() links: Array<ListaLinks>;
 
+  public anoCorrente: number = (new Date()).getFullYear();
+
   constructor() {
   }
 

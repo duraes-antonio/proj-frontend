@@ -4,13 +4,18 @@
   <title>Teste</title>
 </head>
 
+<app-sidenav [exibir]="exibirSidenav"></app-sidenav>
+
 <nav class="navbar">
   <div class="row nav-cols">
 
     <!--  Coluna da esquerda: Contém o menu hamburger  -->
     <div class="col s4 m4 nav-col-esquerda">
       <ul>
-        <li><i aria-hidden="true" class="fas fa-bars icone"></i></li>
+        <li>
+          <i aria-hidden="true" class="fas fa-bars icone"
+             (click)="toggleSidenav()"></i>
+        </li>
       </ul>
     </div>
 
@@ -43,7 +48,6 @@
 
   </div>
 </nav>
-<app-barra-busca *ngIf="exibirBusca" [fadeOutAplicar]="aplicarFadeOut">
-</app-barra-busca>
 
+<app-barra-busca *ngIf="exibirBusca" [fadeOutAplicar]="aplicarFadeOut"></app-barra-busca>
 

@@ -28,7 +28,7 @@ $altura-banner: 200px;
   text-align: center;
   line-height: 2;
   text-shadow: 1px 1px 3px black;
-  font-size: large;
+  font-size: medium;
 }
 
 .lista-col-links {
@@ -64,7 +64,6 @@ $altura-banner: 200px;
   font-weight: bold;
 }
 
-
 .icone-midia_social {
   padding: 0 12px;
   font-size: x-large;
@@ -89,6 +88,11 @@ $altura-banner: 200px;
 .icone-github {
   @extend .icone-midia_social;
   color: gray;
+}
+
+.col-midias_sociais {
+  @extend .col;
+  min-height: 75px;
 }
 
 .col-direitos_autorais {
