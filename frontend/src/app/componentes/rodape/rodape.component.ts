@@ -20,6 +20,9 @@ export class RodapeComponent implements OnInit {
     window.addEventListener('resize', this.ajustarTamanhoColunas);
   }
 
+  /**
+   * Centraliza todas as colunas de links quando todas couberem na janela
+   */
   private ajustarTamanhoColunas() {
 
     let listaCols = document.getElementById("lista-cols");

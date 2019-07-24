@@ -51,6 +51,133 @@ $altura-barra: 70px;
   width: auto;
 }
 
+
+/*Área de notificações*/
+.area-contador_notific-important {
+  position: absolute !important;
+  z-index: 1;
+  height: 19px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 5px;
+  background-color: #e91e1e;
+  border-radius: 10px;
+  font-size: smaller;
+  font-weight: 400;
+}
+
+.area-lista_notificacao {
+  background-color: white;
+  color: black;
+
+  z-index: 2;
+  position: absolute;
+  display: block;
+  right: 35px !important;
+  top: 85px;
+  padding: 0 !important;
+
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  border: 1px solid rgba(100, 100, 100, .4);
+}
+
+.area-lista_notificacao-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px;
+
+  i, span {
+    line-height: normal;
+    height: auto;
+  }
+}
+
+.area-lista_notificacao-topo-icones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  i {
+    margin-left: 12px;
+    font-size: larger;
+  }
+}
+
+.area-lista_notificacao-corpo {
+  overflow: auto;
+  height: 450px;
+  margin-bottom: 5px;
+  padding: 0 10px;
+}
+
+.area-notificacao {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin: 5px 0;
+  border: 1px solid #1da1f2;
+  border-radius: 10px;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+
+  a, i {
+    line-height: normal;
+    height: auto;
+  }
+}
+
+.area-notificacao--inativa {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  opacity: 0.5;
+  margin: 5px 0;
+  border: 1px solid #bbbbbb;
+  border-radius: 10px;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+
+  a, i {
+    line-height: normal;
+    height: auto;
+  }
+}
+
+.notificacao {
+  padding: 12px 0 !important;
+  font-size: small !important;
+  border-radius: 10px;
+}
+
+.notificao-rodape {
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 12px 0;
+
+  span {
+    font-size: small !important;
+    display: flex;
+    align-items: center;
+  }
+
+  i {
+    font-size: small !important;
+    margin-right: 7px;
+  }
+}
+
 @media (max-width: 430px) {
   .icone-important {
     margin-right: 10px;

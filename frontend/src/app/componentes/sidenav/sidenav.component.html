@@ -7,9 +7,11 @@
 
         <div class="area-avatar">
           <a href="www.google.com">
-            <img alt="Imagem de perfil de '{{usuario.nome}}'" class="img-avatar"
-                 src="{{usuario.avatarUrl}}">
+            <img *ngIf="!!usuario.avatarUrl" alt="Imagem de perfil de '{{usuario.nome}}'"
+                 class="img-avatar" src="{{usuario.avatarUrl}}">
+            <i *ngIf="!usuario.avatarUrl" class="fas fa-user-circle icone-avatar"></i>
           </a>
+
         </div>
 
         <div class="area-info_nome_email">

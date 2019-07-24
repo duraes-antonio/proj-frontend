@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-barra-busca',
@@ -9,28 +9,22 @@ export class BarraBuscaComponent implements OnInit {
 
   public textoDigitado: string;
 
-  constructor() {
-  }
+  @Output() textoSaida = new EventEmitter<string>();
 
-  @Input() set fadeOutAplicar(valor: boolean) {
-    if (valor) {
-      this.aplicarFadeOut();
-    }
-  }
+  constructor() { }
 
   ngOnInit() {
     setTimeout(this.aplicarFadeIn);
   }
 
-  public emitirTexto(texto) {
-    alert(texto);
+  public emitirTexto() {
+    this.textoSaida.emit(this.textoDigitado);
   }
 
+  /**
+   * Aplica o efeito de entrada (descida) na barra de busca
+   */
   private aplicarFadeIn(): void {
-    document.getElementById('barra-busca').className = 'slideDown';
-  }
-
-  private aplicarFadeOut(): void {
-    document.getElementById('barra-busca').className = 'slideUp';
+    document.getElementById('barra-busca').className = 'bloco-descida';
   }
 }

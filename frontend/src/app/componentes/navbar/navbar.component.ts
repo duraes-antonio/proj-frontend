@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from "../../modelos/Usuario";
+import {Notificacao} from "../../modelos/Notificacao";
 
 @Component({
   selector: 'app-navbar',
@@ -13,12 +14,14 @@ export class NavbarComponent implements OnInit {
 
   constructor() { }
 
-  public exibirBusca: boolean = false;
-  public aplicarFadeOut: boolean;
-  public exibirSidenav: boolean = false;
+  public exibirBusca: boolean;
+  public exibirSidenav: boolean;
   public usuarioAtual: Usuario;
+  public notificacoes: Array<Notificacao>;
 
   ngOnInit() {
+    this.exibirBusca = false;
+
     /*TODO: Alterar para receber os dados do usuário após login*/
     this.usuarioAtual = new Usuario(
       "Joana Maria Silva",
@@ -26,6 +29,16 @@ export class NavbarComponent implements OnInit {
     );
     this.usuarioAtual.definirUrlAvatar(
       "https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117"
+    );
+
+    this.notificacoes = new Array<Notificacao>();
+
+    for (let i = 0; i < 7; ++i)
+    this.notificacoes.push(
+      new Notificacao(
+        "Sua encomenda está a caminho! Acompanhe o estado de sua compra",
+        new Date()
+      )
     );
   }
 
@@ -37,7 +50,6 @@ export class NavbarComponent implements OnInit {
     /*Se a barra já está sendo exibida, oculte-a.
       Se a barra está oculta, exiba-a*/
     this.exibirBusca = !this.exibirBusca;
-    this.aplicarFadeOut = !this.aplicarFadeOut;
   }
 
   /**
@@ -45,5 +57,9 @@ export class NavbarComponent implements OnInit {
    */
   public toggleSidenav() {
     this.exibirSidenav = !this.exibirSidenav;
+  }
+
+  print(evento: string) {
+    alert(evento);
   }
 }

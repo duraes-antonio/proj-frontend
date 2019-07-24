@@ -65,20 +65,12 @@
 }
 
 
-.slideDown {
+.bloco-descida {
   height: 56px !important;
   opacity: 1 !important;
 
   .form-busca {
     height: auto !important;
     opacity: 1 !important;
-  }
-}
-
-.slideUp {
-  opacity: 0 !important;
-
-  .form-busca {
-    opacity: 0 !important;
   }
 }

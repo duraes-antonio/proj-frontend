@@ -28,15 +28,60 @@
 
     <!--  Coluna da direita: contém o botão de busca, sino e carrinho  -->
     <div class="col s4 m4 nav-col-direita">
-      <ul class="">
+      <ul>
 
+        <!-- Área para buscas -->
         <li>
           <i (click)="toggleBusca()" aria-hidden="true"
              class="fas fa-search icone-important"></i>
         </li>
 
+        <!-- Área de notificações -->
         <li>
+
+          <!-- Contador de notificações -->
+          <span class="area-contador_notific-important pulse">44521</span>
           <i aria-hidden="true" class="fas fa-bell icone-important"></i>
+
+          <!-- Área de listagem de notificações -->
+          <div class="col s9 m5 l4 xl3 area-lista_notificacao">
+
+            <!-- Cabeçalho com opções e engrenagem -->
+            <div class="area-lista_notificacao-topo">
+              <span>Notificações</span>
+              <div class="area-lista_notificacao-topo-icones">
+                <i class="far fa-check-square"></i>
+                <i class="fas fa-cog"></i>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Lista de notificações -->
+            <div class="area-lista_notificacao-corpo">
+              <ul>
+                <li class="area-notificacao" *ngFor="let notif of notificacoes">
+
+                  <a class="notificacao black-text" href="">
+                    {{notif.texto}}<br>
+
+                    <div class="notificao-rodape">
+                      <span>
+                        <i class="fas fa-truck"></i>
+                        {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
+
+                      <label>
+                        <input type="checkbox" />
+                        <span>Lida</span>
+                      </label>
+                    </div>
+
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </li>
 
         <li>
@@ -49,5 +94,5 @@
   </div>
 </nav>
 
-<app-barra-busca *ngIf="exibirBusca" [fadeOutAplicar]="aplicarFadeOut"></app-barra-busca>
+<app-barra-busca *ngIf="exibirBusca" (textoSaida)="print($event)"></app-barra-busca>
 

@@ -15,18 +15,19 @@ export class SidenavComponent implements OnInit {
   @Input() usuario: Usuario;
 
   @Input()
-  set exibir(valor: boolean) {
-    var button = document.getElementById("btn-trigger");
-    button.click();
+  set exibir(none) {
+    document.getElementById("btn-trigger").click();
   }
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
     document.addEventListener('DOMContentLoaded', this.iniciarModal);
   }
 
+  /**
+   * Exibe o menu-lateral e escurece o restante da janela
+   */
   private iniciarModal() {
     this.menus = document.querySelectorAll('.sidenav');
     this.menus_inic = M.Sidenav.init(this.menus, {});
