@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as M from "../../../../node_modules/materialize-css/dist/js/materialize.js";
+import {Usuario} from "../../modelos/Usuario";
 
 @Component({
   selector: 'app-sidenav',
@@ -11,13 +12,15 @@ export class SidenavComponent implements OnInit {
   public menus;
   public menus_inic;
 
-  constructor() {
-  }
+  @Input() usuario: Usuario;
 
   @Input()
   set exibir(valor: boolean) {
     var button = document.getElementById("btn-trigger");
     button.click();
+  }
+
+  constructor() {
   }
 
   ngOnInit() {

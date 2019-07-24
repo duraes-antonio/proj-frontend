@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Usuario} from "../../modelos/Usuario";
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +16,17 @@ export class NavbarComponent implements OnInit {
   public exibirBusca: boolean = false;
   public aplicarFadeOut: boolean;
   public exibirSidenav: boolean = false;
+  public usuarioAtual: Usuario;
 
   ngOnInit() {
-    // this.exibirBusca = false;
-    // this.aplicarFadeOut = true;
+    /*TODO: Alterar para receber os dados do usuário após login*/
+    this.usuarioAtual = new Usuario(
+      "Joana Maria Silva",
+      "joana@email.com"
+    );
+    this.usuarioAtual.definirUrlAvatar(
+      "https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117"
+    );
   }
 
   /**
