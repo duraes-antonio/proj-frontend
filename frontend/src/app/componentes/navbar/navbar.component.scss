@@ -41,9 +41,9 @@ $altura-barra: 70px;
   cursor: pointer;
 }
 
-.icone-important {
-  margin-right: 16px;
-  cursor: pointer;
+.icone-link {
+  margin-right: 20px;
+  padding: 0 !important;
 }
 
 .img-col-centro {
@@ -54,12 +54,17 @@ $altura-barra: 70px;
 
 /*Área de notificações*/
 .area-contador_notific-important {
+  transition: all 1s;
   position: absolute !important;
   z-index: 1;
-  height: 19px;
+
+  min-width: 20px;
+  width: auto;
+  height: 20px;
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
   padding: 0 5px;
   background-color: #e91e1e;
@@ -68,7 +73,7 @@ $altura-barra: 70px;
   font-weight: 400;
 }
 
-.area-lista_notificacao {
+.area-lista_notificacao--ativa {
   background-color: white;
   color: black;
 
@@ -154,7 +159,7 @@ $altura-barra: 70px;
 }
 
 .notificacao {
-  padding: 12px 0 !important;
+  padding: 10px 15px 0 15px !important;
   font-size: small !important;
   border-radius: 10px;
 }
@@ -164,7 +169,7 @@ $altura-barra: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 12px 12px 0;
+  padding: 5px 0 !important;
 
   span {
     font-size: small !important;

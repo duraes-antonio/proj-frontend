@@ -32,19 +32,27 @@
 
         <!-- Área para buscas -->
         <li>
-          <i (click)="toggleBusca()" aria-hidden="true"
-             class="fas fa-search icone-important"></i>
+          <a class="icone-link">
+            <i (click)="toggleBusca()" aria-hidden="true"
+               class="fas fa-search"></i>
+          </a>
         </li>
 
         <!-- Área de notificações -->
         <li>
 
           <!-- Contador de notificações -->
-          <span class="area-contador_notific-important pulse">44521</span>
-          <i aria-hidden="true" class="fas fa-bell icone-important"></i>
+          <a class="icone-link" (click)="toggleListaNotificacoes()">
+            <span *ngIf="qtdNotifAtiva > 0"
+                  class="area-contador_notific-important pulse">
+              {{qtdNotifAtiva}}
+            </span>
+            <i aria-hidden="true" class="fas fa-bell"></i>
+          </a>
 
           <!-- Área de listagem de notificações -->
-          <div class="col s9 m5 l4 xl3 area-lista_notificacao">
+          <div *ngIf="exibirNotificacoes"
+               class="col s8 m5 l4 xl3 area-lista_notificacao--ativa">
 
             <!-- Cabeçalho com opções e engrenagem -->
             <div class="area-lista_notificacao-topo">
@@ -60,18 +68,20 @@
             <!-- Lista de notificações -->
             <div class="area-lista_notificacao-corpo">
               <ul>
-                <li class="area-notificacao" *ngFor="let notif of notificacoes">
+                <li *ngFor="let notif of notificacoes" id="area-notificacao-{{notif.id}}"
+                    class="area-notificacao">
 
                   <a class="notificacao black-text" href="">
                     {{notif.texto}}<br>
 
                     <div class="notificao-rodape">
-                      <span>
+                      <span style="font-size: smaller !important;">
                         <i class="fas fa-truck"></i>
-                        {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
+                        {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}
+                      </span>
 
                       <label>
-                        <input type="checkbox" />
+                        <input type="checkbox" (click)="toggleNotificacao(notif.id)"/>
                         <span>Lida</span>
                       </label>
                     </div>
@@ -84,8 +94,11 @@
 
         </li>
 
+        <!-- Área do carrinho de compras -->
         <li>
-          <i aria-hidden="true" class="fas fa-shopping-cart icone-important"></i>
+          <a class="icone-link">
+            <i aria-hidden="true" class="fas fa-shopping-cart"></i>
+          </a>
         </li>
 
       </ul>

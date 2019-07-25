@@ -16,11 +16,14 @@ export class NavbarComponent implements OnInit {
 
   public exibirBusca: boolean;
   public exibirSidenav: boolean;
+  public exibirNotificacoes: boolean;
   public usuarioAtual: Usuario;
   public notificacoes: Array<Notificacao>;
+  public qtdNotifAtiva: number;
 
   ngOnInit() {
     this.exibirBusca = false;
+    this.exibirNotificacoes = false;
 
     /*TODO: Alterar para receber os dados do usuário após login*/
     this.usuarioAtual = new Usuario(
@@ -32,6 +35,7 @@ export class NavbarComponent implements OnInit {
     );
 
     this.notificacoes = new Array<Notificacao>();
+    this.qtdNotifAtiva = 7;
 
     for (let i = 0; i < 7; ++i)
     this.notificacoes.push(
@@ -61,5 +65,43 @@ export class NavbarComponent implements OnInit {
 
   print(evento: string) {
     alert(evento);
+  }
+
+  /**
+   * Oculta a lista de notificações se já estiver sendo exibida, senão, exibe-a.
+   */
+  public toggleListaNotificacoes() {
+    this.exibirNotificacoes = !this.exibirNotificacoes;
+  }
+
+  /**
+   * Marca uma notificação como lida ou como não lida, mudando seu visual e data de leitura.
+   */
+  toggleNotificacao(id: number) {
+    let elemAreaNotific = document.getElementById("area-notificacao-"+id);
+    elemAreaNotific.classList.toggle("area-notificacao");
+    elemAreaNotific.classList.toggle("area-notificacao--inativa");
+
+    let not;
+
+    for(not of this.notificacoes) {
+
+      /*Se a notificação atual for a notificação marcada*/
+      if (not.id == id) {
+        not.lida = !not.lida;
+
+        if (not.lida) {
+          not.dataLeitura = new Date();
+          --this.qtdNotifAtiva;
+        }
+
+        else {
+          not.dataLeitura = null;
+          ++this.qtdNotifAtiva;
+        }
+
+        break;
+      }
+    }
   }
 }
