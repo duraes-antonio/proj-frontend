@@ -7,10 +7,10 @@
 <app-sidenav [exibir]="exibirSidenav" [usuario]="usuarioAtual"></app-sidenav>
 
 <nav class="navbar">
-  <div class="row nav-cols">
+  <div class="row nav-cols no-padding">
 
     <!--  Coluna da esquerda: Contém o menu hamburger  -->
-    <div class="col s4 m4 nav-col-esquerda">
+    <div class="col s5 m4 no-padding nav-col-esquerda">
       <ul>
         <li>
           <i aria-hidden="true" class="fas fa-bars icone"
@@ -21,13 +21,13 @@
 
     <!--  Coluna centro: contém a logo da loja  -->
     <!--  TODO: Trabalhar com logo escolhida pela loja -->
-    <div class="col s4 m4 nav-col-centro">
+    <div class="col s3 m4 no-padding nav-col-centro">
       <img alt="yugioh_logo"
            class="responsive-img img-col-centro" src="../../../assets/yugioh-logo.png"/>
     </div>
 
     <!--  Coluna da direita: contém o botão de busca, sino e carrinho  -->
-    <div class="col s4 m4 nav-col-direita">
+    <div class="col s5 m4 no-padding nav-col-direita">
       <ul>
 
         <!-- Área para buscas -->
@@ -58,8 +58,10 @@
             <div class="area-lista_notificacao-topo">
               <span>Notificações</span>
               <div class="area-lista_notificacao-topo-icones">
-                <i class="far fa-check-square"></i>
-                <i class="fas fa-cog"></i>
+                <a class="icone-marcar_todas_notific" title="Marcar todas como lidas"
+                   (click)="marcarTodasNotificacoesComoLidas()">
+                  <i class="far fa-check-square"></i>
+                </a>
               </div>
             </div>
 
@@ -68,20 +70,23 @@
             <!-- Lista de notificações -->
             <div class="area-lista_notificacao-corpo">
               <ul>
+
+                <!-- Para cada noticação, se estiver lida, aplique a classe que inative-a
+                visualmente, senão, não está lida, então aplique a classe padrão-->
                 <li *ngFor="let notif of notificacoes" id="area-notificacao-{{notif.id}}"
-                    class="area-notificacao">
+                    [ngClass]="notif.lida ? 'area-notificacao--inativa' : 'area-notificacao'">
 
                   <a class="notificacao black-text" href="">
                     {{notif.texto}}<br>
 
                     <div class="notificao-rodape">
                       <span style="font-size: smaller !important;">
-                        <i class="fas fa-truck"></i>
+                        <i [className]="notif.classeIcone"></i>
                         {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}
                       </span>
 
                       <label>
-                        <input type="checkbox" (click)="toggleNotificacao(notif.id)"/>
+                        <input type="checkbox" [checked]="notif.lida" (click)="toggleNotificacao(notif.id)"/>
                         <span>Lida</span>
                       </label>
                     </div>
@@ -107,5 +112,6 @@
   </div>
 </nav>
 
+<!-- TODO: Alterar função para realizar buscas nos produtos da loja -->
 <app-barra-busca *ngIf="exibirBusca" (textoSaida)="print($event)"></app-barra-busca>
 

@@ -17,6 +17,9 @@ export class BarraBuscaComponent implements OnInit {
     setTimeout(this.aplicarFadeIn);
   }
 
+  /**
+   * Emite o texto digitado para o componente pai
+   */
   public emitirTexto() {
     this.textoSaida.emit(this.textoDigitado);
   }

@@ -6,6 +6,8 @@ import {FormsModule} from '@angular/forms';
 import {BannerComponent} from './banner/banner.component';
 import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
+import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -13,13 +15,16 @@ import {SidenavComponent} from './sidenav/sidenav.component';
     BarraBuscaComponent,
     BannerComponent,
     RodapeComponent,
-    SidenavComponent
+    SidenavComponent,
+    TelaInicialComponent,
+    SliderComponent
   ],
   exports: [
     NavbarComponent,
     BannerComponent,
     RodapeComponent,
-    SidenavComponent
+    SidenavComponent,
+    TelaInicialComponent
   ],
   imports: [
     CommonModule,

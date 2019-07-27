@@ -19,6 +19,24 @@ $altura-barra: 70px;
 .nav-cols {
   @extend .nav-itens-base;
   height: $altura-barra;
+
+  @media (max-width: 400px) {
+    i {
+      font-size: large;
+    }
+  }
+
+  @media (max-width: 300px) {
+    i {
+      font-size: medium;
+    }
+  }
+
+  @media (max-width: 270px) {
+    i {
+      font-size: small;
+    }
+  }
 }
 
 .nav-col-esquerda {
@@ -44,10 +62,14 @@ $altura-barra: 70px;
 .icone-link {
   margin-right: 20px;
   padding: 0 !important;
+
+  @media (max-width: 500px) {
+    margin-right: 13px;
+  }
 }
 
 .img-col-centro {
-  max-height: 55px;
+  max-height: 50px;
   width: auto;
 }
 
@@ -110,6 +132,18 @@ $altura-barra: 70px;
     margin-left: 12px;
     font-size: larger;
   }
+}
+
+.icone-marcar_todas_notific {
+  padding: 0 !important;
+  color: black !important;
+  background-color: transparent !important;
+  transition: ease all 400ms !important;
+}
+
+.icone-marcar_todas_notific:hover {
+  color: red !important;
+  font-size: large !important;
 }
 
 .area-lista_notificacao-corpo {
@@ -178,7 +212,7 @@ $altura-barra: 70px;
   }
 
   i {
-    font-size: small !important;
+    font-size: medium !important;
     margin-right: 7px;
   }
 }

@@ -41,7 +41,9 @@ export class NavbarComponent implements OnInit {
     this.notificacoes.push(
       new Notificacao(
         "Sua encomenda está a caminho! Acompanhe o estado de sua compra",
-        new Date()
+        new Date(),
+        "www.google.com",
+        Math.floor(Math.random() * 8)
       )
     );
   }
@@ -78,30 +80,26 @@ export class NavbarComponent implements OnInit {
    * Marca uma notificação como lida ou como não lida, mudando seu visual e data de leitura.
    */
   toggleNotificacao(id: number) {
-    let elemAreaNotific = document.getElementById("area-notificacao-"+id);
-    elemAreaNotific.classList.toggle("area-notificacao");
-    elemAreaNotific.classList.toggle("area-notificacao--inativa");
 
-    let not;
-
-    for(not of this.notificacoes) {
+    for(let notif of this.notificacoes) {
 
       /*Se a notificação atual for a notificação marcada*/
-      if (not.id == id) {
-        not.lida = !not.lida;
-
-        if (not.lida) {
-          not.dataLeitura = new Date();
-          --this.qtdNotifAtiva;
-        }
-
-        else {
-          not.dataLeitura = null;
-          ++this.qtdNotifAtiva;
-        }
-
+      if (notif.id == id) {
+        notif.toggle();
+        this.qtdNotifAtiva += notif.lida ? -1 : 1;
         break;
       }
+    }
+  }
+
+  /**
+   * Marca todas notificações como lidas;
+   */
+  marcarTodasNotificacoesComoLidas() {
+
+    if (this.qtdNotifAtiva > 0) {
+      for (let notif of this.notificacoes) notif.marcarComoLida();
+      this.qtdNotifAtiva = 0;
     }
   }
 }

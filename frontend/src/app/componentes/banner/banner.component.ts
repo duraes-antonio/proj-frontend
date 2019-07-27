@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class BannerComponent implements OnInit {
 
+  //TODO: Obter informações do Banco de dadps
   public info: Info = {
     cnpj: '69.035.540/0001-07',
     nomeFantasia: 'yugishop',
