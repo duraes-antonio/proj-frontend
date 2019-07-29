@@ -1,6 +1,18 @@
 <div class="area-centralizada">
-  <div class="area-utilizavel">
+  <div class="area-utilizavel row">
     <!-- TODO: Tornar o conteúdo dinâmico -->
-    <app-slider></app-slider>
+    <div *ngFor="let comp of componentes">
+      <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER" [slider]="comp"></app-slider>
+      <app-cartao *ngIf="comp.tipo == tipoComponente.CARTAO" class="col s12 m6 l4 xl4"></app-cartao>
+    </div>
+
+<!--    <div class="row">-->
+<!--      <div *ngFor="let comp of componentes" class="col s12 m6 l4 xl3">-->
+<!--        <div style="background-color: black">-->
+<!--          <p>cartao works!</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
   </div>
 </div>
