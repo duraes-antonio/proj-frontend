@@ -8,6 +8,7 @@ import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
 import { SliderComponent } from './slider/slider.component';
+import { CartaoComponent } from './cartao/cartao.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SliderComponent } from './slider/slider.component';
     RodapeComponent,
     SidenavComponent,
     TelaInicialComponent,
-    SliderComponent
+    SliderComponent,
+    CartaoComponent
   ],
   exports: [
     NavbarComponent,

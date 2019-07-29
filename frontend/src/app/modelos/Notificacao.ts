@@ -1,4 +1,4 @@
-import {ETipoNotificacao} from "./ETipoNotificacao";
+import {ETipoNotificacao} from "../enum/ETipoNotificacao";
 
 export class Notificacao {
 
