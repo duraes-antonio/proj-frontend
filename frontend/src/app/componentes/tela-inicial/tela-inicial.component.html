@@ -2,9 +2,19 @@
   <div class="area-utilizavel row">
     <!-- TODO: Tornar o conteúdo dinâmico -->
     <div *ngFor="let comp of componentes">
-      <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER" [slider]="comp"></app-slider>
-      <app-cartao *ngIf="comp.tipo == tipoComponente.CARTAO" class="col s12 m6 l4 xl4"></app-cartao>
+      <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER"
+                  [slider]="comp" class="col s12 m12 l12 xl12"></app-slider>
+      <app-cartao *ngIf="comp.tipo == tipoComponente.CARTAO"
+                  [cartao]="comp" [qtdCartoes]="contCartoes" class="col s12"
+                  [ngClass]="{
+                    'm12 l12 xl12': contCartoes == 1,
+                    'm6 l6 xl6': contCartoes == 2,
+                    'm4 l4 xl4': contCartoes == 3
+                    }"
+                  >
+      </app-cartao>
     </div>
+
 
 <!--    <div class="row">-->
 <!--      <div *ngFor="let comp of componentes" class="col s12 m6 l4 xl3">-->

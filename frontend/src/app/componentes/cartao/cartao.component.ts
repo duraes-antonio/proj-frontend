@@ -9,10 +9,12 @@ import {Cartao} from "../../modelos/Cartao";
 export class CartaoComponent implements OnInit {
 
   @Input() cartao: Cartao;
+  @Input() qtdCartoes: number;
 
   constructor() {
   }
 
   ngOnInit() {
+    console.log(this.cartao);
   }
 }

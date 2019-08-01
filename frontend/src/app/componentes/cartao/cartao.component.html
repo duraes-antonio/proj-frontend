@@ -1,3 +1,16 @@
-<div style="background-color: black">
-  <p>cartao works!</p>
- </div>
+<div class="cartao">
+
+  <div [style.backgroundImage]="'url('+ cartao.urlImagem +')'"
+       class="black-text background-desfocado"
+       [ngClass]="{
+       'background-desfocado-col_100': qtdCartoes == 1,
+       'background-desfocado-col_50': qtdCartoes == 2,
+       'background-desfocado-col_33': qtdCartoes == 3
+       }">
+  </div>
+
+  <div class="black-text slide-imagem">
+    <img src="{{cartao.urlImagem}}">
+  </div>
+
+</div>
