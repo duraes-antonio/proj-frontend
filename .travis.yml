@@ -21,4 +21,4 @@ before_script:
 script:
 #  - ng build --prod
   - sonar-scanner
-  - bash ./deploy.sh
+  - bash deploy.sh
