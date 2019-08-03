@@ -1,4 +1,5 @@
 {
+  "homepage": "https://duraes-antonio.github.io/proj-frontend",
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
@@ -7,7 +8,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "predeploy": "npm build --prod",
+      "deploy": "gh-pages -d dist",
   },
   "private": true,
   "dependencies": {
