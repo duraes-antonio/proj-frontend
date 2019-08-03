@@ -10,7 +10,7 @@ npm run build
 SOURCE_BRANCH="master"
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
-    echo "Skipping deploy."
+    echo ">>> Ddeploy ignorado."
     exit 0
 fi
 
@@ -28,8 +28,10 @@ git config user.email "garotoseis@gmail.com"
 git add .
 git commit -m "Deploy em GitHub Pages"
 
+echo ">>> COMMIT com êxito!"
+
 # Forçando o push do master para a branch gh-pages (Toda história anterior da branch
 # gh-pages será perdido, pois vamos substituí-lo.)  Redirecionamos qualquer saída para
 # /dev/null para ocultar quaisquer dados de credenciais sensíveis que de outra forma possam ser expostos.
 # tokens GH_TOKEN e GH_REF serão fornecidos como variáveis de ambiente Travis CI
-git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
+git push --force "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
