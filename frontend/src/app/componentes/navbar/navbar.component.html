@@ -113,5 +113,5 @@
 </nav>
 
 <!-- TODO: Alterar função para realizar buscas nos produtos da loja -->
-<app-barra-busca *ngIf="exibirBusca" (textoSaida)="print($event)"></app-barra-busca>
+<app-barra-busca [hidden]="!exibirBusca" [exibir]="exibirBusca" (textoSaida)="print($event)"></app-barra-busca>
 

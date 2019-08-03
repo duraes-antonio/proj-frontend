@@ -1,17 +1,5 @@
 @import "../../shared/shared";
-
-#barra-busca {
-
-  height: 0;
-  opacity: 0;
-  transition: height 400ms, opacity 150ms;
-
-  .form-busca {
-    height: 0;
-    opacity: 0;
-    transition: height 400ms, opacity 400ms;
-  }
-}
+$alt-barra_busca: 56px;
 
 .display-flex_just-center_align-center {
   display: flex;
@@ -21,14 +9,22 @@
   width: 100%;
 }
 
+#barra-busca {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  margin-top: 70px;
+}
+
 .nav-busca {
+  height: $alt-barra_busca;
+  background-color: #e4e4e4;
   @extend .display-flex_just-center_align-center;
-  background-color: #f0f0f0;
 }
 
 .form-busca {
+  height: auto;
   @extend .display-flex_just-center_align-center;
-  height: 55px;
 }
 
 .input-busca {
@@ -59,18 +55,21 @@
   @include btn-circle--red(35px, 35px);
 }
 
-
 .btn-circ--green {
   @include btn-circle--green(35px, 35px);
 }
 
 
 .bloco-descida {
-  height: 56px !important;
-  opacity: 1 !important;
+  animation: fade 0.5s linear;
+}
 
-  .form-busca {
-    height: auto !important;
-    opacity: 1 !important;
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

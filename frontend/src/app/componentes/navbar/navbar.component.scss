@@ -12,6 +12,8 @@ $altura-barra: 70px;
 }
 
 .navbar {
+  position: fixed;
+  z-index: 2;
   height: $altura-barra;
   background: linear-gradient(#060606 35%, #1d1d1d);
 }
@@ -73,7 +75,6 @@ $altura-barra: 70px;
   width: auto;
 }
 
-
 /*Área de notificações*/
 .area-contador_notific-important {
   transition: all 1s;
@@ -96,6 +97,7 @@ $altura-barra: 70px;
 }
 
 .area-lista_notificacao--ativa {
+  animation: fade 350ms;
   background-color: white;
   color: black;
 
@@ -109,6 +111,16 @@ $altura-barra: 70px;
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
   border: 1px solid rgba(100, 100, 100, .4);
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .area-lista_notificacao-topo {
@@ -155,6 +167,7 @@ $altura-barra: 70px;
 
 .area-notificacao {
   width: 100%;
+  animation: fade 350ms;
 
   display: flex;
   justify-content: center;
