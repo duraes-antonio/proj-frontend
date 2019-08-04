@@ -15,6 +15,5 @@ export class CartaoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.cartao);
   }
 }

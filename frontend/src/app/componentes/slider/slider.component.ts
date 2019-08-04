@@ -18,7 +18,6 @@ export class SliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.slider);
     SliderComponent.indUltimo = 0;
 
     document.addEventListener(
@@ -50,7 +49,7 @@ export class SliderComponent implements OnInit {
       });
 
     //A cada 3.5 segundos, passe para o próximo slide
-    // setInterval(this.proximoSlide, 4000);
+    setInterval(this.proximoSlide, 4000);
   }
 
   private proximoSlide() {
@@ -62,7 +61,6 @@ export class SliderComponent implements OnInit {
   }
 
   private atualizarIndicador(indice: number) {
-    const indicAtivos = document.getElementsByClassName("indicador--ativo");
 
     /*Se o índice do slide desejado é diferente do atual*/
     if (indice != SliderComponent.indUltimo) {

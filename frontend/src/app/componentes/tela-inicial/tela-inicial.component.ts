@@ -21,13 +21,13 @@ export class TelaInicialComponent implements OnInit {
     this.componentes = new Array<IComponente>();
     this.componentes.push(new Slider());
     this.componentes.push(new Cartao(
-      "https://www.yugioh-world.com/wp-content/uploads/2016/04/tcg_may2016_spring_update_header-672x372.png",
+      "../../assets/card-1.jpeg",
       ""));
     this.componentes.push(new Cartao(
-      "https://thepopinsider.com/wp-content/uploads/2019/02/Yu-Gi-Oh-New.jpg",
+      "../../assets/card-2.jpeg",
       ""));
     this.componentes.push(new Cartao(
-      "http://nerdreactor.com/wp-content/uploads/2016/01/2015-YGO_day_GameMat-vassal-lowres.jpg",
+      "../../assets/card-3.jpeg",
       ""));
 
     this.contCartoes = this.componentes.filter(this.contCartao).length;

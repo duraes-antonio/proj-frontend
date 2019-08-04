@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
       "joana@email.com"
     );
     this.usuarioAtual.definirUrlAvatar(
-      "https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117"
+      "../../assets/tea.png"
     );
 
     this.notificacoes = new Array<Notificacao>();

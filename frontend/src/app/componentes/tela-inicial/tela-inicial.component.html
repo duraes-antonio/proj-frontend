@@ -1,6 +1,7 @@
 <div class="area-centralizada">
   <div class="area-utilizavel row">
     <!-- TODO: Tornar o conteúdo dinâmico -->
+<!--    <app-carrossel></app-carrossel>-->
     <div *ngFor="let comp of componentes">
       <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER"
                   [slider]="comp" class="col s12 m12 l12 xl12"></app-slider>
