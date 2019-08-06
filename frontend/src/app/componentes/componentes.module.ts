@@ -6,9 +6,10 @@ import {FormsModule} from '@angular/forms';
 import {BannerComponent} from './banner/banner.component';
 import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import { TelaInicialComponent } from './tela-inicial/tela-inicial.component';
-import { SliderComponent } from './slider/slider.component';
-import { CartaoComponent } from './cartao/cartao.component';
+import {TelaInicialComponent} from './tela-inicial/tela-inicial.component';
+import {SliderComponent} from './slider/slider.component';
+import {SequenciaProdutoComponent} from './seq-produto/sequencia-produto.component';
+import {ListaCartaoComponent} from "./lista-cartao/lista-cartao.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CartaoComponent } from './cartao/cartao.component';
     SidenavComponent,
     TelaInicialComponent,
     SliderComponent,
-    CartaoComponent
+    ListaCartaoComponent,
+    SequenciaProdutoComponent
   ],
   exports: [
     NavbarComponent,

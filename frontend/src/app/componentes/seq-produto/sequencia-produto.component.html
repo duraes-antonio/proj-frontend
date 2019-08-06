@@ -1,0 +1,22 @@
+<!-- Título da lista de produtos -->
+<h5>Lista de Packs mais vendidos</h5>
+
+<!-- Área da sequência propriamente dita -->
+<div id="area-produtos" class="area-produtos glide">
+  <div style="width: 100%" class="glide__track" data-glide-el="track">
+    <ul class="glide__slides" style="display: flex;">
+
+      <!-- Área individual de cada produto -->
+      <li class="area-produto glide__slide" *ngFor="let prod of _sequencia.produtos">
+
+        <img src="{{prod.urlImagem}}">
+
+        <!-- Área c/ info. sobre o produto (Nome, preço, marcador de promoção) -->
+        <div class="area-produto-info">
+          <span>{{prod.titulo}}</span><br>
+          <span class="preco">R$ {{prod.preco.toFixed(2)}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

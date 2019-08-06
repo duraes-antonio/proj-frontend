@@ -1,9 +1,7 @@
 import {IComponente} from "../interfaces/IComponente";
 import {ETipoComponente} from "../enum/ETipoComponente";
 
-export class Cartao  implements IComponente {
-
-  public readonly tipo: ETipoComponente = ETipoComponente.CARTAO;
+export class Cartao {
 
   private readonly id: number;
 

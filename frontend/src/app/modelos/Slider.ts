@@ -9,12 +9,12 @@ export class Slider implements IComponente {
   private readonly id: number;
   public readonly slides: Array<Slide>;
 
-  constructor() {
-    this.slides = this.obterSlides();
+  constructor(id: number) {
+    this.slides = this.obterSlidesMock();
   }
 
   //TODO: Substituir pelos slides recebidos do BACKEND
-  private obterSlides(): Array<Slide> {
+  private obterSlidesMock(): Array<Slide> {
 
     let slides = new Array<Slide>();
 
@@ -36,7 +36,7 @@ export class Slider implements IComponente {
 
     slides.push(
       new Slide(
-        "../../assets/slide-4.png",
+        "../../assets/slide-4.jpeg",
         "www.google.com")
     );
 
