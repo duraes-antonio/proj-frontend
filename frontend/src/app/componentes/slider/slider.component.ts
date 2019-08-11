@@ -30,11 +30,6 @@ export class SliderComponent implements OnInit {
         });
 
         SliderComponent.carrossel = M.Carousel.getInstance(elems[0]);
-        const indicadores = document.getElementsByClassName('indicator-item');
-
-        for (let i = 0; i < indicadores.length; ++i) {
-          console.log(indicadores[i].attributes);
-        }
       });
 
     // A cada 3.5 segundos, passe para o próximo slide

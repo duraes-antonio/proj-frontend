@@ -1,9 +1,11 @@
 import {IComponente} from "../interfaces/IComponente";
 import {ETipoComponente} from "../enum/ETipoComponente";
 import {Cartao} from "./Cartao";
+import {ISequencia} from "../interfaces/ISequencia";
 
-export class ListaCartao implements IComponente {
+export class ListaCartao implements ISequencia {
 
+  public readonly titulo: string;
   public readonly id: number;
   public readonly tipo: ETipoComponente = ETipoComponente.LISTA_CARTAO;
   public cartoes: Array<Cartao>;
