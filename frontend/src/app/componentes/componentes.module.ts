@@ -9,8 +9,8 @@ import {SidenavComponent} from './sidenav/sidenav.component';
 import {TelaInicialComponent} from './tela-inicial/tela-inicial.component';
 import {SliderComponent} from './slider/slider.component';
 import {SequenciaProdutoComponent} from './seq-produto/sequencia-produto.component';
-import {ListaCartaoComponent} from "./lista-cartao/lista-cartao.component";
-import { SequenciaComponent } from './sequencia/sequencia.component';
+import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
+import {SequenciaComponent} from './sequencia/sequencia.component';
 
 @NgModule({
   declarations: [
