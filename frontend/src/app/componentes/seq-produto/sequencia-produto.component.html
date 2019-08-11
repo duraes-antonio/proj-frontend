@@ -28,7 +28,7 @@
       <!-- Área individual de cada produto -->
       <li class="area-produto glide__slide" *ngFor="let prod of _sequencia.produtos">
 
-        <img src="{{prod.urlImagem}}">
+        <img src="{{prod.urlImagem}}" alt="{{prod.titulo}}">
 
         <!-- Área c/ info. sobre o produto (Nome, preço, marcador de promoção) -->
         <!-- TODO: Remover arredondamento de preço-->

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Endereco} from '../../modelos/Endereco';
 
 @Component({
   selector: 'app-banner',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class BannerComponent implements OnInit {
 
-  //TODO: Obter informações do Banco de dadps
+  // TODO: Obter informações do Banco de dadps
   public info: Info = {
     cnpj: '69.035.540/0001-07',
     nomeFantasia: 'yugishop',
@@ -37,11 +38,3 @@ export class Info {
   public endereco: Endereco;
 }
 
-export class Endereco {
-  public lograd: string;
-  public numero: number;
-  public cep: string;
-  public bairro: string;
-  public cidade: string;
-  public estado: string;
-}

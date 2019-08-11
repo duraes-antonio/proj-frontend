@@ -9,6 +9,10 @@ $altura-barra: 70px;
   margin: 0 !important;
   padding: 0;
   align-items: center;
+
+  i {
+    height: auto;
+  }
 }
 
 .navbar {
@@ -54,6 +58,7 @@ $altura-barra: 70px;
 .nav-col-direita {
   @extend .nav-itens-base;
   justify-content: flex-end;
+  margin-top: 7px !important;
 }
 
 .icone {
@@ -127,7 +132,7 @@ $altura-barra: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 12px;
+  margin: 0 12px;
 
   i, span {
     line-height: normal;

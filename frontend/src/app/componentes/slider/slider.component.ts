@@ -15,7 +15,7 @@ export class SliderComponent implements OnInit {
   private static indUltimo: number;
   private static carrossel: any;
 
-  @Input() slider;
+  @Input() slider: Slider;
 
   ngOnInit() {
     SliderComponent.indUltimo = 0;

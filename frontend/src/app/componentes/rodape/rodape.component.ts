@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ListaLinks} from "../../modelos/ListaLinks";
+import {ListaLinks} from '../../modelos/ListaLinks';
 
 @Component({
   selector: 'app-rodape',
@@ -15,30 +15,30 @@ export class RodapeComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-    window.addEventListener('load', this.ajustarTamanhoColunas);
-    window.addEventListener('resize', this.ajustarTamanhoColunas);
-  }
-
   /**
    * Centraliza todas as colunas de links quando todas couberem na janela
    */
-  private ajustarTamanhoColunas() {
+  private static ajustarTamanhoColunas() {
 
-    let listaCols = document.getElementById("lista-cols");
-    let rodape = document.getElementById("rodape");
-    let cols = document.getElementsByClassName("col-links-important");
+    const listaCols = document.getElementById('lista-cols');
+    const rodape = document.getElementById('rodape');
+    const cols = document.getElementsByClassName('col-links-important');
 
-    let soma: number = 0;
+    let soma = 0;
 
     for (let i = 0; i < cols.length; ++i) {
       soma += cols[i].clientWidth;
     }
 
     if (soma < rodape.clientWidth) {
-      listaCols.classList.add("lista-col-links");
+      listaCols.classList.add('lista-col-links');
     } else {
-      listaCols.classList.remove("lista-col-links");
+      listaCols.classList.remove('lista-col-links');
     }
+  }
+
+  ngOnInit() {
+    window.addEventListener('load', RodapeComponent.ajustarTamanhoColunas);
+    window.addEventListener('resize', RodapeComponent.ajustarTamanhoColunas);
   }
 }

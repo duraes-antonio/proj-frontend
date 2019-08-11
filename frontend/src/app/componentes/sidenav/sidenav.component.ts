@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import * as M from "../../../../node_modules/materialize-css/dist/js/materialize.js";
-import {Usuario} from "../../modelos/Usuario";
+import * as M from '../../../../node_modules/materialize-css/dist/js/materialize.js';
+import {Usuario} from '../../modelos/Usuario';
 
 @Component({
   selector: 'app-sidenav',
@@ -16,7 +16,7 @@ export class SidenavComponent implements OnInit {
 
   @Input()
   set exibir(none) {
-    document.getElementById("btn-trigger").click();
+    document.getElementById('btn-trigger').click();
   }
 
   constructor() { }

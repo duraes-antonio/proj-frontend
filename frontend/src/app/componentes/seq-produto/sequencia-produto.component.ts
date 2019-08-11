@@ -99,10 +99,6 @@ export class SequenciaProdutoComponent implements OnInit {
     );
   }
 
-  print(anterior: string) {
-    alert(anterior);
-  }
-
   avancarSlide() {
     SequenciaProdutoComponent._glide.go('>');
   }
