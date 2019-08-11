@@ -1,4 +1,18 @@
-<div class="carousel carousel-slider center carrossel">
+<div class="carousel carousel-slider carrossel">
+
+  <div class="area-passadores">,
+
+    <a class="btn-floating btn-large waves-effect waves-light passador-anterior"
+       (click)="voltarSlide()">
+      <i class="fas fa-chevron-left"></i>
+    </a>
+
+    <a class="btn-floating btn-large waves-effect waves-light passador-proximo"
+       (click)="avancarSlide()">
+      <i class="fas fa-chevron-right"></i>
+    </a>
+
+  </div>
 
   <div *ngFor="let slide of slider.slides; let i = index" id="slide-{{i}}"
        class="carousel-item slide-area">
@@ -26,10 +40,4 @@
 
 
   </div>
-
-  <ul class="lista-indicadores">
-    <li class="indicador" id="indicador-{{i}}" (click)="atualizarIndicador(i)"
-        *ngFor="let slide of slider.slides; let i = index">
-    </li>
-  </ul>
 </div>

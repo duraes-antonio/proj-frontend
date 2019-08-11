@@ -1,5 +1,5 @@
-import {IComponente} from "../interfaces/IComponente";
-import {ETipoComponente} from "../enum/ETipoComponente";
+import {IComponente} from '../interfaces/IComponente';
+import {ETipoComponente} from '../enum/ETipoComponente';
 
 export class Cartao {
 

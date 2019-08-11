@@ -1,3 +1,5 @@
+@import "../../shared/shared";
+
 $larg-slide: 712px;
 $alt-slide: 325px;
 
@@ -42,7 +44,6 @@ $alt-slide: 325px;
 
   z-index: -1;
   filter: blur(7px);
-  opacity: 0.7;
 }
 
 .slide-item {
@@ -53,38 +54,6 @@ $alt-slide: 325px;
   width: 100%;
   z-index: 1;
 }
-
-.lista-indicadores {
-  width: fit-content;
-  height: fit-content;
-  filter: drop-shadow(1px 1px 3px black);
-  display: flex;
-  justify-content: center;
-}
-
-.indicador {
-  display: inline-block;
-  cursor: pointer;
-  height: 7px;
-  width: 20px;
-
-  margin: 15px 5px;
-  border: 1px solid #e7e7e7;
-  background-color: rgba(255, 255, 255, 0.5);
-  transition: background-color .3s;
-}
-
-.indicador--ativo {
-  display: inline-block;
-  cursor: pointer;
-  height: 7px;
-  width: 20px;
-
-  margin: 15px 5px;
-  background-color: white;
-  transition: background-color .3s;
-}
-
 
 .slide-item-rodape {
   align-self: flex-end;

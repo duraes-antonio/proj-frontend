@@ -23,3 +23,48 @@
   @include btn-circle($largura, $altura);
   background-color: green;
 }
+
+
+.area-passadores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  width: 100%;
+}
+
+.passador {
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(1px 2px 3px darkgrey);
+}
+
+.passador-anterior {
+  @extend .passador;
+  left: 15px;
+}
+
+.passador-proximo {
+  @extend .passador;
+  right: 15px;
+}
+
+
+.titulo-componente {
+  display: flex;
+  justify-content: center;
+  color: dimgrey;
+}
+
+.titulo-componente::after {
+  content: "";
+  width: 40%;
+  height: 3px;
+  background: #d0d0d0;
+  transition: 0.9s;
+  position: absolute;
+  margin-top: 36px;
+}
