@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ListaCartao} from '../../modelos/ListaCartao';
+import {ListaCartao} from '../../modelos/componentes/ListaCartao';
 
 @Component({
   selector: 'app-lista-cartao',

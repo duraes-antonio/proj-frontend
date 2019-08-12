@@ -1,6 +1,6 @@
-import {ETipoComponente} from '../enum/ETipoComponente';
-import {Cartao} from './Cartao';
-import {ISequencia} from '../interfaces/ISequencia';
+import {ETipoComponente} from '../../enum/ETipoComponente';
+import {Cartao} from '../Cartao';
+import {ISequencia} from '../../interfaces/ISequencia';
 
 export class ListaCartao implements ISequencia<Cartao> {
 

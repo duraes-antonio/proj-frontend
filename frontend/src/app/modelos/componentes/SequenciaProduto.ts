@@ -1,6 +1,6 @@
-import {ETipoComponente} from '../enum/ETipoComponente';
-import {Produto} from './Produto';
-import {ISequencia} from '../interfaces/ISequencia';
+import {ETipoComponente} from '../../enum/ETipoComponente';
+import {Produto} from '../Produto';
+import {ISequencia} from '../../interfaces/ISequencia';
 
 export class SequenciaProduto implements ISequencia<Produto> {
 

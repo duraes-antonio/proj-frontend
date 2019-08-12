@@ -12,6 +12,8 @@ import {SequenciaProdutoComponent} from './seq-produto/sequencia-produto.compone
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
 import {SequenciaComponent} from './sequencia/sequencia.component';
 import { SeqLojaComponent } from './seq-loja/seq-loja.component';
+import { TelaLoginComponent } from './telas/tela-login/tela-login.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { SeqLojaComponent } from './seq-loja/seq-loja.component';
     ListaCartaoComponent,
     SequenciaProdutoComponent,
     SequenciaComponent,
-    SeqLojaComponent
+    SeqLojaComponent,
+    TelaLoginComponent
   ],
   exports: [
     NavbarComponent,
@@ -36,7 +39,8 @@ import { SeqLojaComponent } from './seq-loja/seq-loja.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ]
 })
 export class ComponentesModule {

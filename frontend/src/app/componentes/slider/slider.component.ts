@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as M from 'materialize-css/dist/js/materialize';
-import {Slider} from '../../modelos/Slider';
+import {Slider} from '../../modelos/componentes/Slider';
 
 @Component({
   selector: 'app-slider',

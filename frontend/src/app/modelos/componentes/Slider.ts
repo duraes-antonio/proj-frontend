@@ -1,6 +1,6 @@
-import {Slide} from './Slide';
-import {ETipoComponente} from '../enum/ETipoComponente';
-import {ISequencia} from '../interfaces/ISequencia';
+import {Slide} from '../Slide';
+import {ETipoComponente} from '../../enum/ETipoComponente';
+import {ISequencia} from '../../interfaces/ISequencia';
 
 export class Slider implements ISequencia<Slide> {
 
