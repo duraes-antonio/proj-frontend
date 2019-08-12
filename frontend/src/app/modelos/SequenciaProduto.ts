@@ -27,18 +27,28 @@ export class SequenciaProduto implements ISequencia<Produto> {
       return Math.random() * 1000;
     }
 
+    function sortearValorDesc(): number {
+      return Math.round(Math.random() * 100);
+    }
+
     const produtos = new Array<Produto>();
 
     produtos.push(
       new Produto(
         'https://vignette.wikia.nocookie.net/yugioh/images/9/96/DP1-BoosterEN.jpg/revision/latest?cb=20080922232644',
-        'Pack de Cards - Comum', obterPrecoRandom(), false)
+        'Pack de Cards - Comum',
+        obterPrecoRandom(),
+        true,
+        sortearValorDesc())
     );
 
     produtos.push(
       new Produto(
         'https://vignette.wikia.nocookie.net/yugioh/images/a/ac/DP2-BoosterEN.jpg/revision/latest?cb=20061218005456',
-        'Pack de Cards - Comum', obterPrecoRandom(), false)
+        'Pack de Cards - Comum',
+        obterPrecoRandom(),
+        true,
+        sortearValorDesc())
     );
 
     produtos.push(
@@ -51,7 +61,10 @@ export class SequenciaProduto implements ISequencia<Produto> {
     produtos.push(
       new Produto(
         'https://vignette.wikia.nocookie.net/yugioh/images/3/3d/LED4-BoosterEN.png/revision/latest?cb=20190110075036',
-        'Pack de Cards - Comum', obterPrecoRandom(), false)
+        'Pack de Cards - Comum',
+        obterPrecoRandom(),
+        true,
+        sortearValorDesc())
     );
 
     produtos.push(

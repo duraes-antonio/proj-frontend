@@ -1,12 +1,32 @@
 <app-sequencia [sequencia]="_sequencia">
   <li class="area-item glide__slide" *ngFor="let item of _sequencia.itens">
+    <span *ngIf="item.emPromocao" class="etiqueta-promo">
+      {{item.porcentDesc}}%
+      <i class="fas fa-arrow-down"></i>
+    </span>
+
     <img src="{{item.urlImagem}}" alt="{{item.titulo}}">
 
     <!-- Área c/ info. sobre o produto (Nome, preço, marcador de promoção) -->
     <!-- TODO: Remover arredondamento de preço-->
     <div class="area-produto-info">
       <span>{{item.titulo}}</span><br>
-      <span class="preco">R$ {{item.preco.toFixed(2)}}</span>
+
+      <!-- Área para preços de produtos em promoção -->
+      <div *ngIf="item.emPromocao">
+        <span class="preco-original" *ngIf="item.emPromocao">
+          De
+        </span>
+        <span *ngIf="item.emPromocao" class="preco-original" style="text-decoration: line-through">
+          R$ {{item.preco.toFixed(2)}}
+        </span>
+        <span class="preco-original" *ngIf="item.emPromocao">
+          , por<br>
+        </span>
+      </div>
+
+      <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
+
     </div>
   </li>
 </app-sequencia>

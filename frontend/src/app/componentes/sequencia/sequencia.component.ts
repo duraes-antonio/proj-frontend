@@ -46,15 +46,13 @@ export class SequenciaComponent implements OnInit {
       this._ocultarBtnSlideProx = true;
     }
 
-    console.log(this._sequencia, indiceUltVisivel);
-
     /*Se o índice do último slide exibido for igual ao tamanho da sequência,
      * ele é o último slide, oculte o botão de avançar p/ próximo slide*/
     this._ocultarBtnSlideProx = indiceUltVisivel >= this._qtdSlides;
 
     /*Se o primeiro slide exibido for o primeiro da sequência,
      * oculte o botão de voltar p/ slide anterior*/
-    this._ocultarBtnSlideAnt = glideObj.index === 0;
+    this._ocultarBtnSlideAnt = glideObj.index <= 0;
 
     this._ultPerView = glideObj._o.perView;
   }
@@ -80,7 +78,7 @@ export class SequenciaComponent implements OnInit {
           bound: true,
           startAt: 0,
           perView: refThis._sequencia.tamanho > 4 ? 5 : refThis._sequencia.tamanho,
-          gap: 5,
+          gap: 10,
           breakpoints: {
             1000: {
               perView: 5

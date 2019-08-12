@@ -17,6 +17,7 @@ export class ListaCartao implements ISequencia<Cartao> {
   constructor(id) {
     // TODO: Solicitar ao backend a sequencia de id atual
     this.itens = ListaCartao.obterCartoesMock();
+    this.titulo = 'Seções especiais separadas para você!';
   }
 
   // TODO: Substituir pelos produtos recebidos do BACKEND

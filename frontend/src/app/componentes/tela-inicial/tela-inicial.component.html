@@ -3,7 +3,7 @@
     <!-- TODO: Tornar o conteúdo dinâmico -->
     <div *ngFor="let comp of componentes" class="area-componente">
       <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER"
-                  [slider]="comp" class="col s12 m12 l12 xl12"></app-slider>
+                  [slider]="comp" style="width: 100%;"></app-slider>
       <app-lista-cartao *ngIf="comp.tipo == tipoComponente.LISTA_CARTAO"
                   [listaCartoes]="comp" style="width: 100%">
       </app-lista-cartao>
