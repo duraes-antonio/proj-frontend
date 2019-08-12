@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SequenciaLoja} from '../../modelos/componentes/SequenciaLoja';
-import Glide from '../../../../node_modules/@glidejs/glide';
 
 @Component({
   selector: 'app-seq-lojas',
