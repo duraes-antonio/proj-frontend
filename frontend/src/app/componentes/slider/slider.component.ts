@@ -37,11 +37,11 @@ export class SliderComponent implements OnInit {
 
   }
 
-  private avancarSlide() {
+  public avancarSlide() {
     SliderComponent.carrossel.next();
   }
 
-  private voltarSlide() {
+  public voltarSlide() {
     SliderComponent.carrossel.prev();
   }
 }

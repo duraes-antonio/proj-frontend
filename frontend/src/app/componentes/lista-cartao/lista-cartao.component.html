@@ -1,16 +1,16 @@
-<div class="col s12" *ngFor="let cartao of listaCartoes.cartoes"
+<div class="col s12" *ngFor="let cartao of listaCartoes.itens"
      [ngClass]="
-     {'m12 l12 xl12': listaCartoes.qtdCartoes == 1,
-     'm6 l6 xl6': listaCartoes.qtdCartoes == 2,
-     'm4 l4 xl4': listaCartoes.qtdCartoes == 3}">
+     {'m12 l12 xl12': listaCartoes.tamanho == 1,
+     'm6 l6 xl6': listaCartoes.tamanho == 2,
+     'm4 l4 xl4': listaCartoes.tamanho == 3}">
 
   <!-- Área - Cartão individual -->
   <div class="cartao">
     <div [style.backgroundImage]="'url('+ cartao.urlImagem +')'"
          class="black-text background-desfocado"
-         [ngClass]="{'background-desfocado-col_100': listaCartoes.qtdCartoes == 1,
-         'background-desfocado-col_50': listaCartoes.qtdCartoes == 2,
-         'background-desfocado-col_33': listaCartoes.qtdCartoes == 3}">
+         [ngClass]="{'background-desfocado-col_100': listaCartoes.tamanho == 1,
+         'background-desfocado-col_50': listaCartoes.tamanho == 2,
+         'background-desfocado-col_33': listaCartoes.tamanho == 3}">
     </div>
 
     <div class="black-text slide-imagem">

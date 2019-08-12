@@ -4,6 +4,7 @@ import {ETipoComponente} from '../../enum/ETipoComponente';
 import {Slider} from '../../modelos/Slider';
 import {SequenciaProduto} from '../../modelos/SequenciaProduto';
 import {ListaCartao} from '../../modelos/ListaCartao';
+import {SequenciaLoja} from '../../modelos/SequenciaLoja';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -22,6 +23,8 @@ export class TelaInicialComponent implements OnInit {
     this.componentes.push(new Slider(1));
     this.componentes.push(new ListaCartao(1));
     this.componentes.push(new SequenciaProduto(1));
+    this.componentes.push(new SequenciaLoja(3));
+
   }
 
   ngOnInit() { }

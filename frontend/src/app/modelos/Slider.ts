@@ -2,16 +2,20 @@ import {Slide} from './Slide';
 import {ETipoComponente} from '../enum/ETipoComponente';
 import {ISequencia} from '../interfaces/ISequencia';
 
-export class Slider implements ISequencia {
+export class Slider implements ISequencia<Slide> {
 
   public readonly titulo: string;
-  public readonly tipo: ETipoComponente = ETipoComponente.SLIDER;
+  public readonly itens: Array<Slide>;
 
-  private readonly id: number;
-  public readonly slides: Array<Slide>;
+  get tamanho(): number {
+    return !!this.itens ? this.itens.length : 0;
+  }
+
+  public readonly tipo: ETipoComponente = ETipoComponente.SLIDER;
+  public readonly id: number;
 
   constructor(id: number) {
-    this.slides = Slider.obterSlidesMock();
+    this.itens = Slider.obterSlidesMock();
   }
 
   // TODO: Substituir pelos slides recebidos do BACKEND

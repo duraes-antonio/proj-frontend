@@ -14,7 +14,7 @@
 
   </div>
 
-  <div *ngFor="let slide of slider.slides; let i = index" id="slide-{{i}}"
+  <div *ngFor="let slide of slider.itens; let i = index" id="slide-{{i}}"
        class="carousel-item slide-area">
 
     <div [style.backgroundImage]="'url('+ slide.imagemUrl +')'"

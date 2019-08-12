@@ -8,8 +8,11 @@ import {ListaLinks} from '../../modelos/ListaLinks';
 })
 export class RodapeComponent implements OnInit {
 
-  @Input() links: Array<ListaLinks>;
+  @Input() set links(links: Array<ListaLinks>) {
+    this._links = links;
+  }
 
+  public _links: Array<ListaLinks>;
   public anoCorrente: number = (new Date()).getFullYear();
 
   constructor() {

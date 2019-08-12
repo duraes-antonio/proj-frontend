@@ -38,7 +38,7 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.3);
   filter: drop-shadow(1px 2px 3px darkgrey);
 }
 
@@ -54,17 +54,18 @@
 
 
 .titulo-componente {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   color: dimgrey;
 }
 
 .titulo-componente::after {
-  content: "";
-  width: 40%;
-  height: 3px;
-  background: #d0d0d0;
-  transition: 0.9s;
-  position: absolute;
-  margin-top: 36px;
+  content: '';
+  width: 30%;
+  height: 4px;
+  background-color: #d0d0d0;
+  display: block;
+  margin: 0 auto;
+  margin-top: 12px;
 }
+
+

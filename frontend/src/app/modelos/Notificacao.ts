@@ -11,11 +11,11 @@ export class Notificacao {
 
   private _lida: boolean;
 
+  private _dataLeitura?: Date;
+
   get lida(): boolean {
     return this._lida;
   }
-
-  private _dataLeitura?: Date;
 
   get dataLeitura(): Date {
     return this._dataLeitura;
@@ -30,8 +30,6 @@ export class Notificacao {
     this.texto = texto;
     this.dataCriacao = dataCriacao;
     this.link = link;
-    // this.tipo = tipo;
-
     this._lida = false;
     this._dataLeitura = null;
 

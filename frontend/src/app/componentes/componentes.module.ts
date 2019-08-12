@@ -11,6 +11,7 @@ import {SliderComponent} from './slider/slider.component';
 import {SequenciaProdutoComponent} from './seq-produto/sequencia-produto.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
 import {SequenciaComponent} from './sequencia/sequencia.component';
+import { SeqLojaComponent } from './seq-loja/seq-loja.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {SequenciaComponent} from './sequencia/sequencia.component';
     SliderComponent,
     ListaCartaoComponent,
     SequenciaProdutoComponent,
-    SequenciaComponent
+    SequenciaComponent,
+    SeqLojaComponent
   ],
   exports: [
     NavbarComponent,

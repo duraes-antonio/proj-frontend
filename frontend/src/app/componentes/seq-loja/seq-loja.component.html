@@ -1,0 +1,21 @@
+<app-sequencia [sequencia]="_sequencia">
+  <li class="area-item glide__slide" *ngFor="let item of _sequencia.itens">
+    <div>
+
+      <!-- Área do background da loja parceira -->
+      <div class="fundo" [style.backgroundImage]="'url('+ item.urlImagem +')'"
+           title="{{item.nome}}">
+      </div>
+
+      <!-- Área da logo da loja parceira -->
+      <div class="area-logo">
+        <img class="loja-logo" src="{{item.urlImgLogo}}"
+             alt="Logo da loja {{item.nome}}}" title="Logo da loja {{item.nome}}">
+      </div>
+    </div>
+
+    <div class="area-loja-info">
+      <a [href]="item.link">{{item.nome}}</a>
+    </div>
+  </li>
+</app-sequencia>

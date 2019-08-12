@@ -15,17 +15,17 @@ export class AppComponent {
     this.listaLinks = new Array<ListaLinks>();
 
     const redeSociais = ['Facebook', 'Twitter', 'Zipzop', 'Instagram', 'Orkut', 'MSN'];
-    const Tecnologias = ['Angular 8', 'Node JS 10', 'C#', 'MongoDB', 'Python 3.6',
+    const tecnologias = ['Angular 8', 'Node JS 10', 'C#', 'MongoDB', 'Python 3.6',
       'PostgreSQL 11', 'Materialize CSS 1.0', 'Docker'];
 
     const linksObj1: Array<Link> = new Array<Link>();
     const linksObj2: Array<Link> = new Array<Link>();
 
-    for (const link of redeSociais) {
+    for (let link of redeSociais) {
       linksObj1.push(new Link(link, 'www.google.com'));
     }
 
-    for (const link of Tecnologias) {
+    for (let link of tecnologias) {
       linksObj2.push(new Link(link, 'www.google.com'));
     }
 

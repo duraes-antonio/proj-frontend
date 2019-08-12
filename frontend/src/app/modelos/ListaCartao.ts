@@ -2,18 +2,21 @@ import {ETipoComponente} from '../enum/ETipoComponente';
 import {Cartao} from './Cartao';
 import {ISequencia} from '../interfaces/ISequencia';
 
-export class ListaCartao implements ISequencia {
+export class ListaCartao implements ISequencia<Cartao> {
 
   public readonly titulo: string;
+
+  get tamanho(): number {
+    return !!this.itens ? this.itens.length : 0;
+  }
+
   public readonly id: number;
   public readonly tipo: ETipoComponente = ETipoComponente.LISTA_CARTAO;
-  public cartoes: Array<Cartao>;
-  public readonly qtdCartoes: number;
+  public readonly itens: Array<Cartao>;
 
   constructor(id) {
     // TODO: Solicitar ao backend a sequencia de id atual
-    this.cartoes = ListaCartao.obterCartoesMock();
-    this.qtdCartoes = this.cartoes.length;
+    this.itens = ListaCartao.obterCartoesMock();
   }
 
   // TODO: Substituir pelos produtos recebidos do BACKEND

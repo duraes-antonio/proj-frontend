@@ -9,27 +9,24 @@ import {Usuario} from '../../modelos/Usuario';
 })
 export class SidenavComponent implements OnInit {
 
-  public menus;
-  public menus_inic;
-
-  @Input() usuario: Usuario;
-
   @Input()
   set exibir(none) {
     document.getElementById('btn-trigger').click();
   }
 
-  constructor() { }
+  @Input() usuario: Usuario;
 
-  ngOnInit() {
-    document.addEventListener('DOMContentLoaded', this.iniciarModal);
-  }
+  constructor() { }
 
   /**
    * Exibe o menu-lateral e escurece o restante da janela
    */
-  private iniciarModal() {
-    this.menus = document.querySelectorAll('.sidenav');
-    this.menus_inic = M.Sidenav.init(this.menus, {});
+  private static iniciarModal() {
+    const sidenav = document.querySelectorAll('.sidenav');
+    const menuInic = M.Sidenav.init(sidenav, {});
+  }
+
+  ngOnInit() {
+    document.addEventListener('DOMContentLoaded', SidenavComponent.iniciarModal);
   }
 }

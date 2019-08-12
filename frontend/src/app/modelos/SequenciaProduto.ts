@@ -1,20 +1,23 @@
-import {IComponente} from '../interfaces/IComponente';
 import {ETipoComponente} from '../enum/ETipoComponente';
 import {Produto} from './Produto';
+import {ISequencia} from '../interfaces/ISequencia';
 
-export class SequenciaProduto implements IComponente {
+export class SequenciaProduto implements ISequencia<Produto> {
 
   public readonly id: number;
   public readonly tipo: ETipoComponente = ETipoComponente.SEQUENCIA_PRODUTO;
-  public produtos: Array<Produto>;
+  public readonly titulo: string;
+  public readonly itens: Array<Produto>;
 
-  get qtdProdutos() {
-    return this.produtos.length;
+  get tamanho() {
+    return !!this.itens ? this.itens.length : 0;
   }
 
   constructor(id) {
     // TODO: Solicitar ao backend a sequencia de id atual
-    this.produtos = this.obterProdutosMock();
+    this.id = id;
+    this.itens = this.obterProdutosMock();
+    this.titulo = 'TOP Produtos mais vendidos na semana';
   }
 
   // TODO: Substituir pelos produtos recebidos do BACKEND
