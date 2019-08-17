@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {TelaInicialComponent} from './componentes/tela-inicial/tela-inicial.component';
+import {TelaInicialComponent} from './componentes/telas/tela-inicial/tela-inicial.component';
 import {TelaLoginComponent} from './componentes/telas/tela-login/tela-login.component';
 
 const routes: Routes = [

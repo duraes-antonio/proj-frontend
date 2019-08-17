@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import * as M from '../../../../node_modules/materialize-css/dist/js/materialize.js';
+import {Sidenav} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 import {Usuario} from '../../modelos/Usuario';
 
 @Component({
@@ -23,7 +23,7 @@ export class SidenavComponent implements OnInit {
    */
   private static iniciarModal() {
     const sidenav = document.querySelectorAll('.sidenav');
-    const menuInic = M.Sidenav.init(sidenav, {});
+    const menuInic = Sidenav.init(sidenav, {});
   }
 
   ngOnInit() {

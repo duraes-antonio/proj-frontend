@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-// import * as M from 'materialize-css';
-// import * as M from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+import {Tabs} from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 
 @Component({
   selector: 'app-tela-login',
@@ -13,21 +12,28 @@ export class TelaLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-  //   document.addEventListener(
-  //     'DOMContentLoaded',
-  //     function () {
-  //       const elems = document.getElementById('tabs');
-  //       M.Tabs.init(
-  //         elems,
-  //         {
-  //           duration: 100
-  //         }
-  //       );
-  //
-  //       // const tabs = M.Tabs.getInstance(elems[0]);
-  //
-  //     }
-  //   );
+    const _this = this;
+    document.addEventListener(
+      'DOMContentLoaded',
+      function () {
+        const elems = document.getElementById('tabs');
+        Tabs.init(
+          elems,
+          {
+            duration: 100,
+            onShow: _this.alterarCorIndicador
+          });
+        _this.alterarCorIndicador();
+      }
+    );
   }
 
+  private alterarCorIndicador() {
+    const aba = document.getElementsByClassName('indicator');
+
+    if (aba.length > 0) {
+      (<HTMLElement>aba[0]).style.backgroundColor = 'DodgerBlue';
+    }
+
+  }
 }

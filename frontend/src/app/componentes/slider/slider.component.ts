@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import * as M from 'materialize-css/dist/js/materialize';
+import {Carousel} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 import {Slider} from '../../modelos/componentes/Slider';
 
 @Component({
@@ -24,12 +24,12 @@ export class SliderComponent implements OnInit {
       'DOMContentLoaded',
       function () {
         const elems = document.querySelectorAll('.carousel');
-        M.Carousel.init(elems, {
+        Carousel.init(elems, {
           fullWidth: true,
           indicators: true
         });
 
-        SliderComponent.carrossel = M.Carousel.getInstance(elems[0]);
+        SliderComponent.carrossel = Carousel.getInstance(elems[0]);
       });
 
     // A cada 3.5 segundos, passe para o próximo slide

@@ -1,27 +1,84 @@
-<div class="area-login">
-  <div class="area-form col s10 pull-s1 m8 pull-m2 l6 pull-l3 xl4 pull-xl4">
+<div style="justify-content: center; display: flex;">
+  <div class="area-login">
+    <div class="area-form col s12 m8 pull-m2 l6 pull-l3 xl4 pull-xl4">
 
-    <div class="area-abas">
-      <input id="tab1" type="radio" name="tabs" checked>
-      <label for="tab1" class="col s6 m6 l6 xl6">Codepen</label>
+      <div class="row area-abas">
 
-      <input id="tab2" type="radio" name="tabs">
-      <label for="tab2" class="col s6 m6 l6 xl6">Dribbble</label>
+        <!-- Área de abas -->
+        <div class="col s12">
+          <ul id="tabs" class="tabs">
 
-      <section id="content1">
-        <p>
-          Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket
-          beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin
-          tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder.
-          Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
-        </p>
-      </section>
+            <!-- Aba de login -->
+            <li class="tab col s6 active" style="border-right: 1px solid lightgray;">
+              <a href="/login/#entrar">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+              </a>
+            </li>
 
-      <section id="content2">
-        <p>
-          Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin.
-        </p>
-      </section>
+            <!-- Aba de Cadastro -->
+            <li class="tab col s6">
+              <a href="/login/#cadastrar">
+                <i class="fas fa-user-plus"></i>
+                <span>Registrar-se</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Área de conteúdo -->
+      <div class="area-conteudo">
+        <div id="entrar" class="col s12">
+
+          <div class="input-field col s12">
+            <input value="cleiton@gmail.com" id="form-login" type="text" class="validate">
+            <label class="active" for="form-login">Email ou Nome de usuário</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input value="dsadsadas" id="form-login-senha" type="password" class="validate">
+            <label class="active" for="form-login-senha">Senha</label>
+          </div>
+
+          <div style="text-align: center">
+            <a class="waves-effect waves-light btn">
+              <i class="fas fa-paper-plane"></i>
+              Enviar
+            </a>
+          </div>
+
+        </div>
+
+        <div id="cadastrar" class="col s12">
+          <div class="input-field col s12">
+            <input value="Alvin" id="form-nome" type="text" class="validate">
+            <label class="active" for="form-nome">Nome</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input value="cleiton@gmail.com" id="form-email" type="text" class="validate">
+            <label class="active" for="form-email">Email</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input value="(27) 99885-5521" id="form-telefone" type="text" class="validate">
+            <label class="active" for="form-telefone">Telefone</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input value="Alvin" id="form-senha" type="password" class="validate">
+            <label class="active" for="form-senha">Senha</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input value="Alvin" id="form-confirmar-senha" type="password" class="validate">
+            <label class="active" for="form-confirmar-senha">Confirmação de senha</label>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
