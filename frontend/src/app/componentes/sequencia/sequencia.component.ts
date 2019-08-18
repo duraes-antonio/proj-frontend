@@ -91,6 +91,9 @@ export class SequenciaComponent implements OnInit {
             },
             480: {
               perView: 2
+            },
+            360: {
+              perView: 1
             }
           }
         };

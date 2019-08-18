@@ -3,23 +3,34 @@
 .area-item {
   text-align: center;
   background-color: white;
-  padding: 20px 0;
 
-  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.1));
+  @media (max-width: 360px) {
+    padding: 0 10px;
+  }
+}
+
+.area-produto {
+
+  display: grid;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 7px;
   border: 1px solid #d7d7d7;
+  padding: 20px 0;
 
   img {
+    justify-self: center;
     max-height: 200px;
     max-width: 100%;
+    margin: 10px 0;
   }
 }
 
 .etiqueta-promo {
-  max-width: 100%;
+
   position: absolute;
-  right: 0;
-  top: 10px;
+  justify-self: flex-end;
+  max-width: 100%;
+  width: fit-content;
   padding: 2px 10px;
 
   background-color: limegreen;
@@ -31,7 +42,7 @@
 
 .area-produto-info {
   border-top: 1px solid #e3e3e3;
-  padding: 15px;
+  padding: 15px 15px 0;
 }
 
 .preco {
