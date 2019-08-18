@@ -1,3 +1,5 @@
+@import "../../shared/shared";
+
 $val-padding: 15px;
 $altura-barra: 70px;
 
@@ -80,8 +82,9 @@ $altura-barra: 70px;
   width: auto;
 }
 
+
 /*Área de notificações*/
-.area-contador_notific-important {
+.area-contador_notif {
   transition: all 1s;
   position: absolute !important;
   z-index: 1;
@@ -101,38 +104,46 @@ $altura-barra: 70px;
   font-weight: 400;
 }
 
-.area-lista_notificacao--ativa {
-  animation: fade 350ms;
+.area-lista_notif--ativa {
+  animation: fade 500ms;
   background-color: white;
   color: black;
 
-  z-index: 2;
   position: absolute;
-  display: block;
   right: 35px !important;
-  top: 85px;
+  top: 75px;
   padding: 0 !important;
 
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-  border: 1px solid rgba(100, 100, 100, .4);
-}
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(100, 100, 100, 0.5);
 
-@keyframes fade {
-  0% {
-    opacity: 0;
+  ul.collection {
+    margin: 0;
+    display: grid;
   }
 
-  100% {
-    opacity: 1;
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    right: 0 !important;
+    left: 0 !important;
   }
 }
 
-.area-lista_notificacao-topo {
+.area-lista_notif-topo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 12px;
+  height: 50px;
 
   i, span {
     line-height: normal;
@@ -140,104 +151,80 @@ $altura-barra: 70px;
   }
 }
 
-.area-lista_notificacao-topo-icones {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.icone-marcar_todas_notif {
+  padding: 0;
+  color: black;
+  background-color: transparent;
+  transition: color 500ms !important;
 
   i {
-    margin-left: 12px;
-    font-size: larger;
+    font-size: large;
+  }
+
+  &:hover {
+    color: red !important;
   }
 }
 
-.icone-marcar_todas_notific {
-  padding: 0 !important;
-  color: black !important;
-  background-color: transparent !important;
-  transition: ease all 400ms !important;
-}
-
-.icone-marcar_todas_notific:hover {
-  color: red !important;
-  font-size: large !important;
-}
-
-.area-lista_notificacao-corpo {
+.area-lista_notif-corpo {
   overflow: auto;
-  height: 450px;
-  margin-bottom: 5px;
-  padding: 0 10px;
-}
-
-.area-notificacao {
   width: 100%;
-  animation: fade 350ms;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  margin: 5px 0;
-  border: 1px solid #1da1f2;
-  border-radius: 10px;
-  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
-
-  a, i {
-    line-height: normal;
-    height: auto;
-  }
-}
-
-.area-notificacao--inativa {
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  opacity: 0.5;
-  margin: 5px 0;
-  border: 1px solid #bbbbbb;
-  border-radius: 10px;
-  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
-
-  a, i {
-    line-height: normal;
-    height: auto;
-  }
+  height: 400px;
 }
 
 .notificacao {
-  padding: 10px 15px 0 15px !important;
-  font-size: small !important;
-  border-radius: 10px;
+  padding: 16px 46px 16px 16px;
+  display: flex;
+  cursor: pointer;
+  transition: opacity 500ms;
 }
 
-.notificao-rodape {
-  color: gray;
+.notif--ativa {
+  opacity: 1;
+}
+
+.notif--inativa {
+  opacity: 0.35;
+}
+
+.notific-info {
+  width: 100%;
+}
+
+.notif-desc {
+  font-size: 13px;
+  color: #333333;
+}
+
+.notif-data {
+  font-size: 12px;
+  color: grey;
+}
+
+.icone-circulo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 5px 0 !important;
+  justify-content: center;
 
-  span {
-    font-size: small !important;
-    display: flex;
-    align-items: center;
-  }
+  width: 40px;
+  height: 40px;
+  margin-right: 30px;
+
+  background-color: #efefef;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+  border-radius: 50%;
 
   i {
-    font-size: medium !important;
-    margin-right: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: dimgrey;
   }
 }
 
-@media (max-width: 430px) {
-  .icone-important {
-    margin-right: 10px;
-    font-size: 140% !important;
-  }
+.md-checkbox {
+  position: absolute;
+  right: 10px;
+  margin-top: 14px;
 }

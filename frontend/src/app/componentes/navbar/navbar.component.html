@@ -11,7 +11,7 @@
 
     <!--  Coluna da esquerda: Contém o menu hamburger  -->
     <div class="col s5 m4 no-padding nav-col-esquerda">
-      <i  *ngIf="false" aria-hidden="true" class="fas fa-bars icone" (click)="toggleSidenav()"></i>
+      <i *ngIf="false" aria-hidden="true" class="fas fa-bars icone" (click)="toggleSidenav()"></i>
     </div>
 
     <!--  Coluna centro: contém a logo da loja  -->
@@ -37,8 +37,7 @@
 
           <!-- Contador de notificações -->
           <a class="icone-link" (click)="toggleListaNotificacoes()">
-            <span *ngIf="qtdNotifAtiva > 0"
-                  class="area-contador_notific-important pulse">
+            <span *ngIf="qtdNotifAtiva > 0" class="area-contador_notif pulse">
               {{qtdNotifAtiva}}
             </span>
             <i aria-hidden="true" class="fas fa-bell"></i>
@@ -46,46 +45,54 @@
 
           <!-- Área de listagem de notificações -->
           <div *ngIf="exibirNotificacoes"
-               class="col s8 m5 l4 xl3 area-lista_notificacao--ativa">
+               class="col s12 m6 l4 xl4 area-lista_notif--ativa">
 
             <!-- Cabeçalho com opções e engrenagem -->
-            <div class="area-lista_notificacao-topo">
+            <div class="area-lista_notif-topo">
               <span>Notificações</span>
-              <div class="area-lista_notificacao-topo-icones">
-                <a class="icone-marcar_todas_notific" title="Marcar todas como lidas"
-                   (click)="marcarTodasNotificacoesComoLidas()">
-                  <i class="far fa-check-square"></i>
-                </a>
-              </div>
+              <a class="icone-marcar_todas_notif"
+                 title="Marcar todas como lidas"
+                 (click)="marcarTodasNotificacoesComoLidas()">
+                <i class="far fa-check-square"></i>
+              </a>
             </div>
 
             <div class="divider"></div>
 
             <!-- Lista de notificações -->
-            <div class="area-lista_notificacao-corpo">
-              <ul>
+            <div class="area-lista_notif-corpo barra-rolagem">
+              <ul class="collection">
 
-                <!-- Para cada noticação, se estiver lida, aplique a classe que inative-a
-                visualmente, senão, não está lida, então aplique a classe padrão-->
-                <li *ngFor="let notif of notificacoes" id="area-notificacao-{{notif.id}}"
-                    [ngClass]="notif.lida ? 'area-notificacao--inativa' : 'area-notificacao'">
+                <!-- Área individual da notifição -->
+                <li id="area-notificacao-{{notif.id}}" *ngFor="let notif of notificacoes"
+                    class="collection-item no-padding">
+                  <div>
 
-                  <a class="notificacao black-text" href="">
-                    {{notif.texto}}<br>
+                    <!-- Área do checkbox -->
+                    <label class="checkbox md-checkbox">
+                      <input type="checkbox" [checked]="notif.lida"
+                             (click)="toggleNotificacao(notif)"/>
+                      <span></span>
+                    </label>
 
-                    <div class="notificao-rodape">
-                      <span style="font-size: smaller !important;">
-                        <i [className]="notif.classeIcone"></i>
-                        {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}
-                      </span>
+                    <!-- Área clicável -->
+                    <a class="notificacao" (click)="marcarNotificacaoComoLida(notif)"
+                       [ngClass]="notif.lida ? 'notif--inativa' : 'notif--ativa'">
 
-                      <label>
-                        <input type="checkbox" [checked]="notif.lida" (click)="toggleNotificacao(notif.id)"/>
-                        <span>Lida</span>
-                      </label>
-                    </div>
+                      <!-- Área individual da notifição -->
+                      <a class="icone-circulo">
+                        <i class="{{notif.classeIcone}}"></i>
+                      </a>
 
-                  </a>
+                      <!-- Área que contém as informações da notifição -->
+                      <div class="notific-info">
+                        <!--                    <span class="notif-titulo">Title<br></span>-->
+                        <span class="notif-desc">{{notif.texto}}<br></span>
+                        <span class="notif-data">{{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
+                      </div>
+                    </a>
+
+                  </div>
                 </li>
               </ul>
             </div>

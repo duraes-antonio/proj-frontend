@@ -73,6 +73,31 @@ export class SequenciaProduto implements ISequencia<Produto> {
         'Pack \'Hidden Arsenal 5: Steelswarm Invasion\' - Raro', obterPrecoRandom(), false)
     );
 
+    produtos.push(
+      new Produto(
+        'https://vignette.wikia.nocookie.net/yugioh/images/9/96/DP1-BoosterEN.jpg/revision/latest?cb=20080922232644',
+        'Pack de Cards - Comum',
+        obterPrecoRandom(),
+        true,
+        sortearValorDesc())
+    );
+
+    produtos.push(
+      new Produto(
+        'https://vignette.wikia.nocookie.net/yugioh/images/a/ac/DP2-BoosterEN.jpg/revision/latest?cb=20061218005456',
+        'Pack de Cards - Comum',
+        obterPrecoRandom(),
+        true,
+        sortearValorDesc())
+    );
+
+    produtos.push(
+      new Produto(
+        'https://vignette.wikia.nocookie.net/yugioh/images/2/24/SP17-BoosterEN.png/revision/latest/scale-to-width-down/282?cb=20170125212154',
+        'Pack de Cards - Comum',
+        obterPrecoRandom(), false)
+    );
+
     return produtos;
   }
 }

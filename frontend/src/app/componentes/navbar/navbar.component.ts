@@ -11,8 +11,7 @@ import {Notificacao} from '../../modelos/Notificacao';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() { }
 
   public exibirBusca: boolean;
   public exibirSidenav: boolean;
@@ -79,23 +78,26 @@ export class NavbarComponent implements OnInit {
   /**
    * Marca uma notificação como lida ou como não lida, mudando seu visual e data de leitura.
    */
-  toggleNotificacao(id: number) {
+  public toggleNotificacao(notif: Notificacao) {
+    notif.toggle();
+    this.qtdNotifAtiva += notif.lida ? -1 : 1;
+  }
 
-    for (const notif of this.notificacoes) {
+  /**
+   * Marca uma notificação como lida e atualiza o contador de notif.
+   */
+  public marcarNotificacaoComoLida(notif: Notificacao) {
 
-      /*Se a notificação atual for a notificação marcada*/
-      if (notif.id === id) {
-        notif.toggle();
-        this.qtdNotifAtiva += notif.lida ? -1 : 1;
-        break;
-      }
+    if (notif.lida !== true) {
+      notif.marcarComoLida();
+      this.qtdNotifAtiva -= 1;
     }
   }
 
   /**
-   * Marca todas notificações como lidas;
+   * Marca todas notificações como lidas e atualiza o contador
    */
-  marcarTodasNotificacoesComoLidas() {
+  public marcarTodasNotificacoesComoLidas() {
 
     if (this.qtdNotifAtiva > 0) {
       for (const notif of this.notificacoes) {
