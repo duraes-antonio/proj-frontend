@@ -9,7 +9,8 @@ import {Slider} from '../../modelos/componentes/Slider';
 })
 export class SliderComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   /*Itens armazenados somente para evitar buscas e operações adicionais c/ DOM*/
   private static indUltimo: number;
@@ -19,22 +20,41 @@ export class SliderComponent implements OnInit {
 
   ngOnInit() {
     SliderComponent.indUltimo = 0;
+    const refThis = this;
 
-    document.addEventListener(
-      'DOMContentLoaded',
-      function () {
-        const elems = document.querySelectorAll('.carousel');
-        Carousel.init(elems, {
-          fullWidth: true,
-          indicators: true
-        });
+    if (document.readyState.toLowerCase() !== 'complete') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+          refThis.iniciarComponente();
+        }
+      );
+    } else {
+      setTimeout(
+        function() {
+          refThis.iniciarComponente();
+        },
+        50
+      );
+    }
 
-        SliderComponent.carrossel = Carousel.getInstance(elems[0]);
-      });
-
+    // TODO: Ativar slider após finalizar implementação
     // A cada 3.5 segundos, passe para o próximo slide
     // setInterval(this.proximoSlide, 4000);
+  }
 
+  private iniciarComponente() {
+
+    const elems = document.querySelectorAll('.carousel');
+    Carousel.init(
+      elems,
+      {
+        fullWidth: true,
+        indicators: true
+      }
+    );
+
+    SliderComponent.carrossel = Carousel.getInstance(elems[0]);
   }
 
   public avancarSlide() {

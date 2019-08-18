@@ -9,7 +9,8 @@ import {ISequencia} from '../../interfaces/ISequencia';
 })
 export class SequenciaComponent implements OnInit {
 
-  constructor() {  }
+  constructor() {
+  }
 
   @Input()
   set sequencia(sequencia: ISequencia<any>) {
@@ -28,6 +29,7 @@ export class SequenciaComponent implements OnInit {
   private _ocultarBtnSlideAnt: boolean;
   private _ocultarBtnSlideProx: boolean;
   public _sequencia: ISequencia<any>;
+  private _opcoes;
 
   get ocultarBtnSlideAnt(): boolean {
     return this._ocultarBtnSlideAnt;
@@ -57,60 +59,69 @@ export class SequenciaComponent implements OnInit {
     this._ultPerView = glideObj._o.perView;
   }
 
-  private gerenciarDimCards() {
-
-  }
-
   ngOnInit() {
+    this._opcoes = {
+      animationDuration: 300,
+      type: 'slider',
+      rewind: false,
+      bound: true,
+      startAt: 0,
+      perView: this._sequencia.tamanho > 4 ? 5 : this._sequencia.tamanho,
+      gap: 10,
+      breakpoints: {
+        1000: {
+          perView: 5
+        },
+        800: {
+          perView: this._sequencia.tamanho > 3 ? 4 : this._sequencia.tamanho
+        },
+        640: {
+          perView: this._sequencia.tamanho > 2 ? 3 : this._sequencia.tamanho
+        },
+        480: {
+          perView: 2
+        },
+        360: {
+          perView: 1
+        }
+      }
+    };
     const refThis = this;
 
-    document.addEventListener(
-      'DOMContentLoaded',
+    if (document.readyState.toLowerCase() !== 'complete') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+          refThis.iniciarComponente();
+        }
+      );
+    } else {
+      setTimeout(
+        function() {
+          refThis.iniciarComponente();
+        },
+        50
+      );
+    }
+  }
+
+  private iniciarComponente() {
+
+    const refThis = this;
+    const sliderGlide = document.getElementById('glide-' + refThis._sequencia.id);
+
+    /*Defina a configuração do Slider, instancie-o e o monte*/
+    this._glide = new Glide(sliderGlide, this._opcoes);
+    this._glide.mount();
+
+    this.gerenciarBotoesSequencia(this._glide);
+
+    /*Sempre que a janela for redimensionada, verifique se os botões devem
+    * estar habilitados */
+    this._glide.on(
+      ['run.after', 'resize'],
       function () {
-        const slider = document.getElementById(
-          'glide-' + refThis._sequencia.id);
-
-        /*Defina a configuração do Slider, instancie-o e o monte*/
-        const opcoes = {
-          animationDuration: 300,
-          type: 'slider',
-          rewind: false,
-          bound: true,
-          startAt: 0,
-          perView: refThis._sequencia.tamanho > 4 ? 5 : refThis._sequencia.tamanho,
-          gap: 10,
-          breakpoints: {
-            1000: {
-              perView: 5
-            },
-            800: {
-              perView: refThis._sequencia.tamanho > 3 ? 4 : refThis._sequencia.tamanho
-            },
-            640: {
-              perView: refThis._sequencia.tamanho > 2 ? 3 : refThis._sequencia.tamanho
-            },
-            480: {
-              perView: 2
-            },
-            360: {
-              perView: 1
-            }
-          }
-        };
-
-        refThis._glide = new Glide(slider, opcoes);
-        refThis._glide.mount();
-
         refThis.gerenciarBotoesSequencia(refThis._glide);
-
-        /*Sempre que a janela for redimensionada, verifique se os botões devem
-        * estar habilitados */
-        refThis._glide.on(
-          ['run.after', 'resize'],
-          function () {
-            refThis.gerenciarBotoesSequencia(refThis._glide);
-          }
-        );
       }
     );
   }
