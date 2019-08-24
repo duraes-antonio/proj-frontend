@@ -5,11 +5,6 @@
       <app-lista-cartao *ngIf="comp.tipo == tipoComponente.LISTA_CARTAO"
                         [listaCartoes]="comp" style="width: 100%">
       </app-lista-cartao>
-      <app-seq-produto [sequencia]="comp" style="width: 100%"
-                       *ngIf="comp.tipo == tipoComponente.SEQUENCIA_PRODUTO">
-      </app-seq-produto>
-      <app-seq-lojas [sequencia]="comp" style="width: 100%"
-                     *ngIf="comp.tipo == tipoComponente.SEQUENCIA_LOJA">
-      </app-seq-lojas>
+
     </div>
 

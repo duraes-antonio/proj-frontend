@@ -1,3 +1,5 @@
+@import "../../../shared/shared";
+
 $val-b-radius: 18px;
 $val-cor-link-ativo: dodgerblue;
 $val-cor-link-inativo: dimgray;
@@ -17,10 +19,6 @@ $val-cor-link-inativo: dimgray;
   border-radius: $val-b-radius;
   background-color: #f7f7f7;
   filter: drop-shadow(1px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.area-abas {
-  border-radius: $val-b-radius $val-b-radius 0 0;
 }
 
 .area-conteudo {
@@ -69,4 +67,39 @@ $val-cor-link-inativo: dimgray;
 .tabs .tab a.active {
   color: $val-cor-link-ativo;
   background-color: transparent;
+}
+
+.area-logar_redes_sociais {
+  display: grid;
+  justify-content: center;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.area-icones_redes_sociais {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+}
+
+@mixin btn-circ($color-hex) {
+  @extend .fab-prim;
+  background-color: $color-hex;
+
+  &:hover {
+    background-color: rgba($color-hex, 0.7);
+  }
+}
+
+.btn-circ-facebook {
+  @include btn-circ($val-cor-facebook);
+}
+
+.btn-circ-twitter {
+  @include btn-circ($val-cor-twitter);
+}
+
+.btn-circ-google {
+  @include btn-circ($val-cor-google);
 }

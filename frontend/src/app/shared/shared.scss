@@ -1,3 +1,21 @@
+$val-margin-campo-btn: 40px;
+$val-cor-link--ativo: dodgerblue;
+
+$val-cor-prim: #212121;
+$val-cor-prim-escura: black;
+$val-cor-prim-clara: #484848;
+
+$val-cor-sec: #9e9e9e;
+$val-cor-sec-escura: #707070;
+$val-cor-sec-clara: #cfcfcf;
+
+$val-cor-texto-prim: white;
+$val-cor-texto-sec: black;
+
+$val-cor-twitter: #1da1f2;
+$val-cor-facebook: #4267b2;
+$val-cor-google: #dd3c2a;
+
 @mixin btn-circle($largura: 35px, $altura: 35px) {
   display: flex;
   justify-content: center;
@@ -23,9 +41,6 @@
   @include btn-circle($largura, $altura);
   background-color: green;
 }
-
-$val-margin-campo-btn: 40px;
-$val-cor-link--ativo: #039be5;
 
 .area-passadores {
   display: flex;
@@ -98,4 +113,48 @@ $val-cor-link--ativo: #039be5;
   max-width: 24px;
   max-height: 24px;
   z-index: 1;
+}
+
+.btn-prim {
+  display: inline-flex;
+  margin: 10px 0;
+  border-radius: 20px;
+  background-color: $val-cor-prim !important;
+
+  &:hover {
+    background-color: $val-cor-prim-clara !important;
+  }
+
+  i {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+}
+
+.fab-prim {
+  margin: 0 10px 12px;
+  background-color: $val-cor-prim;
+
+  &:hover {
+    background-color: $val-cor-prim-clara;
+  }
+
+  i {
+    font-size: 18px !important;
+  }
+}
+
+/*Área p/ campos de input (formulário)*/
+.input-field {
+  margin-bottom: 0;
+  padding-bottom: 10px;
+}
+
+.input-field input:focus + label {
+  color: $val-cor-link--ativo;
+}
+
+.input-field input:focus {
+  border-bottom: 1px solid $val-cor-link--ativo;
+  box-shadow: 0 1px 0 0 $val-cor-link--ativo;
 }

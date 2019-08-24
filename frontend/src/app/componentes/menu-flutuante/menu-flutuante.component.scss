@@ -1,14 +1,8 @@
+@import "../../shared/shared";
+
 .area-menu {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
   display: grid;
-}
-
-.mdc-espaco-fab {
-  margin-bottom: 10px;
-}
-
-i {
-  font-size: 18px !important;
 }
