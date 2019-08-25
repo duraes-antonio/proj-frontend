@@ -25,12 +25,12 @@ $val-cor-link-inativo: dimgray;
   padding: 0 10px;
 }
 
-.tabs {
+.abas {
   border-radius: 20px 20px 0 0;
   height: 72px;
 }
 
-.tab {
+.aba {
 
   height: 100%;
   color: $val-cor-link-inativo;
@@ -56,7 +56,7 @@ $val-cor-link-inativo: dimgray;
   }
 }
 
-.tabs .tab:hover {
+.abas .aba:hover {
   background-color: #ededed;
 
   a {
@@ -64,7 +64,7 @@ $val-cor-link-inativo: dimgray;
   }
 }
 
-.tabs .tab a.active {
+.abas .aba a.active {
   color: $val-cor-link-ativo;
   background-color: transparent;
 }

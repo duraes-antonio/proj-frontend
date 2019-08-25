@@ -1,8 +1,6 @@
 @import "../../shared/shared.scss";
 
 $val-b-radius: 18px;
-$val-cor-link-ativo: dodgerblue;
-$val-cor-link-inativo: dimgray;
 
 .area-login {
   width: 95%;
@@ -25,27 +23,40 @@ $val-cor-link-inativo: dimgray;
   padding: 0 10px;
 }
 
-.tabs {
+/*Área das abas (Login e cadastro)*/
+.abas {
   border-radius: 20px 20px 0 0;
-  height: 72px;
+  height: 70px;
+  margin: 0;
 }
 
-.tab {
-
-  height: 100%;
-  color: $val-cor-link-inativo;
+.aba {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  transition: all 0.5s;
   border-bottom: 2px solid lightgrey;
-  padding: 12px 0;
-  line-height: normal;
 
   a {
-    color: $val-cor-link-inativo;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;
+    color: $val-cor-link--inativo;
     display: grid;
   }
 
   i {
     font-size: 20px;
     padding-bottom: 6px;
+  }
+
+  &:hover {
+    background-color: $val-cor-sec;
+
+    a {
+      color: $val-cor-link--hover;
+    }
   }
 
   @media (max-width: 320px) {
@@ -56,19 +67,24 @@ $val-cor-link-inativo: dimgray;
   }
 }
 
-.tabs .tab:hover {
-  background-color: #ededed;
-
+.aba--ativa {
   a {
-    color: black;
+    color: $val-cor-link--ativo;
   }
+
+  border-bottom: 2px solid $val-cor-link--ativo;
 }
 
-.tabs .tab a.active {
-  color: $val-cor-link-ativo;
-  background-color: transparent;
+.aba_esq {
+  border-radius: $val-b-radius 0 0 0;
+  border-right: 1px solid lightgray;
 }
 
+.aba_dir {
+  border-radius: 0 $val-b-radius 0 0;
+}
+
+/*Área ícones*/
 .area-logar_redes_sociais {
   display: grid;
   justify-content: center;

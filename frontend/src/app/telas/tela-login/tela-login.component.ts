@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Tabs} from 'materialize-css/dist/js/materialize.min.js';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-tela-login',
@@ -8,32 +8,35 @@ import {Tabs} from 'materialize-css/dist/js/materialize.min.js';
 })
 export class TelaLoginComponent implements OnInit {
 
-  constructor() {
-  }
+  private idUltimaAba: string;
 
-  ngOnInit() {
-    const _this = this;
-    document.addEventListener(
-      'DOMContentLoaded',
-      function () {
-        const elems = document.getElementById('tabs');
-        Tabs.init(
-          elems,
-          {
-            duration: 100,
-            onShow: _this.alterarCorIndicador
-          });
-        _this.alterarCorIndicador();
+  constructor(
+    private router: Router) {
+
+    this.router.events.subscribe(
+      (val) => {
+
+        if (val instanceof NavigationEnd) {
+          const urlParts = (<NavigationEnd>val).url.split('/');
+
+          if (urlParts[urlParts.length - 1] !== this.idUltimaAba) {
+            this.marcarAba(urlParts[urlParts.length - 1]);
+          }
+        }
       }
     );
   }
 
-  private alterarCorIndicador() {
-    const aba = document.getElementsByClassName('indicator');
+  ngOnInit() {
+  }
 
-    if (aba.length > 0) {
-      (<HTMLElement>aba[0]).style.backgroundColor = 'DodgerBlue';
+  marcarAba(idAba: string) {
+
+    if (!!this.idUltimaAba) {
+      document.getElementById(this.idUltimaAba).classList.remove('aba--ativa');
     }
 
+    document.getElementById(idAba).classList.add('aba--ativa');
+    this.idUltimaAba = idAba;
   }
 }

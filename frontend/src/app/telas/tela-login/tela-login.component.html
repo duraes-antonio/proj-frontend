@@ -6,19 +6,19 @@
 
         <!-- Área de abas -->
         <div class="col s12">
-          <ul id="tabs" class="tabs">
+          <ul id="tabs" class="abas">
 
             <!-- Aba de login -->
-            <li class="tab col s6" style="border-right: 1px solid lightgray;">
-              <a href="#entrar" routerLink="entrar">
+            <li id="entrar" class="aba aba_esq col s6">
+              <a routerLink="entrar">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
               </a>
             </li>
 
             <!-- Aba de Cadastro -->
-            <li class="tab col s6">
-              <a href="#cadastrar" routerLink="cadastrar">
+            <li id="cadastrar"  class="aba aba_dir col s6">
+              <a routerLink="cadastrar">
                 <i class="fas fa-user-plus"></i>
                 <span>Registrar-se</span>
               </a>
@@ -30,8 +30,6 @@
 
       <!-- Área de conteúdo -->
       <div class="area-conteudo">
-        <div id="entrar" class="col s12"></div>
-        <div id="cadastrar" class="col s12"></div>
         <router-outlet></router-outlet>
       </div>
 
