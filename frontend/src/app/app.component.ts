@@ -13,26 +13,30 @@ export class AppComponent {
 
   constructor() {
     this.listaLinks = new Array<ListaLinks>();
+    const urlGoogle = 'www.google.com';
 
-    const redeSociais = ['Facebook', 'Twitter', 'Zipzop', 'Instagram', 'Orkut', 'MSN'];
-    const tecnologias = ['Angular 8', 'Node JS 10', 'C#', 'MongoDB', 'Python 3.6',
-      'PostgreSQL 11', 'Materialize CSS 1.0', 'Docker'];
+    const titulosLoja = ['Sobre', 'Contato', 'Categorias', 'Promoções'];
+    const titulosMinhaConta = ['Meu perfil', 'Minhas dúvidas', 'Minhas avaliações',
+      'Minhas compras', 'Minhas atividades', 'Gerenciar pagamento',
+      'Gerenciar endereço', 'Carrinho', 'Segurança'];
+    const titulosParceiros = ['Mercado Livre', 'Duel Shop', 'World Card Games',
+      'Pokémon Center'];
+    const titulosAdmin = ['Gerenciar avaliações', 'Gerenciar dúvidas',
+      'Gerenciar pedidos', 'Gerenciar produtos', 'Relatórios'];
 
-    const linksObj1: Array<Link> = new Array<Link>();
-    const linksObj2: Array<Link> = new Array<Link>();
+    const linksLoja = [];
+    const linksMinhaConta = [];
+    const linksAdmin = [];
+    const linksParceiros = [];
 
-    for (let link of redeSociais) {
-      linksObj1.push(new Link(link, 'www.google.com'));
-    }
+    for (const link of titulosLoja) { linksLoja.push(new Link(link, urlGoogle)); }
+    for (const link of titulosMinhaConta) { linksMinhaConta.push(new Link(link, urlGoogle)); }
+    for (const link of titulosAdmin) { linksAdmin.push(new Link(link, urlGoogle)); }
+    for (const link of titulosParceiros) { linksParceiros.push(new Link(link, urlGoogle)); }
 
-    for (let link of tecnologias) {
-      linksObj2.push(new Link(link, 'www.google.com'));
-    }
-
-    this.listaLinks.push(new ListaLinks('Redes sociais', linksObj1));
-    this.listaLinks.push(new ListaLinks('Tecnologias', linksObj2));
-    this.listaLinks.push(new ListaLinks('Tecnologias', linksObj1));
-    this.listaLinks.push(new ListaLinks('Redes sociais', linksObj2));
-
+    this.listaLinks.push(new ListaLinks('Loja', linksLoja));
+    this.listaLinks.push(new ListaLinks('Minha conta', linksMinhaConta));
+    this.listaLinks.push(new ListaLinks('Área Administrativa', linksAdmin));
+    this.listaLinks.push(new ListaLinks('Parceiros', linksParceiros));
   }
 }
