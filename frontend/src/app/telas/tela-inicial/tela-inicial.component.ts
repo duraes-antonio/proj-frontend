@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {IComponente} from '../../../interfaces/IComponente';
-import {ETipoComponente} from '../../../enum/ETipoComponente';
-import {Slider} from '../../../modelos/componentes/Slider';
-import {SequenciaProduto} from '../../../modelos/componentes/SequenciaProduto';
-import {ListaCartao} from '../../../modelos/componentes/ListaCartao';
-import {SequenciaLoja} from '../../../modelos/componentes/SequenciaLoja';
+import {IComponente} from '../../interfaces/IComponente';
+import {ETipoComponente} from '../../enum/ETipoComponente';
+import {Slider} from '../../modelos/componentes/Slider';
+import {SequenciaProduto} from '../../modelos/componentes/SequenciaProduto';
+import {ListaCartao} from '../../modelos/componentes/ListaCartao';
+import {SequenciaLoja} from '../../modelos/componentes/SequenciaLoja';
 
 @Component({
   selector: 'app-tela-inicial',

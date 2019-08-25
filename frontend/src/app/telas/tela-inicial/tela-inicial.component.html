@@ -1,0 +1,17 @@
+<!-- TODO: Tornar o conteúdo dinâmico -->
+<div *ngFor="let comp of componentes" class="area-componente">
+  <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER"
+              [slider]="comp" style="width: 100%;"></app-slider>
+  <app-lista-cartao *ngIf="comp.tipo == tipoComponente.LISTA_CARTAO"
+                    [listaCartoes]="comp" style="width: 100%">
+  </app-lista-cartao>
+
+  <app-seq-produto *ngIf="comp.tipo == tipoComponente.SEQUENCIA_PRODUTO"
+                    [sequencia]="comp" style="width: 100%">
+  </app-seq-produto>
+
+  <app-seq-lojas *ngIf="comp.tipo == tipoComponente.SEQUENCIA_LOJA"
+                    [sequencia]="comp" style="width: 100%">
+  </app-seq-lojas>
+</div>
+

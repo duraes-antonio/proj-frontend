@@ -1,0 +1,105 @@
+@import "../../shared/shared.scss";
+
+$val-b-radius: 18px;
+$val-cor-link-ativo: dodgerblue;
+$val-cor-link-inativo: dimgray;
+
+.area-login {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+}
+
+.area-form {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  padding-bottom: 20px;
+
+  border-radius: $val-b-radius;
+  background-color: #f7f7f7;
+  filter: drop-shadow(1px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.area-conteudo {
+  padding: 0 10px;
+}
+
+.tabs {
+  border-radius: 20px 20px 0 0;
+  height: 72px;
+}
+
+.tab {
+
+  height: 100%;
+  color: $val-cor-link-inativo;
+  border-bottom: 2px solid lightgrey;
+  padding: 12px 0;
+  line-height: normal;
+
+  a {
+    color: $val-cor-link-inativo;
+    display: grid;
+  }
+
+  i {
+    font-size: 20px;
+    padding-bottom: 6px;
+  }
+
+  @media (max-width: 320px) {
+
+    a {
+      font-size: smaller;
+    }
+  }
+}
+
+.tabs .tab:hover {
+  background-color: #ededed;
+
+  a {
+    color: black;
+  }
+}
+
+.tabs .tab a.active {
+  color: $val-cor-link-ativo;
+  background-color: transparent;
+}
+
+.area-logar_redes_sociais {
+  display: grid;
+  justify-content: center;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.area-icones_redes_sociais {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+}
+
+@mixin btn-circ($color-hex) {
+  @extend .fab-prim;
+  background-color: $color-hex;
+
+  &:hover {
+    background-color: rgba($color-hex, 0.7);
+  }
+}
+
+.btn-circ-facebook {
+  @include btn-circ($val-cor-facebook);
+}
+
+.btn-circ-twitter {
+  @include btn-circ($val-cor-twitter);
+}
+
+.btn-circ-google {
+  @include btn-circ($val-cor-google);
+}

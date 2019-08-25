@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Tabs} from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+import {Tabs} from 'materialize-css/dist/js/materialize.min.js';
 
 @Component({
   selector: 'app-tela-login',

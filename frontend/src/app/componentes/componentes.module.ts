@@ -6,15 +6,13 @@ import {FormsModule} from '@angular/forms';
 import {BannerComponent} from './banner/banner.component';
 import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import {TelaInicialComponent} from './telas/tela-inicial/tela-inicial.component';
 import {SliderComponent} from './slider/slider.component';
 import {SequenciaProdutoComponent} from './seq-produto/sequencia-produto.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
 import {SequenciaComponent} from './sequencia/sequencia.component';
-import { SeqLojaComponent } from './seq-loja/seq-loja.component';
-import { TelaLoginComponent } from './telas/tela-login/tela-login.component';
-import {RouterModule} from '@angular/router';
-import { MenuFlutuanteComponent } from './menu-flutuante/menu-flutuante.component';
+import {SeqLojaComponent} from './seq-loja/seq-loja.component';
+import {MenuFlutuanteComponent} from './menu-flutuante/menu-flutuante.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -23,22 +21,23 @@ import { MenuFlutuanteComponent } from './menu-flutuante/menu-flutuante.componen
     BannerComponent,
     RodapeComponent,
     SidenavComponent,
-    TelaInicialComponent,
     SliderComponent,
     ListaCartaoComponent,
     SequenciaProdutoComponent,
     SequenciaComponent,
     SeqLojaComponent,
-    TelaLoginComponent,
-    MenuFlutuanteComponent
+    MenuFlutuanteComponent,
   ],
   exports: [
     NavbarComponent,
     BannerComponent,
     RodapeComponent,
     SidenavComponent,
-    TelaInicialComponent,
-    MenuFlutuanteComponent
+    MenuFlutuanteComponent,
+    ListaCartaoComponent,
+    SliderComponent,
+    SequenciaProdutoComponent,
+    SeqLojaComponent
   ],
   imports: [
     CommonModule,
