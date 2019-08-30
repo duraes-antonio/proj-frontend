@@ -1,21 +1,27 @@
-# PROJ_20201 - FRONTEND
-![](https://travis-ci.org/duraes-antonio/proj-frontend.svg?branch=master)
+# Frontend
 
-<br><br>
-Projeto usado como meio de aprendizado das ferramentas C#, Angular, TypeScript, CSS, HTML e a plataforma .NET Core como um todo.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
-Repositório principal: https://github.com/duraes-antonio/Proj
+## Development server
 
-## 1. Justificativa do projeto
-<p align="justify">
-Este é um projeto que pode ser ou não concluído, sabe-se lá quando. Contudo, seu objetivo é servir como uma base para um sistema de comércio eletrônico, mais especificamente para tender a disciplina de Comércio Eletrônico do curso de Sistemas de Informação do Instituto Federal do Espírito Santo (IFES - Serra).
-<br><br>
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-<p align="justify">
-Outro objetivo, talvez mais importante que o primeiro, é, ser um projeto completo para que outras pessoas possam compreender, construir seu próprio sistema ou utilizar partes em seus projetos. A ideia é abrangir tecnologias e conhecimentos utilizados do lado do cliente (Frontend), do servidor (Backend) e do banco de dados.
+## Code scaffolding
 
-## 2. Alguns esclarecimentos
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-* É importante ter ciência que este projeto é acadêmico, com fins pessoais e educacionais.
-* Nenhum produto exibido no sistema é de fato vendido, assim como todas transações financeiras são realizadas em ambientes de teste (chamados de “sandbox”).
-* Qualquer item (logo, nomes, vídeo, imagem) protegido por direitos autorais devem ter suas propriedades preservadas. Este projeto é livre, porém algumas imagens utilizadas possuem restrição de uso.
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
