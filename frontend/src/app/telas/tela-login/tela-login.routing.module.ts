@@ -6,9 +6,9 @@ import {FormCadClienteComponent} from './form-cad-cliente/form-cad-cliente.compo
 
 const telaLoginRoutes: Routes = [
   {path: 'login', component: TelaLoginComponent, children: [
-      {path: '', component: FormLoginComponent},
       {path: 'entrar', component: FormLoginComponent},
-      {path: 'cadastrar', component: FormCadClienteComponent}
+      {path: 'cadastrar', component: FormCadClienteComponent},
+      {path: '', component: FormLoginComponent}
     ]
   }
 ];
