@@ -13,6 +13,7 @@ import {SequenciaComponent} from './sequencia/sequencia.component';
 import {SeqLojaComponent} from './seq-loja/seq-loja.component';
 import {MenuFlutuanteComponent} from './menu-flutuante/menu-flutuante.component';
 import {RouterModule} from "@angular/router";
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {RouterModule} from "@angular/router";
     SequenciaComponent,
     SeqLojaComponent,
     MenuFlutuanteComponent,
+    ModalComponent,
   ],
   exports: [
     NavbarComponent,
@@ -37,7 +39,8 @@ import {RouterModule} from "@angular/router";
     ListaCartaoComponent,
     SliderComponent,
     SequenciaProdutoComponent,
-    SeqLojaComponent
+    SeqLojaComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
