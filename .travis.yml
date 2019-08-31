@@ -15,7 +15,6 @@ addons:
 
 before_script:
   - npm install
-  - npm install --save-dev node-sass
 
 script:
   - ng build --prod
