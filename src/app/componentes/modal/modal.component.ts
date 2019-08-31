@@ -43,6 +43,7 @@ export class ModalComponent implements OnInit {
         overlay.style.height = screen.height + 'px';
         overlay.style.left = 'unset';
         overlay.style.right = 'unset';
+        overlay.style.top = 'unset';
       });
   }
 
