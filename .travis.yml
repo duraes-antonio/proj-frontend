@@ -14,11 +14,9 @@ addons:
       secure: ef87e644c79a20fda6d51a36fbfdc3a5d5232074
 
 before_script:
-  - cd frontend
   - npm install
   - npm install --save-dev node-sass
 
 script:
-#  - ng build --prod
+  - ng build --prod
   - sonar-scanner
-  - bash deploy.sh
