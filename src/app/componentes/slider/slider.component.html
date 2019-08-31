@@ -4,12 +4,12 @@
 
     <a class="btn-floating btn-large waves-effect waves-light passador-anterior"
        (click)="voltarSlide()">
-      <i class="fas fa-chevron-left"></i>
+      <i aria-hidden="true" class="fas fa-chevron-left"></i>
     </a>
 
     <a class="btn-floating btn-large waves-effect waves-light passador-proximo"
        (click)="avancarSlide()">
-      <i class="fas fa-chevron-right"></i>
+      <i aria-hidden="true" class="fas fa-chevron-right"></i>
     </a>
 
   </div>
@@ -24,20 +24,6 @@
     <div class="slide-imagem">
       <img src="{{slide.imagemUrl}}" alt="{{slide.titulo}}" title="{{slide.titulo}}">
     </div>
-
-<!--    <div class="slide-item-rodape">-->
-<!--      <h6 *ngIf="!!slide.titulo" class="white-text" style="margin: 2rem">{{slide.titulo}}</h6>-->
-<!--      <p *ngIf="!!slide.titulo" class="white-text">{{slide.descricao}}</p>-->
-
-<!--      <div class="carousel-fixed-item center">-->
-<!--        <a *ngIf="!!slide.botaoTitulo" class="btn waves-effect white grey-text darken-text-2"-->
-<!--           href="{{slide.urlRedirecionamento}}">-->
-<!--          {{slide.botaoTitulo}}-->
-<!--        </a>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="slide-item-rodape-fundo"></div>-->
-
 
   </div>
 </div>

@@ -11,13 +11,13 @@ export class TelaLoginComponent implements OnInit {
   private idUltimaAba: string;
 
   constructor(
-    private router: Router) {
+    private readonly router: Router) {
 
     this.router.events.subscribe(
       (val) => {
 
         if (val instanceof NavigationEnd) {
-          const urlParts = (<NavigationEnd>val).url.split('/');
+          const urlParts = val.url.split('/');
 
           if (urlParts[urlParts.length - 1] !== this.idUltimaAba) {
             this.marcarAba(urlParts[urlParts.length - 1]);

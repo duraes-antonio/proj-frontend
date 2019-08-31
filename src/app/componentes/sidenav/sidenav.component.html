@@ -10,7 +10,7 @@
           <a href="www.google.com">
             <img *ngIf="!!usuario.avatarUrl" alt="Imagem de perfil de '{{usuario.nome}}'"
                  class="img-avatar" src="{{usuario.avatarUrl}}">
-            <i *ngIf="!usuario.avatarUrl" class="fas fa-user-circle icone-avatar"></i>
+            <i *ngIf="!usuario.avatarUrl" aria-hidden="true" class="fas fa-user-circle icone-avatar"></i>
           </a>
 
         </div>

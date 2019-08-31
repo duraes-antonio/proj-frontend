@@ -20,19 +20,18 @@ export class SliderComponent implements OnInit {
 
   ngOnInit() {
     SliderComponent.indUltimo = 0;
-    const refThis = this;
 
     if (document.readyState.toLowerCase() !== 'complete') {
       document.addEventListener(
         'DOMContentLoaded',
-        function () {
-          refThis.iniciarComponente();
+        () => {
+          this.iniciarComponente();
         }
       );
     } else {
       setTimeout(
-        function() {
-          refThis.iniciarComponente();
+        () => {
+          this.iniciarComponente();
         },
         50
       );

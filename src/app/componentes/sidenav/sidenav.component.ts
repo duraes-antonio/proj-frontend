@@ -23,7 +23,7 @@ export class SidenavComponent implements OnInit {
    */
   private static iniciarModal() {
     const sidenav = document.querySelectorAll('.sidenav');
-    const menuInic = Sidenav.init(sidenav, {});
+    Sidenav.init(sidenav, {});
   }
 
   ngOnInit() {

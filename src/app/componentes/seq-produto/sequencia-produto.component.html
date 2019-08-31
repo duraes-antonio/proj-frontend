@@ -3,7 +3,7 @@
     <div class="area-produto">
       <span *ngIf="item.emPromocao" class="etiqueta-promo">
         {{item.porcentDesc}}%
-        <i class="fas fa-arrow-down"></i>
+        <i aria-hidden="true" class="fas fa-arrow-down"></i>
       </span>
 
       <img src="{{item.urlImagem}}" alt="{{item.titulo}}">

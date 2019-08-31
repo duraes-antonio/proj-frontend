@@ -54,7 +54,7 @@
               <a class="icone-marcar_todas_notif"
                  title="Marcar todas como lidas"
                  (click)="marcarTodasNotificacoesComoLidas()">
-                <i class="far fa-check-square"></i>
+                <i aria-hidden="true" class="far fa-check-square"></i>
               </a>
             </div>
 
@@ -82,12 +82,11 @@
 
                       <!-- Área individual da notifição -->
                       <a class="icone-circulo">
-                        <i class="{{notif.classeIcone}}"></i>
+                        <i aria-hidden="true" class="{{notif.classeIcone}}"></i>
                       </a>
 
                       <!-- Área que contém as informações da notifição -->
                       <div class="notific-info">
-                        <!--                    <span class="notif-titulo">Title<br></span>-->
                         <span class="notif-desc">{{notif.texto}}<br></span>
                         <span class="notif-data">{{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
                       </div>

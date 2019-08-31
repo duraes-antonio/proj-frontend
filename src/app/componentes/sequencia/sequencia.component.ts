@@ -86,19 +86,18 @@ export class SequenciaComponent implements OnInit {
         }
       }
     };
-    const refThis = this;
 
     if (document.readyState.toLowerCase() !== 'complete') {
       document.addEventListener(
         'DOMContentLoaded',
-        function () {
-          refThis.iniciarComponente();
+        () => {
+          this.iniciarComponente();
         }
       );
     } else {
       setTimeout(
-        function() {
-          refThis.iniciarComponente();
+        () => {
+          this.iniciarComponente();
         },
         50
       );
@@ -107,8 +106,7 @@ export class SequenciaComponent implements OnInit {
 
   private iniciarComponente() {
 
-    const refThis = this;
-    const sliderGlide = document.getElementById('glide-' + refThis._sequencia.id);
+    const sliderGlide = document.getElementById('glide-' + this._sequencia.id);
 
     /*Defina a configuração do Slider, instancie-o e o monte*/
     this._glide = new Glide(sliderGlide, this._opcoes);
@@ -120,8 +118,8 @@ export class SequenciaComponent implements OnInit {
     * estar habilitados */
     this._glide.on(
       ['run.after', 'resize'],
-      function () {
-        refThis.gerenciarBotoesSequencia(refThis._glide);
+      () => {
+        this.gerenciarBotoesSequencia(this._glide);
       }
     );
   }
