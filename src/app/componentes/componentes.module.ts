@@ -12,8 +12,9 @@ import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
 import {SequenciaComponent} from './sequencia/sequencia.component';
 import {SeqLojaComponent} from './seq-loja/seq-loja.component';
 import {MenuFlutuanteComponent} from './menu-flutuante/menu-flutuante.component';
-import {RouterModule} from "@angular/router";
-import { ModalComponent } from './modal/modal.component';
+import {RouterModule} from '@angular/router';
+import {ModalComponent} from './modais/modal/modal.component';
+import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-senha.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ModalComponent } from './modal/modal.component';
     SeqLojaComponent,
     MenuFlutuanteComponent,
     ModalComponent,
+    ModalRecupSenhaComponent,
   ],
   exports: [
     NavbarComponent,
@@ -40,7 +42,8 @@ import { ModalComponent } from './modal/modal.component';
     SliderComponent,
     SequenciaProdutoComponent,
     SeqLojaComponent,
-    ModalComponent
+    ModalComponent,
+    ModalRecupSenhaComponent
   ],
   imports: [
     CommonModule,

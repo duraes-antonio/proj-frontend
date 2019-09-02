@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalRecupSenhaComponent} from '../../../componentes/modais/modal-recup-senha/modal-recup-senha.component';
 
 @Component({
   selector: 'app-form-login',
@@ -12,4 +13,7 @@ export class FormLoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  exibirModalRecuperacao() {
+    ModalRecupSenhaComponent.exibir();
+  }
 }
