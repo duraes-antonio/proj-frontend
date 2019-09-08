@@ -8,7 +8,7 @@ import {Link} from './modelos/Link';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'yugishop-front';
+  title = 'proj-frontend';
 
   listaLinks: Array<ListaLinks>;
 
