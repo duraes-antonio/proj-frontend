@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-// import {Modal} from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+import {Modal} from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 import {ModalRecupSenhaComponent} from '../modal-recup-senha/modal-recup-senha.component';
 
 @Component({
