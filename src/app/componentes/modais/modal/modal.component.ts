@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Modal} from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+// import {Modal} from '../../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 import {ModalRecupSenhaComponent} from '../modal-recup-senha/modal-recup-senha.component';
 
 @Component({
@@ -49,7 +49,7 @@ export class ModalComponent implements OnInit {
 
         /*Inicialize o objeto do Modal*/
         const elems = document.querySelectorAll('.modal');
-        this.modal = Modal.init(elems, modalOpcoes)[0];
+        // this.modal = Modal.init(elems, modalOpcoes)[0];
 
         if (this._exibir) {
           this.exibir();

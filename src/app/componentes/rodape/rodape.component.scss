@@ -65,16 +65,16 @@ $altura-banner: 200px;
 
 /*Classe p/ mídias sociais*/
 .icone-midia_social {
+  cursor: pointer;
   padding: 0 12px;
   font-size: x-large;
-  transition: all 400ms ease-in-out;
+  transition: all 300ms ease-in-out;
 
   @media (min-width: 468px) {
     &:hover {
-      transform: rotate(360deg);
       font-size: xx-large;
       color: white;
-      filter: drop-shadow(0px 0px 4px rgba(0, 199, 242, 0.75));
+      filter: drop-shadow(0 0 4px rgba(0, 199, 242, 0.75));
     }
   }
 }

@@ -15,6 +15,7 @@ import {MenuFlutuanteComponent} from './menu-flutuante/menu-flutuante.component'
 import {RouterModule} from '@angular/router';
 import {ModalComponent} from './modais/modal/modal.component';
 import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-senha.component';
+import { PaginaFundoComponent } from './pagina-fundo/pagina-fundo.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-s
     MenuFlutuanteComponent,
     ModalComponent,
     ModalRecupSenhaComponent,
+    PaginaFundoComponent,
   ],
   exports: [
     NavbarComponent,
@@ -43,7 +45,8 @@ import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-s
     SequenciaProdutoComponent,
     SeqLojaComponent,
     ModalComponent,
-    ModalRecupSenhaComponent
+    ModalRecupSenhaComponent,
+    PaginaFundoComponent
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,5 @@
+@import "../../shared/shared";
+
 .flex-align_center {
   display: flex;
   align-items: center;
@@ -71,4 +73,9 @@ li:hover {
     transition: all 700ms;
     color: black;
   }
+}
+
+.sidenav {
+  padding-bottom: 0;
+  height: 100%;
 }

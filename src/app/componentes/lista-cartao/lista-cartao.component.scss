@@ -19,12 +19,13 @@ $alt-cartao: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   max-height: $alt-cartao;
 
   img {
     max-width: 100%;
     max-height: $alt-cartao;
-    filter: drop-shadow(1px 2px 12px black);
+    box-shadow: 1px 2px 12px black;
     cursor: pointer;
   }
 }
@@ -49,22 +50,22 @@ $alt-cartao: 200px;
 
 .m-query-width-s12 {
   @media (max-width: 600px) {
-    width: 95% !important;
+    width: 90% !important;
   }
 }
 
 .m-query-width-1_cartao {
 
   @media (min-width: 601px) {
-    width: 97% !important;
+    width: 96% !important;
   }
 
   @media (min-width: 993px) {
-    width: 97.5% !important;
+    width: 96% !important;
   }
 
   @media (min-width: 1201px) {
-    width: 98% !important;
+    width: 97% !important;
   }
 
   @extend .m-query-width-s12;
@@ -91,15 +92,15 @@ $alt-cartao: 200px;
 .m-query-width-3_cartao {
 
   @media (min-width: 601px) {
-    width: 30% !important;
+    width: 28% !important;
   }
 
   @media (min-width: 993px) {
-    width: 30.5% !important;
+    width: 29% !important;
   }
 
   @media (min-width: 1201px) {
-    width: 31% !important;
+    width: 29% !important;
   }
 
   @extend .m-query-width-s12;

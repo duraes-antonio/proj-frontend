@@ -1,0 +1,18 @@
+$val-b-radius: 18px;
+
+.area-principal {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+}
+
+.area-form {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  padding-bottom: 20px;
+
+  border-radius: $val-b-radius;
+  background-color: #f7f7f7;
+  box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+}

@@ -6,7 +6,6 @@ import {FormCadClienteComponent} from './form-cad-cliente/form-cad-cliente.compo
 import {FormLoginComponent} from './form-login/form-login.component';
 import {ComponentesModule} from '../../componentes/componentes.module';
 
-
 @NgModule({
   declarations: [
     FormCadClienteComponent,

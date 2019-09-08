@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Carousel} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 import {Slider} from '../../modelos/componentes/Slider';
+import {Carousel} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+
 
 @Component({
   selector: 'app-slider',
@@ -14,7 +15,7 @@ export class SliderComponent implements OnInit {
 
   /*Itens armazenados somente para evitar buscas e operações adicionais c/ DOM*/
   private static indUltimo: number;
-  private static carrossel: any;
+  private static carrossel: Carousel;
 
   @Input() slider: Slider;
 
