@@ -2,9 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {ComponentesModule} from './componentes/componentes.module';
-import {TelasModule} from './telas/telas.module';
 import {AppRoutingModule} from './app.routing.module';
+import {ComponentesModule} from './componentes/componentes.module';
 
 @NgModule({
   declarations: [
@@ -13,8 +12,7 @@ import {AppRoutingModule} from './app.routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComponentesModule,
-    TelasModule
+    ComponentesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

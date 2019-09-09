@@ -20,6 +20,8 @@ $val-cor-twitter: #1da1f2;
 $val-cor-facebook: #4267b2;
 $val-cor-google: #dd3c2a;
 
+$val-b-radius: 18px;
+
 @mixin btn-circle($largura: 35px, $altura: 35px) {
   display: flex;
   justify-content: center;
@@ -165,4 +167,39 @@ $val-cor-google: #dd3c2a;
 .input-field input:focus {
   border-bottom: 1px solid $val-cor-link--ativo;
   box-shadow: 0 1px 0 0 $val-cor-link--ativo;
+}
+
+/*Área de formulário*/
+.area-principal {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+}
+
+.area-form-fundo {
+  width: 100%;
+  height: auto;
+  padding: 0;
+
+  border-radius: $val-b-radius;
+  background-color: #f7f7f7;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.icone--circ {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+
+  background-color: $val-cor-prim;
+  color: $val-cor-texto-prim;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+
+  i {
+    font-size: xx-large;
+  }
 }

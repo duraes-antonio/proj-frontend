@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-tela-redefinir-senha',
@@ -10,12 +10,9 @@ export class TelaRedefinirSenhaComponent implements OnInit {
   public emailRecup = '';
   public telRecup = '';
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
 
-  print() {
-    console.log(this.emailRecup);
+  ngOnInit() {
   }
 }

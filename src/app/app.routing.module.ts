@@ -3,10 +3,16 @@ import {Routes, RouterModule} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'redefinir-senha',
+    path: 'contato',
     loadChildren: () =>
-      import('./telas/tela-redefinir-senha/tela-redefinir-senha.module')
-        .then(m => m.TelaRedefinirSenhaModule)
+      import('./telas/tela-contato/tela-contato.module')
+        .then(m => m.TelaContatoModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./telas/tela-inicial/tela-inical.module')
+        .then(m => m.TelaInicalModule)
   },
   {
     path: 'login',
@@ -15,9 +21,22 @@ const routes: Routes = [
         .then(m => m.TelaLoginModule)
   },
   {
+    path: 'redefinir-senha',
+    loadChildren: () =>
+      import('./telas/tela-redefinir-senha/tela-redefinir-senha.module')
+        .then(m => m.TelaRedefinirSenhaModule)
+  },
+  {
+    path: 'sobre',
+    loadChildren: () =>
+      import('./telas/tela-sobre/tela-sobre.module')
+        .then(m => m.TelaSobreModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'}
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
