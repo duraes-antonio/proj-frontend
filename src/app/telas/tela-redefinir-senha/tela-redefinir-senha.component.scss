@@ -3,8 +3,8 @@
 .area-dialogo {
   display: block;
   justify-content: center;
-  margin: 20px;
   text-align: center;
+  padding: $val-padding-area-form;
 }
 
 .icone--circ {
@@ -18,7 +18,7 @@
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.6));
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 
   i {
     font-size: xx-large;
@@ -30,16 +30,6 @@
 }
 
 .area-form {
-  margin: 10px 0;
-}
-
-
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.example-full-width {
+  padding-top: 10px;
   width: 100%;
 }

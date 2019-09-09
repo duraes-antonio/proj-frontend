@@ -5,10 +5,10 @@ import {FormLoginComponent} from './form-login/form-login.component';
 import {FormCadClienteComponent} from './form-cad-cliente/form-cad-cliente.component';
 
 const telaLoginRoutes: Routes = [
-  {path: 'login', component: TelaLoginComponent, children: [
+  {path: '', component: TelaLoginComponent, children: [
       {path: 'entrar', component: FormLoginComponent},
       {path: 'cadastrar', component: FormCadClienteComponent},
-      {path: '', component: FormLoginComponent}
+      {path: '', redirectTo: 'entrar', pathMatch: 'full'}
     ]
   }
 ];

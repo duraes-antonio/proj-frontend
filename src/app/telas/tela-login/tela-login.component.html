@@ -1,28 +1,24 @@
 <app-pagina-fundo>
-  <div class="row">
+  <!-- Área de abas -->
+  <div class="row" style="width: 100%; margin: 0">
+    <ul id="tabs" class="abas">
 
-    <!-- Área de abas -->
-    <div class="col s12">
-      <ul id="tabs" class="abas">
+      <!-- Aba de login -->
+      <li id="entrar" class="aba aba_esq col s6">
+        <a routerLink="entrar">
+          <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
+          <span>Login</span>
+        </a>
+      </li>
 
-        <!-- Aba de login -->
-        <li id="entrar" class="aba aba_esq col s6">
-          <a routerLink="entrar">
-            <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
-            <span>Login</span>
-          </a>
-        </li>
-
-        <!-- Aba de Cadastro -->
-        <li id="cadastrar" class="aba aba_dir col s6">
-          <a routerLink="cadastrar">
-            <i aria-hidden="true" class="fas fa-user-plus"></i>
-            <span>Registrar-se</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
+      <!-- Aba de Cadastro -->
+      <li id="cadastrar" class="aba aba_dir col s6">
+        <a routerLink="cadastrar">
+          <i aria-hidden="true" class="fas fa-user-plus"></i>
+          <span>Registrar-se</span>
+        </a>
+      </li>
+    </ul>
   </div>
 
   <!-- Área de conteúdo -->

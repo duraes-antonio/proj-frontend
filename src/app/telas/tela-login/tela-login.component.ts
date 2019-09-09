@@ -17,7 +17,7 @@ export class TelaLoginComponent implements OnInit {
       (val) => {
 
         if (val instanceof NavigationEnd) {
-          const urlParts = val.url.split('/');
+          const urlParts = val.urlAfterRedirects.split('/');
 
           if (urlParts[urlParts.length - 1] !== this.idUltimaAba) {
             this.marcarAba(urlParts[urlParts.length - 1]);
@@ -36,7 +36,12 @@ export class TelaLoginComponent implements OnInit {
       document.getElementById(this.idUltimaAba).classList.remove('aba--ativa');
     }
 
-    document.getElementById(idAba).classList.add('aba--ativa');
+    const abaAtual = document.getElementById(idAba);
+
+    if (!!abaAtual) {
+      abaAtual.classList.add('aba--ativa');
+    }
+
     this.idUltimaAba = idAba;
   }
 }

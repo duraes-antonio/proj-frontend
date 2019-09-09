@@ -1,20 +1,47 @@
-<div id="area-dialogo" class="area-dialogo row">
-  <div id="area-topo" style="display: grid;">
-    <div id="area-icone" class="icone--circ">
-      <i aria-hidden="true" class="fas fa-key"></i>
+<app-pagina-fundo>
+  <div id="area-dialogo" class="area-dialogo">
+
+    <div id="area-topo" style="display: grid;">
+      <div id="area-icone" class="icone--circ" (click)="print()">
+        <i aria-hidden="true" class="fas fa-key"></i>
+      </div>
+
+      <div class="area-titulo">
+        <h5>Redefinir senha</h5>
+      </div>
     </div>
 
-    <div class="area-titulo">
-      <h5>Redefinir senha</h5>
+    <div id="area-form" class="area-form">
+      <div class="input-field">
+        <input id="recup-email" class="validate" type="email" [(ngModel)]="emailRecup">
+        <label for="recup-email">Email ou Nome de Usuário</label>
+      </div>
+
+      <div>
+        <p style="font-size: large; font-weight: bolder;">OU</p>
+      </div>
+
+      <div class="input-field">
+        <input id="recup-tel" class="validate" type="tel" [(ngModel)]="telRecup">
+        <label for="recup-tel">Número telefone</label>
+      </div>
+
+      <div>
+        <p *ngIf="emailRecup.trim().length > 0" style="text-align: justify;">
+          Ao clicar no botão abaixo, um <b>email</b> será enviado para que você possa
+          recuperar o acesso à sua conta.
+        </p>
+        <p *ngIf="telRecup.trim().length > 0" style="text-align: justify;">
+          Ao clicar no botão abaixo, um <b>SMS</b> será enviado para que você possa
+          recuperar o acesso à sua conta.
+        </p>
+      </div>
+
+      <a class="waves-effect waves-light btn grey btn-prim">
+        <i aria-hidden="true" class="fas fa-paper-plane"></i>
+        Enviar
+      </a>
     </div>
 
-    <div class="input-field">
-      <input class="validate" value="cleiton@gmail.com" id="form-login" type="text">
-      <label class="active" for="form-login">Email ou Nome de usuário</label>
-    </div>
-    <div class="input-field">
-      <input value="dsadsadas" id="form-login-senha" type="password" class="validate">
-      <label class="active" for="form-login-senha">Senha</label>
-    </div>
   </div>
-</div>
+</app-pagina-fundo>

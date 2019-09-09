@@ -30,18 +30,20 @@ $val-b-radius: 18px;
     padding-bottom: 6px;
   }
 
-  &:hover {
-    background-color: $val-cor-sec;
-
-    a {
-      color: $val-cor-link--hover;
-    }
-  }
-
   @media (max-width: 320px) {
 
     a {
       font-size: smaller;
+    }
+  }
+
+  @media (pointer: fine) {
+    &:hover {
+      background-color: $val-cor-sec;
+
+      a {
+        color: $val-cor-link--hover;
+      }
     }
   }
 }
@@ -63,6 +65,10 @@ $val-b-radius: 18px;
   border-radius: 0 $val-b-radius 0 0;
 }
 
+.area-conteudo {
+  padding: 20px;
+}
+
 /*Área ícones*/
 .area-logar_redes_sociais {
   display: grid;
@@ -82,8 +88,10 @@ $val-b-radius: 18px;
   @extend .fab-prim;
   background-color: $color-hex;
 
-  &:hover {
-    background-color: rgba($color-hex, 0.7);
+  @media (pointer: fine) {
+    &:hover {
+      background-color: rgba($color-hex, 0.9);
+    }
   }
 }
 

@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TelaRedefinirSenhaComponent implements OnInit {
 
+  public emailRecup = '';
+  public telRecup = '';
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  print() {
+    console.log(this.emailRecup);
+  }
 }

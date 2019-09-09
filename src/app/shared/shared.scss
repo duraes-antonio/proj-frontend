@@ -1,4 +1,6 @@
 $val-margin-campo-btn: 40px;
+$val-padding-area-form: 20px;
+
 $val-cor-link--ativo: dodgerblue;
 $val-cor-link--hover: white;
 $val-cor-link--inativo: #80c4ff;
@@ -123,8 +125,10 @@ $val-cor-google: #dd3c2a;
   border-radius: 20px;
   background-color: $val-cor-prim !important;
 
-  &:hover {
-    background-color: $val-cor-prim-clara !important;
+  @media (pointer: fine) {
+    &:hover {
+      background-color: $val-cor-prim-clara !important;
+    }
   }
 
   i {
@@ -137,8 +141,10 @@ $val-cor-google: #dd3c2a;
   margin: 0 10px 12px;
   background-color: $val-cor-prim;
 
-  &:hover {
-    background-color: $val-cor-prim-clara;
+  @media (pointer: fine) {
+    &:hover {
+      background-color: rgba($val-cor-prim-clara, 0.9);
+    }
   }
 
   i {
@@ -149,7 +155,7 @@ $val-cor-google: #dd3c2a;
 /*Área p/ campos de input (formulário)*/
 .input-field {
   margin-bottom: 0;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 .input-field input:focus + label {
