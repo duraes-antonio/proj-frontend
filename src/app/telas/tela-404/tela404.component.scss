@@ -1,0 +1,33 @@
+.box-sem-compra {
+  border-radius: 10px;
+  padding: 15px 30px;
+  border: 1px solid #ddd;
+  background: #f1f1f1;
+  color: dimgray;
+  text-align: center;
+  font-weight: 300;
+  display: grid;
+
+  p {
+    font-size: xx-large;
+  }
+
+  .link-promocao {
+    justify-content: center;
+    text-align: center;
+    justify-self: center;
+    font-size: large;
+
+    strong {
+      transition: all 600ms;
+      float: right;
+    }
+
+    a:hover {
+      strong {
+        color: limegreen;
+        transform: rotate(90deg) !important;
+      }
+    }
+  }
+}

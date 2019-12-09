@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {IComponente} from '../../interfaces/IComponente';
 import {ETipoComponente} from '../../enum/ETipoComponente';
 import {Slider} from '../../modelos/componentes/Slider';
@@ -11,10 +11,12 @@ import {SequenciaLoja} from '../../modelos/componentes/SequenciaLoja';
   templateUrl: './tela-inicial.component.html',
   styleUrls: ['./tela-inicial.component.scss']
 })
-export class TelaInicialComponent implements OnInit {
+export class TelaInicialComponent implements OnInit, AfterViewInit {
 
   public readonly tipoComponente = ETipoComponente;
   public readonly componentes: Array<IComponente>;
+
+  public exibirParceiros = false;
 
   constructor() {
 
@@ -28,4 +30,10 @@ export class TelaInicialComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.exibirParceiros = true;
+    });
+  }
 }

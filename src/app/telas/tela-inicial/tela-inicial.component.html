@@ -10,7 +10,7 @@
                     [sequencia]="comp" style="width: 100%">
   </app-seq-produto>
 
-  <app-seq-lojas *ngIf="comp.tipo == tipoComponente.SEQUENCIA_LOJA"
+  <app-seq-lojas *ngIf="comp.tipo == tipoComponente.SEQUENCIA_LOJA" [hidden]="!exibirParceiros"
                  [sequencia]="comp" style="width: 100%">
   </app-seq-lojas>
 </div>
