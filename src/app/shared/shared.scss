@@ -16,6 +16,15 @@ $val-cor-sec-clara: #cfcfcf;
 $val-cor-texto-prim: white;
 $val-cor-texto-sec: black;
 
+$val-cor-sombra: lightgrey;
+$val-cor-borda-quadros: #ccc;
+
+$val-width-max-x-small: 480px;
+$val-width-max-small: 600px;
+$val-width-max-medium: 992px;
+$val-width-max-large: 1200px;
+
+/*TODO: Refatorar para componente que utiliza*/
 $val-cor-twitter: #1da1f2;
 $val-cor-facebook: #4267b2;
 $val-cor-google: #dd3c2a;
