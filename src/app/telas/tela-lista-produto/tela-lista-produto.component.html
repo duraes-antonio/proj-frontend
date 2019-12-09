@@ -1,0 +1,25 @@
+<div style="display: flex; flex-flow: wrap">
+  <div *ngFor="let item of produtos" class="area-item col s6 m4 l3 xl3">
+    <div class="area-produto">
+    <span *ngIf="item.emPromocao" class="etiqueta-promo">
+      {{item.porcentDesc}}%
+      <i aria-hidden="true" class="fas fa-arrow-down"></i>
+    </span>
+
+      <img alt="{{item.titulo}}" src="{{item.urlImagem}}">
+
+      <!-- Área c/ info. sobre o produto (Nome, preço, marcador de promoção) -->
+      <!-- TODO: Remover arredondamento de preço-->
+      <div class="area-produto-info">
+        <span>{{item.titulo}}</span>
+
+        <!-- Área para preços de produtos em promoção -->
+        <span *ngIf="item.emPromocao" class="preco-original">
+          R$ {{item.preco.toFixed(2)}}
+        </span>
+
+        <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
+      </div>
+    </div>
+  </div>
+</div>
