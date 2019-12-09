@@ -6,14 +6,15 @@ import {NavigationEnd, Router} from '@angular/router';
   templateUrl: './tela-login.component.html',
   styleUrls: ['./tela-login.component.scss']
 })
-export class TelaLoginComponent implements OnInit {
+export class TelaLoginComponent implements OnInit, OnDestroy {
 
   private idUltimaAba: string;
+  private rotasEventosSub;
 
   constructor(
     private readonly router: Router) {
 
-    this.router.events.subscribe(
+    this.rotasEventosSub = this.router.events.subscribe(
       (val) => {
 
         if (val instanceof NavigationEnd) {
@@ -28,6 +29,10 @@ export class TelaLoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    this.rotasEventosSub.unsubscribe();
   }
 
   marcarAba(idAba: string) {
