@@ -1,17 +1,25 @@
 <!-- TODO: Tornar o conteúdo dinâmico -->
-<div *ngFor="let comp of componentes" class="area-componente">
-  <app-slider *ngIf="comp.tipo == tipoComponente.SLIDER"
-              [slider]="comp" style="width: 100%;"></app-slider>
-  <app-lista-cartao *ngIf="comp.tipo == tipoComponente.LISTA_CARTAO"
-                    [listaCartoes]="comp" style="width: 100%">
+<div class="area-componente">
+  <app-slider *ngFor="let slider of sliders" [slider]="slider"
+              style="width: 100%;">
+  </app-slider>
+</div>
+
+<div class="area-componente">
+  <app-lista-cartao *ngFor="let listaCartao of cartoes"
+                    [listaCartoes]="listaCartao" style="width: 100%">
   </app-lista-cartao>
+</div>
 
-  <app-seq-produto *ngIf="comp.tipo == tipoComponente.SEQUENCIA_PRODUTO"
-                    [sequencia]="comp" style="width: 100%">
+<div class="area-componente">
+  <app-seq-produto *ngFor="let prod of seqProdutos" [sequencia]="prod"
+                   style="width: 100%">
   </app-seq-produto>
+</div>
 
-  <app-seq-lojas *ngIf="comp.tipo == tipoComponente.SEQUENCIA_LOJA" [hidden]="!exibirParceiros"
-                 [sequencia]="comp" style="width: 100%">
+<div class="area-componente">
+  <app-seq-lojas *ngFor="let loja of seqLojas" [sequencia]="loja"
+                 style="width: 100%">
   </app-seq-lojas>
 </div>
 
