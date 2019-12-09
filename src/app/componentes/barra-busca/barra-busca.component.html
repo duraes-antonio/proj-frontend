@@ -1,22 +1,6 @@
-<div id="barra-busca">
-
-  <nav class="nav-busca">
-
-    <div class="form-busca" style="padding: 0 15px">
-
-      <button (click)="textoDigitado=''" class="btn-circ--red btn waves-effect waves-light"
-              type="reset">
-        <i aria-hidden="true" class="fas fa-times-circle"></i>
-      </button>
-
-      <input [(ngModel)]="textoDigitado" class="input-busca--radius white"
-             id="pesquisa-input" type="search">
-      <label for="pesquisa-input"></label>
-
-      <button (click)="emitirTexto()"
-              class="btn-circ--green btn waves-effect waves-light">
-        <i aria-hidden="true" class="fas fa-check-circle"></i>
-      </button>
-    </div>
-  </nav>
+<div id="form-busca"
+     style="margin: 0 15px; display: flex;justify-content: center;">
+  <input [(ngModel)]="textoDigitado" class="input-busca white"
+         id="pesquisa-input" type="search">
+  <label for="pesquisa-input"></label>
 </div>

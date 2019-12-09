@@ -1,11 +1,4 @@
-import {
-  AfterViewChecked,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output
-} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-barra-busca',
@@ -14,7 +7,7 @@ import {
 })
 export class BarraBuscaComponent implements OnInit, AfterViewChecked {
 
-  private _exibirBarra: boolean;
+  private _exibirBarra = true;
   public textoDigitado: string;
 
   @Input()

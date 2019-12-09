@@ -11,17 +11,16 @@ import {Notificacao} from '../../modelos/Notificacao';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
-
-  public exibirBusca: boolean;
   public exibirSidenav: boolean;
   public exibirNotificacoes: boolean;
   public usuarioAtual: Usuario;
   public notificacoes: Array<Notificacao>;
   public qtdNotifAtiva: number;
 
+  constructor() {
+  }
+
   ngOnInit() {
-    this.exibirBusca = false;
     this.exibirNotificacoes = false;
 
     /*TODO: Alterar para receber os dados do usuário após login*/
@@ -46,15 +45,6 @@ export class NavbarComponent implements OnInit {
         )
       );
     }
-  }
-
-  /**
-   * Oculta a barra de busca se já estiver sendo exibida, senão, exibe-a.
-   */
-  public toggleBusca() {
-
-    /*Se a barra já está sendo exibida, oculte-a. Se a barra está oculta, exiba-a*/
-    this.exibirBusca = !this.exibirBusca;
   }
 
   /**
