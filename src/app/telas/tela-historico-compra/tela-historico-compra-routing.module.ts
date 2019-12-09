@@ -1,7 +1,13 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TelaHistoricoCompraComponent} from './tela-historico-compra.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: TelaHistoricoCompraComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

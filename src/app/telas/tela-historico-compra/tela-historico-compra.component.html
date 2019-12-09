@@ -1,3 +1,76 @@
-<p>
-  tela-historico-compra works!
-</p>
+<h4 class="titulo-pagina" style="margin: 0 0 1em 0;">Histórico de Compras</h4>
+
+<div *ngIf="compras.length > 9" id="area-lista-compra" style="display: flex">
+  <ul class="col s12 m10 l10 xl10 center-block">
+    <li *ngFor="let compra of compras" class="area-compra">
+
+      <!-- Linha com a cor que indica status da compra -->
+      <div class="borda-compra-status {{enumStatusCompra[compra.estado]}}"></div>
+
+      <div class="box-compra">
+
+        <!-- Área de status -->
+        <div class="area-compra-estado">
+          <div class="texto-compra-status {{enumStatusCompra[compra.estado]}}">
+            <strong>Estado: </strong>
+            <span>{{enumStatusCompra[compra.estado]}}</span>
+          </div>
+
+          <div class="texto-data-acao">
+            <strong>Data da ação: </strong>
+            <span>{{compra.data | date: 'dd/MM/yyyy'}}</span>
+          </div>
+        </div>
+
+        <!-- Área contendo os ícones dos produtos e o contador -->
+        <div class="area-prod-icones">
+
+          <!-- Área de cada produto -->
+          <div *ngFor="let prod of compra.produtos" [title]="prod.titulo"
+               class="area-prod-icone">
+            <div class="prod-icone--circ">
+              <img [alt]="prod.titulo" [src]="prod.urlImagem">
+            </div>
+          </div>
+
+          <!-- Contador para mais de 3 produtos -->
+          <div>
+            <a class="contador-itens">
+              <span>+183 Produtos</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Área com a data da compra e custos de frete e produtos -->
+        <div class="area-info-compra">
+          <p>
+            <strong>Data da compra: </strong>
+            <span>{{compra.data | date: fmtTimestamp}}</span>
+          </p>
+          <p>
+            <strong>Preço dos produtos: </strong>
+            <span>R${{compra.custoItens}}</span>
+          </p>
+          <p>
+            <strong>Custo de entrega: </strong>
+            <span>R${{compra.custoEntrega}}</span>
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="compras.length < 8" style="display: flex">
+  <div class="box-sem-compra col s11 m10 l8 xl8 center-block">
+    <p>
+      Ainda não há compras para serem exibidas
+      <strong id="id-smile" style="display: block">:(</strong>
+    </p>
+    <!-- TODO: Atualizar link de promoções -->
+    <a (mouseenter)="aplicarSmileFeliz()" (mouseout)="aplicarSmileTriste()"
+       class="link-promocao" href="https://www.google.com">
+      Clique aqui e conheça nossos produtos!
+    </a>
+  </div>
+</div>
