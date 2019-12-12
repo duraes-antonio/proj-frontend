@@ -69,10 +69,19 @@ export class SequenciaComponent implements OnInit {
       perView: this._sequencia.tamanho > 4 ? 5 : this._sequencia.tamanho,
       gap: 10,
       breakpoints: {
-        1000: {
-          perView: 5
+        1920: {
+          perView: this._sequencia.tamanho > 7 ? 8 : this._sequencia.tamanho
         },
-        800: {
+        1600: {
+          perView: this._sequencia.tamanho > 6 ? 7 : this._sequencia.tamanho
+        },
+        1440: {
+          perView: this._sequencia.tamanho > 5 ? 6 : this._sequencia.tamanho
+        },
+        1280: {
+          perView: this._sequencia.tamanho > 4 ? 5 : this._sequencia.tamanho
+        },
+        960: {
           perView: this._sequencia.tamanho > 3 ? 4 : this._sequencia.tamanho
         },
         640: {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DadosTeste} from '../../shared/DadosTeste';
+import {Sidenav} from 'materialize-css/dist/js/materialize.min';
 
 @Component({
   selector: 'app-tela-lista-produto',
@@ -16,5 +17,4 @@ export class TelaListaProdutoComponent implements OnInit {
   ngOnInit() {
     this.produtos.pop();
   }
-
 }

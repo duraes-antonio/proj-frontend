@@ -1,5 +1,23 @@
-<div style="display: flex; flex-flow: wrap">
-  <div *ngFor="let item of produtos" class="area-item col s6 m4 l3 xl3">
+<div class="row" style="display: flex; margin-bottom: 0">
+
+  <!-- TODO: Realizar binding com as rotas -->
+  <div _ngcontent-qtn-c0="" class="col hide-on-med-and-down l2 xl2" style="background: antiquewhite;">
+    <ul _ngcontent-qtn-c0="" id="slide-out-teste" style="height: 100%; background: aliceblue; margin: 0;">
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
+    </ul>
+  </div>
+
+  <div class="col s12 m12 l10 xl10" style="display: flex; flex-flow: wrap; padding: 75px 10px 125px;">
+    <div *ngFor="let item of produtos" class="area-item col s6 m4 l3 xl2">
     <div class="area-produto">
     <span *ngIf="item.emPromocao" class="etiqueta-promo">
       {{item.porcentDesc}}%
@@ -21,5 +39,6 @@
         <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
       </div>
     </div>
+  </div>
   </div>
 </div>

@@ -5,7 +5,7 @@ import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '
   templateUrl: './barra-busca.component.html',
   styleUrls: ['./barra-busca.component.scss']
 })
-export class BarraBuscaComponent implements OnInit, AfterViewChecked {
+export class BarraBuscaComponent implements OnInit {
 
   private _exibirBarra = true;
   public textoDigitado: string;
@@ -20,7 +20,6 @@ export class BarraBuscaComponent implements OnInit, AfterViewChecked {
   constructor() { }
 
   ngOnInit() {
-    setTimeout(this.aplicarFadeIn);
   }
 
   /**
@@ -28,18 +27,5 @@ export class BarraBuscaComponent implements OnInit, AfterViewChecked {
    */
   public emitirTexto() {
     this.textoSaida.emit(this.textoDigitado);
-  }
-
-  /**
-   * Aplica o efeito de entrada (descida) na barra de busca
-   */
-  private aplicarFadeIn(): void {
-    document.getElementById('barra-busca').className = 'bloco-descida';
-  }
-
-  ngAfterViewChecked(): void {
-    if (this._exibirBarra) {
-      document.getElementById('pesquisa-input').focus();
-    }
   }
 }

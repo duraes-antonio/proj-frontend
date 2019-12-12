@@ -5,13 +5,12 @@
 }
 
 .area-produto {
-
   display: grid;
   background-color: white;
   border-radius: 7px;
-  border: 1px solid #d7d7d7;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
   padding: 15px 0;
+  height: 100%;
 
   img {
     justify-self: center;
@@ -38,7 +37,6 @@
 }
 
 .area-produto-info {
-  border-top: 1px solid #e3e3e3;
   padding: 15px 15px 0;
   display: grid;
   font-size: 14px;
@@ -53,4 +51,12 @@
   text-decoration: line-through;
   font-style: italic;
   color: red;
+}
+
+::ng-deep #area-utilizavel {
+  padding: 70px 0 0 0 !important;
+}
+
+.filtro-menu-vertical {
+  padding: 10px 5px;
 }

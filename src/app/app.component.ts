@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ListaLinks} from './modelos/ListaLinks';
 import {Link} from './modelos/Link';
 
@@ -30,10 +30,18 @@ export class AppComponent {
     const linksAdmin = [];
     const linksParceiros = [];
 
-    for (const link of titulosLoja) { linksLoja.push(new Link(link, urlGoogle)); }
-    for (const link of titulosMinhaConta) { linksMinhaConta.push(new Link(link, urlGoogle)); }
-    for (const link of titulosAdmin) { linksAdmin.push(new Link(link, urlGoogle)); }
-    for (const link of titulosParceiros) { linksParceiros.push(new Link(link, urlGoogle)); }
+    for (const link of titulosLoja) {
+      linksLoja.push(new Link(link, urlGoogle));
+    }
+    for (const link of titulosMinhaConta) {
+      linksMinhaConta.push(new Link(link, urlGoogle));
+    }
+    for (const link of titulosAdmin) {
+      linksAdmin.push(new Link(link, urlGoogle));
+    }
+    for (const link of titulosParceiros) {
+      linksParceiros.push(new Link(link, urlGoogle));
+    }
 
     this.listaLinks.push(new ListaLinks('Loja', linksLoja));
     this.listaLinks.push(new ListaLinks('Minha conta', linksMinhaConta));
