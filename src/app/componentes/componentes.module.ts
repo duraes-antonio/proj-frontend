@@ -16,6 +16,7 @@ import {RouterModule} from '@angular/router';
 import {ModalComponent} from './modais/modal/modal.component';
 import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-senha.component';
 import {PaginaFundoComponent} from './pagina-fundo/pagina-fundo.component';
+import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {PaginaFundoComponent} from './pagina-fundo/pagina-fundo.component';
     ModalComponent,
     ModalRecupSenhaComponent,
     PaginaFundoComponent,
+    FiltroProdutoComponent,
   ],
   exports: [
     NavbarComponent,
@@ -47,7 +49,8 @@ import {PaginaFundoComponent} from './pagina-fundo/pagina-fundo.component';
     ModalComponent,
     ModalRecupSenhaComponent,
     PaginaFundoComponent,
-    BarraBuscaComponent
+    BarraBuscaComponent,
+    FiltroProdutoComponent
   ],
   imports: [
     CommonModule,

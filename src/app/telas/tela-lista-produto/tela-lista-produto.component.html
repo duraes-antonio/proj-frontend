@@ -1,44 +1,36 @@
 <div class="row" style="display: flex; margin-bottom: 0">
 
-  <!-- TODO: Realizar binding com as rotas -->
-  <div _ngcontent-qtn-c0="" class="col hide-on-med-and-down l2 xl2" style="background: antiquewhite;">
-    <ul _ngcontent-qtn-c0="" id="slide-out-teste" style="height: 100%; background: aliceblue; margin: 0;">
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-      <li class="filtro-menu-vertical"><a>Meu perfil</a></li>
-    </ul>
-  </div>
+  <app-filtro-produto class="col hide-on-small-and-down m4 l2 xl2 no-padding">
+  </app-filtro-produto>
+  <!-- Área dos produtos -->
+  <div class="col s12 m8 l10 xl10"
+       style="display: flex; flex-flow: wrap; padding: 20px 10px 125px;">
+    <div *ngFor="let item of produtos" class="area-item col s6 m6 l3 xl3">
+      <div class="area-produto">
 
-  <div class="col s12 m12 l10 xl10" style="display: flex; flex-flow: wrap; padding: 75px 10px 125px;">
-    <div *ngFor="let item of produtos" class="area-item col s6 m4 l3 xl2">
-    <div class="area-produto">
-    <span *ngIf="item.emPromocao" class="etiqueta-promo">
-      {{item.porcentDesc}}%
-      <i aria-hidden="true" class="fas fa-arrow-down"></i>
-    </span>
-
-      <img alt="{{item.titulo}}" src="{{item.urlImagem}}">
-
-      <!-- Área c/ info. sobre o produto (Nome, preço, marcador de promoção) -->
-      <!-- TODO: Remover arredondamento de preço-->
-      <div class="area-produto-info">
-        <span>{{item.titulo}}</span>
-
-        <!-- Área para preços de produtos em promoção -->
-        <span *ngIf="item.emPromocao" class="preco-original">
-          R$ {{item.preco.toFixed(2)}}
+        <!-- Etiqueta de desconto -->
+        <span *ngIf="item.emPromocao" class="etiqueta-promo">
+          {{item.porcentDesc}}%
+          <i aria-hidden="true" class="fas fa-arrow-down"></i>
         </span>
 
-        <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
+        <!-- Titulo do produto -->
+        <span class="produto-titulo">{{item.titulo}}</span>
+
+        <img alt="{{item.titulo}}" src="{{item.urlImagem}}">
+
+        <!-- Área c/ preço original e com desconto) -->
+        <!-- TODO: Remover arredondamento de preço-->
+        <div class="area-produto-info">
+
+          <!-- Área para preços de produtos em promoção -->
+          <span *ngIf="item.emPromocao" class="preco-original">
+            R$ {{item.preco.toFixed(2)}}
+          </span>
+
+          <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </div>

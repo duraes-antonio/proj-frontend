@@ -6,17 +6,21 @@
 
 .area-produto {
   display: grid;
-  background-color: white;
-  border-radius: 7px;
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 15px 0;
+  position: relative;
+  max-height: 350px;
   height: 100%;
+  overflow: hidden;
+
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 15px 0;
 
   img {
     justify-self: center;
-    max-height: 175px;
+    max-height: 150px;
     max-width: 100%;
-    margin: 10px 0;
+    margin-top: 10px;
     padding: 0 10px;
   }
 }
@@ -25,9 +29,11 @@
 
   position: absolute;
   justify-self: flex-end;
-  max-width: 100%;
-  width: fit-content;
+  min-width: 120px;
   padding: 2px 10px;
+  transform: rotate(45deg);
+  right: -35px;
+  top: 15px;
 
   background-color: limegreen;
   color: white;
@@ -42,9 +48,16 @@
   font-size: 14px;
 }
 
+.produto-titulo {
+  padding: 15px 30px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .preco {
-  font-size: medium;
-  font-weight: 500;
+  font-size: 22px;
 }
 
 .preco-original {

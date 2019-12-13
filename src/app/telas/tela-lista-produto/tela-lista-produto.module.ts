@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TelaListaProdutoComponent} from './tela-lista-produto.component';
 import {TelaListaProdutoRoutingModule} from './tela-lista-produto-routing.module';
+import {ComponentesModule} from '../../componentes/componentes.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {TelaListaProdutoRoutingModule} from './tela-lista-produto-routing.module
   ],
   imports: [
     CommonModule,
-    TelaListaProdutoRoutingModule
+    TelaListaProdutoRoutingModule,
+    ComponentesModule
   ]
 })
 export class TelaListaProdutoModule {

@@ -1,0 +1,28 @@
+.area-filtro {
+  height: 100%;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  background: white;
+}
+
+.collapsible {
+  border: none;
+  box-shadow: none;
+
+  li.active i {
+    will-change: transform;
+    transition: transform 400ms;
+    transform: rotate(90deg);
+  }
+
+  li:not(.active) i {
+    will-change: transform;
+    transition: transform 400ms;
+  }
+}
+
+.collapsible-header {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}
