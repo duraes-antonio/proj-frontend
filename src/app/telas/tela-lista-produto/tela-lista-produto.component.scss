@@ -7,7 +7,6 @@
 .area-produto {
   display: grid;
   position: relative;
-  max-height: 350px;
   height: 100%;
   overflow: hidden;
 
@@ -26,7 +25,6 @@
 }
 
 .etiqueta-promo {
-
   position: absolute;
   justify-self: flex-end;
   min-width: 120px;
@@ -64,10 +62,6 @@
   text-decoration: line-through;
   font-style: italic;
   color: red;
-}
-
-::ng-deep #area-utilizavel {
-  padding: 70px 0 0 0 !important;
 }
 
 .filtro-menu-vertical {

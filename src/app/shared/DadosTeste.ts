@@ -1,4 +1,5 @@
 import {Produto} from '../modelos/Produto';
+import {Categoria} from '../modelos/Categoria';
 
 export class DadosTeste {
 
@@ -65,6 +66,13 @@ export class DadosTeste {
       'Pack de Cards - Comum',
       DadosTeste.obterPrecoRandom(), false, DadosTeste.sortearValorDesc()
     )
+  ];
+  public static readonly categorias = [
+    new Categoria('Acessórios', 1),
+    new Categoria('Cards', 2),
+    new Categoria('Colecionáveis', 3),
+    new Categoria('Pacote de Cards', 4),
+    new Categoria('Vestuário', 5)
   ];
 
   private static obterPrecoRandom(): number {

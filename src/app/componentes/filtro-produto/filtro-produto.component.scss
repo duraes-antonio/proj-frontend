@@ -1,13 +1,20 @@
 .area-filtro {
-  height: 100%;
+  height: auto;
   border: 1px solid #ddd;
   overflow: hidden;
   background: white;
+  padding-bottom: 15px;
 }
 
 .collapsible {
   border: none;
   box-shadow: none;
+
+  li .fas {
+    font-size: large;
+    position: absolute;
+    right: 0;
+  }
 
   li.active i {
     will-change: transform;
@@ -22,7 +29,15 @@
 }
 
 .collapsible-header {
-  border: none;
   display: flex;
-  justify-content: space-between;
+  position: relative;
+  border: none;
+  padding: 1rem 1rem 0;
+}
+
+.collapsible-body {
+
+  label > span {
+    font-size: 14px;
+  }
 }

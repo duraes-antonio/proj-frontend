@@ -1,10 +1,13 @@
 <div class="row" style="display: flex; margin-bottom: 0">
 
-  <app-filtro-produto class="col hide-on-small-and-down m4 l2 xl2 no-padding">
+  <!-- Filtros à esquerda da página -->
+  <app-filtro-produto [produtos]="produtos"
+                      class="col hide-on-small-and-down m4 l3 xl2 no-padding">
   </app-filtro-produto>
+
   <!-- Área dos produtos -->
-  <div class="col s12 m8 l10 xl10"
-       style="display: flex; flex-flow: wrap; padding: 20px 10px 125px;">
+  <div class="col s12 m8 l9 xl10"
+       style="display: flex; flex-flow: wrap; padding: 20px 10px 0;">
     <div *ngFor="let item of produtos" class="area-item col s6 m6 l3 xl3">
       <div class="area-produto">
 

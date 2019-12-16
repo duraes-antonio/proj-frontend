@@ -1,3 +1,5 @@
+import {Categoria} from './Categoria';
+
 export class Produto {
 
   public readonly id: number;
@@ -8,10 +10,12 @@ export class Produto {
 
   public readonly emPromocao: boolean;
   public readonly porcentDesc: number;
+  public readonly categorias: Categoria[];
 
   constructor(
     urlImg: string, titulo: string, precoVenda: number, emPromocao: boolean,
-    porcentDesc?: number) {
+    porcentDesc?: number
+  ) {
     this.urlImagem = urlImg;
     this.titulo = titulo;
     this.preco = precoVenda;

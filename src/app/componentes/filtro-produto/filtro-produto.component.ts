@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Produto} from '../../modelos/Produto';
+import {Categoria} from '../../modelos/Categoria';
 
 @Component({
   selector: 'app-filtro-produto',
@@ -10,10 +12,13 @@ export class FiltroProdutoComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-  }
+  /*TODO: Preencher os filtros após receber os produtos*/
+  @Input() readonly produtos: Produto[];
 
-  public itemAtivo(idItem: string): boolean {
-    return document.getElementById(idItem).classList.contains('active');
+  public categorias: Categoria[];
+  public desconto: number[];
+
+  ngOnInit() {
+
   }
 }

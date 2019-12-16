@@ -1,26 +1,62 @@
 <!-- TODO: Realizar binding com as rotas -->
+
 <div class="area-filtro">
   <p style="text-align: center; font-size: medium; text-transform: uppercase; font-weight: 500">Filtros</p>
   <div style="height: 1px; background-color: #ddd; margin: 0 10px;"></div>
   <ul class="collapsible" style="height: 100%; margin: 0;">
 
-    <li id="id-categorias">
+    <li id="id-filtro-categorias">
       <div class="collapsible-header" tabindex="0">
         Categorias
         <i aria-hidden="true" class="fas fa-chevron-right"></i>
       </div>
+
       <div class="collapsible-body">
-        <p>Acessórios</p>
-        <p>Cards</p>
-        <p>Figures</p>
-        <p>Packs</p>
-        <p>Vestuário</p>
+        <label for="id-check-acess">
+          <input class="filled-in" id="id-check-acess" type="checkbox">
+          <span>Acessórios</span>
+        </label>
+
+        <label for="id-check-cards">
+          <input class="filled-in" id="id-check-cards" type="checkbox">
+          <span>Cards</span>
+        </label>
+
+        <label for="id-check-figure">
+          <input class="filled-in" id="id-check-figure" type="checkbox">
+          <span>Figures</span>
+        </label>
+
+        <label for="id-check-pack">
+          <input class="filled-in" id="id-check-pack" type="checkbox">
+          <span>Packs</span>
+        </label>
+
+        <label for="id-check-vest">
+          <input class="filled-in" id="id-check-vest" type="checkbox">
+          <span>Vestuário</span>
+        </label>
       </div>
     </li>
 
-    <li>
+    <li id="id-filtro-frete">
       <div class="collapsible-header" tabindex="0">
-        Watches
+        Frete
+        <i aria-hidden="true" class="fas fa-chevron-right"></i>
+      </div>
+      <div class="collapsible-body">
+        <p>
+          <label for="id-check-frete">
+            <input class="filled-in check-padrao" id="id-check-frete" type="checkbox">
+            <span>Grátis</span>
+          </label>
+        </p>
+      </div>
+    </li>
+
+    <li id="id-filtro-desconto">
+      <div class="collapsible-header" tabindex="0">
+        Desconto
         <i aria-hidden="true" class="fas fa-chevron-right"></i>
       </div>
       <div class="collapsible-body">
@@ -31,9 +67,22 @@
       </div>
     </li>
 
-    <li>
+    <li id="id-filtro-preco">
       <div class="collapsible-header" tabindex="0">
-        Watches
+        Preço
+        <i aria-hidden="true" class="fas fa-chevron-right"></i>
+      </div>
+      <div class="collapsible-body">
+        <p>Apple</p>
+        <p>Fitbit</p>
+        <p>Samsung</p>
+        <p>Fastrack</p>
+      </div>
+    </li>
+
+    <li id="id-filtro-avaliacao">
+      <div class="collapsible-header" tabindex="0">
+        Avaliação
         <i aria-hidden="true" class="fas fa-chevron-right"></i>
       </div>
       <div class="collapsible-body">
