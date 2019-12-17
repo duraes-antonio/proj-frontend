@@ -9,6 +9,11 @@
 .collapsible {
   border: none;
   box-shadow: none;
+  line-height: 2;
+
+  li:last-child .collapsible-body {
+    border-bottom: none;
+  }
 
   li .fas {
     font-size: large;
@@ -36,8 +41,14 @@
 }
 
 .collapsible-body {
+  padding: 0.5em 1em;
+  padding-left: 1.5em;
 
   label > span {
     font-size: 14px;
   }
+}
+
+.input-preco-min-max {
+  font-size: small !important;
 }

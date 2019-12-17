@@ -14,7 +14,7 @@ export class Produto {
 
   constructor(
     urlImg: string, titulo: string, precoVenda: number, emPromocao: boolean,
-    porcentDesc?: number
+    porcentDesc?: number, categorias?: Categoria[]
   ) {
     this.urlImagem = urlImg;
     this.titulo = titulo;
@@ -22,5 +22,6 @@ export class Produto {
     this.emPromocao = emPromocao;
     this.porcentDesc = porcentDesc;
     this.precoComDesc = this.emPromocao ? this.preco * (100 - this.porcentDesc) / 100 : this.preco;
+    this.categorias = categorias ? categorias : [];
   }
 }

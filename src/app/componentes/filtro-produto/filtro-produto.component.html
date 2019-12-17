@@ -12,29 +12,10 @@
       </div>
 
       <div class="collapsible-body">
-        <label for="id-check-acess">
-          <input class="filled-in" id="id-check-acess" type="checkbox">
-          <span>Acessórios</span>
-        </label>
-
-        <label for="id-check-cards">
-          <input class="filled-in" id="id-check-cards" type="checkbox">
-          <span>Cards</span>
-        </label>
-
-        <label for="id-check-figure">
-          <input class="filled-in" id="id-check-figure" type="checkbox">
-          <span>Figures</span>
-        </label>
-
-        <label for="id-check-pack">
-          <input class="filled-in" id="id-check-pack" type="checkbox">
-          <span>Packs</span>
-        </label>
-
-        <label for="id-check-vest">
-          <input class="filled-in" id="id-check-vest" type="checkbox">
-          <span>Vestuário</span>
+        <label *ngFor="let categ of categorias"
+               for="id-check-categoria-{{categ.id}}">
+          <input class="filled-in" id="id-check-categoria-{{categ.id}}" type="checkbox">
+          <span>{{categ.nome}}</span>
         </label>
       </div>
     </li>
@@ -44,13 +25,12 @@
         Frete
         <i aria-hidden="true" class="fas fa-chevron-right"></i>
       </div>
+
       <div class="collapsible-body">
-        <p>
-          <label for="id-check-frete">
-            <input class="filled-in check-padrao" id="id-check-frete" type="checkbox">
-            <span>Grátis</span>
-          </label>
-        </p>
+        <label for="id-check-frete">
+          <input class="filled-in check-padrao" id="id-check-frete" type="checkbox">
+          <span>Grátis</span>
+        </label>
       </div>
     </li>
 
@@ -72,11 +52,14 @@
         Preço
         <i aria-hidden="true" class="fas fa-chevron-right"></i>
       </div>
-      <div class="collapsible-body">
-        <p>Apple</p>
-        <p>Fitbit</p>
-        <p>Samsung</p>
-        <p>Fastrack</p>
+      <div class="collapsible-body" style="text-align: center;">
+        <label>
+          <input class="input-field input-preco-min-max" placeholder="Mínimo" type="number" value="">
+        </label>
+        <span style="font-size: small;">Até</span>
+        <label>
+          <input class="input-field input-preco-min-max" placeholder="Máximo" type="number" value="">
+        </label>
       </div>
     </li>
 
@@ -86,10 +69,11 @@
         <i aria-hidden="true" class="fas fa-chevron-right"></i>
       </div>
       <div class="collapsible-body">
-        <p>Apple</p>
-        <p>Fitbit</p>
-        <p>Samsung</p>
-        <p>Fastrack</p>
+        <p>1 estrelas</p>
+        <p>2 estrelas</p>
+        <p>3 estrelas</p>
+        <p>4 estrelas</p>
+        <p>5 estrelas</p>
       </div>
     </li>
   </ul>

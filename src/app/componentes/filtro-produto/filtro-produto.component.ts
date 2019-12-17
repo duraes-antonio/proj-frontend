@@ -12,11 +12,26 @@ export class FiltroProdutoComponent implements OnInit {
   constructor() {
   }
 
-  /*TODO: Preencher os filtros após receber os produtos*/
-  @Input() readonly produtos: Produto[];
+  public categorias: Set<Categoria>;
+  public descontos: number[];
+  public avaliacoes: number[];
 
-  public categorias: Categoria[];
-  public desconto: number[];
+  /*TODO: Preencher os filtros após receber os produtos*/
+  private _produtos: Produto[];
+
+  @Input()
+  get produtos(): Produto[] {
+    return this._produtos;
+  }
+
+  set produtos(produtos: Array<Produto>) {
+    this._produtos = produtos;
+    this.categorias = new Set(
+      produtos
+        .map(p => p.categorias)
+        .reduce((a, b) => a.concat(b), [])
+    );
+  }
 
   ngOnInit() {
 
