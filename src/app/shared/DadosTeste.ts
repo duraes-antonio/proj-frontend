@@ -44,7 +44,7 @@ export class DadosTeste {
     new Produto(
       'https://vignette.wikia.nocookie.net/yugioh/images/2/24/SP17-BoosterEN.png/revision/latest/scale-to-width-down/282?cb=20170125212154',
       'Pack de Cards - Comum',
-      DadosTeste.obterPrecoRandom(), false, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
+      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
     ),
     new Produto(
       'https://vignette.wikia.nocookie.net/yugioh/images/3/3d/LED4-BoosterEN.png/revision/latest?cb=20190110075036',
@@ -54,7 +54,7 @@ export class DadosTeste {
     new Produto(
       'https://vignette.wikia.nocookie.net/yugioh/images/2/26/HA05-BoosterFR.png/revision/latest?cb=20160902200711',
       'Pack \'Hidden Arsenal 5: Steelswarm Invasion\' - Raro',
-      DadosTeste.obterPrecoRandom(), false, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
+      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
     ),
 
     new Produto(
@@ -71,7 +71,7 @@ export class DadosTeste {
     new Produto(
       'https://ae01.alicdn.com/kf/HTB1EnnrQVXXXXb4XXXXq6xXFXXXs/Nova-chegada-quente-yugioh-zexal-yuma-cosplay-link-corrente-colar-yu-gi-oh-pingente-de-metal.jpg',
       'Pingente de metal',
-      DadosTeste.obterPrecoRandom(), false, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[0]]
+      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[0]]
     )
   ];
 

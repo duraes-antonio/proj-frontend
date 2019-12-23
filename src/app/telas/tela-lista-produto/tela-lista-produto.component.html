@@ -27,7 +27,7 @@
         <div class="area-produto-info">
 
           <!-- Área para preços de produtos em promoção -->
-          <span *ngIf="item.emPromocao" class="preco-original">
+          <span *ngIf="item.porcentDesc > 0" class="preco-original">
             R$ {{item.preco.toFixed(2)}}
           </span>
 

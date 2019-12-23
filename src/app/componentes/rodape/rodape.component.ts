@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ListaLinks} from '../../modelos/ListaLinks';
+import {ListaLinks} from '../../modelos/componentes/ListaLinks';
 
 @Component({
   selector: 'app-rodape',

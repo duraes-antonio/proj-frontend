@@ -1,3 +1,4 @@
+@import "../../../node_modules/materialize-css/sass/materialize";
 $val-margin-campo-btn: 40px;
 $val-padding-area-form: 20px;
 
@@ -123,6 +124,7 @@ $val-b-radius: 18px;
 }
 
 .btn-prim {
+  @extend .btn;
   display: inline-flex;
   margin: 10px 0;
   border-radius: 20px;
@@ -138,6 +140,11 @@ $val-b-radius: 18px;
     font-size: 18px;
     margin-right: 8px;
   }
+}
+
+.btn-prim--pequeno {
+  @extend .btn-prim;
+  @extend .btn-small;
 }
 
 .fab-prim {
@@ -156,19 +163,6 @@ $val-b-radius: 18px;
 }
 
 /*Área p/ campos de input (formulário)*/
-.input-field {
-  margin-bottom: 0;
-  padding-bottom: 5px;
-}
-
-.input-field input:focus + label {
-  color: $val-cor-link--ativo;
-}
-
-.input-field input:focus {
-  border-bottom: 1px solid $val-cor-link--ativo;
-  box-shadow: 0 1px 0 0 $val-cor-link--ativo;
-}
 
 /*Área de formulário*/
 .area-principal {
