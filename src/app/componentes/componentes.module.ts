@@ -17,6 +17,7 @@ import {ModalComponent} from './modais/modal/modal.component';
 import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-senha.component';
 import {PaginaFundoComponent} from './pagina-fundo/pagina-fundo.component';
 import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component';
+import {PaginacaoComponent} from './paginacao/paginacao.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component'
     ModalRecupSenhaComponent,
     PaginaFundoComponent,
     FiltroProdutoComponent,
+    PaginacaoComponent,
   ],
   exports: [
     NavbarComponent,
@@ -50,7 +52,8 @@ import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component'
     ModalRecupSenhaComponent,
     PaginaFundoComponent,
     BarraBuscaComponent,
-    FiltroProdutoComponent
+    FiltroProdutoComponent,
+    PaginacaoComponent
   ],
   imports: [
     CommonModule,

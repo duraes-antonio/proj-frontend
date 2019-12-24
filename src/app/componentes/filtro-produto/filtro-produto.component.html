@@ -11,9 +11,9 @@
       </div>
 
       <div class="filtro-body">
-        <label *ngFor="let categ of categorias"
-               for="id-check-categoria-{{categ.id}}">
-          <input class="filled-in" id="id-check-categoria-{{categ.id}}" type="checkbox">
+        <label *ngFor="let categ of categorias" for="id-check-categoria-{{categ.id}}">
+          <input class="filled-in"
+                 id="id-check-categoria-{{categ.id}}" type="checkbox">
           <span>{{categ.nome}}</span>
         </label>
       </div>
@@ -71,7 +71,7 @@
           <input id="id-2" placeholder="Máximo" type="number">
         </div>
 
-        <a class="btn-prim--pequeno">buscar</a>
+        <a class="btn-prim--pequeno" style="margin-top: 10px">buscar</a>
       </div>
     </li>
 

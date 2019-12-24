@@ -1,4 +1,3 @@
-@import "../../../node_modules/materialize-css/sass/materialize";
 $val-margin-campo-btn: 40px;
 $val-padding-area-form: 20px;
 
@@ -56,6 +55,12 @@ $val-b-radius: 18px;
 @mixin btn-circle--green($largura, $altura) {
   @include btn-circle($largura, $altura);
   background-color: green;
+}
+
+%center {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .area-passadores {
@@ -123,17 +128,44 @@ $val-b-radius: 18px;
   }
 }
 
-.btn-prim {
-  @extend .btn;
-  display: inline-flex;
-  margin: 10px 0;
-  border-radius: 20px;
-  background-color: $val-cor-prim !important;
+/*Ripple effect - Baseado em: https://codepen.io/finnhvman/pen/jLXKJw*/
+@mixin efeito-ripple($cor: color) {
+  background-position: center;
+  transition: background 400ms;
 
-  @media (pointer: fine) {
-    &:hover {
-      background-color: $val-cor-prim-clara !important;
-    }
+  &:hover {
+    background: $cor radial-gradient(circle, transparent 1%, $cor 1%) center/15000%;
+  }
+
+  &:active {
+    background-size: 100%;
+    transition: background 0s;
+  }
+}
+
+.btn-prim {
+  @extend %center;
+  @include efeito-ripple(rgba($val-cor-prim, .85));
+  width: min-content;
+  min-width: calc(64px - 2 * 16px);
+  height: auto;
+  min-height: 36px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+
+  border-radius: 4px;
+  color: $val-cor-texto-prim;
+  background-color: $val-cor-prim;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
+
+  &:hover:focus {
+    background-color: rgba($val-cor-prim, .85);
+    box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
   }
 
   i {
@@ -144,7 +176,10 @@ $val-b-radius: 18px;
 
 .btn-prim--pequeno {
   @extend .btn-prim;
-  @extend .btn-small;
+  font-size: 12px;
+  min-height: 32px;
+  min-width: 56px;
+  width: auto;
 }
 
 .fab-prim {

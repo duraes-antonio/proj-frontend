@@ -1,0 +1,48 @@
+@import '../../shared/shared';
+
+.container-numeracao {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.paginacao-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 36px;
+  min-width: 36px;
+
+  padding: 0 7px;
+  margin-right: 7px;
+  margin-top: 10px;
+
+  color: $val-cor-prim-clara;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color 400ms;
+
+  &.selecionado {
+    color: $val-cor-texto-sec;
+    background: $val-cor-sec-clara;
+    font-weight: bold;
+  }
+
+  &.disabled {
+    color: #ccc;
+    pointer-events: none;
+  }
+
+  &:not(.selecionado):hover {
+    background: rgba($val-cor-sec-clara, .4);
+  }
+}
+
+.btn-next-prev {
+  padding: 0 10px;
+}

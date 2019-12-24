@@ -15,8 +15,7 @@ export class FiltroProdutoComponent implements OnInit {
   public avaliacoes: number[];
   public descontos: number[][];
   public freteGratis: boolean;
-  private _filtro: FiltroProdutoPesquisa;
-  /*TODO: Preencher os filtros após receber os produtos*/
+  public filtro: FiltroProdutoPesquisa = new FiltroProdutoPesquisa(1, 25);
   private _produtos: Produto[];
 
   constructor() {
@@ -33,7 +32,6 @@ export class FiltroProdutoComponent implements OnInit {
     this.categorias = this.filtrarCategorias(produtos);
     this.descontos = this.filtrarDescontos(produtos);
     this.freteGratis = produtos.some(p => p.freteGratis);
-    this._filtro = this.gerarFiltroBusca(produtos);
   }
 
   ngOnInit() {
@@ -62,17 +60,29 @@ export class FiltroProdutoComponent implements OnInit {
       );
   }
 
-  private gerarFiltroBusca(produtos: Produto[]):
+  // filtroAddCateg(id: number, filtro: FiltroProdutoPesquisa):
+  //   FiltroProdutoPesquisa {
+  //   return {
+  //     ...filtro,
+  //     categoriasIds: [id].concat(filtro.categoriasIds)
+  //   };
+  // }
+
+  filtroAddDesc(parMinMax: number[], filtro: FiltroProdutoPesquisa):
     FiltroProdutoPesquisa {
-    const filtro: FiltroProdutoPesquisa = new FiltroProdutoPesquisa(
-      1, 2, null, null,
-      produtos
-        .map(p => p.categorias)
-        .reduce((a, b) => a.concat(b), []),
-      null,
-      produtos.some(p => p.freteGratis),
-      0, 0
-    );
-    return filtro;
+    return {
+      ...filtro,
+      descontos: filtro.descontos.concat(parMinMax)
+    };
+  }
+
+  filtroAddPreco(filtro: FiltroProdutoPesquisa, min: number, max: number):
+    FiltroProdutoPesquisa {
+    return {...filtro, precoMin: min, precoMax: max};
+  }
+
+  filtroAddAvals(filtro: FiltroProdutoPesquisa, aval: number):
+    FiltroProdutoPesquisa {
+    return {...filtro, avaliacoes: filtro.avaliacoes.concat(aval)};
   }
 }
