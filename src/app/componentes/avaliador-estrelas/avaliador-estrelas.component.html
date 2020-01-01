@@ -1,0 +1,5 @@
+<div style="display: flex; align-items: center">
+  <i *ngFor="let dif of difMediaIndices" [ngClass]="{'estrela-incomp': dif < 1 && dif > 0}"
+     [ngStyle]="{'color': dif >= 1 && 'orange'}" aria-hidden="true" class="fa fa-star"></i>
+  <span *ngIf="numeroAvaliacoes > 0" class="cont-avaliacoes">({{numeroAvaliacoes}})</span>
+</div>

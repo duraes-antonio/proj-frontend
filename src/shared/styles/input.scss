@@ -1,0 +1,103 @@
+@import 'variables';
+
+$input-border-color: $block-border-color;
+$input-border-color--error: #b20;
+$input-focus-border-color: dodgerblue;
+
+$padding-left-right: 16px;
+$int-font-size: 14px;
+$label-font-size: 1rem;
+$label-active-font-size: 12px;
+
+::placeholder {
+  color: $color-sec;
+}
+
+.input-padrao {
+  font-family: Roboto, sans-serif;
+  position: relative;
+  margin-bottom: 15px;
+  display: grid;
+
+  input {
+    max-height: 20px;
+    max-width: calc(100% - 2 * #{$padding-left-right + 1});
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  textarea {
+    max-width: 100%;
+    resize: vertical;
+    min-height: 52px;
+  }
+
+  input, textarea {
+    padding: 12px $padding-left-right 14px !important;
+    border: 1px solid $block-border-color !important;
+    background-color: transparent !important;
+    font-size: 14px;
+    border-radius: 5px !important;
+
+    &:focus:not(.invalid) {
+      border-color: $link-color !important;
+
+      & + label {
+        color: $link-color !important;
+      }
+    }
+
+    &.invalid {
+      border-color: red !important;
+
+      & + label {
+        color: red !important;
+      }
+    }
+  }
+
+  &.col > label {
+    margin-left: calc(0.75rem + 14px);
+  }
+
+  label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    font-size: 1rem;
+    margin-left: 14px;
+    will-change: transform;
+    transition: transform 100ms;
+
+    &.active {
+      font-size: 12px;
+      width: auto !important;
+      padding: 0 4px;
+      background: white;
+      transform: translateY(-22px) !important;
+    }
+  }
+
+  span {
+    display: grid;
+    align-items: end;
+    height: 19px;
+    margin: 0 12px;
+    font-size: .85rem;
+  }
+
+  input.invalid ~ span[data-error], textarea.invalid ~ span[data-error] {
+    color: transparent;
+    user-select: none;
+    pointer-events: none;
+    position: relative;
+
+    &:after {
+      color: red !important;
+      content: attr(data-error);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}

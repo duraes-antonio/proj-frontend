@@ -18,6 +18,8 @@ import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-s
 import {PaginaFundoComponent} from './pagina-fundo/pagina-fundo.component';
 import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component';
 import {PaginacaoComponent} from './paginacao/paginacao.component';
+import {AvaliadorEstrelasComponent} from './avaliador-estrelas/avaliador-estrelas.component';
+import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import {PaginacaoComponent} from './paginacao/paginacao.component';
     PaginaFundoComponent,
     FiltroProdutoComponent,
     PaginacaoComponent,
+    AvaliadorEstrelasComponent,
+    ListaAvaliacoesComponent,
   ],
   exports: [
     NavbarComponent,
@@ -53,7 +57,10 @@ import {PaginacaoComponent} from './paginacao/paginacao.component';
     PaginaFundoComponent,
     BarraBuscaComponent,
     FiltroProdutoComponent,
-    PaginacaoComponent
+    PaginacaoComponent,
+    AvaliadorEstrelasComponent,
+    SequenciaComponent,
+    ListaAvaliacoesComponent
   ],
   imports: [
     CommonModule,

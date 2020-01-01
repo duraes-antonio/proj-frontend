@@ -66,7 +66,7 @@ export class SequenciaComponent implements OnInit {
       rewind: false,
       bound: true,
       startAt: 0,
-      perView: this._sequencia.tamanho > 4 ? 5 : this._sequencia.tamanho,
+      perView: 1,
       gap: 10,
       breakpoints: {
         1920: {

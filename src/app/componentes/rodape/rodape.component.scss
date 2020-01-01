@@ -1,4 +1,4 @@
-@import "../../shared/shared";
+@import "../../../shared/shared";
 
 $altura-banner: 200px;
 
@@ -9,7 +9,7 @@ $altura-banner: 200px;
   background-image: radial-gradient(#2d2d2d, black);
   justify-content: center;
   align-items: flex-end;
-  padding-top: 130px;
+  padding-top: 40px;
 }
 
 .img-area {
@@ -102,6 +102,7 @@ $altura-banner: 200px;
 .col-midias_sociais {
   @extend .col;
   min-height: 75px;
+  margin-bottom: 20px;
 }
 
 

@@ -1,4 +1,4 @@
-@import '../../../shared/shared';
+@import '../../../../shared/shared';
 
 .area-dialogo {
   display: block;
@@ -13,8 +13,8 @@
   justify-self: center;
   align-items: center;
 
-  background-color: $val-cor-prim;
-  color: $val-cor-texto-prim;
+  background-color: $color-prim;
+  color: $text-color-prim;
   width: 65px;
   height: 65px;
   border-radius: 50%;

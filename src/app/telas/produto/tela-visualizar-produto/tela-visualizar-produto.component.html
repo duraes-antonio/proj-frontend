@@ -1,0 +1,116 @@
+<app-lista-avaliacoes [avaliacoes]="avaliacoes"></app-lista-avaliacoes>
+<div class="row container-principal">
+
+  <!-- Imagens -->
+  <div class="col s12 m12 l4 xl4 area-imagem" style="text-align: center">
+    <img [src]="produto.urlImagem" class="imagem-principal">
+  </div>
+
+  <!-- Titulo, Cont. Avalições, Descrição e Calc. de Frete -->
+  <div class="col s12 m6 l4 xl4 area-info-produto">
+
+    <!-- Título -->
+    <h5 class="titulo">{{produto.titulo}}</h5>
+
+    <!-- Média das avaliações -->
+    <!-- TODO: Trazer info do banco de dados   -->
+    <app-avaliador-estrelas [fontSize]="18" [mediaAvaliacao]="3.75" [numeroAvaliacoes]="128"
+                            [qtdEstrelas]="5"></app-avaliador-estrelas>
+
+    <!-- Descrição -->
+    <p class="descricao">{{produto.descricao}}</p>
+
+    <div class="divider" style="margin: 20px 0;"></div>
+
+    <!-- Cálcular frete -->
+    <div class="row">
+      <div class="input-padrao col s6 m12 l6 xl6">
+        <input class="validate" id="input-cep" pattern="banana|cherry" required type="text">
+        <label for="input-cep">CEP</label>
+        <span data-error="Eitcha" data-success="right">Helper text</span>
+      </div>
+      <div class="col s6 m12 l6 xl6">
+        <button class="btn-outlined big waves-effect waves-light" style="width: 100%">
+          <i aria-hidden="true" class="fa fa-truck"></i>
+          Calcular frete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preço e Pagamento -->
+  <div class="col s12 m6 l4 xl4 area-compra">
+
+    <!-- Bandeira de desconto e preço sem desconto -->
+    <div *ngIf="produto.porcentDesc > 0" style="display: flex; align-items: center">
+        <span style="text-decoration: line-through;">
+          R$ {{produto.preco | number: '1.2-2'}}
+        </span>
+      <span class="bandeira-desconto">
+          <i aria-hidden="true" class="fas fa-arrow-down"></i>
+        {{produto.porcentDesc | number: '1.0-2'}}%
+        </span>
+    </div>
+
+    <span style="font-size: 28px">R$ {{produto.precoComDesc | number: '1.2-2'}}</span>
+
+    <!-- Produto disponível -->
+    <div *ngIf="produto.qtdDisponivel > 0; else prodIndisponivel">
+
+      <!-- Botões de Comprar e Add. ao Carrinho -->
+      <button class="btn-contained" style="width: 100%; margin-top: 10px;">
+        <i aria-hidden="true" class="fa fa-gift"></i>
+        Comprar
+      </button>
+      <button class="btn-outlined" style="width: 100%; margin-top: 15px;">
+        <i aria-hidden="true" class="fa fa-cart-plus"></i>
+        Adicionar ao Carrinho
+      </button>
+
+      <!-- Devolução -->
+      <div class="area-devolucao" id="id-area-devolucao">
+        <i aria-hidden="true" class="fa fa-history"></i>
+        <div>
+          <strong style="font-weight: 600;">Direito à devolução</strong><br>
+          <span>Após receber o produto, você tem 7 dias úteis para solicitar sua devolução.</span><br>
+          <a>Mais informações</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produto indisponível -->
+    <ng-template #prodIndisponivel>
+
+      <!-- Aviso -->
+      <div class="area-indisp" id="id-aviso-indisp">
+        <i aria-hidden="true" class="far fa-sad-cry"></i>
+        <div>
+          <strong style="font-weight: 600;">Produto indisponível!</strong><br>
+          <span>
+            No momento, não temos esse produto em estoque, para
+            acompanhar quando estiver disponível, inscreva-se para ser notificado
+            ou adicione-o em seus favoritos.
+          </span><br>
+        </div>
+      </div>
+
+      <button class="btn-contained waves-effect waves-light" style="width: 100%; margin-top: 10px;">
+        <i aria-hidden="true" class="far fa-envelope"></i>
+        Avise quando chegar
+      </button>
+
+      <button class="btn-fav waves-effect waves-light" style="width: 100%; margin-top: 15px;">
+        <i aria-hidden="true" class="far fa-heart"></i>
+        Adicionar aos favoritos
+      </button>
+    </ng-template>
+  </div>
+
+  <!-- Descrição -->
+  <div class="col" style="margin-top: 30px">
+    <strong style="text-transform: uppercase; font-weight: bolder">Descrição</strong>
+    <p class="descricao">{{produto.descricao}}</p>
+  </div>
+
+</div>
+<app-seq-produto [sequencia]="seqProd"></app-seq-produto>

@@ -1,7 +1,7 @@
-@import '../../shared/shared';
+@import '../../../shared/shared';
 
 .area-filtro {
-  height: auto;
+  height: 100%;
   border: 1px solid #ddd;
   overflow: hidden;
   background: white;
@@ -38,7 +38,7 @@
 
   label > span {
     font-size: 14px;
-    color: $val-cor-prim-clara;
+    color: $color-prim--light;
   }
 }
 
@@ -46,24 +46,24 @@
   margin: 0;
 
   ::placeholder {
-    color: $val-cor-prim-clara;
+    color: $color-prim--light;
   }
 
   input {
     padding: 0 10px;
     width: calc(100% - 20px);
     font-size: small;
-    border: 1px solid $val-cor-borda-quadros;
+    border: 1px solid $block-border-color;
     border-radius: 5px;
   }
 
   input:focus {
-    border: 1px solid $val-cor-link--ativo !important;
+    border: 1px solid $link-color !important;
     box-shadow: none !important;
   }
 
   input:focus + label {
-    color: $val-cor-link--ativo;
+    color: $link-color;
   }
 }
 
@@ -78,5 +78,5 @@
 }
 
 .estrela-ativa {
-  color: $val-cor-link--ativo;
+  color: $link-color;
 }

@@ -1,4 +1,4 @@
-@import '../../shared/shared';
+@import '../../../shared/shared';
 
 $var-width-img-circ--small: 85px;
 $var-width-img-circ--medium: 100px;
@@ -16,22 +16,22 @@ $var-cor-compra--entregue: limegreen;
 }
 
 %media-img_produto-responsive {
-  @media (max-width: $val-width-max-x-small) {
+  @media (max-width: $width-max-x-small) {
     height: $var-width-img-circ--large;
     width: $var-width-img-circ--large;
   }
 
-  @media (min-width: $val-width-max-x-small + 1) {
+  @media (min-width: $width-max-x-small + 1) {
     height: $var-width-img-circ--small;
     width: $var-width-img-circ--small;
   }
 
-  @media (min-width: $val-width-max-small + 1) {
+  @media (min-width: $width-max-small + 1) {
     height: $var-width-img-circ--medium;
     width: $var-width-img-circ--medium;
   }
 
-  @media (min-width: $val-width-max-medium + 1) {
+  @media (min-width: $width-max-medium + 1) {
     height: $var-width-img-circ--large;
     width: $var-width-img-circ--large;
   }
@@ -84,14 +84,14 @@ $var-cor-compra--entregue: limegreen;
 }
 
 .texto-data-acao {
-  color: $val-cor-sec-escura;
+  color: $color-sec--dark;
 }
 
 .area-compra-estado {
   display: flex;
   justify-content: space-between;
 
-  @media (max-width: $val-width-max-x-small) {
+  @media (max-width: $width-max-x-small) {
     display: grid;
     font-size: small;
   }
@@ -111,7 +111,7 @@ $var-cor-compra--entregue: limegreen;
   margin: 10px 0;
   padding: 10px 0;
 
-  @media (max-width: $val-width-max-x-small) {
+  @media (max-width: $width-max-x-small) {
     .area-prod-icone:not(:first-child) {
       display: none;
     }

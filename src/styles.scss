@@ -1,4 +1,10 @@
-$val-cor-link--ativo: dodgerblue;
+@import 'shared/styles/input';
+@import 'shared/styles/placeholders';
+@import 'shared/styles/buttons';
+
+body {
+  background: white;
+}
 
 .titulo-pagina {
   color: dimgray;

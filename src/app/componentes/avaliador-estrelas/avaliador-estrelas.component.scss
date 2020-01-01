@@ -1,0 +1,23 @@
+i {
+  font-size: var(--fontSize);
+}
+
+.estrela-incomp {
+  position: relative;
+  z-index: 1;
+
+  &::after {
+    position: absolute;
+    color: orange;
+    width: var(--porcentPreench);
+    z-index: 2;
+    content: "\f005";
+    overflow: hidden;
+    left: 0;
+  }
+}
+
+.cont-avaliacoes {
+  font-size: small;
+  margin-left: 5px;
+}

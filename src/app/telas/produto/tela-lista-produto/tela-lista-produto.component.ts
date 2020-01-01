@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DadosTeste} from '../../shared/DadosTeste';
-import {Collapsible} from 'materialize-css/dist/js/materialize.min';
+import {DadosTeste} from '../../../../shared/DadosTeste';
 
 @Component({
   selector: 'app-tela-lista-produto',
@@ -16,10 +15,10 @@ export class TelaListaProdutoComponent implements OnInit {
 
   ngOnInit() {
     this.produtos.pop();
-    document.addEventListener('DOMContentLoaded',
-      function () {
-        const elems = document.querySelectorAll('.collapsible');
-        const instances = Collapsible.init(elems, {});
-      });
+  }
+
+  /*TODO: Mudar para função que requisita os produtos*/
+  print(event: number) {
+    alert(event);
   }
 }

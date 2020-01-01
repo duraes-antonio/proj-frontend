@@ -1,7 +1,7 @@
 import {ETipoComponente} from '../../enum/ETipoComponente';
 import {Produto} from '../Produto';
 import {ISequencia} from '../../interfaces/ISequencia';
-import {DadosTeste} from '../../shared/DadosTeste';
+import {DadosTeste} from '../../../shared/DadosTeste';
 
 export class SequenciaProduto implements ISequencia<Produto> {
 

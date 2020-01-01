@@ -1,4 +1,4 @@
-@import "../../shared/shared.scss";
+@import "../../../shared/shared.scss";
 
 $val-b-radius: 18px;
 
@@ -21,7 +21,7 @@ $val-b-radius: 18px;
     width: 100%;
     height: 100%;
     transition: all 0.5s;
-    color: $val-cor-link--inativo;
+    color: $link-color--inactive;
     display: grid;
   }
 
@@ -39,10 +39,10 @@ $val-b-radius: 18px;
 
   @media (pointer: fine) {
     &:hover {
-      background-color: $val-cor-sec;
+      background-color: $color-sec;
 
       a {
-        color: $val-cor-link--hover;
+        color: $link-color--hover;
       }
     }
   }
@@ -50,10 +50,10 @@ $val-b-radius: 18px;
 
 .aba--ativa {
   a {
-    color: $val-cor-link--ativo;
+    color: $link-color;
   }
 
-  border-bottom: 2px solid $val-cor-link--ativo;
+  border-bottom: 2px solid $link-color;
 }
 
 .aba_esq {

@@ -1,8 +1,6 @@
-@import "../../../shared/shared.scss";
+@import "../../../../shared/shared.scss";
 
 $val-b-radius: 18px;
-$val-cor-link-ativo: dodgerblue;
-$val-cor-link-inativo: dimgray;
 
 .area-login {
   width: 95%;
@@ -29,13 +27,13 @@ $val-cor-link-inativo: dimgray;
 .aba {
 
   height: 100%;
-  color: $val-cor-link-inativo;
+  color: $link-color--inactive;
   border-bottom: 2px solid lightgrey;
   padding: 12px 0;
   line-height: normal;
 
   a {
-    color: $val-cor-link-inativo;
+    color: $link-color--inactive;
     display: grid;
   }
 
@@ -61,7 +59,7 @@ $val-cor-link-inativo: dimgray;
 }
 
 .abas .aba a.active {
-  color: $val-cor-link-ativo;
+  color: $link-color;
   background-color: transparent;
 }
 

@@ -1,0 +1,159 @@
+@import 'variables';
+@import 'placeholders';
+
+$btn-padding-l-r: 16px;
+$btn-min-width: 64px;
+
+$btn-small-height: 30px;
+$btn-medium-height: 36px;
+$btn-big-height: 48px;
+$btn-border-radius: 4px;
+
+/*Material-base: Material Design - Buttons
+  https://material.io/components/buttons/#*/
+%btn {
+  @extend %center-flex;
+  cursor: pointer;
+
+  height: auto;
+  min-height: $btn-medium-height;
+  width: min-content;
+  min-width: calc(#{$btn-min-width} - 2 * #{$btn-padding-l-r});
+
+  padding: 0 $btn-padding-l-r;
+  border-radius: $btn-border-radius;
+
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+
+  i {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    margin-right: 12px;
+  }
+
+  @media (max-width: $width-max-small) {
+    width: 100%;
+  }
+
+  &:disabled {
+    color: rgba(black, .38);
+    pointer-events: none;
+    box-shadow: none;
+    cursor: default;
+  }
+
+  &.small {
+    min-height: auto;
+    height: $btn-small-height;
+    font-size: 13px;
+
+    i {
+      font-size: 16px;
+    }
+  }
+
+  &.big {
+    height: $btn-big-height;
+  }
+}
+
+/*TODO: Criar estilo p/ btn disable*/
+@mixin btn-grey--states($bg-color) {
+  &:not(:disabled):hover {
+    background-color: rgba($bg-color, .9);
+  }
+
+  &:not(:disabled):not(:active):focus {
+    background-color: rgba($bg-color, .95);
+  }
+}
+
+@mixin btn-color--states($bg-color) {
+  &:not(:disabled):hover {
+    background-color: rgba($bg-color, .08);
+  }
+
+  &:not(:disabled):not(:active):focus {
+    background-color: rgba($bg-color, .24);
+  }
+}
+
+
+@mixin btn-with-backg($bg-color, $text-color) {
+  @extend %btn;
+  color: $text-color;
+  background: $bg-color;
+  border: none;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
+
+  &:disabled {
+    background: rgba(black, .12);
+  }
+}
+
+@mixin btn-without-backg($text-color) {
+  @extend %btn;
+  color: $text-color;
+  background: transparent;
+}
+
+@mixin btn-contained-colored($bg-color, $text-color) {
+  @include btn-color--states($bg-color);
+  @include btn-with-backg($bg-color, $text-color);
+}
+
+@mixin btn-contained-grey-scale($bg-color, $text-color) {
+  @include btn-with-backg($bg-color, $text-color);
+  @include btn-grey--states($bg-color);
+}
+
+@mixin btn-outlined($color-text) {
+  @include btn-color--states($color-text);
+  @include btn-without-backg($color-text);
+  border: 1px solid $color-text;
+  border-radius: $btn-border-radius;
+
+  &:disabled {
+    border-color: rgba(black, .38);
+  }
+}
+
+@mixin btn-text($color-text) {
+  @include btn-without-backg($color-text);
+  @include btn-color--states($color-text);
+  padding: 0 8px;
+  border: none;
+}
+
+
+.btn-contained {
+  @include btn-contained-grey-scale($color-prim, $text-color-prim);
+}
+
+.btn-outlined {
+  @include btn-outlined($text-color-sec);
+}
+
+.btn-text {
+  @include btn-text($text-color-sec);
+}
+
+
+.fab-prim {
+  margin: 0 10px 12px;
+  background-color: $color-prim;
+
+  @media (pointer: fine) {
+    &:hover {
+      background-color: rgba($color-prim--light, 0.9);
+    }
+  }
+
+  i {
+    font-size: 18px !important;
+  }
+}

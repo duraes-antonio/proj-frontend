@@ -40,7 +40,7 @@ export class FiltroProdutoComponent implements OnInit {
   private filtrarAvaliacoes(produtos: Produto[]): number[] {
     return [1, 2, 3, 4, 5]
       .filter(num => produtos
-        .some(p => p.avaliacao >= num));
+        .some(p => p.mediaAvaliacao >= num));
   }
 
   private filtrarCategorias(produtos: Produto[]): Set<Categoria> {

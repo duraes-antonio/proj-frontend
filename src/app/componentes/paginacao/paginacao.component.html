@@ -1,16 +1,16 @@
 <div class="container-numeracao">
-  <a (click)="selecionarPagina(paginaAtual - 1)" *ngIf="qtdPaginas > 1"
+  <a (click)="selecionarPagina(paginaAtual - 1)" *ngIf="qtdPags > 1"
      [ngClass]="{'disabled': !exibirBtnPagAnt(paginaAtual)}" class="paginacao-item btn-next-prev">
     <i aria-hidden="true" class="fas fa-chevron-left" style="margin-right: 7px"></i>
     Anterior
   </a>
 
-  <a (click)="selecionarPagina(i)" *ngFor="let i of indicePaginas"
+  <a (click)="selecionarPagina(i)" *ngFor="let i of indicePags"
      [ngClass]="{'selecionado': i == paginaAtual}" class="paginacao-item">{{i}}
   </a>
 
-  <a (click)="selecionarPagina(paginaAtual + 1)" *ngIf="qtdPaginas > 1"
-     [ngClass]="{'disabled': !exibirBtnPagProx(paginaAtual, qtdPaginas)}" class="paginacao-item btn-next-prev">
+  <a (click)="selecionarPagina(paginaAtual + 1)" *ngIf="qtdPags > 1"
+     [ngClass]="{'disabled': !exibirBtnPagProx(paginaAtual, qtdPags)}" class="paginacao-item btn-next-prev">
     Próxima
     <i aria-hidden="true" class="fas fa-chevron-right" style="margin-left: 7px"></i>
   </a>

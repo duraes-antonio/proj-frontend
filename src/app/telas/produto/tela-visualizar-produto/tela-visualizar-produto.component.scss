@@ -1,0 +1,113 @@
+@import '../../../../shared/styles/buttons';
+@import '../../../../shared/styles/effects';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+$color-green: #00a650;
+
+.area-utilizavel[_ngcontent-xlk-c0] {
+  background: white !important;
+}
+
+.container-principal > .col {
+  padding: 0 15px;
+}
+
+.area-media-cont-opinioes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-principal {
+  padding: 30px 20px;
+  background: white;
+}
+
+.area-imagem {
+  padding: 10px;
+
+  .imagem-principal {
+    @include max-size(300px);
+    width: auto;
+
+    @media (max-width: $width-max-medium) {
+      @include max-size(250px);
+      width: auto;
+    }
+  }
+}
+
+.area-info-produto {
+  .titulo {
+    color: $color-prim;
+    font-weight: 500;
+  }
+
+  .descricao {
+    color: $color-sec--dark;
+    white-space: pre-wrap;
+    text-align: justify;
+  }
+}
+
+.bandeira-desconto {
+  margin-left: 5px;
+  background: limegreen;
+  font-size: small;
+  color: white;
+  padding: 0 4px;
+  border-radius: 3px
+}
+
+.area-compra {
+  max-width: 100%;
+}
+
+.area-devolucao {
+  @extend %center-flex;
+  font-size: small;
+  padding: 10px 15px;
+  background: rgba($color-green, .1);
+  border-radius: 4px;
+  margin: 15px 0;
+  color: $color-green;
+
+  i {
+    @extend %center-flex;
+    color: white;
+    height: 28px;
+    min-width: 28px;
+    margin-right: 10px;
+    background: $color-green;
+    border-radius: 50%;
+    font-size: 16px;
+  }
+}
+
+.area-indisp {
+  @extend %center-flex;
+  font-size: small;
+  padding: 10px 15px;
+  background: rgba($color-sec--light, .3);
+  border-radius: 4px;
+  margin: 15px 0;
+  color: $color-prim--light;
+
+  i {
+    @extend %center-flex;
+    color: $color-prim--light;
+    height: 28px;
+    min-width: 28px;
+    margin-right: 10px;
+    background: white;
+    border-radius: 50%;
+    font-size: 30px;
+  }
+}
+
+.btn-fav {
+  @include btn-outlined(deeppink);
+}
+

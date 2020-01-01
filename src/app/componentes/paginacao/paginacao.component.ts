@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {gerarSequencia} from '../../../shared/utilFuncoes';
 
 @Component({
   selector: 'app-paginacao',
@@ -7,19 +8,23 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class PaginacaoComponent implements OnInit {
 
-  public indicePaginas: number[];
-  @Input() paginaAtual = 1;
+  public indicePags: number[];
   @Output() paginaSelecionada: EventEmitter<number> = new EventEmitter<number>();
+
+  @Input() paginaAtual = 1;
   private _qtdPag: number;
 
-  @Input('qtdPaginas')
-  get qtdPaginas() {
+  @Input()
+  get qtdPags() {
     return this._qtdPag;
   }
 
-  set qtdPaginas(num: number) {
+  set qtdPags(num: number) {
     this._qtdPag = num;
-    this.indicePaginas = Array(num).fill(0).map((x, i) => i + 1);
+    this.indicePags = gerarSequencia(num > 10 ? 10 : num, 1);
+  }
+
+  ngOnInit() {
   }
 
   exibirBtnPagAnt(pagAtual: number): boolean {
@@ -30,11 +35,30 @@ export class PaginacaoComponent implements OnInit {
     return pagAtual && pagAtual < qtdPaginas;
   }
 
-  ngOnInit() {
+  gerarSeqIndPags(
+    pagAlvo: number, totPag: number, seqAtual: number[],
+    fnGerarInds: (qtd: number, inic: number) => number[]): number[] {
+    const tam = seqAtual.length;
+
+    /*Se o índice da página alvo for maior que o índice da última página,
+    * gere uma sequência maior de índices*/
+    if (pagAlvo >= seqAtual[tam - 1] && pagAlvo < totPag) {
+      return fnGerarInds(tam, (totPag - pagAlvo > 5) ? pagAlvo - 5 : totPag - 9);
+    } else if (pagAlvo <= seqAtual[0] && pagAlvo > 0) {
+      return fnGerarInds(tam, Math.max(pagAlvo - 5, 1));
+    } else {
+      return seqAtual;
+    }
   }
 
-  selecionarPagina(numPagina: number) {
-    this.paginaAtual = numPagina;
-    this.paginaSelecionada.emit(numPagina);
+  selecionarPagina(pagAlvo: number) {
+    pagAlvo = Math.min(this.qtdPags, Math.max(1, pagAlvo));
+
+    if (pagAlvo <= this.indicePags[0] || pagAlvo >= this.indicePags[this.indicePags.length - 1]) {
+      this.indicePags = this.gerarSeqIndPags(pagAlvo, this.qtdPags, this.indicePags, gerarSequencia);
+    }
+
+    this.paginaAtual = pagAlvo;
+    this.paginaSelecionada.emit(pagAlvo);
   }
 }

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {ProdutoRoutingModule} from './telas/produto/produto-routing.module';
 
 const routes: Routes = [
   {
@@ -22,15 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () =>
-      import('./telas/tela-login/tela-login.module')
-        .then(m => m.TelaLoginModule)
-  },
-  {
-    path: 'produto',
-    loadChildren: () =>
-      import('./telas/tela-lista-produto/tela-lista-produto.module')
-        .then(m => m.TelaListaProdutoModule)
+    loadChildren: './telas/tela-login/tela-login.module#TelaLoginModule'
   },
   {
     path: 'redefinir-senha',
@@ -60,6 +53,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
+    ProdutoRoutingModule
   ],
   exports: [RouterModule]
 })

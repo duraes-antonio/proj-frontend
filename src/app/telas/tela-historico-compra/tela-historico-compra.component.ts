@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Compra, ECompraEstado} from '../../modelos/Compra';
-import {formatoTimestamp} from '../../shared/padroes';
-import {DadosTeste} from '../../shared/DadosTeste';
+import {formatoTimestamp} from '../../../shared/padroes';
+import {DadosTeste} from '../../../shared/DadosTeste';
 
 @Component({
   selector: 'app-tela-historico-compra',

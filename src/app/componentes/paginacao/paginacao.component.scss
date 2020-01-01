@@ -1,12 +1,13 @@
-@import '../../shared/shared';
+@import '../../../shared/shared';
 
 .container-numeracao {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px 0 50px;
 }
 
+/*TODO: Estender comportamento do botão texto (sem fundo)*/
 .paginacao-item {
   display: flex;
   align-items: center;
@@ -19,7 +20,7 @@
   margin-right: 7px;
   margin-top: 10px;
 
-  color: $val-cor-prim-clara;
+  color: $color-prim--light;
   font-size: 14px;
   font-weight: 400;
   border-radius: 5px;
@@ -28,8 +29,8 @@
   transition: background-color 400ms;
 
   &.selecionado {
-    color: $val-cor-texto-sec;
-    background: $val-cor-sec-clara;
+    color: $text-color-sec;
+    background: $color-sec--light;
     font-weight: bold;
   }
 
@@ -39,7 +40,7 @@
   }
 
   &:not(.selecionado):hover {
-    background: rgba($val-cor-sec-clara, .4);
+    background: rgba($color-sec--light, .4);
   }
 }
 

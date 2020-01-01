@@ -5,6 +5,8 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app.routing.module';
 import {ComponentesModule} from './componentes/componentes.module';
 import {registerLocaleData} from '@angular/common';
+import {ProdutoModule} from './telas/produto/produto.module';
+
 registerLocaleData(localePt);
 
 @NgModule({
@@ -14,7 +16,8 @@ registerLocaleData(localePt);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComponentesModule
+    ComponentesModule,
+    ProdutoModule
   ],
   providers: [
     {

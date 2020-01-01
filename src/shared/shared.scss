@@ -1,28 +1,4 @@
-$val-margin-campo-btn: 40px;
-$val-padding-area-form: 20px;
-
-$val-cor-link--ativo: dodgerblue;
-$val-cor-link--hover: white;
-$val-cor-link--inativo: #80c4ff;
-
-$val-cor-prim: #212121;
-$val-cor-prim-escura: black;
-$val-cor-prim-clara: #484848;
-
-$val-cor-sec: #9e9e9e;
-$val-cor-sec-escura: #707070;
-$val-cor-sec-clara: #cfcfcf;
-
-$val-cor-texto-prim: white;
-$val-cor-texto-sec: black;
-
-$val-cor-sombra: lightgrey;
-$val-cor-borda-quadros: #ccc;
-
-$val-width-max-x-small: 480px;
-$val-width-max-small: 600px;
-$val-width-max-medium: 992px;
-$val-width-max-large: 1200px;
+@import 'styles/variables';
 
 /*TODO: Refatorar para componente que utiliza*/
 $val-cor-twitter: #1da1f2;
@@ -145,7 +121,7 @@ $val-b-radius: 18px;
 
 .btn-prim {
   @extend %center;
-  @include efeito-ripple(rgba($val-cor-prim, .85));
+  @include efeito-ripple(rgba($color-prim, .85));
   width: min-content;
   min-width: calc(64px - 2 * 16px);
   height: auto;
@@ -159,12 +135,12 @@ $val-b-radius: 18px;
   letter-spacing: .09em;
 
   border-radius: 4px;
-  color: $val-cor-texto-prim;
-  background-color: $val-cor-prim;
+  color: $text-color-prim;
+  background-color: $color-prim;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
 
   &:hover:focus {
-    background-color: rgba($val-cor-prim, .85);
+    background-color: rgba($color-prim, .85);
     box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.3);
   }
 
@@ -184,11 +160,11 @@ $val-b-radius: 18px;
 
 .fab-prim {
   margin: 0 10px 12px;
-  background-color: $val-cor-prim;
+  background-color: $color-prim;
 
   @media (pointer: fine) {
     &:hover {
-      background-color: rgba($val-cor-prim-clara, 0.9);
+      background-color: rgba($color-prim--light, 0.9);
     }
   }
 
@@ -222,8 +198,8 @@ $val-b-radius: 18px;
   justify-self: center;
   align-items: center;
 
-  background-color: $val-cor-prim;
-  color: $val-cor-texto-prim;
+  background-color: $color-prim;
+  color: $text-color-prim;
   width: 65px;
   height: 65px;
   border-radius: 50%;

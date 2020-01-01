@@ -9,7 +9,8 @@
   <div class="col s12 m8 l9 xl10"
        style="display: flex; flex-flow: wrap; padding: 20px 10px 0;">
     <div *ngFor="let item of produtos" class="area-item col s6 m6 l3 xl3">
-      <div class="area-produto">
+      <a [routerLink]="[item.id]" style="color: unset">
+        <div class="area-produto">
 
         <!-- Etiqueta de desconto -->
         <span *ngIf="item.emPromocao" class="etiqueta-promo">
@@ -34,8 +35,10 @@
           <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
         </div>
       </div>
+      </a>
     </div>
 
-    <app-paginacao [qtdPaginas]="10" style="width: 100%; height: 100px;"></app-paginacao>
+    <app-paginacao [qtdPags]="32" style="width: 100%;">
+    </app-paginacao>
   </div>
 </div>
