@@ -19,3 +19,9 @@ body {
   background-color: limegreen !important;
   border: 2px solid #888 !important;
 }
+
+.titulo-secao {
+  color: $color-sec--dark;
+  font-size: x-large;
+  text-transform: uppercase;
+}

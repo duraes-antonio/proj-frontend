@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {ProdutoRoutingModule} from './telas/produto/produto-routing.module';
 
 const routes: Routes = [
@@ -50,9 +50,14 @@ const routes: Routes = [
   }
 ];
 
+const extraOptions: ExtraOptions = {
+  anchorScrolling: 'enabled',
+  scrollPositionRestoration: 'enabled'
+};
+
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, extraOptions),
     ProdutoRoutingModule
   ],
   exports: [RouterModule]

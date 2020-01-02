@@ -4,7 +4,7 @@ import localePt from '@angular/common/locales/pt';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app.routing.module';
 import {ComponentesModule} from './componentes/componentes.module';
-import {registerLocaleData} from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import {ProdutoModule} from './telas/produto/produto.module';
 
 registerLocaleData(localePt);
@@ -14,6 +14,7 @@ registerLocaleData(localePt);
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ComponentesModule,

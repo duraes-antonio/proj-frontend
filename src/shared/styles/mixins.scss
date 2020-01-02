@@ -12,3 +12,13 @@
   max-width: $width;
   max-height: $height;
 }
+
+@mixin min-max-width($width, $height: $width) {
+  min-width: $width;
+  max-width: $width;
+}
+
+@mixin min-max-size($width, $height: $width) {
+  @include min-size($width);
+  @include max-size($width);
+}

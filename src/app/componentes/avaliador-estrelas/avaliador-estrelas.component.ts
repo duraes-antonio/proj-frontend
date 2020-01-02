@@ -9,8 +9,9 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AvaliadorEstrelasComponent implements OnInit {
 
   @Input() mediaAvaliacao = 0;
-  @Input() numeroAvaliacoes = 0;
+  @Input() qtdAvaliacoes = 0;
   @Input() fontSize = 20;
+  @Input() exibirNumAval = true;
   public difMediaIndices = this.calcDifsMediaIndices(this.qtdEstrelas, this.mediaAvaliacao);
 
   constructor(private sanitizer: DomSanitizer) {

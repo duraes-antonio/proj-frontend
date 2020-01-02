@@ -1,1 +1,20 @@
-<p>lista-avaliacoes works!</p>
+<div *ngFor="let aval of avaliacoes" class="avalicao">
+  <div class="info-avaliador">
+    <div class="avatar">
+      <img [src]="aval.avaliadorUrlAvatar"
+           alt="Imagem de {{aval.avaliadorNome}}, cliente da loja">
+    </div>
+    <span>{{aval.avaliadorNome}}</span>
+  </div>
+
+  <div class="comentario">
+    <div style="display: flex; justify-content: space-between">
+      <app-avaliador-estrelas [exibirNumAval]="false" [fontSize]="14"
+                              [mediaAvaliacao]="aval.nota" [qtdEstrelas]="5">
+      </app-avaliador-estrelas>
+      <span>{{aval.data | date: fmtData}}</span>
+    </div>
+    <strong>{{aval.resumo}}</strong>
+    <span>{{aval.comentario}}</span>
+  </div>
+</div>

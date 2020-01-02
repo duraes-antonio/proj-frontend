@@ -1,45 +1,51 @@
-<app-lista-avaliacoes [avaliacoes]="avaliacoes"></app-lista-avaliacoes>
-<div class="row container-principal">
+<div class="container-principal">
 
-  <!-- Imagens -->
-  <div class="col s12 m12 l4 xl4 area-imagem" style="text-align: center">
-    <img [src]="produto.urlImagem" class="imagem-principal">
-  </div>
+  <!-- Colunas com dados sobre o produto e preço -->
+  <div class="row">
+    <!-- Imagens -->
+    <div class="col s12 m12 l4 xl4 area-imagem" style="text-align: center">
+      <img [src]="produto.urlImagem" alt="Imagem do produto {{produto.titulo}}"
+           class="imagem-principal">
+    </div>
 
-  <!-- Titulo, Cont. Avalições, Descrição e Calc. de Frete -->
-  <div class="col s12 m6 l4 xl4 area-info-produto">
+    <!-- Titulo, Cont. Avalições, Descrição e Calc. de Frete -->
+    <div class="col s12 m6 l4 xl4 area-info-produto">
 
-    <!-- Título -->
-    <h5 class="titulo">{{produto.titulo}}</h5>
+      <!-- Título -->
+      <h5 class="titulo">{{produto.titulo}}</h5>
 
-    <!-- Média das avaliações -->
-    <!-- TODO: Trazer info do banco de dados   -->
-    <app-avaliador-estrelas [fontSize]="18" [mediaAvaliacao]="3.75" [numeroAvaliacoes]="128"
-                            [qtdEstrelas]="5"></app-avaliador-estrelas>
+      <!-- Média das avaliações -->
+      <!-- TODO: Trazer info do banco de dados   -->
+      <a fragment="rating" routerLink=".">
+        <app-avaliador-estrelas [fontSize]="18" [mediaAvaliacao]="+media" [qtdAvaliacoes]="avaliacoes.length"
+                                [qtdEstrelas]="5"
+                                title="A média das avaliações do produto é {{media}}">
+        </app-avaliador-estrelas>
+      </a>
 
-    <!-- Descrição -->
-    <p class="descricao">{{produto.descricao}}</p>
+      <!-- Descrição -->
+      <p class="descricao">{{produto.descricao}}</p>
 
-    <div class="divider" style="margin: 20px 0;"></div>
+      <div class="divider" style="margin: 20px 0;"></div>
 
-    <!-- Cálcular frete -->
-    <div class="row">
-      <div class="input-padrao col s6 m12 l6 xl6">
-        <input class="validate" id="input-cep" pattern="banana|cherry" required type="text">
-        <label for="input-cep">CEP</label>
-        <span data-error="Eitcha" data-success="right">Helper text</span>
-      </div>
-      <div class="col s6 m12 l6 xl6">
-        <button class="btn-outlined big waves-effect waves-light" style="width: 100%">
-          <i aria-hidden="true" class="fa fa-truck"></i>
-          Calcular frete
-        </button>
+      <!-- Cálcular frete -->
+      <div class="row">
+        <div class="input-padrao col s6 m12 l6 xl6">
+          <input class="validate" id="input-cep" pattern="banana|cherry" required type="text">
+          <label for="input-cep">CEP</label>
+          <span data-error="Eitcha" data-success="right">Helper text</span>
+        </div>
+        <div class="col s6 m12 l6 xl6">
+          <button class="btn-outlined big waves-effect waves-light" style="width: 100%">
+            <i aria-hidden="true" class="fa fa-truck"></i>
+            Calcular frete
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Preço e Pagamento -->
-  <div class="col s12 m6 l4 xl4 area-compra">
+    <!-- Preço e Pagamento -->
+    <div class="col s12 m6 l4 xl4 area-compra">
 
     <!-- Bandeira de desconto e preço sem desconto -->
     <div *ngIf="produto.porcentDesc > 0" style="display: flex; align-items: center">
@@ -105,12 +111,21 @@
       </button>
     </ng-template>
   </div>
+  </div>
+
+  <div class="divider"></div>
 
   <!-- Descrição -->
-  <div class="col" style="margin-top: 30px">
-    <strong style="text-transform: uppercase; font-weight: bolder">Descrição</strong>
+  <div>
+    <strong class="titulo-secao">Descrição</strong>
     <p class="descricao">{{produto.descricao}}</p>
   </div>
 
+  <div class="divider"></div>
+
+  <div id="rating" style="display: grid; width: 100%">
+    <strong class="titulo-secao">Avaliações</strong>
+    <app-lista-avaliacoes [avaliacoes]="avaliacoes"></app-lista-avaliacoes>
+  </div>
 </div>
 <app-seq-produto [sequencia]="seqProd"></app-seq-produto>

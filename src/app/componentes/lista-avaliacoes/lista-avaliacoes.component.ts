@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Avaliacao} from '../../modelos/Avaliacao';
+import {formatoTimestamp} from '../../../shared/padroes';
 
 @Component({
   selector: 'app-lista-avaliacoes',
@@ -9,6 +10,7 @@ import {Avaliacao} from '../../modelos/Avaliacao';
 export class ListaAvaliacoesComponent implements OnInit {
 
   @Input() avaliacoes: Avaliacao[];
+  public fmtData: string = formatoTimestamp;
 
   constructor() {
   }

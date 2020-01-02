@@ -1,28 +1,26 @@
 @import '../../../../shared/styles/buttons';
-@import '../../../../shared/styles/effects';
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
 @import '../../../../shared/styles/variables';
 
 $color-green: #00a650;
 
-.area-utilizavel[_ngcontent-xlk-c0] {
-  background: white !important;
+.container-principal {
+  padding: 20px;
 }
 
 .container-principal > .col {
   padding: 0 15px;
 }
 
+.divider {
+  margin: 30px 0;
+}
+
 .area-media-cont-opinioes {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.container-principal {
-  padding: 30px 20px;
-  background: white;
 }
 
 .area-imagem {
