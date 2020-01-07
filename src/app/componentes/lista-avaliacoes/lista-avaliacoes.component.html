@@ -1,20 +1,20 @@
-<div *ngFor="let aval of avaliacoes" class="avalicao">
-  <div class="info-avaliador">
-    <div class="avatar">
-      <img [src]="aval.avaliadorUrlAvatar"
+<div *ngFor="let aval of avaliacoes" class="rating">
+  <div class="rating__user-info">
+    <div class="rating__user-avatar">
+      <img [src]="aval.avaliadorUrlAvatar" class="rating__user-avatar-img"
            alt="Imagem de {{aval.avaliadorNome}}, cliente da loja">
     </div>
-    <span>{{aval.avaliadorNome}}</span>
+    <span class="rating__user-name">{{aval.avaliadorNome}}</span>
   </div>
 
-  <div class="comentario">
-    <div style="display: flex; justify-content: space-between">
+  <div class="rating__comment">
+    <div class="rating__date-stars">
       <app-avaliador-estrelas [exibirNumAval]="false" [fontSize]="14"
                               [mediaAvaliacao]="aval.nota" [qtdEstrelas]="5">
       </app-avaliador-estrelas>
-      <span>{{aval.data | date: fmtData}}</span>
+      <span class="rating__date">{{aval.data | date: fmtData}}</span>
     </div>
-    <strong>{{aval.resumo}}</strong>
-    <span>{{aval.comentario}}</span>
+    <strong class="rating__summary">{{aval.resumo}}</strong>
+    <span class="rating__full-text">{{aval.comentario}}</span>
   </div>
 </div>

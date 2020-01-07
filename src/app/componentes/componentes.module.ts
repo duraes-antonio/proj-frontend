@@ -20,6 +20,7 @@ import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component'
 import {PaginacaoComponent} from './paginacao/paginacao.component';
 import {AvaliadorEstrelasComponent} from './avaliador-estrelas/avaliador-estrelas.component';
 import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.component';
+import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.comp
     PaginacaoComponent,
     AvaliadorEstrelasComponent,
     ListaAvaliacoesComponent,
+    ModalFreteComponent,
   ],
   exports: [
     NavbarComponent,
@@ -60,7 +62,8 @@ import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.comp
     PaginacaoComponent,
     AvaliadorEstrelasComponent,
     SequenciaComponent,
-    ListaAvaliacoesComponent
+    ListaAvaliacoesComponent,
+    ModalFreteComponent
   ],
   imports: [
     CommonModule,

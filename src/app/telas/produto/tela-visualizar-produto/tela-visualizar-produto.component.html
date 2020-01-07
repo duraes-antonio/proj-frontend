@@ -49,9 +49,7 @@
 
     <!-- Bandeira de desconto e preço sem desconto -->
     <div *ngIf="produto.porcentDesc > 0" style="display: flex; align-items: center">
-        <span style="text-decoration: line-through;">
-          R$ {{produto.preco | number: '1.2-2'}}
-        </span>
+      <span style="text-decoration: line-through;">R$ {{produto.preco | number: '1.2-2'}}</span>
       <span class="bandeira-desconto">
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
         {{produto.porcentDesc | number: '1.0-2'}}%
@@ -126,6 +124,11 @@
   <div id="rating" style="display: grid; width: 100%">
     <strong class="titulo-secao">Avaliações</strong>
     <app-lista-avaliacoes [avaliacoes]="avaliacoes"></app-lista-avaliacoes>
+    <!-- TODO: Tornar o componente de paginação responsivo -->
+    <app-paginacao [paginaAtual]="1" [qtdPags]="14"></app-paginacao>
   </div>
+
+  <div class="divider"></div>
 </div>
 <app-seq-produto [sequencia]="seqProd"></app-seq-produto>
+<app-modal-frete [show]="true"></app-modal-frete>
