@@ -1,32 +1,36 @@
-<!-- Modal Structure -->
 <div class="modal modal-fixed-footer" id="id-modal">
   <div class="modal-content">
-    <h5>Selecione seu endereço e opção de recebimento</h5>
-    <p>Abaixo será possível conferir prazo e custo de entrega desse produto</p>
+    <h5 class="modal__title">Selecione um endereço e opção de entrega</h5>
+    <p class="modal__desc">Abaixo será possível conferir os prazos e custos de entrega desse produto.</p>
 
     <div class="row">
-      <ul class="tabs">
-        <li class="tab col s6">
-          <a class="active" href="#test1">
-            <i aria-hidden="true" class="fa fa-map-marker-alt"
-               style="font-size: medium"></i>
+      <ul class="tabs modal__tabs">
+        <li class="tab tabs__address">
+          <a class="active tabs__address-link" href="#tab-address">
+            <i aria-hidden="true" class="fa fa-map-marker-alt tabs__address-icon"></i>
             Meus endereços
           </a>
         </li>
-        <li class="tab col s6">
-          <a href="#test2">
-            <i aria-hidden="true" class="fa fa-shipping-fast"
-               style="font-size: medium"></i>
+        <li class="tab tabs__delivery">
+          <a class="tabs__delivery-link" href="#tab-opt-delivery">
+            <i aria-hidden="true" class="fa fa-shipping-fast tabs__delivery-icon"></i>
             Opções de entrega
           </a>
         </li>
       </ul>
     </div>
 
-    <div class="col s12" id="test1">Test 1</div>
-    <div class="col s12" id="test2">Test 2</div>
+    <div id="tab-address">
+      <code>
+        <p>The <code>push()</code> method adds one or more elements to the end of an array and returns the new length of
+          the array.</p>
+      </code>
+    </div>
+    <div id="tab-opt-delivery">Test 2</div>
   </div>
+
   <div class="modal-footer">
-    <a class="modal-close waves-effect waves-green btn-flat" href="#!">Agree</a>
+    <a class="modal-close btn-text" style="margin-right: 8px">Cancelar</a>
+    <a class="modal-close btn-text">Aplicar</a>
   </div>
 </div>

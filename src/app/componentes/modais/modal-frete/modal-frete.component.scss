@@ -1,0 +1,110 @@
+@import '../../../../shared/styles/buttons';
+@import '../../../../shared/styles/effects';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/states';
+@import '../../../../shared/styles/variables';
+
+$color-tab-active: dodgerblue;
+
+::ng-deep .tabs .indicator {
+  display: none !important;
+}
+
+%tab-link {
+  @include state--colored(rgba($color-tab-active, .6));
+  @extend %center-flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-sec--dark;
+  position: relative;
+  transition: .6s width ease-in-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    transform: translate(-50%, 0);
+    width: 0;
+    opacity: 1;
+    border-bottom: 2px solid $color-tab-active;;
+    transition: .3s width ease;
+  }
+
+  &.active {
+    color: $color-tab-active;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.modal {
+  border-radius: 5px;
+  will-change: contents, top;
+  transition: all 400ms;
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    background: none;
+    padding: 8px 8px 8px 24px
+  }
+
+  &.modal-fixed-footer .modal-footer {
+    border-top: none;
+  }
+
+  @media (max-width: $width-max-small) {
+    top: 0 !important;
+    border-radius: 0;
+    @include max-size(100%);
+    @include size(100%);
+  }
+}
+
+.modal__tabs {
+  white-space: normal;
+
+  &, .tab {
+    line-height: unset;
+  }
+
+  .tabs__address, .tabs__delivery {
+
+    &-link {
+      @extend %tab-link;
+    }
+
+    &-icon {
+      font-size: 22px;
+      padding-right: 8px
+    }
+  }
+
+  @media (max-width: $width-max-small) {
+    height: 72px;
+
+    .tabs__address, .tabs__delivery {
+      &-link {
+        font-size: 13.5px;
+        display: flex;
+        flex-flow: column;
+        font-weight: 400;
+      }
+
+      &-icon {
+        font-size: 20px;
+        padding-bottom: 8px;
+        padding-right: 0;
+      }
+    }
+
+    .tab, .tabs__address, .tabs__delivery {
+      height: 72px;
+    }
+  }
+}
