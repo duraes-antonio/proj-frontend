@@ -1,6 +1,7 @@
 import {Produto} from '../app/modelos/Produto';
 import {Categoria} from '../app/modelos/Categoria';
 import {Avaliacao} from '../app/modelos/Avaliacao';
+import {Endereco} from '../app/modelos/Endereco';
 
 export class DadosTeste {
 
@@ -31,6 +32,18 @@ export class DadosTeste {
     new Categoria('Colecionáveis', 3),
     new Categoria('Pacote de Cards', 4),
     new Categoria('Vestuário', 5)
+  ];
+  public static readonly enderecos = [
+    new Endereco(38, '29065-390', 'Rua Emília Mazoco Keijok',
+      'Mata da Praia', 'Vitória', 'ES'),
+    new Endereco(783, '29300-120', 'Rua Dona Joanna',
+      'Centro', 'Cachoeiro de Itapemirim', 'ES'),
+    new Endereco(231, '91910-670', 'Avenida Flor de Maracá',
+      'Cristal', 'Porto Alegre', 'RS'),
+    new Endereco(21, '69316-027', 'Rua Estrela do Norte',
+      'Raiar do Sol', 'Boa Vista', 'RO'),
+    new Endereco(445, '59628-070', 'Rua Lavoisier Maia',
+      'Alto de São Manoel', 'Mossoró', 'RN'),
   ];
   public static readonly produtos = [
     new Produto(

@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {SequenciaProduto} from '../../../modelos/componentes/SequenciaProduto';
 import {Avaliacao} from '../../../modelos/Avaliacao';
+import {Endereco} from '../../../modelos/Endereco';
 
 @Component({
   selector: 'app-tela-visualizar-produto',
@@ -16,12 +17,13 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   public seqProd = new SequenciaProduto(625);
   public produto: Produto;
   public avaliacoes: Avaliacao[] = DadosTeste.avaliacoes;
-  public media = (this.avaliacoes
+  public media = +((this.avaliacoes
       .map(a => a.nota)
       .reduce((a, c) => a + c) / this.avaliacoes.length
-  ).toFixed(2);
+  ).toFixed(2));
   /*TODO: Remover após ter dados em um banco de dados*/
   private produtos: Produto[] = DadosTeste.produtos;
+  public enderecos: Endereco[] = DadosTeste.enderecos;
   private rotaInsc: Subscription;
 
   constructor(private route: ActivatedRoute) {

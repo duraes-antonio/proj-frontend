@@ -17,7 +17,7 @@
       <!-- Média das avaliações -->
       <!-- TODO: Trazer info do banco de dados   -->
       <a fragment="rating" routerLink=".">
-        <app-avaliador-estrelas [fontSize]="18" [mediaAvaliacao]="+media" [qtdAvaliacoes]="avaliacoes.length"
+        <app-avaliador-estrelas [fontSize]="18" [mediaAvaliacao]="media" [qtdAvaliacoes]="avaliacoes.length"
                                 [qtdEstrelas]="5"
                                 title="A média das avaliações do produto é {{media}}">
         </app-avaliador-estrelas>
@@ -131,4 +131,4 @@
   <div class="divider"></div>
 </div>
 <app-seq-produto [sequencia]="seqProd"></app-seq-produto>
-<app-modal-frete [show]="true"></app-modal-frete>
+<app-modal-frete [enderecos]="enderecos" [show]="true"></app-modal-frete>

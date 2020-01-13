@@ -1,17 +1,16 @@
-<div class="modal modal-fixed-footer" id="id-modal">
-  <div class="modal-content">
+<div class="modal modal-fixed-footer modal-fixed-header" id="id-modal">
+  <div class="modal-header" id="id-modal-header">
     <h5 class="modal__title">Selecione um endereço e opção de entrega</h5>
     <p class="modal__desc">Abaixo será possível conferir os prazos e custos de entrega desse produto.</p>
-
-    <div class="row">
+    <div>
       <ul class="tabs modal__tabs">
-        <li class="tab tabs__address">
+        <li class="tab col s6 tabs__address">
           <a class="active tabs__address-link" href="#tab-address">
             <i aria-hidden="true" class="fa fa-map-marker-alt tabs__address-icon"></i>
             Meus endereços
           </a>
         </li>
-        <li class="tab tabs__delivery">
+        <li class="tab col s6 tabs__delivery">
           <a class="tabs__delivery-link" href="#tab-opt-delivery">
             <i aria-hidden="true" class="fa fa-shipping-fast tabs__delivery-icon"></i>
             Opções de entrega
@@ -19,17 +18,30 @@
         </li>
       </ul>
     </div>
+  </div>
+
+  <div class="modal-content" id="id-modal-content" style="">
 
     <div id="tab-address">
-      <code>
-        <p>The <code>push()</code> method adds one or more elements to the end of an array and returns the new length of
-          the array.</p>
-      </code>
+      <ul>
+        <li *ngFor="let end of enderecos">
+          {{end.bairro}}: {{end.numero}} - {{end.logradouro}}<br>
+          CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
+        </li>
+        <li *ngFor="let end of enderecos">
+          {{end.bairro}}: {{end.numero}} - {{end.logradouro}}<br>
+          CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
+        </li>
+        <li *ngFor="let end of enderecos">
+          {{end.bairro}}: {{end.numero}} - {{end.logradouro}}<br>
+          CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
+        </li>
+      </ul>
     </div>
     <div id="tab-opt-delivery">Test 2</div>
   </div>
 
-  <div class="modal-footer">
+  <div class="modal-footer" id="id-modal-footer">
     <a class="modal-close btn-text" style="margin-right: 8px">Cancelar</a>
     <a class="modal-close btn-text">Aplicar</a>
   </div>

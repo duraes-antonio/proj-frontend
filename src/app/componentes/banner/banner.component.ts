@@ -14,7 +14,7 @@ export class BannerComponent implements OnInit {
     nomeFantasia: 'yugishop',
     razaoSocial: 'Yugi Comercio de Brinquedos',
     endereco: {
-      lograd: 'Rua Hermilo Alves',
+      logradouro: 'Rua Hermilo Alves',
       numero: 45,
       cep: '27161-587',
       bairro: 'Jardim Tropical',

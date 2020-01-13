@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as M from '../../../../../node_modules/materialize-css';
+import {Endereco} from '../../../modelos/Endereco';
 
 @Component({
   selector: 'app-modal-frete',
@@ -9,28 +10,51 @@ import * as M from '../../../../../node_modules/materialize-css';
 export class ModalFreteComponent implements OnInit {
 
   @Input() show = false;
+  @Input() enderecos: Endereco[];
+  private idModal = 'id-modal';
+  private idModalContent = 'id-modal-content';
+  private idModalFooter = 'id-modal-footer';
+  private idModalHeader = 'id-modal-header';
+
+  private modalContent: HTMLElement;
+  private modalFooter: HTMLElement;
+  private modalHeader: HTMLElement;
+  private modal: HTMLElement;
 
   constructor() {
-  }
-
-  private static initModal(idModalHtml: string): any {
-    const elemModal = document.getElementById(idModalHtml);
-    return elemModal ? M.Modal.init(elemModal, {}) : null;
   }
 
   ngOnInit() {
     document.addEventListener(
       'DOMContentLoaded',
-      function (show) {
-        const elemModal = document.getElementById('id-modal');
-        const instance = M.Modal.init(elemModal, {});
+      () => {
+        const modal = this.initModal(this.idModal);
+        // this.initTabs();
 
-        if (show) {
-          instance.open();
+        if (this.show) {
+          modal.open();
+          this.modal = document.getElementById(this.idModal);
+          this.modalContent = document.getElementById(this.idModalContent);
+          this.modalFooter = document.getElementById(this.idModalFooter);
+          this.modalHeader = document.getElementById(this.idModalHeader);
+          window.addEventListener('resize', () => this.modalResize());
+          this.modalResize();
         }
+      }
+    );
+  }
 
-        const elemTabs = document.querySelectorAll('.tabs');
-        const tabInstance = M.Tabs.init(elemTabs, {});
-      });
+  private initModal(modalId: string): M.Modal {
+    return M.Modal.init(document.getElementById(modalId), {});
+  }
+
+  private initTabs(): M.Tabs {
+    return M.Tabs.init(document.querySelectorAll('.tabs'), {});
+  }
+
+  private modalResize(): void {
+    const height = this.modal.offsetHeight - this.modalHeader.offsetHeight
+      - this.modalFooter.offsetHeight;
+    this.modalContent.style.setProperty(`--content-height`, `${height}px`);
   }
 }
