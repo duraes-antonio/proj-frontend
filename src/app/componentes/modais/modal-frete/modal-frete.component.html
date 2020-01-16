@@ -2,43 +2,23 @@
   <div class="modal-header" id="id-modal-header">
     <h5 class="modal__title">Selecione um endereço e opção de entrega</h5>
     <p class="modal__desc">Abaixo será possível conferir os prazos e custos de entrega desse produto.</p>
-    <div>
-      <ul class="tabs modal__tabs">
-        <li class="tab col s6 tabs__address">
-          <a class="active tabs__address-link" href="#tab-address">
-            <i aria-hidden="true" class="fa fa-map-marker-alt tabs__address-icon"></i>
-            Meus endereços
-          </a>
-        </li>
-        <li class="tab col s6 tabs__delivery">
-          <a class="tabs__delivery-link" href="#tab-opt-delivery">
-            <i aria-hidden="true" class="fa fa-shipping-fast tabs__delivery-icon"></i>
-            Opções de entrega
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 
   <div class="modal-content" id="id-modal-content" style="">
-
+    <!-- Caso o usuário esteja logado e com algum enedereço registrado -->
     <div id="tab-address">
-      <ul>
-        <li *ngFor="let end of enderecos">
-          {{end.bairro}}: {{end.numero}} - {{end.logradouro}}<br>
-          CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
-        </li>
-        <li *ngFor="let end of enderecos">
-          {{end.bairro}}: {{end.numero}} - {{end.logradouro}}<br>
-          CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
-        </li>
-        <li *ngFor="let end of enderecos">
-          {{end.bairro}}: {{end.numero}} - {{end.logradouro}}<br>
-          CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
+      <ul class="list-address">
+        <li *ngFor="let end of addresses" class="list-address__item">
+          <label (click)="selectAddress(end.cep, 'list-address__item-content--active')">
+            <input class="with-gap" name="endereco" type="radio">
+            <span class="list-address__item-content" id="{{end.cep}}">
+              <strong>{{end.numero}} - {{end.logradouro}} - {{end.bairro}}</strong>
+              CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
+            </span>
+          </label>
         </li>
       </ul>
     </div>
-    <div id="tab-opt-delivery">Test 2</div>
   </div>
 
   <div class="modal-footer" id="id-modal-footer">

@@ -81,6 +81,10 @@ $color-tab-active: dodgerblue;
     border-radius: 0;
     @include max-size(100%);
     @include size(100%);
+
+    &-content {
+      padding: 0;
+    }
   }
 }
 
@@ -123,6 +127,33 @@ $color-tab-active: dodgerblue;
 
     .tab, .tabs__address, .tabs__delivery {
       height: 72px;
+    }
+  }
+}
+
+.list-address {
+  border: 1px solid #ddd;
+  margin: 0;
+
+  &__item {
+    padding: 8px 15px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+    }
+
+    [type="radio"] + span::before, [type="radio"] + span::after {
+      top: unset !important;
+    }
+
+    &-content {
+      height: auto !important;
+      display: grid !important;
+      align-items: center;
+
+      &--active {
+        color: $color-prim--light;
+      }
     }
   }
 }

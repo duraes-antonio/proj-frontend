@@ -10,7 +10,7 @@ import {Endereco} from '../../../modelos/Endereco';
 export class ModalFreteComponent implements OnInit {
 
   @Input() show = false;
-  @Input() enderecos: Endereco[];
+  @Input() addresses: Endereco[];
   private idModal = 'id-modal';
   private idModalContent = 'id-modal-content';
   private idModalFooter = 'id-modal-footer';
@@ -52,9 +52,17 @@ export class ModalFreteComponent implements OnInit {
     return M.Tabs.init(document.querySelectorAll('.tabs'), {});
   }
 
+  selectAddress(cep: string, className: string) {
+    const items = document.getElementsByClassName(className);
+    if (items.length) {
+      items[0].classList.remove(className);
+    }
+    document.getElementById(cep).classList.add(className);
+  }
+
   private modalResize(): void {
     const height = this.modal.offsetHeight - this.modalHeader.offsetHeight
-      - this.modalFooter.offsetHeight;
+      - this.modalFooter.offsetHeight - 15;
     this.modalContent.style.setProperty(`--content-height`, `${height}px`);
   }
 }

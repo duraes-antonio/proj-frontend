@@ -20,6 +20,21 @@ body {
   border: 2px solid #888 !important;
 }
 
+
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+  border-color: dodgerblue !important;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+  background-color: dodgerblue !important;
+}
+
+[type="radio"], [type="radio"] + span {
+  transition: none !important;
+}
+
 .titulo-secao {
   color: $color-sec--dark;
   font-size: x-large;
