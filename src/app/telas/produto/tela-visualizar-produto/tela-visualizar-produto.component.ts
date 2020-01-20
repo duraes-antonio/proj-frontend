@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {SequenciaProduto} from '../../../modelos/componentes/SequenciaProduto';
 import {Avaliacao} from '../../../modelos/Avaliacao';
 import {Endereco} from '../../../modelos/Endereco';
+import {DeliveryOption} from '../../../modelos/DeliveryOption';
 
 @Component({
   selector: 'app-tela-visualizar-produto',
@@ -24,12 +25,16 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   /*TODO: Remover após ter dados em um banco de dados*/
   private produtos: Produto[] = DadosTeste.produtos;
   public enderecos: Endereco[] = DadosTeste.enderecos;
+  public deliveryOpts: DeliveryOption[] = DadosTeste.opcoesEntrega;
+  public deliveryChosen: DeliveryOption;
   private rotaInsc: Subscription;
 
   constructor(private route: ActivatedRoute) {
   }
 
   private _idProduto: number;
+  public _showModalAddress = false;
+  public _showModalDelivery = false;
 
   private get idProduto(): number {
     return this._idProduto;
@@ -38,7 +43,7 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   private set idProduto(id: number) {
     this._idProduto = id;
     /*TODO: Realizar busca no banco pelo produto*/
-    this.produto = this.produtos.filter(p => p.id === id)[0];
+    this.produto = this.produtos.find(p => p.id === id);
   }
 
   ngOnInit() {
@@ -50,5 +55,21 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.rotaInsc.unsubscribe();
+  }
+
+  showModalShipp(CEP: string) {
+    this._showModalAddress = false;
+    /*TODO: Chamar serviço para calculo de frete*/
+    this._showModalDelivery = true;
+  }
+
+  showModalAdress() {
+    this._showModalDelivery = false;
+    this._showModalAddress = true;
+  }
+
+  updateChosenDelivery(delivery: DeliveryOption) {
+    this._showModalDelivery = false;
+    this.deliveryChosen = delivery;
   }
 }

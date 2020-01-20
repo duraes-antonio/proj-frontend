@@ -1,28 +1,30 @@
-<div class="modal modal-fixed-footer modal-fixed-header" id="id-modal">
-  <div class="modal-header" id="id-modal-header">
-    <h5 class="modal__title">Selecione um endereço e opção de entrega</h5>
-    <p class="modal__desc">Abaixo será possível conferir os prazos e custos de entrega desse produto.</p>
-  </div>
+<app-modal-base (action)="emitEvent(action, inputCEP)" (closed)="emitEvent(closed)"
+                [actionDisabled]="!validCEP" [btnAcceptTitle]="confirmTitle"
+                [btnCancelTitle]="cancelTitle" [modalDesc]="modalDesc"
+                [modalTitle]="modalTitle">
+  <div style="display: grid">
+    <strong class="title-input-cep">Informar um CEP</strong>
+    <div class="input-default">
+      <input (focusin)="clearRadioAdress('endereco', 'list-address__item-content--active')"
+             (focusout)="validateCEP(inputCEP, textHintCEP, 'hint-cep', 'input-cep')"
+             (input)="formatCEP($event)"
+             [(ngModel)]="inputCEP" id="input-cep" required type="text">
+      <label for="input-cep">CEP</label>
+      <span id="hint-cep">{{textHintCEP}}</span>
+    </div>
 
-  <div class="modal-content" id="id-modal-content" style="">
     <!-- Caso o usuário esteja logado e com algum enedereço registrado -->
-    <div id="tab-address">
-      <ul class="list-address">
-        <li *ngFor="let end of addresses" class="list-address__item">
-          <label (click)="selectAddress(end.cep, 'list-address__item-content--active')">
-            <input class="with-gap" name="endereco" type="radio">
-            <span class="list-address__item-content" id="{{end.cep}}">
+    <strong class="title-adress-list" style="margin-top: 20px">Seus endereços</strong>
+    <ul class="list-address">
+      <li *ngFor="let end of addresses" class="list-address__item">
+        <label (click)="selectAddress(end.id, 'list-address__item-content--active')">
+          <input class="with-gap" name="endereco" type="radio">
+          <span class="list-address__item-content" id="{{end.id}}">
               <strong>{{end.numero}} - {{end.logradouro}} - {{end.bairro}}</strong>
               CEP: {{end.cep}} - {{end.cidade}} - {{end.estado}}
             </span>
-          </label>
-        </li>
-      </ul>
-    </div>
+        </label>
+      </li>
+    </ul>
   </div>
-
-  <div class="modal-footer" id="id-modal-footer">
-    <a class="modal-close btn-text" style="margin-right: 8px">Cancelar</a>
-    <a class="modal-close btn-text">Aplicar</a>
-  </div>
-</div>
+</app-modal-base>

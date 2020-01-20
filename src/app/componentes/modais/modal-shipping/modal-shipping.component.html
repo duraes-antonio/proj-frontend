@@ -1,0 +1,33 @@
+<app-modal-base (action)="emitEvent(action, optSelected)" (closed)="emitEvent(closed)"
+                [btnAcceptTitle]="confirmTitle" [btnCancelTitle]="cancelTitle"
+                [modalTitle]="modalTitle">
+  <div style="display: grid;">
+    <div class="current-address">
+      <i aria-hidden="true" class="fa fa-map-marker-alt address-icon"
+         style="margin-right: 15px;"></i>
+      <span class="address-info">
+        Endereço: <strong>Serra, Jardim Carapina, 29161-699</strong>
+      </span>
+      <a (click)="emitEvent(selectAddress)">
+        <i aria-hidden="true" class="fa fa-arrow-right change-address-icon"></i>
+      </a>
+    </div>
+
+    <strong class="title-options-list" style="margin-top: 20px">Opções de Frete</strong>
+    <ul class="delivery-options">
+      <li (click)="selectOptDelivery(opt, i, 'delivery-options__item--active')"
+          *ngFor="let opt of optionsDelivery; let i = index"
+          class="delivery-options__item" id="option-{{i}}">
+        <label class="label-option" for="input-{{i}}">
+          <input class="with-gap" id="input-{{i}}" name="endereco" type="radio">
+          <span class="delivery-options__item-content col s9 m10 l10 xl10">
+          <!-- TODO: Calcular datas com base no retorno da API dos correios-->
+          <strong>Normal</strong>
+          A previsão para entrega é entre os dias 9 e 30 de janeiro
+        </span>
+          <span class="delivery-options__item-cost col s3 m2 l2 xl2">{{opt.cost | currency: 'BRL' }}</span>
+        </label>
+      </li>
+    </ul>
+  </div>
+</app-modal-base>

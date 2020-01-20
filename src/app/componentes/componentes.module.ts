@@ -21,6 +21,8 @@ import {PaginacaoComponent} from './paginacao/paginacao.component';
 import {AvaliadorEstrelasComponent} from './avaliador-estrelas/avaliador-estrelas.component';
 import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.component';
 import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
+import {ModalBaseComponent} from './modais/modal-base/modal-base.component';
+import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
     AvaliadorEstrelasComponent,
     ListaAvaliacoesComponent,
     ModalFreteComponent,
+    ModalBaseComponent,
+    ModalShippingComponent,
   ],
   exports: [
     NavbarComponent,
@@ -63,7 +67,8 @@ import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
     AvaliadorEstrelasComponent,
     SequenciaComponent,
     ListaAvaliacoesComponent,
-    ModalFreteComponent
+    ModalFreteComponent,
+    ModalShippingComponent
   ],
   imports: [
     CommonModule,

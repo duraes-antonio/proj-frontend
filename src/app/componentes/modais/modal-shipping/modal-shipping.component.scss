@@ -1,0 +1,111 @@
+@import '../../../../shared/styles/buttons';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+$mobile-margin-l-r: 24px;
+
+%title-modal-section {
+  font-size: medium;
+  color: $color-prim--light;
+  line-height: 3;
+
+  @media (max-width: $width-max-small) {
+    margin-left: $mobile-margin-l-r;
+  }
+}
+
+.title-options-list {
+  @extend %title-modal-section;
+}
+
+.title-input-cep {
+  @extend %title-modal-section;
+}
+
+
+.current-address {
+  @extend %center-vert-flex;
+  min-height: 50px;
+  height: auto;
+  padding: 10px 15px;
+  color: $color-prim--light;
+  background-color: rgba($color-sec--light, .3);
+  border-radius: $border-radius-default;
+
+  .address-icon {
+    @include circle(30px, white);
+    @extend %center-flex;
+    font-size: 18px;
+    color: dodgerblue;
+  }
+
+  .address-info {
+    width: 100%;
+  }
+
+  .change-address-icon {
+    color: dodgerblue;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+    padding: 10px;
+  }
+
+  @media (max-width: $width-max-small) {
+    margin: 0 $mobile-margin-l-r;
+  }
+}
+
+.delivery-options {
+  border: 1px solid #ddd;
+  margin: 0;
+
+  &__item {
+    @extend %center-vert-flex;
+    cursor: pointer;
+    padding: 8px 15px;
+    height: auto;
+    color: $color-sec--dark;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+    }
+
+    [type="radio"] + span::before, [type="radio"] + span::after {
+      top: unset !important;
+    }
+
+    &-content {
+      height: auto !important;
+      display: grid !important;
+      align-items: center;
+    }
+
+    &-cost {
+      padding: 0;
+      text-align: right;
+      font-size: medium;
+      transition: color .1s, font-size .1s;
+    }
+
+    .label-option {
+      @extend %center-vert-flex;
+      display: contents;
+      cursor: pointer;
+    }
+
+    &--active {
+      .delivery-options__item {
+        &-cost, &-content {
+          color: $color-prim--light;
+        }
+
+        &-cost {
+          font-size: large;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

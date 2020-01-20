@@ -1,0 +1,16 @@
+<div class="modal modal-fixed-footer modal-fixed-header" id="id-modal">
+  <div class="modal-header" id="id-modal-header">
+    <h5 class="modal__title">{{modalTitle}}</h5>
+    <p *ngIf="modalDesc" class="modal__desc">{{modalDesc}}</p>
+  </div>
+
+  <div class="modal-content" id="id-modal-content" style="">
+    <!-- Caso o usuário esteja logado e com algum enedereço registrado -->
+    <ng-content></ng-content>
+  </div>
+
+  <div class="modal-footer" id="id-modal-footer">
+    <button class="modal-close btn-text" style="margin-right: 8px">{{btnCancelTitle}}</button>
+    <button (click)="action.emit()" [disabled]="actionDisabled" class="modal-close btn-text">{{btnAcceptTitle}}</button>
+  </div>
+</div>

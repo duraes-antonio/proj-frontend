@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import * as M from '../../../../../node_modules/materialize-css';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Endereco} from '../../../modelos/Endereco';
+import {masks} from '../../../../shared/input-masks/maskFunctions';
+import {buildErrorMsg, validation} from '../../../../shared/validations/validationFunctions';
 
 @Component({
   selector: 'app-modal-frete',
@@ -9,60 +10,75 @@ import {Endereco} from '../../../modelos/Endereco';
 })
 export class ModalFreteComponent implements OnInit {
 
-  @Input() show = false;
   @Input() addresses: Endereco[];
-  private idModal = 'id-modal';
-  private idModalContent = 'id-modal-content';
-  private idModalFooter = 'id-modal-footer';
-  private idModalHeader = 'id-modal-header';
+  @Output() closed = new EventEmitter();
+  @Output() action = new EventEmitter();
 
-  private modalContent: HTMLElement;
-  private modalFooter: HTMLElement;
-  private modalHeader: HTMLElement;
-  private modal: HTMLElement;
+  cancelTitle = 'Cancelar';
+  confirmTitle = 'Calcular';
+  modalTitle = 'Digite seu CEP ou selecione um de seus endereços';
+  modalDesc = 'Abaixo será possível conferir os prazos e custos de entrega desse produto.';
+
+  inputCEP = '';
+  validCEP = false;
+  textHintCEP = 'Exemplo de CEP: 29161688';
 
   constructor() {
   }
 
   ngOnInit() {
-    document.addEventListener(
-      'DOMContentLoaded',
-      () => {
-        const modal = this.initModal(this.idModal);
-        // this.initTabs();
-
-        if (this.show) {
-          modal.open();
-          this.modal = document.getElementById(this.idModal);
-          this.modalContent = document.getElementById(this.idModalContent);
-          this.modalFooter = document.getElementById(this.idModalFooter);
-          this.modalHeader = document.getElementById(this.idModalHeader);
-          window.addEventListener('resize', () => this.modalResize());
-          this.modalResize();
-        }
-      }
-    );
   }
 
-  private initModal(modalId: string): M.Modal {
-    return M.Modal.init(document.getElementById(modalId), {});
-  }
-
-  private initTabs(): M.Tabs {
-    return M.Tabs.init(document.querySelectorAll('.tabs'), {});
-  }
-
-  selectAddress(cep: string, className: string) {
+  selectAddress(id: number, className: string) {
     const items = document.getElementsByClassName(className);
+
+    /*Remova a classe que realça o endereço selecionado atualmente*/
     if (items.length) {
       items[0].classList.remove(className);
     }
-    document.getElementById(cep).classList.add(className);
+
+    /*Adicione a classe ao novo endereço selecionado*/
+    document.getElementById(id.toString()).classList.add(className);
+
+    const input = document.getElementById('input-cep') as HTMLInputElement;
+    input.labels.forEach(l => l.classList.add('active'));
+    this.inputCEP = this.addresses.find(a => a.id === id).cep;
+    this.validateCEP(this.inputCEP, this.textHintCEP, 'hint-cep', 'input-cep');
   }
 
-  private modalResize(): void {
-    const height = this.modal.offsetHeight - this.modalHeader.offsetHeight
-      - this.modalFooter.offsetHeight - 15;
-    this.modalContent.style.setProperty(`--content-height`, `${height}px`);
+  formatCEP(e): void {
+    e.target.value = masks.cep(e.target.value);
+    this.inputCEP = e.target.value;
+  }
+
+  validateCEP(cep: string, textHint: string, idHintElem: string, idInput: string): void {
+    let textError;
+
+    /*Verifique se o CEP atual é válido*/
+    /*Se não for, gere uma mensagem com o erro adequado*/
+    if (!validation.notNullOrEmpty(cep)) {
+      textError = buildErrorMsg.msgNullOrEmpty('CEP');
+    } else if (!validation.exactlytLen(cep.replace('-', ''), 8)) {
+      textError = buildErrorMsg.msgExactlyLen('CEP', 8);
+    }
+
+    this.validCEP = !textError;
+    const hintElem = document.getElementById(idHintElem);
+    const inputElem = document.getElementById(idInput);
+
+    /*Marque o input com uma classe de erro*/
+    hintElem.innerText = textError ? textError : textHint;
+    textError ? hintElem.classList.add('invalid') : hintElem.classList.remove('invalid');
+    textError ? inputElem.classList.add('invalid') : inputElem.classList.remove('invalid');
+  }
+
+  clearRadioAdress(nameElemRadio: string, activeAddressClass: string) {
+    document.getElementsByName(nameElemRadio)
+      .forEach((radio: HTMLInputElement) => radio.checked = false);
+    document.getElementsByClassName(activeAddressClass)[0].classList.remove(activeAddressClass);
+  }
+
+  emitEvent(emitter: EventEmitter<any>, value?: any): void {
+    emitter.emit(value);
   }
 }
