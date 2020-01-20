@@ -13,14 +13,7 @@ export class BannerComponent implements OnInit {
     cnpj: '69.035.540/0001-07',
     nomeFantasia: 'yugishop',
     razaoSocial: 'Yugi Comercio de Brinquedos',
-    endereco: {
-      logradouro: 'Rua Hermilo Alves',
-      numero: 45,
-      cep: '27161-587',
-      bairro: 'Jardim Tropical',
-      cidade: 'Laranjeiras',
-      estado: 'ES'
-    }
+    endereco: null
   };
 
   constructor() {

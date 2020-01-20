@@ -2,6 +2,7 @@ import {Produto} from '../app/modelos/Produto';
 import {Categoria} from '../app/modelos/Categoria';
 import {Avaliacao} from '../app/modelos/Avaliacao';
 import {Endereco} from '../app/modelos/Endereco';
+import {DeliveryOption} from '../app/modelos/DeliveryOption';
 
 export class DadosTeste {
 
@@ -35,15 +36,20 @@ export class DadosTeste {
   ];
   public static readonly enderecos = [
     new Endereco(38, '29065-390', 'Rua Emília Mazoco Keijok',
-      'Mata da Praia', 'Vitória', 'ES'),
+      'Mata da Praia', 'Vitória', 'ES', 1),
     new Endereco(783, '29300-120', 'Rua Dona Joanna',
-      'Centro', 'Cachoeiro de Itapemirim', 'ES'),
+      'Centro', 'Cachoeiro de Itapemirim', 'ES', 2),
     new Endereco(231, '91910-670', 'Avenida Flor de Maracá',
-      'Cristal', 'Porto Alegre', 'RS'),
+      'Cristal', 'Porto Alegre', 'RS', 3),
     new Endereco(21, '69316-027', 'Rua Estrela do Norte',
-      'Raiar do Sol', 'Boa Vista', 'RO'),
+      'Raiar do Sol', 'Boa Vista', 'RO', 4),
     new Endereco(445, '59628-070', 'Rua Lavoisier Maia',
-      'Alto de São Manoel', 'Mossoró', 'RN'),
+      'Alto de São Manoel', 'Mossoró', 'RN', 5),
+  ];
+  public static readonly opcoesEntrega: DeliveryOption[] = [
+    {cost: 14.25, time: 12},
+    {cost: DadosTeste.obterPrecoRandom(), time: 14},
+    {cost: DadosTeste.obterPrecoRandom(), time: 5}
   ];
   public static readonly produtos = [
     new Produto(

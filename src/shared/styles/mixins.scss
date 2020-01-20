@@ -22,3 +22,9 @@
   @include min-size($width);
   @include max-size($width);
 }
+
+@mixin circle($width, $bg-color) {
+  @include min-max-size($width);
+  border-radius: 50%;
+  background-color: $bg-color;
+}
