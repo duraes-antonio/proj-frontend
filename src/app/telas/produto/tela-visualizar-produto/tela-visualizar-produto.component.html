@@ -29,21 +29,27 @@
       <div class="divider" style="margin: 20px 0;"></div>
 
       <!-- Cálcular frete -->
-      <div>
+      <div style="display: flex; align-items: center">
+        <i aria-hidden="true" class="fa fa-truck"
+           style="padding-right: 20px; font-size: 22px;"></i>
 
-        <div (click)="_showModalAddress = true" style="display: flex; align-items: center">
-          <i aria-hidden="true" class="fa fa-truck" style="padding-right: 12px; font-size: 18px;"></i>
-          <div style="display: grid">
-            <a *ngIf="!deliveryChosen; else currDelivery">Calcular frete</a>
-            <ng-template #currDelivery>
-              <span>Custo de
-                <strong>{{deliveryChosen.cost | currency: 'BRL'}}</strong>
-              </span>
-              <span>Data prevista para entrega é: 1 e 7 de fevereiro</span>
-              <a>Ver opções de frete</a>
-            </ng-template>
-          </div>
+        <div *ngIf="!deliveryChosen; else currDelivery" style="display: grid">
+          <strong>Entrega em todo país!</strong>
+          <span>Clique abaixo para calcular prazo e custo.</span>
+          <a (click)="_showModalAddress = true">Calcular frete</a>
         </div>
+
+        <ng-template #currDelivery>
+          <div style="display: grid">
+            <span>Custo de
+              <strong>{{deliveryChosen.cost | currency: 'BRL'}}</strong>
+            </span>
+            <span>Data prevista para entrega é:
+              <strong>1 e 7 de fevereiro</strong>
+            </span>
+            <a (click)="_showModalAddress = true">Ver opções de frete</a>
+          </div>
+        </ng-template>
       </div>
     </div>
 
