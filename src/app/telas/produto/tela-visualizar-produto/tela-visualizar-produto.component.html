@@ -1,18 +1,18 @@
 <div class="container-principal">
 
-  <!-- Colunas com dados sobre o produto e preço -->
+  <!-- Colunas com preço, disponibilidade, frete, ... -->
   <div class="row">
     <!-- Imagens -->
-    <div class="col s12 m12 l4 xl4 area-imagem" style="text-align: center">
+    <div class="col s12 m12 l4 xl4 img-section" style="text-align: center">
       <img [src]="produto.urlImagem" alt="Imagem do produto {{produto.titulo}}"
-           class="imagem-principal">
+           class="main-img">
     </div>
 
     <!-- Titulo, Cont. Avalições, Descrição e Calc. de Frete -->
-    <div class="col s12 m6 l4 xl4 area-info-produto">
+    <div class="col s12 m6 l4 xl4 product-info">
 
       <!-- Título -->
-      <h5 class="titulo">{{produto.titulo}}</h5>
+      <h5 class="product-info-title">{{produto.titulo}}</h5>
 
       <!-- Média das avaliações -->
       <!-- TODO: Trazer info do banco de dados   -->
@@ -24,23 +24,22 @@
       </a>
 
       <!-- Descrição -->
-      <p class="descricao">{{produto.descricao}}</p>
+      <p class="product-info-desc">{{produto.descricao}}</p>
 
       <div class="divider" style="margin: 20px 0;"></div>
 
       <!-- Cálcular frete -->
-      <div style="display: flex; align-items: center">
-        <i aria-hidden="true" class="fa fa-truck"
-           style="padding-right: 20px; font-size: 22px;"></i>
+      <div class="shipping-section">
+        <i aria-hidden="true" class="fa fa-truck"></i>
 
-        <div *ngIf="!deliveryChosen; else currDelivery" style="display: grid">
+        <div *ngIf="!deliveryChosen; else currDelivery" class="shipping-section-text">
           <strong>Entrega em todo país!</strong>
           <span>Clique abaixo para calcular prazo e custo.</span>
           <a (click)="_showModalAddress = true">Calcular frete</a>
         </div>
 
         <ng-template #currDelivery>
-          <div style="display: grid">
+          <div class="shipping-section-text">
             <span>Custo de
               <strong>{{deliveryChosen.cost | currency: 'BRL'}}</strong>
             </span>
@@ -54,18 +53,18 @@
     </div>
 
     <!-- Preço e Pagamento -->
-    <div class="col s12 m6 l4 xl4 area-compra">
+    <div class="col s12 m6 l4 xl4 shopping-section">
 
       <!-- Bandeira de desconto e preço sem desconto -->
-      <div *ngIf="produto.porcentDesc > 0" style="display: flex; align-items: center">
-        <span style="text-decoration: line-through;">R$ {{produto.preco | number: '1.2-2'}}</span>
-        <span class="bandeira-desconto">
+      <div *ngIf="produto.porcentDesc > 0" class="discount">
+        <span class="discount-text">R$ {{produto.preco | number: '1.2-2'}}</span>
+        <span class="discount-flag">
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
           {{produto.porcentDesc | number: '1.0-2'}}%
         </span>
       </div>
 
-      <span style="font-size: 28px">R$ {{produto.precoComDesc | number: '1.2-2'}}</span>
+      <span class="shopping-section-price">R$ {{produto.precoComDesc | number: '1.2-2'}}</span>
 
       <!-- Produto disponível -->
       <div *ngIf="produto.qtdDisponivel > 0; else prodIndisponivel">
@@ -81,7 +80,7 @@
         </button>
 
         <!-- Devolução -->
-        <div class="area-devolucao" id="id-area-devolucao">
+        <div class="devolution-section" id="id-area-devolucao">
           <i aria-hidden="true" class="fa fa-history"></i>
           <div>
             <strong style="font-weight: 600;">Direito à devolução</strong><br>
@@ -95,7 +94,7 @@
       <ng-template #prodIndisponivel>
 
         <!-- Aviso -->
-        <div class="area-indisp" id="id-aviso-indisp">
+        <div class="unavailable-section" id="id-aviso-indisp">
           <i aria-hidden="true" class="far fa-sad-cry"></i>
           <div>
             <strong style="font-weight: 600;">Produto indisponível!</strong><br>
@@ -125,7 +124,7 @@
   <!-- Descrição -->
   <div>
     <strong class="titulo-secao">Descrição</strong>
-    <p class="descricao">{{produto.descricao}}</p>
+    <p class="product-info-desc">{{produto.descricao}}</p>
   </div>
 
   <div class="divider"></div>

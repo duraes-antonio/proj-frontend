@@ -7,10 +7,10 @@ $color-green: #00a650;
 
 .container-principal {
   padding: 20px;
-}
 
-.container-principal > .col {
-  padding: 0 15px;
+  & > .col {
+    padding: 0 15px;
+  }
 }
 
 .divider {
@@ -23,10 +23,10 @@ $color-green: #00a650;
   align-items: center;
 }
 
-.area-imagem {
+.img-section {
   padding: 10px;
 
-  .imagem-principal {
+  .main-img {
     @include max-size(300px);
     width: auto;
 
@@ -37,20 +37,20 @@ $color-green: #00a650;
   }
 }
 
-.area-info-produto {
-  .titulo {
-    color: $color-prim;
+.product-info {
+  &-title {
+    @extend %color-text-prim;
     font-weight: 500;
   }
 
-  .descricao {
+  &-desc {
     color: $color-sec--dark;
     white-space: pre-wrap;
     text-align: justify;
   }
 }
 
-.bandeira-desconto {
+.discount-flag {
   margin-left: 5px;
   background: limegreen;
   font-size: small;
@@ -59,11 +59,43 @@ $color-green: #00a650;
   border-radius: 3px
 }
 
-.area-compra {
+.shopping-section {
   max-width: 100%;
+
+  &-price {
+    @extend %color-text-prim;
+    font-size: 28px;
+  }
+
+  .discount {
+    @extend %center-vert-flex;
+
+    &-text {
+      @extend %color-text-prim;
+      text-decoration: line-through;
+    }
+  }
 }
 
-.area-devolucao {
+.shipping-section {
+  @extend %center-vert-flex;
+
+  .fa-truck {
+    padding-right: 20px;
+    font-size: 22px;
+    @extend %color-text-prim;
+  }
+
+  &-text {
+    display: grid;
+
+    span, strong {
+      @extend %color-text-prim;
+    }
+  }
+}
+
+.devolution-section {
   @extend %center-flex;
   font-size: small;
   padding: 10px 15px;
@@ -84,7 +116,7 @@ $color-green: #00a650;
   }
 }
 
-.area-indisp {
+.unavailable-section {
   @extend %center-flex;
   font-size: small;
   padding: 10px 15px;
@@ -108,4 +140,3 @@ $color-green: #00a650;
 .btn-fav {
   @include btn-outlined(deeppink);
 }
-

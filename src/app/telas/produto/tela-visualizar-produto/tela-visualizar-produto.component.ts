@@ -15,26 +15,24 @@ import {DeliveryOption} from '../../../modelos/DeliveryOption';
 })
 export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
 
-  public seqProd = new SequenciaProduto(625);
   public produto: Produto;
+  public deliveryChosen: DeliveryOption;
+  public seqProd = new SequenciaProduto(625);
   public avaliacoes: Avaliacao[] = DadosTeste.avaliacoes;
-  public media = +((this.avaliacoes
-      .map(a => a.nota)
-      .reduce((a, c) => a + c) / this.avaliacoes.length
-  ).toFixed(2));
-  /*TODO: Remover após ter dados em um banco de dados*/
-  private produtos: Produto[] = DadosTeste.produtos;
+  public media: number = this.calcAvgRating(this.avaliacoes);
   public enderecos: Endereco[] = DadosTeste.enderecos;
   public deliveryOpts: DeliveryOption[] = DadosTeste.opcoesEntrega;
-  public deliveryChosen: DeliveryOption;
+  public _showModalAddress = false;
+  public _showModalDelivery = false;
+
+  /*TODO: Remover após ter dados em um banco de dados*/
+  private produtos: Produto[] = DadosTeste.produtos;
   private rotaInsc: Subscription;
 
   constructor(private route: ActivatedRoute) {
   }
 
   private _idProduto: number;
-  public _showModalAddress = false;
-  public _showModalDelivery = false;
 
   private get idProduto(): number {
     return this._idProduto;
@@ -71,5 +69,13 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   updateChosenDelivery(delivery: DeliveryOption) {
     this._showModalDelivery = false;
     this.deliveryChosen = delivery;
+  }
+
+  private calcAvgRating(ratings: Avaliacao[], qtdDecimals?: number): number {
+    return +(
+      (ratings
+          .map(a => a.nota)
+          .reduce((a, c) => a + c) / ratings.length
+      ).toFixed(qtdDecimals ? qtdDecimals : 2));
   }
 }
