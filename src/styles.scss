@@ -1,6 +1,7 @@
+@import 'shared/styles/buttons';
 @import 'shared/styles/input';
 @import 'shared/styles/placeholders';
-@import 'shared/styles/buttons';
+@import 'shared/styles/variables';
 
 body {
   background: white;
@@ -36,7 +37,7 @@ body {
 }
 
 .titulo-secao {
-  color: $color-sec--dark;
+  @extend %color-text-prim;
   font-size: x-large;
   text-transform: uppercase;
 }

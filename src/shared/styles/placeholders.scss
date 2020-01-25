@@ -1,3 +1,5 @@
+@import 'variables';
+
 %center-flex {
   display: flex;
   justify-content: center;
@@ -7,4 +9,16 @@
 %center-vert-flex {
   display: flex;
   align-items: center;
+}
+
+%color-text-prim--light {
+  color: $color-prim--light;
+}
+
+%color-text-prim {
+  color: $color-prim;
+}
+
+%color-text-prim--dark {
+  color: $color-prim--dark;
 }
