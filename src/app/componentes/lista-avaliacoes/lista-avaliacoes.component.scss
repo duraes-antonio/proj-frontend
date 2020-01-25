@@ -91,6 +91,7 @@ $size-avatar: 70px;
   }
 
   &__user-name {
+    @extend %color-text-prim;
     padding-top: 5px;
     font-size: small;
   }
