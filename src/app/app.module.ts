@@ -6,6 +6,8 @@ import {AppRoutingModule} from './app.routing.module';
 import {ComponentesModule} from './componentes/componentes.module';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {ProdutoModule} from './telas/produto/produto.module';
+import {StoreModule} from '@ngrx/store';
+import {cartReducer} from './reducers/cart.reducer';
 
 registerLocaleData(localePt);
 
@@ -18,7 +20,10 @@ registerLocaleData(localePt);
     BrowserModule,
     AppRoutingModule,
     ComponentesModule,
-    ProdutoModule
+    ProdutoModule,
+    StoreModule.forRoot({
+      cartReducer
+    })
   ],
   providers: [
     {
