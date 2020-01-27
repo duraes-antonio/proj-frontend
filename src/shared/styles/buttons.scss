@@ -20,7 +20,7 @@ $btn-border-radius: 4px;
   height: auto;
   min-height: $btn-medium-height;
   width: min-content;
-  min-width: calc(#{$btn-min-width} - 2 * #{$btn-padding-l-r});
+  min-width: 64px;
 
   padding: 0 $btn-padding-l-r;
   border-radius: $btn-border-radius;

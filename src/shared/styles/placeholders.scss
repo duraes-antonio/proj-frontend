@@ -11,6 +11,11 @@
   align-items: center;
 }
 
+%center-horiz-flex {
+  display: flex;
+  justify-content: center;
+}
+
 %color-text-prim--light {
   color: $color-prim--light;
 }
