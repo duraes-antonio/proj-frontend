@@ -41,11 +41,11 @@ $color-tab-active: dodgerblue;
     padding: 10px $lateral-padding 0;
   }
 
-  &__title {
+  &-title {
     color: $color-prim;
   }
 
-  &__desc {
+  &-desc {
     color: $color-prim--light;
   }
 

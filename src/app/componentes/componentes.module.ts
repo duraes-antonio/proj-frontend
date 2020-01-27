@@ -23,6 +23,7 @@ import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.comp
 import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
 import {ModalBaseComponent} from './modais/modal-base/modal-base.component';
 import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.component';
+import {ModalPaymentComponent} from './modais/modal-payment/modal-payment.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.com
     ModalFreteComponent,
     ModalBaseComponent,
     ModalShippingComponent,
+    ModalPaymentComponent,
   ],
   exports: [
     NavbarComponent,
@@ -68,7 +70,8 @@ import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.com
     SequenciaComponent,
     ListaAvaliacoesComponent,
     ModalFreteComponent,
-    ModalShippingComponent
+    ModalShippingComponent,
+    ModalPaymentComponent
   ],
   imports: [
     CommonModule,
