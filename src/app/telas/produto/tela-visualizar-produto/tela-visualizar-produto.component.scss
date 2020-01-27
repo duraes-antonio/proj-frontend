@@ -80,17 +80,47 @@ $color-green: #00a650;
 .shipping-section {
   @extend %center-vert-flex;
 
+  &-text {
+    display: grid;
+
+    span, strong {
+      @extend %color-text-prim;
+    }
+  }
+
   .fa-truck {
     padding-right: 20px;
     font-size: 22px;
     @extend %color-text-prim;
   }
+}
+
+.payments-section {
+  @extend %center-vert-flex;
+  padding: 15px 0;
 
   &-text {
     display: grid;
 
     span, strong {
       @extend %color-text-prim;
+    }
+  }
+
+  .icon-money {
+    padding-right: 20px;
+    font-size: 22px;
+    @extend %color-text-prim;
+  }
+
+  .payments-options {
+    @extend %center-vert-flex;
+    justify-content: space-between;
+    font-size: 22px;
+    padding: 8px 0 5px;
+
+    &-pagseguro {
+      max-height: 18px;
     }
   }
 }

@@ -2,6 +2,7 @@
 
   <!-- Colunas com preço, disponibilidade, frete, ... -->
   <div class="row">
+
     <!-- Imagens -->
     <div class="col s12 m12 l4 xl4 img-section" style="text-align: center">
       <img [src]="produto.urlImagem" alt="Imagem do produto {{produto.titulo}}"
@@ -28,31 +29,18 @@
 
       <div class="divider" style="margin: 20px 0;"></div>
 
-      <!-- Cálcular frete -->
-      <div class="shipping-section">
-        <i aria-hidden="true" class="fa fa-truck"></i>
-
-        <div *ngIf="!deliveryChosen; else currDelivery" class="shipping-section-text">
-          <strong>Entrega em todo país!</strong>
-          <span>Clique abaixo para calcular prazo e custo.</span>
-          <a (click)="_showModalAddress = true">Calcular frete</a>
+      <!-- Devolução -->
+      <div class="devolution-section" id="id-area-devolucao">
+        <i aria-hidden="true" class="fa fa-history"></i>
+        <div>
+          <strong style="font-weight: 600;">Direito à devolução</strong><br>
+          <span>Após receber o produto, você tem 7 dias úteis para solicitar sua devolução.</span><br>
+          <a>Mais informações</a>
         </div>
-
-        <ng-template #currDelivery>
-          <div class="shipping-section-text">
-            <span>Custo de
-              <strong>{{deliveryChosen.cost | currency: 'BRL'}}</strong>
-            </span>
-            <span>Data prevista para entrega é:
-              <strong>1 e 7 de fevereiro</strong>
-            </span>
-            <a (click)="_showModalAddress = true">Ver opções de frete</a>
-          </div>
-        </ng-template>
       </div>
     </div>
 
-    <!-- Preço e Pagamento -->
+    <!-- Preço, meios de pagamento, cálculo de frete e botões principais -->
     <div class="col s12 m6 l4 xl4 shopping-section">
 
       <!-- Bandeira de desconto e preço sem desconto -->
@@ -66,31 +54,59 @@
 
       <span class="shopping-section-price">R$ {{produto.precoComDesc | number: '1.2-2'}}</span>
 
-      <!-- Produto disponível -->
+      <!-- Produto DISPONÍVEL -->
       <div *ngIf="produto.qtdDisponivel > 0; else prodIndisponivel">
+
+        <!-- Seção de meios de pagamento -->
+        <div class="payments-section">
+          <i aria-hidden="true" class="fa fa-money-bill-wave icon-money"></i>
+          <div class="payments-section-text">
+            <strong>Meios de pagamento</strong>
+            <div class="payments-options">
+              <img alt="" class="payments-options-pagseguro"
+                   src="https://assets.pagseguro.com.br/ps-bootstrap/ccf/img/logos/pagbank/pagbank-logo-animado_35px@3x.gif">
+              <i aria-hidden="true" class="fab fa-cc-paypal" style="color: #2b419f"></i>
+              <i aria-hidden="true" class="fa fa-barcode" style="color: black"></i>
+            </div>
+            <a (click)="_showModalPayments = true">Ver mais informações</a>
+          </div>
+        </div>
+
+        <!-- Calcular frete -->
+        <div class="shipping-section">
+          <i aria-hidden="true" class="fa fa-truck"></i>
+
+          <div *ngIf="!deliveryChosen; else currDelivery" class="shipping-section-text">
+            <strong>Entrega em todo país!</strong>
+            <span>Clique abaixo para calcular prazo e custo.</span>
+            <a (click)="_showModalAddress = true">Calcular frete</a>
+          </div>
+
+          <ng-template #currDelivery>
+            <div class="shipping-section-text">
+            <span>Custo de
+              <strong>{{deliveryChosen.cost | currency: 'BRL'}}</strong>
+            </span>
+              <span>Data prevista para entrega é:
+              <strong>1 e 7 de fevereiro</strong>
+            </span>
+              <a (click)="_showModalAddress = true">Ver opções de frete</a>
+            </div>
+          </ng-template>
+        </div>
 
         <!-- Botões de Comprar e Add. ao Carrinho -->
         <button class="btn-contained" style="width: 100%; margin-top: 10px;">
           <i aria-hidden="true" class="fa fa-gift"></i>
           Comprar
         </button>
-        <button class="btn-outlined" style="width: 100%; margin-top: 15px;">
+        <button (click)="addToCart()" class="btn-outlined" style="width: 100%; margin-top: 15px;">
           <i aria-hidden="true" class="fa fa-cart-plus"></i>
           Adicionar ao Carrinho
         </button>
-
-        <!-- Devolução -->
-        <div class="devolution-section" id="id-area-devolucao">
-          <i aria-hidden="true" class="fa fa-history"></i>
-          <div>
-            <strong style="font-weight: 600;">Direito à devolução</strong><br>
-            <span>Após receber o produto, você tem 7 dias úteis para solicitar sua devolução.</span><br>
-            <a>Mais informações</a>
-          </div>
-        </div>
       </div>
 
-      <!-- Produto indisponível -->
+      <!-- Produto INDISPONÍVEL -->
       <ng-template #prodIndisponivel>
 
         <!-- Aviso -->
@@ -145,6 +161,8 @@
 </app-modal-frete>
 <app-modal-shipping (action)="updateChosenDelivery($event)"
                     (closed)="_showModalDelivery = false"
-                    (selectAddress)="showModalAdress()" *ngIf="_showModalDelivery"
-                    [optionsDelivery]="deliveryOpts">
+                    (selectAddress)="showModalAdress()"
+                    *ngIf="_showModalDelivery" [optionsDelivery]="deliveryOpts">
 </app-modal-shipping>
+<app-modal-payment (closed)="_showModalPayments = false"
+                   *ngIf="_showModalPayments"></app-modal-payment>

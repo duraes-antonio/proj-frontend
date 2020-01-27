@@ -3,19 +3,22 @@
 <div id="area-navbar">
   <nav class="navbar row" style="margin-bottom: 0">
 
-    <!-- Área da esquerda (Logo e menu hamburger) -->
+    <!-- Logo e menu hamburger -->
     <div class="nav-colunas col m3 l3 xl3">
       <i (click)="toggleSidenav()" aria-hidden="true" class="fas fa-bars"
          style="margin-right: 20px"></i>
       <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
     </div>
 
+    <!-- Barra de busca -->
     <div class="nav-colunas" style="width: 100%;">
       <app-barra-busca style="width: 100%;"></app-barra-busca>
     </div>
 
+    <!-- Notificações e carrinho -->
     <div class="nav-colunas col m3 l3 xl3"
          style="padding-top: 7px; justify-content: flex-end;">
+
       <!-- Área de notificações -->
       <div>
         <!-- Contador de notificações -->
@@ -83,8 +86,11 @@
       </div>
 
       <!-- Área do carrinho de compras -->
-      <a class="icone-link">
+      <a class="icone-link cart-icon">
         <i aria-hidden="true" class="fas fa-shopping-cart"></i>
+        <span *ngIf="prodIdAmount.length" class="cart-icon-cont">
+          {{prodIdAmount.length < 100 ? prodIdAmount.length : '+99'}}
+        </span>
       </a>
     </div>
 

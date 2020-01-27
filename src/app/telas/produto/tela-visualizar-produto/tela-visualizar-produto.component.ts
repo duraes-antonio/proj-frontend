@@ -7,6 +7,10 @@ import {SequenciaProduto} from '../../../modelos/componentes/SequenciaProduto';
 import {Avaliacao} from '../../../modelos/Avaliacao';
 import {Endereco} from '../../../modelos/Endereco';
 import {DeliveryOption} from '../../../modelos/DeliveryOption';
+import {CartService} from '../../../services/cart.service';
+import {Cart} from '../../../modelos/cart.model';
+import {Store} from '@ngrx/store';
+import {Add} from '../../../actions/cart.action';
 
 @Component({
   selector: 'app-tela-visualizar-produto',
@@ -24,12 +28,16 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   public deliveryOpts: DeliveryOption[] = DadosTeste.opcoesEntrega;
   public _showModalAddress = false;
   public _showModalDelivery = false;
+  public _showModalPayments = false;
 
   /*TODO: Remover após ter dados em um banco de dados*/
   private produtos: Produto[] = DadosTeste.produtos;
   private rotaInsc: Subscription;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private cartStore: Store<Cart>
+  ) {
   }
 
   private _idProduto: number;
@@ -77,5 +85,13 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
           .map(a => a.nota)
           .reduce((a, c) => a + c) / ratings.length
       ).toFixed(qtdDecimals ? qtdDecimals : 2));
+  }
+
+  addToCart() {
+    this.cartStore.dispatch(Add({id: this.produto.id + '', amount: 4}));
+    CartService.addProducts([
+        {id: this.produto.id + '', amount: this.produto.qtdDisponivel}
+      ]
+    );
   }
 }
