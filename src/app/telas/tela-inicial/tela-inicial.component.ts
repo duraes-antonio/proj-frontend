@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Slider} from '../../modelos/componentes/Slider';
-import {SequenciaProduto} from '../../modelos/componentes/SequenciaProduto';
-import {ListaCartao} from '../../modelos/componentes/ListaCartao';
-import {SequenciaLoja} from '../../modelos/componentes/SequenciaLoja';
+import {Slider} from '../../models/componentes/Slider';
+import {SequenciaProduto} from '../../models/componentes/SequenciaProduto';
+import {ListaCartao} from '../../models/componentes/ListaCartao';
+import {SequenciaLoja} from '../../models/componentes/SequenciaLoja';
 
 @Component({
   selector: 'app-tela-inicial',

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Avaliacao} from '../../modelos/Avaliacao';
+import {Avaliacao} from '../../models/Avaliacao';
 import {formatoTimestamp} from '../../../shared/padroes';
 
 @Component({

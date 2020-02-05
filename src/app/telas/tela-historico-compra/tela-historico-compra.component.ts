@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Compra, ECompraEstado} from '../../modelos/Compra';
+import {Compra, ECompraEstado} from '../../models/Compra';
 import {formatoTimestamp} from '../../../shared/padroes';
 import {DadosTeste} from '../../../shared/DadosTeste';
 

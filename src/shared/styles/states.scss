@@ -2,16 +2,14 @@
 
   &::before {
     content: '';
-    width: 100%;
-    height: 100%;
+    //width: 100%;
+    //height: 100%;
     position: absolute;
-    left: 0;
-    top: 0;
     background: $bg-color;
     opacity: 0;
   }
 
-  &:hover::before {
+  &:not(:disabled):hover::before {
     $percent-hover: 4%;
     @if $colored {
       $percent-hover: 8%
@@ -19,7 +17,7 @@
     opacity: $percent-hover;
   }
 
-  &:focus::before {
+  &:not(:disabled):focus::before {
     $percent-focus: 12%;
     @if $colored {
       $percent-focus: 24%
@@ -27,7 +25,7 @@
     opacity: $percent-focus;
   }
 
-  &:active::before {
+  &:not(:disabled):active::before {
     $percent-active: 12%;
     @if $colored {
       $percent-active: 24%
@@ -41,6 +39,10 @@
       $percent-select: 16%
     }
     opacity: $percent-select;
+  }
+
+  &:disabled {
+    user-select: none;
   }
 }
 

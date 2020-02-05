@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {ListaLinks} from './modelos/componentes/ListaLinks';
-import {Link} from './modelos/componentes/Link';
+import {ListaLinks} from './models/componentes/ListaLinks';
+import {Link} from './models/componentes/Link';
 
 @Component({
   selector: 'app-root',

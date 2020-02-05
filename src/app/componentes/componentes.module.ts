@@ -24,6 +24,7 @@ import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
 import {ModalBaseComponent} from './modais/modal-base/modal-base.component';
 import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.component';
 import {ModalPaymentComponent} from './modais/modal-payment/modal-payment.component';
+import {InputNumberComponent} from './input/input-number/input-number.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {ModalPaymentComponent} from './modais/modal-payment/modal-payment.compon
     ModalBaseComponent,
     ModalShippingComponent,
     ModalPaymentComponent,
+    InputNumberComponent,
   ],
   exports: [
     NavbarComponent,
@@ -71,7 +73,8 @@ import {ModalPaymentComponent} from './modais/modal-payment/modal-payment.compon
     ListaAvaliacoesComponent,
     ModalFreteComponent,
     ModalShippingComponent,
-    ModalPaymentComponent
+    ModalPaymentComponent,
+    InputNumberComponent
   ],
   imports: [
     CommonModule,

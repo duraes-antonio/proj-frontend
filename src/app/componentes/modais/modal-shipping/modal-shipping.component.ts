@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DeliveryOption} from '../../../modelos/DeliveryOption';
-import {Endereco} from '../../../modelos/Endereco';
+import {DeliveryOption} from '../../../models/DeliveryOption';
+import {Endereco} from '../../../models/Endereco';
 
 @Component({
   selector: 'app-modal-shipping',

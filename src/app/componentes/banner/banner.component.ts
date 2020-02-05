@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Endereco} from '../../modelos/Endereco';
+import {Endereco} from '../../models/Endereco';
 
 @Component({
   selector: 'app-banner',

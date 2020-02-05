@@ -1,8 +1,8 @@
-import {Produto} from '../app/modelos/Produto';
-import {Categoria} from '../app/modelos/Categoria';
-import {Avaliacao} from '../app/modelos/Avaliacao';
-import {Endereco} from '../app/modelos/Endereco';
-import {DeliveryOption} from '../app/modelos/DeliveryOption';
+import {Produto} from '../app/models/Produto';
+import {Categoria} from '../app/models/Categoria';
+import {Avaliacao} from '../app/models/Avaliacao';
+import {Endereco} from '../app/models/Endereco';
+import {DeliveryOption} from '../app/models/DeliveryOption';
 
 export class DadosTeste {
 
@@ -68,7 +68,7 @@ export class DadosTeste {
       '\n' +
       'Este é o primeiro Pacote Duelista a ter cartões Ultimate Rare.\n',
       DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]],
-      false, 2
+      false, 2, 5
     ),
     new Produto(
       'https://http2.mlstatic.com/yu-gi-oh-booster-pack-premiere-ouro-gold-infinito--D_NQ_NP_608911-MLB20653779275_042016-F.webp',
@@ -76,7 +76,7 @@ export class DadosTeste {
       // tslint:disable-next-line:max-line-length
       'Booster Yu-Gi-Oh! - Première Ouro em Português - Decks/Boosters contém 15 cartas em cada pack, 6 serão Secretas Douradas Raras e as outras 9 serão reimpressões das Douradas Raras mais populares de lançamentos passados ou cartas que aparecem como Dourada Raras pela primeira vez. Antes as Douradas Raras só estavam disponíveis através de canais limitados, mas desta vez Première Ouro vai estar disponível para todos! Em português!',
       DadosTeste.obterPrecoRandom(), false, 0, [DadosTeste.categorias[3]],
-      false, 3
+      false, 3, 10
     ),
     new Produto(
       'https://images-na.ssl-images-amazon.com/images/I/81R6LIH-%2B2L._SL1320_.jpg',
@@ -86,7 +86,7 @@ export class DadosTeste {
       '6 new Ultra Rare variant art cards, showing off new art versions of the main monsters from each Yu-Gi-Oh! anime series (Dark Magician, Elemental HERO Neos, Stardust Dragon, Number 39: Utopia, Odd-Eyes Pendulum Dragon, and Decode Talker)\n' +
       '1 Gameboard.',
       DadosTeste.obterPrecoRandom(), false, 0, [DadosTeste.categorias[3]],
-      true, 4
+      true, 4, 13
     ),
     new Produto(
       'https://vignette.wikia.nocookie.net/yugioh/images/9/96/DP1-BoosterEN.jpg/revision/latest?cb=20080922232644',

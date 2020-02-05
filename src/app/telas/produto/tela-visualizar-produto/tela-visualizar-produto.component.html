@@ -100,9 +100,16 @@
           <i aria-hidden="true" class="fa fa-gift"></i>
           Comprar
         </button>
-        <button (click)="addToCart()" class="btn-outlined" style="width: 100%; margin-top: 15px;">
+        <button (click)="addToCart(produto.id)" *ngIf="!prodInCart" class="btn-outlined"
+                style="width: 100%; margin-top: 15px;">
           <i aria-hidden="true" class="fa fa-cart-plus"></i>
           Adicionar ao Carrinho
+        </button>
+
+        <button (click)="remFromCart(produto.id)" *ngIf="prodInCart" class="btn-outlined"
+                style="width: 100%; margin-top: 15px;">
+          <i aria-hidden="true" class="fa fa-cart-plus"></i>
+          Remover do Carrinho
         </button>
       </div>
 

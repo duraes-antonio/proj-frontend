@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {SequenciaLoja} from '../../modelos/componentes/SequenciaLoja';
+import {SequenciaLoja} from '../../models/componentes/SequenciaLoja';
 
 @Component({
   selector: 'app-seq-lojas',

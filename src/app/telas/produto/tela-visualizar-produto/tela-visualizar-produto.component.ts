@@ -1,16 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DadosTeste} from '../../../../shared/DadosTeste';
-import {Produto} from '../../../modelos/Produto';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {SequenciaProduto} from '../../../modelos/componentes/SequenciaProduto';
-import {Avaliacao} from '../../../modelos/Avaliacao';
-import {Endereco} from '../../../modelos/Endereco';
-import {DeliveryOption} from '../../../modelos/DeliveryOption';
-import {CartService} from '../../../services/cart.service';
-import {Cart} from '../../../modelos/cart.model';
 import {Store} from '@ngrx/store';
-import {Add} from '../../../actions/cart.action';
+import {DadosTeste} from '../../../../shared/DadosTeste';
+import {Produto} from '../../../models/Produto';
+import {Avaliacao} from '../../../models/Avaliacao';
+import {Endereco} from '../../../models/Endereco';
+import {DeliveryOption} from '../../../models/DeliveryOption';
+import {Cart} from '../../../models/cart.model';
+import {SequenciaProduto} from '../../../models/componentes/SequenciaProduto';
+import {Add, Remove} from '../../../actions/cart.action';
+import {ProductService} from '../../../services/product.service';
+import {calcAverage} from '../../../../shared/utilFuncoes';
 
 @Component({
   selector: 'app-tela-visualizar-produto',
@@ -20,47 +21,48 @@ import {Add} from '../../../actions/cart.action';
 export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
 
   public produto: Produto;
+  public prodInCart = false;
   public deliveryChosen: DeliveryOption;
+
   public seqProd = new SequenciaProduto(625);
   public avaliacoes: Avaliacao[] = DadosTeste.avaliacoes;
-  public media: number = this.calcAvgRating(this.avaliacoes);
+  public media: number = this.calcAvgRating(this.avaliacoes, 2);
   public enderecos: Endereco[] = DadosTeste.enderecos;
   public deliveryOpts: DeliveryOption[] = DadosTeste.opcoesEntrega;
+
+  /*Controle de exibição dos modais*/
   public _showModalAddress = false;
   public _showModalDelivery = false;
   public _showModalPayments = false;
 
   /*TODO: Remover após ter dados em um banco de dados*/
-  private produtos: Produto[] = DadosTeste.produtos;
-  private rotaInsc: Subscription;
+  private routeSub$: Subscription;
+  private cart$: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private cartStore: Store<Cart>
   ) {
-  }
-
-  private _idProduto: number;
-
-  private get idProduto(): number {
-    return this._idProduto;
-  }
-
-  private set idProduto(id: number) {
-    this._idProduto = id;
-    /*TODO: Realizar busca no banco pelo produto*/
-    this.produto = this.produtos.find(p => p.id === id);
-  }
-
-  ngOnInit() {
-    this.rotaInsc = this.route.params.subscribe(
+    this.routeSub$ = route.params.subscribe(
       params => {
-        this.idProduto = +params['id'];
+        const idProduto = +params['id'];
+        this.produto = ProductService.getById(idProduto);
+      });
+    this.cart$ = cartStore.subscribe(
+      (res: any) => {
+        if ((res.cart as Cart).productsId) {
+          this.prodInCart = (res.cart as Cart).productsId
+            .some(id => id === this.produto.id);
+        }
       });
   }
 
+  ngOnInit() {
+  }
+
   ngOnDestroy(): void {
-    this.rotaInsc.unsubscribe();
+    this.routeSub$.unsubscribe();
+    this.cart$.unsubscribe();
   }
 
   showModalShipp(CEP: string) {
@@ -79,19 +81,18 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
     this.deliveryChosen = delivery;
   }
 
-  private calcAvgRating(ratings: Avaliacao[], qtdDecimals?: number): number {
-    return +(
-      (ratings
-          .map(a => a.nota)
-          .reduce((a, c) => a + c) / ratings.length
-      ).toFixed(qtdDecimals ? qtdDecimals : 2));
+  addToCart(id: number) {
+    this.cartStore.dispatch(Add(id));
   }
 
-  addToCart() {
-    this.cartStore.dispatch(Add({id: this.produto.id + '', amount: 4}));
-    CartService.addProducts([
-        {id: this.produto.id + '', amount: this.produto.qtdDisponivel}
-      ]
+  remFromCart(id: number) {
+    this.cartStore.dispatch(Remove(id));
+  }
+
+  private calcAvgRating(ratings: Avaliacao[], qtdDecimals?: number): number {
+    return +(
+      calcAverage(ratings, (aval: Avaliacao) => aval.nota)
+        .toFixed(2)
     );
   }
 }

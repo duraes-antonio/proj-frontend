@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Slider} from '../../modelos/componentes/Slider';
+import {Slider} from '../../models/componentes/Slider';
 import {Carousel} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 
 

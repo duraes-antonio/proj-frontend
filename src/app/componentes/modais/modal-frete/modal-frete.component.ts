@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Endereco} from '../../../modelos/Endereco';
+import {Endereco} from '../../../models/Endereco';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
 import {buildErrorMsg, validation} from '../../../../shared/validations/validationFunctions';
 

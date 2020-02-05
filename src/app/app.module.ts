@@ -22,7 +22,7 @@ registerLocaleData(localePt);
     ComponentesModule,
     ProdutoModule,
     StoreModule.forRoot({
-      cartReducer
+      cart: cartReducer
     })
   ],
   providers: [

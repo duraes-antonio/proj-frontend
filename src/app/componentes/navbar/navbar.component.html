@@ -86,10 +86,10 @@
       </div>
 
       <!-- Área do carrinho de compras -->
-      <a class="icone-link cart-icon">
+      <a class="icone-link cart-icon" routerLink="/carrinho">
         <i aria-hidden="true" class="fas fa-shopping-cart"></i>
-        <span *ngIf="prodIdAmount.length" class="cart-icon-cont">
-          {{prodIdAmount.length < 100 ? prodIdAmount.length : '+99'}}
+        <span *ngIf="cartProdsIds.length" class="cart-icon-cont">
+          {{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}
         </span>
       </a>
     </div>

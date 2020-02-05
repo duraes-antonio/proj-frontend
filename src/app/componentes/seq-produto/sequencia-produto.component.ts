@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SequenciaProduto} from '../../modelos/componentes/SequenciaProduto';
+import {SequenciaProduto} from '../../models/componentes/SequenciaProduto';
 
 @Component({
   selector: 'app-seq-produto',

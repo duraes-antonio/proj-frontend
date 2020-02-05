@@ -10,6 +10,12 @@ const routes: Routes = [
         .then(m => m.TelaContatoModule)
   },
   {
+    path: 'carrinho',
+    loadChildren: () =>
+      import('./telas/tela-carrinho/tela-carrinho.module')
+        .then(m => m.TelaCarrinhoModule)
+  },
+  {
     path: 'historico-compra',
     loadChildren: () =>
       import('./telas/tela-historico-compra/tela-historico-compra.module')

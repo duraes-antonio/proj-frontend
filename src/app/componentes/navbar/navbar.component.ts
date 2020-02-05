@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Usuario} from '../../modelos/Usuario';
-import {Notificacao} from '../../modelos/Notificacao';
-import {Cart, ProductIdAmount} from '../../modelos/cart.model';
+import {Usuario} from '../../models/Usuario';
+import {Notificacao} from '../../models/Notificacao';
+import {Cart} from '../../models/cart.model';
 import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -19,15 +18,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public usuarioAtual: Usuario;
   public notificacoes: Array<Notificacao>;
   public qtdNotifAtiva: number;
-  public cart$: Subscription;
-  public prodIdAmount: ProductIdAmount[] = [];
+  public cart$;
+  public cartProdsIds: number[];
 
   constructor(private store: Store<Cart>) {
     this.cart$ = this.store.subscribe(
-      (cart: any) => {
-        this.prodIdAmount = cart.cartReducer.prodIdAmount;
-      }
-    );
+      (res: any) => {
+        this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];
+      });
   }
 
   ngOnInit() {

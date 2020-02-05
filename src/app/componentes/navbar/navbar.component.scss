@@ -183,12 +183,12 @@ $altura-barra: 70px;
 
 .cart-icon {
   position: relative;
+  @extend %center-horiz-flex;
 
   &-cont {
     @extend %center-flex;
     position: absolute;
-    top: 4px;
-    left: 6px;
+    top: -20px;
 
     max-height: 18px;
     font-size: 12px;

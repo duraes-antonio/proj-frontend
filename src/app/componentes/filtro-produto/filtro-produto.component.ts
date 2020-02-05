@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Produto} from '../../modelos/Produto';
-import {Categoria} from '../../modelos/Categoria';
-import {FiltroProdutoPesquisa} from '../../modelos/FiltroProduto';
+import {Produto} from '../../models/Produto';
+import {Categoria} from '../../models/Categoria';
+import {FiltroProdutoPesquisa} from '../../models/FiltroProduto';
 
 @Component({
   selector: 'app-filtro-produto',

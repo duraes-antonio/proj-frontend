@@ -1,6 +1,5 @@
 'use strict';
 import {Action} from '@ngrx/store';
-import {ProductIdAmount} from '../modelos/cart.model';
 
 export enum CartActionType {
   ADD = 'ADD',
@@ -8,12 +7,12 @@ export enum CartActionType {
   CLEAR = 'CLE'
 }
 
-export const Add = (pairIdAmount: ProductIdAmount) => {
-  return <Action>{type: CartActionType.ADD, payload: pairIdAmount};
+export const Add = (productId: number) => {
+  return <Action>{type: CartActionType.ADD, payload: productId};
 };
 
-export const Remove = (pairIdAmount: ProductIdAmount) => {
-  return <Action>{type: CartActionType.REMOVE, payload: pairIdAmount};
+export const Remove = (productId: number) => {
+  return <Action>{type: CartActionType.REMOVE, payload: productId};
 };
 
 export const Clear = () => {

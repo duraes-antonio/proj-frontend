@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+%center-flex-space-betw {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 %center-vert-flex {
   display: flex;
   align-items: center;
@@ -15,6 +21,7 @@
   display: flex;
   justify-content: center;
 }
+
 
 %color-text-prim--light {
   color: $color-prim--light;
@@ -26,4 +33,22 @@
 
 %color-text-prim--dark {
   color: $color-prim--dark;
+}
+
+%color-text-sec--light {
+  color: $color-sec--light;
+}
+
+%color-text-sec {
+  color: $color-sec;
+}
+
+%color-text-sec--dark {
+  color: $color-sec--dark;
+}
+
+%text-shorten {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

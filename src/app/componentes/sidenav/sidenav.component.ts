@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Sidenav} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
-import {Usuario} from '../../modelos/Usuario';
+import {Usuario} from '../../models/Usuario';
 
 @Component({
   selector: 'app-sidenav',

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {gerarSequencia} from '../../../shared/utilFuncoes';
+import {genSequence} from '../../../shared/utilFuncoes';
 
 @Component({
   selector: 'app-paginacao',
@@ -21,7 +21,7 @@ export class PaginacaoComponent implements OnInit {
 
   set qtdPags(num: number) {
     this._qtdPag = num;
-    this.indicePags = gerarSequencia(num > 10 ? 10 : num, 1);
+    this.indicePags = genSequence(num > 10 ? 10 : num, 1);
   }
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class PaginacaoComponent implements OnInit {
     pagAlvo = Math.min(this.qtdPags, Math.max(1, pagAlvo));
 
     if (pagAlvo <= this.indicePags[0] || pagAlvo >= this.indicePags[this.indicePags.length - 1]) {
-      this.indicePags = this.gerarSeqIndPags(pagAlvo, this.qtdPags, this.indicePags, gerarSequencia);
+      this.indicePags = this.gerarSeqIndPags(pagAlvo, this.qtdPags, this.indicePags, genSequence);
     }
 
     this.paginaAtual = pagAlvo;

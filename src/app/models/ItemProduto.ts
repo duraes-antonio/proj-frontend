@@ -1,5 +1,3 @@
-import {FatalError} from 'tslint/lib/error';
-
 export class ItemPedido {
 
   public readonly id: number;
