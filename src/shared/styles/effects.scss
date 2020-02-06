@@ -75,14 +75,14 @@
 
   &::before {
     content: '';
-    background-color: rgba($color, .25);
+    background-color: rgba($color, .4);
     border-radius: 50%;
     padding: 50%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(2.5);
-    transition: transform .35s, opacity .35s;
+    transition: transform .4s, opacity .4s;
     opacity: 0;
   }
 

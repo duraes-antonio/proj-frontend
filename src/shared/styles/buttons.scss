@@ -1,6 +1,7 @@
 @import 'effects';
 @import 'variables';
 @import 'placeholders';
+@import 'states';
 
 $btn-padding-l-r: 16px;
 $btn-min-width: 64px;
@@ -64,60 +65,42 @@ $btn-border-radius: 4px;
 }
 
 /*TODO: Criar estilo p/ btn disable*/
-@mixin btn-grey--states($bg-color) {
-  &:not(:disabled):hover {
-    background-color: rgba($bg-color, .9);
-  }
-
-  &:not(:disabled):not(:active):focus {
-    background-color: rgba($bg-color, .95);
-  }
-}
-
-@mixin btn-color--states($bg-color) {
-  &:not(:disabled):hover {
-    background-color: rgba($bg-color, .08);
-  }
-
-  &:not(:disabled):not(:active):focus {
-    background-color: rgba($bg-color, .24);
-  }
-}
-
-
-@mixin btn-with-backg($bg-color, $text-color) {
+@mixin _btn-with-backg($bg-color, $text-color) {
   @extend %btn;
   color: $text-color;
-  background: $bg-color;
+  background-color: $bg-color !important;
   border: none;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
 
   &:disabled {
-    background: rgba(black, .12);
+    background-color: rgba(black, .12);
   }
 }
 
-@mixin btn-without-backg($text-color) {
+@mixin _btn-without-backg($text-color) {
   @extend %btn;
   color: $text-color;
-  background: transparent;
+  background-color: transparent;
 }
 
+
+/*Mixins para Botões containers (c/ e s/ cor), com borda e apenas texto*/
 @mixin btn-contained-colored($bg-color, $text-color) {
-  @include btn-color--states($bg-color);
-  @include btn-with-backg($bg-color, $text-color);
+  @include _btn-with-backg($bg-color, $text-color);
+  @include state--colored($bg-color);
+  @include gen-ripple($bg-color);
 }
 
 @mixin btn-contained-grey-scale($bg-color, $text-color) {
-  @include btn-with-backg($bg-color, $text-color);
-  @include btn-grey--states($bg-color);
-  @extend .ripple;
+  @include _btn-with-backg($bg-color, $text-color);
+  @extend %state--grey-scale;
+  @include gen-ripple(white);
 }
 
 @mixin btn-outlined($color-text) {
-  @include btn-color--states($color-text);
-  @include btn-without-backg($color-text);
-  @extend .ripple;
+  @include state--colored($color-text);
+  @include _btn-without-backg($color-text);
+  @include gen-ripple($color-text);
   border: 1px solid $color-text;
   border-radius: $btn-border-radius;
 
@@ -127,14 +110,15 @@ $btn-border-radius: 4px;
 }
 
 @mixin btn-text($color-text) {
-  @include btn-without-backg($color-text);
-  @include btn-color--states($color-text);
-  @extend .ripple;
+  @include _btn-without-backg($color-text);
+  @include state--colored($color-text);
+  @include gen-ripple($color-text);
   padding: 0 8px;
   border: none;
 }
 
 
+/*Class concreta dos botões*/
 .btn-contained {
   @include btn-contained-grey-scale($color-prim, $text-color-prim);
 }

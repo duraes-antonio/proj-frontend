@@ -1,20 +1,25 @@
 <app-modal-base (action)="emitEvent(action, inputCEP)" (closed)="emitEvent(closed)"
-                [actionDisabled]="!validCEP" [btnAcceptTitle]="confirmTitle"
-                [btnCancelTitle]="cancelTitle" [modalDesc]="modalDesc"
-                [modalTitle]="modalTitle">
+                [actionDisabled]="!validCEP" [btnAcceptTitle]="showInputCEP ? confirmTitle : confirmTitleOnlyAddress"
+                [btnCancelTitle]="cancelTitle"
+                [modalDesc]="showInputCEP ? modalDesc : modalDescOnlyAddress"
+                [modalTitle]="showInputCEP ? modalTitle : modalTitleOnlyAddress">
   <div style="display: grid">
-    <strong class="title-input-cep">Informar um CEP</strong>
-    <div class="input-default">
-      <input (focusin)="clearRadioAdress('endereco', 'list-address__item-content--active')"
-             (focusout)="validateCEP(inputCEP, textHintCEP, 'hint-cep', 'input-cep')"
-             (input)="formatCEP($event)"
-             [(ngModel)]="inputCEP" id="input-cep" required type="text">
-      <label for="input-cep">CEP</label>
-      <span id="hint-cep">{{textHintCEP}}</span>
+    <div *ngIf="showInputCEP">
+      <strong class="title-input-cep">Informar um CEP</strong>
+      <div class="input-default">
+        <input (focusin)="clearRadioAdress('endereco', 'list-address__item-content--active')"
+               (focusout)="validateCEP(inputCEP, textHintCEP, 'hint-cep', 'input-cep')"
+               (input)="formatCEP($event)"
+               [(ngModel)]="inputCEP" id="input-cep" required type="text">
+        <label for="input-cep">CEP</label>
+        <span id="hint-cep">{{textHintCEP}}</span>
+      </div>
     </div>
 
     <!-- Caso o usuário esteja logado e com algum enedereço registrado -->
-    <strong class="title-adress-list" style="margin-top: 20px">Seus endereços</strong>
+    <strong class="title-adress-list">
+      Seus endereços
+    </strong>
     <ul class="list-address">
       <li *ngFor="let end of addresses" class="list-address__item">
         <label (click)="selectAddress(end.id, 'list-address__item-content--active')">

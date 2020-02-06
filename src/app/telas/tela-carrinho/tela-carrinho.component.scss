@@ -3,7 +3,6 @@
 
 .product-list {
   display: grid;
-  padding: 20px 0;
 
   .product-list__item {
     @extend %center-vert-flex;
@@ -26,6 +25,7 @@
     .product__info {
       margin-top: 5px;
       display: flex;
+      flex-flow: wrap;
 
       .product__attr {
         @extend %center-vert-flex;
@@ -94,21 +94,34 @@
   }
 }
 
-.text-red {
-  color: #ce0000 !important;
-}
-
 .cart-cost {
   @extend %color-text-prim--light;
-  padding: 20px 20px 0;
   display: grid;
-  font-size: x-large;
-
-  &__price {
-  }
+  font-size: 16px;
 
   &__price-title {
-    width: 200px;
+    width: 140px;
+    font-weight: 400;
     display: inline-block;
+  }
+
+  &__price-value {
+    font-weight: 300;
+  }
+}
+
+.cart-container {
+  margin: 30px;
+
+  .cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 30px 30px 0;
+
+    .btn-contained {
+      width: auto;
+    }
   }
 }

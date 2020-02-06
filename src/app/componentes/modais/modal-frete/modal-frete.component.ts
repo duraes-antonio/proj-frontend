@@ -11,13 +11,18 @@ import {buildErrorMsg, validation} from '../../../../shared/validations/validati
 export class ModalFreteComponent implements OnInit {
 
   @Input() addresses: Endereco[];
+  @Input() showInputCEP = true;
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
+  @Output() chosenAddress = new EventEmitter<Endereco>();
 
   cancelTitle = 'Cancelar';
   confirmTitle = 'Calcular';
+  confirmTitleOnlyAddress = 'Selecionar';
   modalTitle = 'Digite seu CEP ou selecione um de seus endereços';
+  modalTitleOnlyAddress = 'Selecione um de seus endereços';
   modalDesc = 'Abaixo será possível conferir os prazos e custos de entrega desse produto.';
+  modalDescOnlyAddress = 'Após escolher, será possível conferir os prazos e custos de entrega.';
 
   inputCEP = '';
   validCEP = false;
@@ -40,10 +45,15 @@ export class ModalFreteComponent implements OnInit {
     /*Adicione a classe ao novo endereço selecionado*/
     document.getElementById(id.toString()).classList.add(className);
 
-    const input = document.getElementById('input-cep') as HTMLInputElement;
-    input.labels.forEach(l => l.classList.add('active'));
-    this.inputCEP = this.addresses.find(a => a.id === id).cep;
-    this.validateCEP(this.inputCEP, this.textHintCEP, 'hint-cep', 'input-cep');
+    this.validCEP = true;
+    this.chosenAddress.emit(this.addresses.find(a => a.id === id));
+
+    if (this.showInputCEP) {
+      const input = document.getElementById('input-cep') as HTMLInputElement;
+      input.labels.forEach(l => l.classList.add('active'));
+      this.inputCEP = this.addresses.find(a => a.id === id).cep;
+      this.validateCEP(this.inputCEP, this.textHintCEP, 'hint-cep', 'input-cep');
+    }
   }
 
   formatCEP(e): void {

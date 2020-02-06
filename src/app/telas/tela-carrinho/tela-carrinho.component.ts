@@ -4,6 +4,9 @@ import {ProductService} from '../../services/product.service';
 import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart.model';
 import {Subscription} from 'rxjs';
+import {Endereco} from '../../models/Endereco';
+import {DadosTeste} from '../../../shared/DadosTeste';
+import {Remove} from '../../actions/cart.action';
 
 @Component({
   selector: 'app-tela-carrinho',
@@ -13,8 +16,13 @@ import {Subscription} from 'rxjs';
 export class TelaCarrinhoComponent implements OnInit, OnDestroy {
 
   productsChosen: Produto[] = [];
+
   totalCost = 0;
   totalShipment = 0;
+  userAddresses: Endereco[] = DadosTeste.enderecos;
+  currAddress: Endereco = this.userAddresses[0];
+  tempAddress: Endereco;
+  showModalAddress: boolean;
   private cart$: Subscription;
 
   constructor(private cartStore: Store<Cart>) {
@@ -38,5 +46,18 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.cart$.unsubscribe();
+  }
+
+  updateChosenDelivery() {
+    this.currAddress = this.tempAddress;
+    // TODO: Calcular custo de entrega
+  }
+
+  showModalAdress() {
+    this.showModalAddress = true;
+  }
+
+  removeFromCart(id: number) {
+    this.cartStore.dispatch(Remove(id));
   }
 }
