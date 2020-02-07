@@ -29,10 +29,15 @@
 
         <div class="col s12 m12 l4 xl4 section_price_counter">
           <span class="product__price">
-            {{prod.preco | currency: 'BRL'}}
-            <span></span>
+            {{prod.precoComDesc * prodAmount.get(prod.id) | currency: 'BRL'}}
+            <span [hidden]="prodAmount.get(prod.id) < 2" class="product__price-amount">
+              {{prod.precoComDesc | currency: 'BRL'}}
+              <i aria-hidden="true" class="fa fa-times"></i>
+              {{prodAmount.get(prod.id)}}
+            </span>
           </span>
-          <app-input-number [maxValue]="prod.qtdDisponivel" [minValue]="1" [valueInit]="1">
+          <app-input-number (outValue)="changeAmount(prod.id, $event)"
+                            [maxValue]="prod.qtdDisponivel" [minValue]="1">
           </app-input-number>
         </div>
 
@@ -66,8 +71,8 @@
 
       <div class="cart-cost__price">
         <span class="cart-cost__price-title">Entrega em:</span>
-        <a (click)="showModalAdress()" class="cart-cost__price-value">{{currAddress.cep}}, {{currAddress.numero}}
-          , {{currAddress.bairro}}
+        <a (click)="showModalAdress()" class="cart-cost__price-value">{{currAddress.cep}},
+          {{currAddress.numero}}, {{currAddress.bairro}}
           <i aria-hidden="true" class="fa fa-cog" style="margin-left: 5px"></i>
         </a>
       </div>

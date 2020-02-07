@@ -54,7 +54,17 @@
     .product__price {
       text-align: center;
       font-size: x-large;
+      display: grid;
       @extend %color-text-prim--light;
+
+      &-amount {
+        font-size: small;
+
+        .fa-times {
+          font-size: 10px;
+          color: limegreen;
+        }
+      }
     }
 
     .text-section {

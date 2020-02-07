@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
 
 @Component({
@@ -10,6 +10,7 @@ export class InputNumberComponent implements OnInit {
   @Input() maxValue = 99999;
   @Input() minValue = 1;
   @Input() valueInit = 1;
+  @Output() outValue = new EventEmitter<number>();
 
   constructor() {
   }
@@ -18,11 +19,15 @@ export class InputNumberComponent implements OnInit {
   }
 
   increment(value: number, min: number, max: number): number {
-    return masks.valueOrMax(masks.valueOrMin(value + 1, min), max);
+    const res = masks.valueOrMax(masks.valueOrMin(value + 1, min), max);
+    this.outValue.emit(res);
+    return res;
   }
 
   decrement(value: number, min: number, max: number): number {
-    return masks.valueOrMax(masks.valueOrMin(value - 1, min), max);
+    const res = masks.valueOrMax(masks.valueOrMin(value - 1, min), max);
+    this.outValue.emit(res);
+    return res;
   }
 
   formatInput(keyPress: Event, num: number, min: number, max: number) {
@@ -37,6 +42,7 @@ export class InputNumberComponent implements OnInit {
       this.valueInit = data ? this.valueInit : min;
     }
 
+    this.outValue.emit(this.valueInit);
     (keyPress.target as HTMLInputElement).valueAsNumber = this.valueInit;
   }
 }

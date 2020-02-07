@@ -1,6 +1,7 @@
 @import '../../../../shared/styles/buttons';
 @import '../../../../shared/styles/effects';
 @import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/states';
 @import '../../../../shared/styles/variables';
 
 $margin-l-r: 24px;
@@ -25,7 +26,8 @@ $margin-l-r: 24px;
   margin: 0;
 
   &__item {
-    @extend .ripple;
+    @include state--colored(dodgerblue);
+    @include gen-ripple(dodgerblue);
     padding: 8px 15px;
 
     &:not(:last-child) {
