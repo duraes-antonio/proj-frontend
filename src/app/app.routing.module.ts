@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './telas/tela-login/tela-login.module#TelaLoginModule'
+    loadChildren: () => import('./telas/tela-login/tela-login.module').then(m => m.TelaLoginModule)
   },
   {
     path: 'redefinir-senha',
