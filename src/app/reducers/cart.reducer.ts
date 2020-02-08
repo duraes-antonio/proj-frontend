@@ -6,7 +6,7 @@ import {CartService} from '../services/cart.service';
 
 export const cart = {productsId: CartService.getProducts()};
 
-export const cartReducer = function cartRed(state = cart, action: ActionModel): Cart {
+export function cartReducer(state = cart, action: ActionModel): Cart {
   switch (action.type) {
     case CartActionType.ADD: {
       if (state.productsId && state.productsId.some(id => id === action.payload)) {
@@ -30,4 +30,4 @@ export const cartReducer = function cartRed(state = cart, action: ActionModel): 
     default:
       return state;
   }
-};
+}
