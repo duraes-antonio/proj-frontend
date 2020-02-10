@@ -12,4 +12,11 @@ export class ProductService {
   public static getById(id: number): Produto {
     return DadosTeste.produtos.find(p => p.id === id);
   }
+
+  /*TODO: Realizar persistência no Backend*/
+  public static put(product: Produto) {
+    const index = DadosTeste.produtos.findIndex(p => p.id === product.id);
+    DadosTeste.produtos[index] = product;
+    return product;
+  }
 }

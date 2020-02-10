@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Slider} from '../../models/componentes/Slider';
-import {Carousel} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
-
+import Glide from '@glidejs/glide';
 
 @Component({
   selector: 'app-slider',
@@ -15,7 +14,7 @@ export class SliderComponent implements OnInit {
 
   /*Itens armazenados somente para evitar buscas e operações adicionais c/ DOM*/
   private static indUltimo: number;
-  private static carrossel: Carousel;
+  // private static carrossel: Carousel;
 
   @Input() slider: Slider;
 
@@ -26,7 +25,7 @@ export class SliderComponent implements OnInit {
       document.addEventListener(
         'DOMContentLoaded',
         () => {
-          this.iniciarComponente();
+          new Glide('.glide').mount();
         }
       );
     } else {
@@ -43,25 +42,19 @@ export class SliderComponent implements OnInit {
     // setInterval(this.proximoSlide, 4000);
   }
 
-  private iniciarComponente() {
-
-    const elems = document.querySelectorAll('.carousel');
-    Carousel.init(
-      elems,
-      {
-        fullWidth: true,
-        indicators: true
-      }
-    );
-
-    SliderComponent.carrossel = Carousel.getInstance(elems[0]);
-  }
-
   public avancarSlide() {
-    SliderComponent.carrossel.next();
+    // SliderComponent.carrossel.next();
   }
 
   public voltarSlide() {
-    SliderComponent.carrossel.prev();
+    // SliderComponent.carrossel.prev();
+  }
+
+  private iniciarComponente() {
+
+    // const elems = document.querySelectorAll('.carousel');
+
+
+    // SliderComponent.carrossel = Carousel.getInstance(elems[0]);
   }
 }

@@ -15,7 +15,7 @@ export class PaginacaoComponent implements OnInit {
   private _qtdPag: number;
 
   @Input()
-  get qtdPags() {
+  get qtdPags(): number {
     return this._qtdPag;
   }
 

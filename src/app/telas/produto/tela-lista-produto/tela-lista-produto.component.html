@@ -14,7 +14,7 @@
 
         <!-- Etiqueta de desconto -->
         <span *ngIf="item.emPromocao" class="etiqueta-promo">
-          {{item.porcentDesc}}%
+          {{item.porcentDesc | number: '1.0-2'}}%
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
         </span>
 

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './navbar/navbar.component';
 import {BarraBuscaComponent} from './barra-busca/barra-busca.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BannerComponent} from './banner/banner.component';
 import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
@@ -25,6 +25,11 @@ import {ModalBaseComponent} from './modais/modal-base/modal-base.component';
 import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.component';
 import {ModalPaymentComponent} from './modais/modal-payment/modal-payment.component';
 import {InputNumberComponent} from './input/input-number/input-number.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {ModalProductMatComponent} from './modais/modal-product-mat/modal-product-mat.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,7 @@ import {InputNumberComponent} from './input/input-number/input-number.component'
     ModalShippingComponent,
     ModalPaymentComponent,
     InputNumberComponent,
+    ModalProductMatComponent
   ],
   exports: [
     NavbarComponent,
@@ -79,7 +85,12 @@ import {InputNumberComponent} from './input/input-number/input-number.component'
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
   ]
 })
 export class ComponentesModule {

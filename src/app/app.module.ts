@@ -8,6 +8,9 @@ import {CommonModule, registerLocaleData} from '@angular/common';
 import {ProdutoModule} from './telas/produto/produto.module';
 import {StoreModule} from '@ngrx/store';
 import {cartReducer} from './reducers/cart.reducer';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 registerLocaleData(localePt);
 
@@ -23,9 +26,13 @@ registerLocaleData(localePt);
     ProdutoModule,
     StoreModule.forRoot({
       cart: cartReducer
-    })
+    }),
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
+    MatDatepickerModule,
     {
       provide: LOCALE_ID,
       useValue: 'pt'

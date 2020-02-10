@@ -2,23 +2,23 @@ import {Categoria} from './Categoria';
 
 export class Produto {
 
-  public readonly id: number;
-  public readonly urlImagem: string;
-  public readonly titulo: string;
-  public readonly descricao: string;
+  public id: number;
+  public urlImagem: string;
+  public titulo: string;
+  public descricao: string;
 
-  public readonly preco: number;
-  public readonly precoComDesc: number;
-  public readonly porcentDesc: number;
+  public preco: number;
+  public precoComDesc: number;
+  public porcentDesc: number;
 
-  public readonly freteGratis: boolean;
-  public readonly categorias: Categoria[];
-  public readonly mediaAvaliacao: number;
-  public readonly qtdDisponivel: number;
+  public freteGratis: boolean;
+  public categorias: Categoria[];
+  public mediaAvaliacao: number;
+  public qtdDisponivel: number;
 
   constructor(
     urlImg: string, titulo: string, descricao: string, precoVenda: number,
-    emPromocao: boolean, porcentDesc?: number, categorias?: Categoria[],
+    porcentDesc?: number, categorias?: Categoria[],
     freteGratis?: boolean, id?: number, qtdDisponivel?: number
   ) {
     this.urlImagem = urlImg;

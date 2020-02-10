@@ -3,6 +3,7 @@ import {Categoria} from '../app/models/Categoria';
 import {Avaliacao} from '../app/models/Avaliacao';
 import {Endereco} from '../app/models/Endereco';
 import {DeliveryOption} from '../app/models/DeliveryOption';
+import {randomBoolean, randomFloat, randomInt} from './utilFuncoes';
 
 export class DadosTeste {
 
@@ -51,89 +52,97 @@ export class DadosTeste {
     {cost: DadosTeste.obterPrecoRandom(), time: 14},
     {cost: DadosTeste.obterPrecoRandom(), time: 5}
   ];
+
   public static readonly produtos = [
-    new Produto(
-      'https://images-na.ssl-images-amazon.com/images/I/717MHGTzgbL._SY606_.jpg',
+    DadosTeste.productRandom(
       'Funk POP - Yugi',
       // tslint:disable-next-line:max-line-length
       'Boneco Funko Pop Yu-gi-oh - Yami Yugi 387, é o mais novo título popular mundialmente. Explore este mundo devastado e repleto de perigos. Boneco Funko Pop Yu-gi-oh - Yami Yugi 387 você é livre em todas as suas decisões podendo pender tanto para o mal quanto para o bem, ou manter-se neutro. Além disso é possível criar e gerar uma energia a mais.',
-      DadosTeste.obterPrecoRandom(), false, 10, [DadosTeste.categorias[2]],
-      true, 1, 150
+      'https://images-na.ssl-images-amazon.com/images/I/717MHGTzgbL._SY606_.jpg'
     ),
-    new Produto(
-      'https://www.extra-imagens.com.br/brinquedos/Jogos/jogosdeCartas/13037927/967860280/yugioh-booster-duelist-pack-yugi-13037927.jpg',
+    DadosTeste.productRandom(
       'Yugioh Booster Duelist Pack',
       // tslint:disable-next-line:max-line-length
-      'Duelist Pack Yugi é um Pacote de Duelista no Yu-Gi-Oh! Essa Coleção possui Cartas usados por Yugi Muto. Contém novas artes para muitas cartas, incluindo "Dark Magician Girl", "Summoned Skull", "Dark Paladin" e "Polymerization".\n' +
-      '\n' +
-      'Este é o primeiro Pacote Duelista a ter cartões Ultimate Rare.\n',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]],
-      false, 2, 5
+      'Duelist Pack Yugi é um Pacote de Duelista no Yu-Gi-Oh! Essa Coleção possui Cartas usados por Yugi Muto. Contém novas artes para muitas cartas, incluindo "Dark Magician Girl", "Summoned Skull", "Dark Paladin" e "Polymerization".\n',
+      'https://www.extra-imagens.com.br/brinquedos/Jogos/jogosdeCartas/13037927/967860280/yugioh-booster-duelist-pack-yugi-13037927.jpg',
     ),
-    new Produto(
-      'https://http2.mlstatic.com/yu-gi-oh-booster-pack-premiere-ouro-gold-infinito--D_NQ_NP_608911-MLB20653779275_042016-F.webp',
-      'Yu-gi-oh! - Booster Pack Première Ouro Gold Infinito',
+    DadosTeste.productRandom(
+      'Legendary Decks 1 E 2 - Decks Legendários Em Pt Em 12 X',
       // tslint:disable-next-line:max-line-length
-      'Booster Yu-Gi-Oh! - Première Ouro em Português - Decks/Boosters contém 15 cartas em cada pack, 6 serão Secretas Douradas Raras e as outras 9 serão reimpressões das Douradas Raras mais populares de lançamentos passados ou cartas que aparecem como Dourada Raras pela primeira vez. Antes as Douradas Raras só estavam disponíveis através de canais limitados, mas desta vez Première Ouro vai estar disponível para todos! Em português!',
-      DadosTeste.obterPrecoRandom(), false, 0, [DadosTeste.categorias[3]],
-      false, 3, 10
+      'NESTE ANÚNCIO VOCÊ ESTA LEVANDO 2 LEGENDARYS EM 12 X SEM JUROS COM FRETE GRÁTIS\n1 X LEGENDARY DECKS 1\n1 X LEGENDARY DECKS 2\nTODOS SELADOS 100% ORIGINAIS EM PORTUGUÊS\nCADA LEGENDARY CONTÉM 3 DECKS DE 40 CARDS CADA\nUM TOTAL DE 120 CARDS POR LEGENDARY.\nLEGENDARY DECKS 1 CONTÉM OS DECKS: Exodia , Battle City e Gadget\nLEGENDARY DECKS 2 CONTÉM OS DECKS: Yugi, Kaiba e Joey.',
+      'https://http2.mlstatic.com/legendary-decks-1-e-2-decks-legendarios-em-pt-em-12-x-D_NQ_NP_723993-MLB31177348065_062019-F.webp'
     ),
-    new Produto(
-      'https://images-na.ssl-images-amazon.com/images/I/81R6LIH-%2B2L._SL1320_.jpg',
-      'Yu-Gi-Oh: Duel Power Box- 6 Rare Cards & Booster Pack, Multicolor',
-      '6 Duel Power booster packs, each with 5 Ultra Rare cards per pack\n' +
+    DadosTeste.productRandom(
+      'Booster Box De Battle Of Legends Hero\'s Revenge Em Pt Em 12x',
       // tslint:disable-next-line:max-line-length
-      '6 new Ultra Rare variant art cards, showing off new art versions of the main monsters from each Yu-Gi-Oh! anime series (Dark Magician, Elemental HERO Neos, Stardust Dragon, Number 39: Utopia, Odd-Eyes Pendulum Dragon, and Decode Talker)\n' +
-      '1 Gameboard.',
-      DadosTeste.obterPrecoRandom(), false, 0, [DadosTeste.categorias[3]],
-      true, 4, 13
+      `NESSE ANUNCIO VOCÊ ESTA LEVANDO 1x BOX de Batalha das Lendas Vingança do Herói 100% ORIGINAL EM PORTUGUÊS EM 12x S/ Juros\n\nEntre as 93 estampas metalizadas dessa coleção, você poderá encontrar estampas dos antigos mangás e animes de Yu-Gi-Oh! impressas pela primeira vez em Yu-Gi-Oh! ESTAMPAS ILUSTRADAS, novos Monstros Link, suportes poderosos para os torneios e mais! Confira uma prévia das novidades que aguardam os Duelistas:\n• O Número 93: Kaiser Utopia, originalmente disponível apenas para aqueles que atingiram o auge da competição, faz sua estreia pública! Muitas outras surpresas esperam pelos fãs dos monstros "Número" em Batalha das Lendas: Vingança do Herói.\n• Mais monstros "HERÓIs da Visão" do anime e mangá de Yu-Gi-Oh! GX, incluindo novas estampas relacionadas aos "HERÓIs", como Vyon, o HERÓI da Visão.\n• Monstros Link inéditos para diversos temas de Decks, como PSÍ-Armação, Armadilhatrix, Soldado do Lustro Negro e mais.\n• Estampas cobiçadas do cenário competitivo, como Dragão Callibrespada e Força Celeste - Mobilizar - Engajar!\n• Estampas populares do cenário competitivo receberão suas versões metalizadas pela primeira vez, incluindo Dinolutador Pancratops, Artefato Lança do Destino e Limitar Invocação.\n• Cada pacote contém 5 estampas, sendo 4 Ultra Raras e 1 Rara Secreta.\n• Cada caixa contém 24 pacotes.`,
+      'https://http2.mlstatic.com/booster-box-de-battle-of-legends-heros-revenge-em-pt-em-12x-D_NQ_NP_628017-MLB32085314597_092019-O.webp'
     ),
-    new Produto(
-      'https://vignette.wikia.nocookie.net/yugioh/images/9/96/DP1-BoosterEN.jpg/revision/latest?cb=20080922232644',
-      'Pack de Cards - Comum', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
-    ),
-    new Produto(
-      'https://vignette.wikia.nocookie.net/yugioh/images/a/ac/DP2-BoosterEN.jpg/revision/latest?cb=20061218005456',
-      'Pack de Cards - Comum', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
-    ),
-    new Produto(
-      'https://vignette.wikia.nocookie.net/yugioh/images/2/24/SP17-BoosterEN.png/revision/latest/scale-to-width-down/282?cb=20170125212154',
-      'Pack de Cards - Comum', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
-    ),
-    new Produto(
-      'https://vignette.wikia.nocookie.net/yugioh/images/3/3d/LED4-BoosterEN.png/revision/latest?cb=20190110075036',
-      'Pack de Cards - Comum', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
-    ),
-    new Produto(
-      'https://vignette.wikia.nocookie.net/yugioh/images/2/26/HA05-BoosterFR.png/revision/latest?cb=20160902200711',
-      'Pack \'Hidden Arsenal 5: Steelswarm Invasion\' - Raro', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
-    ),
-
-    new Produto(
-      'https://vignette.wikia.nocookie.net/yugioh/images/9/96/DP1-BoosterEN.jpg/revision/latest?cb=20080922232644',
-      'Pack de Cards - Comum', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[3]]
-    ),
-    new Produto(
+    DadosTeste.productRandom(
+      'Yugioh Card Box Tempestade Raging Tempest Special Português',
       // tslint:disable-next-line:max-line-length
-      'https://www.fye.com/dw/image/v2/BBNF_PRD/on/demandware.static/-/Sites-fye-master/default/dw4ae005b4/fye/000/000000/fye.000000693186763441_0.jpg?sw=584',
-      'Yu-Gi-Oh Blue Eyes T-Shirt', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[4]]
+      'YUGIOH BOX BOOSTER TEMPESTADE FURIOSA EDIÇÃO ESPECIAL\nA Tempestade Furiosa é uma coleção recheada de novas e excelentes estampas para uma grande variedade de temas, incluindo os ESPIRÕES, Engrenagens Anciões, Subterrores, Cristrons, Sombranecos e muitos outros.A Tempestade Furiosa também introduziu muitas estampas que podem ser usadas de forma independente em diferentes tipos de Decks, desde uma nova estampa da leva dos poderosos “Vírus” – que começou com o Vírus Esmaga-Card do Kaiba – até um monstro gigantesco capaz de redefinir a própria realidade! Além dessa grande quantidade de suportes para os temas já existentes, a Tempestade Furiosa apresentou três temas inéditos!\n\nConteúdo:\n\nCada Box Tempestade Furiosa Edição Especial contém:\n\n- 10 unidade de Tempestade Furiosa Edição Especial com 3 Booster Cada (9 Cartas por booster)\n- 1 de 2 Estampas Super Raras variantes\n- 1 de 2 Estampas Metalizadas de uma coleção que ainda será lançada no Outono de 2017\n- Total 290 Cartas\n\n- Produto em Português\n- Fabricado por Konami\n- Novo Lacrado e Original\n',
+      'https://http2.mlstatic.com/yugioh-card-box-tempestade-raging-tempest-special-portugus-D_NQ_NP_768667-MLB31854765242_082019-F.webp'
     ),
-
-    new Produto(
+    DadosTeste.productRandom(
+      'Funko Pop! - Yu-gi-oh! - Mago Negro - Dark Magician #595',
       // tslint:disable-next-line:max-line-length
-      'https://ae01.alicdn.com/kf/HTB1EnnrQVXXXXb4XXXXq6xXFXXXs/Nova-chegada-quente-yugioh-zexal-yuma-cosplay-link-corrente-colar-yu-gi-oh-pingente-de-metal.jpg',
-      'Pingente de metal', 'Sem descrição',
-      DadosTeste.obterPrecoRandom(), true, DadosTeste.sortearValorDesc(), [DadosTeste.categorias[0]]
+      'Tamanho aproximado de 8cms de Altura, Feito de Vinil.\nProduto Novo, Fechado na Embalagem.\nORIGINAL FUNKO.\n\n\nSe o pagamento for confirmado até as 12h de Segunda a Sexta, será postado no mesmo dia útil. Caso contrário, será postado no próximo dia útil.\nPostamos de Segunda a Sexta, exceto Feriados.\nApós o envio, informaremos o código de rastreamento por mensagem.',
+      'https://http2.mlstatic.com/funko-pop-yu-gi-oh-mago-negro-dark-magician-595-D_NQ_NP_785712-MLB32083660535_092019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Boneco Yu-gi-oh! Rei Caveira Totaku 22 Summoned Skull',
+      // tslint:disable-next-line:max-line-length
+      'Yu-Gi-Oh! é uma série de mangá sobre jogo escrita e ilustrada por Kazuki Takahashi. A série foi originalmente publicada pela editora Shueisha na revista Weekly Shonen Jump entre 1996 e 2004.\nFigures altamente detalhadas de 10cm.',
+      'https://http2.mlstatic.com/boneco-yu-gi-oh-rei-caveira-totaku-22-summoned-skull-D_NQ_NP_824828-MLB31711205912_082019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Funko Pop! Animation - Yu-gi-oh! - Dark Magician Girl #390',
+      // tslint:disable-next-line:max-line-length
+      'Funko Pop! Animation - Yu-gi-oh! - Dark Magician Girl #390\n\nCriado pela Funko este boneco colecionável, com aspecto agradável em seus vários modelos e franquias, os Pops! viraram uma paixão nacional.\nTenha seu personagem favorito com você, aquele sentimento de nostalgia, que te remete a uma época boa de sua vida, que te traga boas lembranças, ou pelo simples fato de estar adorando a nova série, os novos filmes. Funko Pop! esta ai para todos os gostos, e tudo isso com os melhores preços dos colecionáveis !!\n\n\nDetalhes\nConteúdo: Figura não articulada Tamanho: Aprox. 12cm de altura Material do Produto: Vinil Fabricante: Funko\nProdutos adquiridos com revendedora autorizada pela Funko.\n',
+      'https://http2.mlstatic.com/funko-pop-animation-yu-gi-oh-dark-magician-girl-390-D_NQ_NP_679975-MLB31070299689_062019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Funko Pop! Yu-gi-oh! - Seto Kaiba 388',
+      // tslint:disable-next-line:max-line-length
+      'Boneco em vinyl aprox. 10cm.\nProduto novo na caixa.\nPronta entrega.\nQualquer dúvida, estamos a disposição. Antes de confirmar a compra tire todas as suas dúvidas.',
+      'https://http2.mlstatic.com/funko-pop-yu-gi-oh-seto-kaiba-388-D_NQ_NP_812498-MLB31067667582_062019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Yu-gi-oh! Deck Inicial - Decifrador De Códigos',
+      // tslint:disable-next-line:max-line-length
+      'DECK INICIAL 2018 DECIFRADOR DE CÓDIGOS YUGIOH\nO Deck Inicial Decifrador de Códigos introduz os conceitos básicos dos Duelos através de cartas poderosas e fáceis de entender. Depois de aprender os fundamentos da Invocação-Link com os Monstros Link “Codificar Transmissor”, os Duelistas iniciantes podem usar este Deck Inicial como base para criar suas próprias estratégias com os monstros Ciberso e “Codificar Transmissor”. Monstros Link de muitos lançamentos diferentes incluindo o Deck Estrutural Link Ciberso e Força Extrema.\n\n\nPara garantir que os Duelistas tenham as ferramentas necessárias para aprimorar essas técnicas básicas e levar a invocação Link ao próximo nível, o Deck Inicial Decifrador de Códigos inclui adições poderosas como Linkuriboh, anteriormente inéditas em territórios da América Latina e Europa!\n\n\nMonstros Link é a mais nova adição ao Yu-Gi-Oh! Eles oferecem aos Duelistas uma saída nova para demonstrar suas habilidades, dominando não apenas como eles jogam suas cartas, mas também onde eles jogam. Estes novos monstros tornaram-se parte integrante do Duelo e o Deck Inicial Decifrador de Códigos contém 5 Monstros Link para dar aos novos Duelistas uma vantagem na competição.\n\n\nDeck Inicial Decifrador de Códigos contém 45 Cartas.\n\n\nCONTEÚDO\n\n\n- 40 Cartas Comuns\n- 3 Cartas Super Raras\n- 2 Cartas Ultra Raras\n- 1 Guia do Iniciante\n- 1 Campo de Duelo / Guia de Duelos em Dupla Face\n\n\nESPECIFICAÇÃO\n\n\n- Edição em Português\n- Fabricado por Konami\n- Novo Lacrado e Original',
+      'https://http2.mlstatic.com/yu-gi-oh-deck-inicial-decifrador-de-codigos-D_NQ_NP_775588-MLB31047940699_062019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Yugioh Deck Estrutural Horda Zumbi Zombie Horde Portugues',
+      // tslint:disable-next-line:max-line-length
+      'YUGIOH HORDA ZUMBI DECK ESTRUTURAL\n\nEstoque alimentos e bloqueie todas as entradas, a horda zumbi está chegando! O Deck Estrutural: Horda Zumbi é construído em torno do poder abrangente da Magia de Campo Mundo Zumbi para criar Duelos onde os Zumbis reinam supremos! O monstro chefe deste Deck pode ser Invocado do Cemitério durante cada Fase de Apoio se houver uma Magia de Campo ativa. Sua segunda habilidade nega um efeito de monstro ou bane um monstro do campo ou Cemitério, mas funciona apenas quando um Zumbi usar seu efeito – assim, basta manter a Magia de Campo Mundo Zumbi ativa para que todos os monstros do campo e Cemitério sejam transformados em Zumbis!\n\nUm novo monstro de Nível 4 com ATK elevado garantirá que o seu Mundo Zumbi permaneça em campo, impedindo-o de ser escolhido como alvo ou destruído por efeitos de cards. Você também pode banir esse monstro do campo ou Cemitério para ativar a poderosa Magia de Campo Mundo Zumbi da sua mão ou Deck! Este Deck não é composto por um ou dois Zumbis, mas por uma horda inteira! Quer saber a parte mais assustadora dessa história? Os zumbis querem que você se junte à horda! Essa fome insaciável é representada por uma nova Magia que, além de se encaixar em qualquer Deck de Zumbi, recruta os monstros do oponente não uma, mas duas vezes! Desde que controle um Zumbi de Nível 5 ou superior, ela funciona como a clássica Mudança de Opinião, enquanto seu outro efeito permite que você embaralhe um Zumbi banido de volta ao Deck para Baixá-la no campo diretamente do Cemitério!\n\n2018 foi um ano incrível para os Decks de Zumbis graças às estratégias inéditas das coleções Salvadores das Trevas e Invocadores Ocultos. Mas não pense que acabou, o surto Zumbi se expandirá em proporções cada vez maiores no mundo dos Duelos com este novo Deck Estrutural! O Deck Estrutural: Horda Zumbi contém 41 estampas no Deck Principal e 1 estampa no Deck Adicional, totalizando 42 estampas\n\nCONTEÚDO\n\n- 37 Comuns\n- 3 Super Raras\n- 2 Ultra Raras\n- 1 Guia do Iniciante\n- 1 Campo de Duelo em Dupla Face\n\nESPECIFICAÇÃO\n​\n- Edição em Português\n- Fabricado por Konami\n- Novo Lacrado e Original\n\nLISTA DE CARTAS\n\nSR07-PT000 Tatsunecro Super Raro\nSR07-PT001 Rei da Condenação Balerdroch Ultra Raro\nSR07-PT002 Banshee do Necromundo Super Raro\nSR07-PT003 Florescer Brilhante Super Raro\nSR07-PT004 Kasha\nSR07-PT005 Dragão Zumbi de Olhos Vermelhos\nSR07-PT006 Mech Malévolo - Goku En\nSR07-PT007 Decomposição Interminável\nSR07-PT008 Paladino do Dragão Amaldiçoado\nSR07-PT009 Governante Imortal\nSR07-PT010 Mestre Zumbi\nSR07-PT011 Tristan, Cavaleiro do Submundo\nSR07-PT012 Mezuki\nSR07-PT013 Gozuki\nSR07-PT014 Shutendoji\nSR07-PT015 Tartaruga Pirâmide\nSR07-PT016 Goblin Zumbi\nSR07-PT017 Isolde, Belle do Submundo\nSR07-PT018 Shiranui Solitário\nSR07-PT019 Uni-Zumbi Comum\nSR07-PT020 Ácaro Marionete\nSR07-PT021 Besta do Faraó\nSR07-PT022 Fantasma Expiatório\nSR07-PT023 Necronizar Zumbi\nSR07-PT024 Luta pelo Poder Zumbi\nSR07-PT025 Mundo Zumbi\nSR07-PT026 Olho Esmagador\nSR07-PT027 Livro da Vida\nSR07-PT028 Chamado da Múmia\nSR07-PT029 Enterro Tolo\nSR07-PT030 Portão do Monstro\nSR07-PT031 Arrastado para a Cova \nSR07-PT032 Enterro de Outra Dimensão\nSR07-PT033 Carona\nSR07-PT034 Retorno dos Zumbis\nSR07-PT035 Santuário Assombrado\nSR07-PT036 Armadilha da Tumba Emperial\nSR07-PT037 Ninho do Agulheto\nSR07-PT038 Metavers\nSR07-PT039 Fragrância Anti-Magia\nSR07-PT040 Máscara da Restrição\nSR07-PT041 Necro Dragão Zumbi de Olhos Vermelhos Ultra Raro',
+      'https://http2.mlstatic.com/yugioh-deck-estrutural-horda-zumbi-zombie-horde-portugues-D_NQ_NP_729471-MLB31075947276_062019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Yugioh Legacy Of The Duelist Link Evolution Switch Física',
+      // tslint:disable-next-line:max-line-length
+      'LEIA COM ATENÇÃO TODO O ANÚNCIO ANTES DE FINALIZAR A COMPRA!\n\n- Produto mídia física\n- Capinha de plástico (tradicional)\n- Produto original, novo e lacrado\n- Com nota fiscal\n- Postagem rápida! No máximo no próximo dia útil\n- Não enviamos via Carta Registrada\n\nYu-Gi-Oh! Legacy of the Duelist: Link Evolution! é um jogo de estratégia baseado na animação japonesa Yu-Gi-Oh. Construa seu deck com mais de 9000 cartas e lute contra os duelistas mais famosos do universo de Yu-Gi-Oh. Reviva a história da animação japonesa e recrie as batalhas contra seus personagens prediletos.\n\nExclusivo para o Nintendo Switch, construa seu deck com cartas icônicas da animação japonesa e batalhe contra os duelistas mais fortes do mundo virtual de Yu-Gi-Oh, ou jogue como vilões no modo Reverse Duels. Um jogo totalmente fiel e ótimo para os amantes de Yu-Gi-Oh.\n\nREQUISITOS\n- Nintendo Switch\n\nITENS INCLUSOS\n- Game Card\n- Encarte\n\n---------- INFORMAÇÕES IMPORTANTES ----------\n- Os pedidos serão enviados em até 1 dia útil após APROVADOS pelo MercadoPago, salvo exceções como instabilidades em sistemas fiscais e logísticos, grande fluxo de pedidos ocasionados por promoções, épocas comemorativas do ano e/ou lançamentos de produtos, ou devido a atrasos ocasionados por empresas terceirizadas (transportadoras, plataformas on-line, fornecedores etc.). Manteremos você informado em qualquer caso de atraso na postagem de sua encomenda.',
+      'https://http2.mlstatic.com/yugioh-legacy-of-the-duelist-link-evolution-switch-fisica-D_NQ_NP_678452-MLB32735525624_112019-F.webp'
+    ),
+    DadosTeste.productRandom(
+      'Yu-gi-oh! Forbidden Memories Português Patch Ps1',
+      // tslint:disable-next-line:max-line-length
+      'COMPATÍVEL COM:\nPS1 DESTRAVADO\nMIDIA FISICA\nFUNCIONA TAMBEM EM PLAYSTATION 2 QUE POSSUA RECUSSOS PARA PLAYSTATION 1\nTAMBEM FAZEMOS ELE NO OPL COM MEMORY CARD E PENDRIVE\nFRETE R$:10,00 POR CARTA REGISTRADA PARA TODO BRASIL\nACEITO MERCADO PAGO',
+      'https://http2.mlstatic.com/yu-gi-oh-forbidden-memories-portugus-patch-ps1-D_NQ_NP_909906-MLB32086903379_092019-F.webp'
     )
   ];
+  private static productId = 0;
 
+  private static productRandom(title: string, desc: string, imgUrl: string): Produto {
+    const prod = new Produto(
+      imgUrl, title, desc, randomFloat(0, 2500), randomFloat(0, 100),
+      [DadosTeste.categorias[randomInt(0, DadosTeste.categorias.length - 1)]],
+      randomBoolean(), ++DadosTeste.productId, randomInt(0, 10000)
+    );
+    return prod;
+  }
 
   private static obterPrecoRandom(): number {
     return Math.random() * 1000;

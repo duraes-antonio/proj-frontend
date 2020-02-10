@@ -1,7 +1,11 @@
 @import 'shared/styles/buttons';
+@import 'shared/styles/grid_materialize';
 @import 'shared/styles/input';
 @import 'shared/styles/placeholders';
+@import 'shared/styles/scrollbar.scss';
 @import 'shared/styles/variables';
+
+@include scrollbar-custom();
 
 body {
   background: white;
@@ -44,4 +48,13 @@ body {
 
 a {
   cursor: pointer;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

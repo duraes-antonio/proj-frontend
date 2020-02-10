@@ -3,18 +3,19 @@ import {RouterModule, Routes} from '@angular/router';
 import {TelaListaProdutoComponent} from './tela-lista-produto/tela-lista-produto.component';
 import {TelaVisualizarProdutoComponent} from './tela-visualizar-produto/tela-visualizar-produto.component';
 import {TelaGerenciaProdutoComponent} from './tela-gerencia-produto/tela-gerencia-produto.component';
+import {productsManager, productsView, productView} from '../../../shared/constants/routes';
 
 const produtoRoutes: Routes = [
   {
-    path: 'gerencia/produto',
+    path: productsManager,
     component: TelaGerenciaProdutoComponent
   },
   {
-    path: 'produto',
+    path: productsView,
     component: TelaListaProdutoComponent
   },
   {
-    path: 'produto/:id',
+    path: productView,
     component: TelaVisualizarProdutoComponent
   }
 ];

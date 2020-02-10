@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {DadosTeste} from '../../../../shared/DadosTeste';
@@ -41,12 +41,17 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private cartStore: Store<Cart>
   ) {
     this.routeSub$ = route.params.subscribe(
       params => {
         const idProduto = +params['id'];
         this.produto = ProductService.getById(idProduto);
+
+        if (!this.produto) {
+          router.navigateByUrl('404');
+        }
       });
     this.cart$ = cartStore.subscribe(
       (res: any) => {

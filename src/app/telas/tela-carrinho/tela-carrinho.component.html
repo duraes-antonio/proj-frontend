@@ -22,7 +22,7 @@
             </span>
             <span *ngIf="prod.porcentDesc > 0" class="product__attr">
               <i aria-hidden="true" class="fas fa-dollar-sign product__attr-icon"></i>
-              {{prod.porcentDesc}}% off
+              {{prod.porcentDesc | number: '1.0-2'}}% off
             </span>
           </div>
         </div>

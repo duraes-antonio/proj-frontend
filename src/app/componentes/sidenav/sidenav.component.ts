@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Sidenav} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+// import {Sidenav} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
 import {Usuario} from '../../models/Usuario';
+import {productsManager} from '../../../shared/constants/routes';
 
 @Component({
   selector: 'app-sidenav',
@@ -15,6 +16,7 @@ export class SidenavComponent implements OnInit {
   }
 
   @Input() usuario: Usuario;
+  readonly routeProductsManager = productsManager;
 
   constructor() { }
 
@@ -23,7 +25,7 @@ export class SidenavComponent implements OnInit {
    */
   private static iniciarModal() {
     const sidenav = document.querySelectorAll('.sidenav');
-    Sidenav.init(sidenav, {});
+    // Sidenav.init(sidenav, {});
   }
 
   ngOnInit() {

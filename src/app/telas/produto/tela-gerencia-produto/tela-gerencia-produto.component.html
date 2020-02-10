@@ -5,4 +5,78 @@
   </div>
   <i aria-hidden="true" class="fas fa-box-open title-page-icon"></i>
 </div>
-<p>tela-gerencia-produto works!</p>
+
+<div class="header-actions" id="header-actions">
+
+  <!-- Título -->
+  <mat-form-field appearance="outline" style="width: max-content">
+    <mat-label>Título</mat-label>
+    <input [(ngModel)]="textSearch" class="browser-default" matInput
+           maxlength="100" type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Data de cadastro (início)</mat-label>
+    <input [matDatepicker]="dateStart" class="browser-default" matInput>
+    <mat-datepicker-toggle [for]="dateStart" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #dateStart></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Data de cadastro (fim)</mat-label>
+    <input [matDatepicker]="dateEnd" class="browser-default" matInput type="date">
+    <mat-datepicker-toggle [for]="dateEnd" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #dateEnd></mat-datepicker>
+  </mat-form-field>
+
+  <button class="header-actions__btn btn-focus--grey" mat-raised-button>
+    <mat-icon>add</mat-icon>
+    Novo produto
+  </button>
+
+  <!-- TODO: Continuar funcionalidade -->
+  <button class="header-actions__btn btn-focus--grey" mat-raised-button>
+    <mat-icon>attach_money</mat-icon>
+    Alterar preço
+  </button>
+
+
+</div>
+
+<div style="padding: 0 20px">
+  <table class="table responsive-table">
+    <thead>
+    <tr class="table-header">
+      <th>#Id</th>
+      <th>Título</th>
+      <th>Preço de Venda</th>
+      <th>Custo</th>
+      <th>Desconto (%)</th>
+      <th>Frete grátis</th>
+      <th>Qtd. Disponível</th>
+      <th>Categoria</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr (click)="selectProduct(prod.id)" *ngFor="let prod of products" class="table-body__line">
+      <td>{{prod.id}}</td>
+      <td class="product__title">{{prod.titulo}}</td>
+      <td>{{prod.preco | currency: 'BRL'}}</td>
+      <td>0.0</td>
+      <td>{{prod.porcentDesc | number: '1.0-2'}}%</td>
+      <td>{{prod.freteGratis ? 'Sim' : 'Não'}}</td>
+      <td>{{prod.qtdDisponivel}}</td>
+      <td>
+        <span *ngFor="let categ of prod.categorias">{{categ.nome}}</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <app-paginacao [paginaAtual]="1" [qtdPags]="5"></app-paginacao>
+</div>
+
+<!--<app-modal-product (action)="saveProduct($event)" (closed)="showModalProduct = false"-->
+<!--                   *ngIf="showModalProduct" [product]="productChosen">-->
+<!--</app-modal-product>-->

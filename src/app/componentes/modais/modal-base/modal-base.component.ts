@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import * as M from '../../../../../node_modules/materialize-css';
 
 @Component({
   selector: 'app-modal-base',
@@ -31,30 +30,16 @@ export class ModalBaseComponent implements OnInit {
   constructor() {
   }
 
+  /*TODO: Converte para angular material dialog*/
   ngOnInit() {
     setTimeout(
       () => {
-        const modal = this.initModal(this.idModal, this.closed);
-        modal.open();
         this.modal = document.getElementById(this.idModal);
         this.modalContent = document.getElementById(this.idModalContent);
         this.modalFooter = document.getElementById(this.idModalFooter);
         this.modalHeader = document.getElementById(this.idModalHeader);
         window.addEventListener('resize', () => this.modalResize());
         this.modalResize();
-      }
-    );
-  }
-
-  private initModal(modalId: string, emitter: EventEmitter<any>): M.Modal {
-    return M.Modal.init(
-      document.getElementById(modalId),
-      {
-        onCloseEnd: function () {
-          emitter.emit();
-        },
-        inDuration: 100,
-        outDuration: 100
       }
     );
   }

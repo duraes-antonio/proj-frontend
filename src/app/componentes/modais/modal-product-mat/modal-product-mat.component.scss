@@ -1,0 +1,31 @@
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/variables';
+@import '../../../../shared/styles/scrollbar';
+
+@include scrollbar-custom();
+.modal__content {
+  max-height: calc(var(--content-height) - 70px);
+  overflow: auto;
+  text-align: center;
+}
+
+.modal__footer {
+  text-align: right;
+  margin-top: 20px;
+
+  .actions__button:focus {
+    background-color: rgba(lightgrey, .5);
+  }
+}
+
+.product__image {
+  max-height: 150px;
+  max-width: 150px;
+}
+
+.cdk-overlay-pane {
+
+  @media (max-width: $width-max-small) {
+    top: 0 !important;
+  }
+}
