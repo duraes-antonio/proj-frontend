@@ -1,86 +1,85 @@
-@import "../../../shared/shared";
+@import '../../../shared/styles/mixins';
+@import '../../../shared/styles/placeholders';
 
-$larg-slide: 712px;
-$alt-slide: 325px;
+$_slide-height: 325px;
 
 .carrossel {
-  display: flex;
-  justify-content: center;
-  height: $alt-slide !important;
+  @extend %center-flex;
+  height: $_slide-height;
 }
 
-.slide-area {
-  display: flex;
-  justify-content: center;
-  background-color: #404040;
-  min-height: auto !important;
-  max-height: $alt-slide !important;
+.glide__slides {
+  @extend %center-flex;
+  padding: 0;
+  max-height: $_slide-height;
 }
 
-.slide-imagem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.glide__slide {
+  @extend %center-flex;
+  cursor: pointer;
 
   img {
     max-width: 100%;
-    max-height: $alt-slide;
+    max-height: $_slide-height;
     box-shadow: 1px 2px 12px black;
-    cursor: pointer;
   }
 }
 
-.background-desfocado {
+.glide__track {
+  position: relative;
+}
+
+.glide__arrows {
+  @extend %center-flex;
+  width: 100%;
+  top: 50%;
+  position: absolute;
+
+  .glide__arrow {
+    background-color: rgba(white, .25);
+    position: absolute;
+
+    &--next {
+      right: 15px;
+    }
+
+    &--prev {
+      left: 15px;
+    }
+
+    .arrow__icon {
+      @extend %center-flex;
+      color: white;
+      font-size: xx-large;
+    }
+  }
+}
+
+.bg-blur {
+  @extend %center-flex;
+  @include size(100%);
   position: absolute;
   background-size: cover;
   background-position: center;
-
-  height: $alt-slide;
-  max-height: $alt-slide;
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
+  max-height: 310px;
+  max-width: 24%;
 
   z-index: -1;
-  filter: blur(7px);
+  filter: blur(8px);
+  opacity: .7;
 }
 
-.slide-item {
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: $alt-slide;
-  width: 100%;
-  z-index: 1;
-}
+.glide__indicator {
+  @include size(9px);
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  margin: 24px 4px;
+  background-color: rgba(white, .5);
+  transition: background-color .3s;
+  border-radius: 50%;
 
-.slide-item-rodape {
-  align-self: flex-end;
-  height: 250px;
-  max-width: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-
-  h6 {
-    font-size: large;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin: 1.75rem 0 1rem 0 !important;
+  &:not(:last-child) {
+    margin-right: 8px;
   }
-
-  p {
-    font-size: medium;
-  }
-}
-
-.slide-item-rodape-fundo {
-  opacity: 0.7;
-  height: 250px;
-  max-width: 100%;
-  width: 100%;
-  position: absolute;
-  align-self: flex-end;
-  background-color: black;
 }

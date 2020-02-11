@@ -1,4 +1,4 @@
-<div class="glide carrossel">
+<div class="glide" id="glide">
 
   <!--  <div class="area-passadores">,-->
 
@@ -13,23 +13,33 @@
   <!--    </a>-->
 
   <!--  </div>-->
-  <div class="glide">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides">
-        <div *ngFor="let slide of slider.itens; let i = index" class="glide__slide slide-area"
-             id="slide-{{i}}">
-
-          <div [style.backgroundImage]="'url('+ slide.imagemUrl +')'"
-               class="background-desfocado">
-          </div>
-
-          <div class="slide-imagem">
-            <img alt="{{slide.titulo}}" src="{{slide.imagemUrl}}" title="{{slide.titulo}}">
-          </div>
-
-        </div>
+        <li *ngFor="let slide of slider.itens" class="glide__slide" id="slide-{{slide.id}}">
+          <div [style.backgroundImage]="'url('+ slide.imagemUrl +')'" class="bg-blur"></div>
+          <img [alt]="slide.titulo" [src]="slide.imagemUrl" [title]="slide.titulo">
+        </li>
       </ul>
+
+      <div class="glide">
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--prev" data-glide-dir="<" mat-fab>
+            <mat-icon class="arrow__icon">keyboard_arrow_left</mat-icon>
+          </button>
+          <button class="glide__arrow glide__arrow--next" data-glide-dir=">" mat-fab>
+            <mat-icon class="arrow__icon">keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="glide">
+        <div data-glide-el="controls[nav]">
+          <button *ngFor="let s of slider.itens; let i = index;" class="glide__indicator"
+                  data-glide-dir="={{i}}">
+          </button>
+        </div>
+      </div>
+
     </div>
-  </div>
 
 </div>

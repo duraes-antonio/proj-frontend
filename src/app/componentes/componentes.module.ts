@@ -30,6 +30,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ModalProductMatComponent} from './modais/modal-product-mat/modal-product-mat.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
+    MatIconModule,
   ]
 })
 export class ComponentesModule {

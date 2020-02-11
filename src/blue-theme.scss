@@ -9,3 +9,9 @@ $theme-warn: mat-palette($mat-red);
 $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 @include angular-material-theme($blue-theme);
+
+body, html {
+  margin: 0;
+  height: 100%;
+  display: contents;
+}
