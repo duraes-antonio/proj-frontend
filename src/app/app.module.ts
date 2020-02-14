@@ -11,6 +11,7 @@ import {cartReducer} from './reducers/cart.reducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialog} from '@angular/material/dialog';
 
 registerLocaleData(localePt);
 
@@ -32,6 +33,8 @@ registerLocaleData(localePt);
     MatNativeDateModule
   ],
   providers: [
+    MatDialog,
+    MatNativeDateModule,
     MatDatepickerModule,
     {
       provide: LOCALE_ID,

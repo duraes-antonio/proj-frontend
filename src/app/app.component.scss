@@ -1,4 +1,7 @@
+@import '../shared/styles/placeholders';
 @import '../shared/styles/scrollbar';
+
+@include scrollbar-custom();
 
 .area-centralizada {
   display: flex;
@@ -25,4 +28,19 @@
   color: red;
 }
 
-@include scrollbar-custom();
+::ng-deep input[type="number"] {
+  display: block;
+  text-align: right;
+}
+
+::ng-deep mat-form-field {
+  margin-top: 15px !important;
+}
+
+::ng-deep .section-title {
+  @extend %color-text-prim;
+  font-size: x-large;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}

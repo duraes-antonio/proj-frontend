@@ -5,8 +5,7 @@
 $size-avatar: 70px;
 
 .rating {
-  display: flex;
-  align-items: center;
+  @extend %center-vert-flex;
   background: linear-gradient(90deg, white -65%, rgba($color-sec--light, .3) 50%, white 165%);
   margin: 10px 0;
   padding: 20px 25px 15px 5px;
@@ -42,19 +41,21 @@ $size-avatar: 70px;
   }
 
   &__date-stars {
-    display: flex;
+    @extend %center-vert-flex;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
   }
 
   &__full-text {
-    font-size: small;
+    font-size: 14px;
     color: $color-sec--dark;
   }
 
   &__summary {
     color: $color-prim--light;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 3px;
   }
 
   &__user-avatar {
@@ -91,7 +92,7 @@ $size-avatar: 70px;
   }
 
   &__user-name {
-    @extend %color-text-prim;
+    @extend %color-text-sec--dark;
     padding-top: 5px;
     font-size: small;
   }

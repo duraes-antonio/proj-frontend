@@ -40,11 +40,6 @@ body {
   transition: none !important;
 }
 
-.titulo-secao {
-  @extend %color-text-prim;
-  font-size: x-large;
-  text-transform: uppercase;
-}
 
 a {
   cursor: pointer;

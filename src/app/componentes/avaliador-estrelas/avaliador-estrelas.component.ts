@@ -1,5 +1,5 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+'use strict';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-avaliador-estrelas',
@@ -8,41 +8,42 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class AvaliadorEstrelasComponent implements OnInit {
 
-  @Input() mediaAvaliacao = 0;
-  @Input() qtdAvaliacoes = 0;
+  @Input() valueRating = 0;
+  @Input() numRatings = 0;
   @Input() fontSize = 20;
-  @Input() exibirNumAval = true;
-  public difMediaIndices = this.calcDifsMediaIndices(this.qtdEstrelas, this.mediaAvaliacao);
+  @Input() showNumRatings = true;
+  public diffAvgIdxs = this.calcDiffAvgIndex(this.maxStars, this.valueRating);
+  @ViewChild('stars')
+  private starsElem: ElementRef<HTMLElement>;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor() {
   }
 
-  private _qtdEstrelas = 5;
+  private _maxStars = 5;
 
-  get qtdEstrelas() {
-    return this._qtdEstrelas;
+  get maxStars() {
+    return this._maxStars;
   }
 
   @Input()
-  set qtdEstrelas(valor: number) {
-    this._qtdEstrelas = valor;
-    this.difMediaIndices = this.calcDifsMediaIndices(valor, this.mediaAvaliacao);
-  }
+  set maxStars(valor: number) {
+    this._maxStars = valor;
+    this.diffAvgIdxs = this.calcDiffAvgIndex(valor, this.valueRating);
 
-  @HostBinding('attr.style')
-  get valueAsStyle(): any {
-    return this.sanitizer
-      .bypassSecurityTrustStyle(
-        `--porcentPreench: ${100 * this.difMediaIndices[Math.floor(this.mediaAvaliacao)]}%;
-        --fontSize: ${this.fontSize}px`
+    setTimeout(() => {
+      this.starsElem.nativeElement.style.setProperty(
+        '--percent-fill',
+        `${100 * this.diffAvgIdxs[Math.floor(this.valueRating)]}%`
       );
+      this.starsElem.nativeElement.style.setProperty('--font-size', ` ${this.fontSize}px`);
+    }, 500);
   }
 
   ngOnInit() {
   }
 
-  calcDifsMediaIndices(qtdEstrelas: number, media: number): number[] {
-    return Array(qtdEstrelas)
-      .fill(0).map((x, i) => media - i);
+  calcDiffAvgIndex(numStars: number, average: number): number[] {
+    return Array(numStars)
+      .fill(0).map((x, i) => average - i);
   }
 }

@@ -23,6 +23,12 @@
 }
 
 
+%flex-col {
+  display: flex;
+  flex-flow: column;
+}
+
+
 %color-text-prim--light {
   color: $color-prim--light;
 }
@@ -47,8 +53,22 @@
   color: $color-sec--dark;
 }
 
+
 %text-shorten {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+%text--link {
+  color: $link-color;
+  cursor: pointer;
+}
+
+%divider {
+  @extend %center-horiz-flex;
+  height: 1px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.12);
+  content: '';
 }

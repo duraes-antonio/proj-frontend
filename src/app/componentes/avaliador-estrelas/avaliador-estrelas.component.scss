@@ -1,24 +1,41 @@
-i {
-  font-size: var(--fontSize);
-  color: darkgrey;
-}
+@import '../../../shared/styles/placeholders';
 
-.estrela-incomp {
-  position: relative;
-  z-index: 1;
+.stars-section {
+  display: flex;
+  align-items: center;
 
-  &::after {
-    position: absolute;
-    color: orange;
-    width: var(--porcentPreench);
-    z-index: 2;
-    content: "\f005";
-    overflow: hidden;
-    left: 0;
+  .stars {
+
+    .star {
+      font-size: var(--font-size);
+      color: darkgrey;
+
+      &--active {
+        color: orange;
+      }
+
+      &--incomp {
+        position: relative;
+        z-index: 1;
+
+        &::after {
+          position: absolute;
+          color: orange;
+          width: var(--percent-fill);
+          z-index: 2;
+          content: "\f005";
+          overflow: hidden;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .rating-counter {
+    @extend %color-text-sec--dark;
+    font-size: small;
+    margin-left: 5px;
   }
 }
 
-.cont-avaliacoes {
-  font-size: small;
-  margin-left: 5px;
-}
+

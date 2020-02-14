@@ -1,3 +1,4 @@
+'use strict';
 import {Component, OnInit} from '@angular/core';
 import {DadosTeste} from '../../../../shared/DadosTeste';
 
@@ -14,7 +15,7 @@ export class TelaListaProdutoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.produtos.pop();
+    console.log(this.produtos);
   }
 
   /*TODO: Mudar para função que requisita os produtos*/

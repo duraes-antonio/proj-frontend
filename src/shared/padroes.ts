@@ -1,1 +1,1 @@
-export const formatoTimestamp = 'dd/MM/yyyy - HH:mm:ss';
+export const fmtTimestamp = 'dd/MM/yyyy - HH:mm:ss';

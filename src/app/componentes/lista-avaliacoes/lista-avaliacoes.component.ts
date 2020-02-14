@@ -1,6 +1,7 @@
+'use strict';
 import {Component, Input, OnInit} from '@angular/core';
 import {Avaliacao} from '../../models/Avaliacao';
-import {formatoTimestamp} from '../../../shared/padroes';
+import {fmtTimestamp} from '../../../shared/padroes';
 
 @Component({
   selector: 'app-lista-avaliacoes',
@@ -9,8 +10,8 @@ import {formatoTimestamp} from '../../../shared/padroes';
 })
 export class ListaAvaliacoesComponent implements OnInit {
 
-  @Input() avaliacoes: Avaliacao[];
-  public fmtData: string = formatoTimestamp;
+  @Input() ratings: Avaliacao[];
+  public fmtData: string = fmtTimestamp;
 
   constructor() {
   }

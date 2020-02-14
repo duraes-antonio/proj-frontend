@@ -1,7 +1,9 @@
-<div style="display: flex; align-items: center">
-  <i *ngFor="let dif of difMediaIndices"
-     [ngClass]="{'estrela-incomp': dif < 1 && dif > 0}"
-     [ngStyle]="{'color': dif >= 1 && 'orange'}" aria-hidden="true"
-     class="fa fa-star"></i>
-  <span *ngIf="qtdAvaliacoes > 0 && exibirNumAval" class="cont-avaliacoes">({{qtdAvaliacoes}})</span>
+<div class="stars-section">
+  <div #stars class="stars" id="stars">
+    <i *ngFor="let dif of diffAvgIdxs"
+       [ngClass]="dif >= 1 ? 'star--active' : (dif > 0 && 'star--incomp')"
+       aria-hidden="true" class="fa fa-star star">
+    </i>
+  </div>
+  <span *ngIf="numRatings > 0 && showNumRatings" class="rating-counter">({{numRatings}})</span>
 </div>

@@ -15,8 +15,8 @@
     <!-- Título -->
     <mat-form-field class="col s12">
       <mat-label>Título</mat-label>
-      <input #fieldTitle [(ngModel)]="product.titulo"
-             class="browser-default" matInput maxlength="100" type="text">
+      <input #fieldTitle [(ngModel)]="product.titulo" class="input"
+             matInput maxlength="100" type="text">
       <mat-hint align="start">Título curto, porém descritivo</mat-hint>
       <mat-hint align="end">{{fieldTitle.value.length}} / 100</mat-hint>
     </mat-form-field>
@@ -25,7 +25,7 @@
     <mat-form-field class="col s12">
       <mat-label>Descrição</mat-label>
       <textarea #autosize="cdkTextareaAutosize" #fieldDescription [(ngModel)]="product.descricao"
-                cdkAutosizeMaxRows="10" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="10" cdkAutosizeMinRows="1" class="input"
                 cdkTextareaAutosize matInput maxlength="2000"></textarea>
       <mat-hint align="end">{{fieldDescription.value.length}} / 2000</mat-hint>
     </mat-form-field>
@@ -33,15 +33,14 @@
     <!-- Custo -->
     <mat-form-field class="col s6">
       <mat-label>Custo</mat-label>
-      <input class="browser-default" matInput style="text-align: right" type="number">
+      <input matInput type="number">
       <span matPrefix>R$&nbsp;</span>
     </mat-form-field>
 
     <!-- Preço de venda -->
     <mat-form-field class="col s6">
       <mat-label>Preço de venda</mat-label>
-      <input [(ngModel)]="product.qtdDisponivel" class="browser-default" matInput style="text-align: right"
-             type="number">
+      <input [(ngModel)]="product.qtdDisponivel" matInput type="number">
       <span matPrefix>R$&nbsp;</span>
     </mat-form-field>
 
@@ -49,28 +48,28 @@
     <!-- Altura -->
     <mat-form-field class="col s6">
       <mat-label>Altura (cm)</mat-label>
-      <input class="browser-default" matInput style="text-align: right" type="number">
+      <input matInput type="number">
       <mat-hint align="start">Altura em centímetros</mat-hint>
     </mat-form-field>
 
     <!-- Largura -->
     <mat-form-field class="col s6">
       <mat-label>Largura (cm)</mat-label>
-      <input class="browser-default" matInput style="text-align: right" type="number">
+      <input matInput type="number">
       <mat-hint align="start">Largura em centímetros</mat-hint>
     </mat-form-field>
 
     <!-- Comprimento -->
     <mat-form-field class="col s6">
       <mat-label>Comprimento (cm)</mat-label>
-      <input class="browser-default" matInput style="text-align: right" type="number">
+      <input matInput type="number">
       <mat-hint align="start">Comprimento em centímetros</mat-hint>
     </mat-form-field>
 
     <!-- Peso -->
     <mat-form-field class="col s6">
       <mat-label>Peso (kg)</mat-label>
-      <input class="browser-default" matInput style="text-align: right" type="number">
+      <input matInput type="number">
       <mat-hint align="start">Peso em kilogramas</mat-hint>
     </mat-form-field>
   </div>

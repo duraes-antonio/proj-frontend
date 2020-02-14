@@ -12,7 +12,7 @@ export class FiltroProdutoComponent implements OnInit {
 
   @Output() filtroSelecao = new EventEmitter<FiltroProdutoPesquisa>();
   public categorias: Set<Categoria>;
-  public avaliacoes: number[];
+  public ratings: number[];
   public descontos: number[][];
   public freteGratis: boolean;
   public filtro: FiltroProdutoPesquisa = new FiltroProdutoPesquisa(1, 25);
@@ -28,7 +28,7 @@ export class FiltroProdutoComponent implements OnInit {
 
   set produtos(produtos: Produto[]) {
     this._produtos = produtos;
-    this.avaliacoes = this.filtrarAvaliacoes(produtos);
+    this.ratings = this.filtrarAvaliacoes(produtos);
     this.categorias = this.filtrarCategorias(produtos);
     this.descontos = this.filtrarDescontos(produtos);
     this.freteGratis = produtos.some(p => p.freteGratis);

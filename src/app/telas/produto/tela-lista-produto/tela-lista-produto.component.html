@@ -1,44 +1,31 @@
 <div class="row" style="display: flex; margin-bottom: 0">
 
   <!-- Filtros à esquerda da página -->
-  <app-filtro-produto [produtos]="produtos"
-                      class="col hide-on-small-and-down m4 l3 xl2 no-padding">
-  </app-filtro-produto>
+  <app-filtro-produto [produtos]="produtos" class="col m4 l3 xl2"></app-filtro-produto>
 
   <!-- Área dos produtos -->
-  <div class="col s12 m8 l9 xl10"
-       style="display: flex; flex-flow: wrap; padding: 20px 10px 0;">
-    <div *ngFor="let item of produtos" class="area-item col s6 m6 l3 xl3">
-      <a [routerLink]="[item.id]" style="color: unset">
-        <div class="area-produto">
+  <div style="display: grid;">
+    <div class="products">
+      <a *ngFor="let item of produtos" [routerLink]="[item.id]"
+         class="col s6s m6s l3s xl3s product">
 
         <!-- Etiqueta de desconto -->
-        <span *ngIf="item.emPromocao" class="etiqueta-promo">
+        <span *ngIf="item.emPromocao" class="product__label-promo">
           {{item.porcentDesc | number: '1.0-2'}}%
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
         </span>
 
         <!-- Titulo do produto -->
-        <span class="produto-titulo">{{item.titulo}}</span>
+        <span class="product__title">{{item.titulo}}</span>
 
-        <img alt="{{item.titulo}}" src="{{item.urlImagem}}">
+        <img [alt]="item.titulo" [src]="item.urlImagem" class="product__cover-img">
 
-        <!-- Área c/ preço original e com desconto) -->
-        <!-- TODO: Remover arredondamento de preço-->
-        <div class="area-produto-info">
-
-          <!-- Área para preços de produtos em promoção -->
-          <span *ngIf="item.porcentDesc > 0" class="preco-original">
-            R$ {{item.preco.toFixed(2)}}
-          </span>
-
-          <span class="preco">R$ {{(item.precoComDesc).toFixed(2)}}</span>
-        </div>
-      </div>
+        <!-- Área para preços de produtos em promoção -->
+        <span *ngIf="item.porcentDesc > 0" class="product__price-orig">{{item.preco | currency: 'BRL'}}</span>
+        <span class="product__price">{{item.precoComDesc | currency: 'BRL'}}</span>
       </a>
     </div>
 
-    <app-paginacao [qtdPags]="32" style="width: 100%;">
-    </app-paginacao>
+    <app-paginacao [qtdPags]="32" style="width: 100%;"></app-paginacao>
   </div>
 </div>

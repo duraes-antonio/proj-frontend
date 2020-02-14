@@ -1,0 +1,9 @@
+<h1 id="modal-header" mat-dialog-title>Asasasa</h1>
+
+<div #content class="modal__content" id="modal-content" mat-dialog-content>
+</div>
+
+<div class="modal__footer" id="modal-footer" mat-dialog-actions>
+  <button (click)="close()" class="actions__button" mat-button mat-dialog-close>Descartar</button>
+  <button [mat-dialog-close]="true" class="actions__button" mat-button>Salvar</button>
+</div>

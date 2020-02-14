@@ -1,94 +1,62 @@
 <!-- TODO: Realizar binding com as rotas -->
-
-<div class="area-filtro">
-  <p style="text-align: center; font-size: medium; text-transform: uppercase; font-weight: 500">Filtros</p>
-  <div style="height: 1px; background-color: #ddd; margin: 0 10px;"></div>
-  <ul style="height: 100%; margin: 0;">
-
+<div class="filter">
+  <span class="filter__title">Filtros</span>
+  <mat-divider></mat-divider>
+  <ul class="filter__content">
     <li id="id-filtro-categorias">
-      <div class="filtro-header" tabindex="0">
-        Categorias
-      </div>
-
-      <div class="filtro-body">
-        <label *ngFor="let categ of categorias" for="id-check-categoria-{{categ.id}}">
-          <input class="filled-in"
-                 id="id-check-categoria-{{categ.id}}" type="checkbox">
-          <span>{{categ.nome}}</span>
-        </label>
+      <div class="filter__section-header">Categorias</div>
+      <div class="filter__section-body">
+        <mat-checkbox *ngFor="let categ of categorias" id="id-check-categoria-{{categ.id}}">
+          {{categ.nome}}
+        </mat-checkbox>
       </div>
     </li>
 
     <li *ngIf="freteGratis" id="id-filtro-frete">
-      <div class="filtro-header" tabindex="0">
-        Frete
-      </div>
-
-      <div class="filtro-body">
-        <label for="id-check-frete">
-          <input class="filled-in check-padrao" id="id-check-frete" type="checkbox">
-          <span>Grátis</span>
-        </label>
+      <div class="filter__section-header">Frete</div>
+      <div class="filter__section-body">
+        <mat-checkbox id="id-check-frete">Grátis</mat-checkbox>
       </div>
     </li>
 
     <li *ngIf="descontos.length > 0" id="id-filtro-desconto">
-      <div class="filtro-header" tabindex="0">
-        Desconto
-      </div>
-      <div class="filtro-body">
-        <label>
-          <input class="filled-in check-padrao" type="checkbox">
-          <span>Até {{descontos[0][1]}}%</span>
-        </label>
-
-        <label *ngFor="let precoMinMax of descontos.slice(1, descontos.length - 1)">
-          <input class="filled-in check-padrao" type="checkbox">
-          <span>De {{precoMinMax[0]}}% até {{precoMinMax[1]}}%</span>
-        </label>
-
-        <label>
-          <input class="filled-in check-padrao" type="checkbox">
-          <span>Mais de {{descontos[descontos.length - 1][0] - 1}}%</span>
-        </label>
+      <div class="filter__section-header">Desconto</div>
+      <div class="filter__section-body">
+        <mat-checkbox>Até {{descontos[0][1]}}%</mat-checkbox>
+        <mat-checkbox *ngFor="let precoMinMax of descontos.slice(1, descontos.length - 1)">
+          De {{precoMinMax[0]}}% até {{precoMinMax[1]}}%
+        </mat-checkbox>
+        <mat-checkbox>Mais de {{descontos[descontos.length - 1][0] - 1}}%</mat-checkbox>
       </div>
     </li>
 
     <li id="id-filtro-preco">
-      <div class="filtro-header" tabindex="0">
-        Preço
-      </div>
-      <div class="filtro-body" style="text-align: center;">
-        <div class="input-field">
-          <label for="id-1"></label>
-          <input id="id-1" placeholder="Mínimo" type="number">
-        </div>
+      <div class="filter__section-header">Preço</div>
+      <div class="filter__section-body filter__section-price">
+        <mat-form-field appearance="outline">
+          <mat-label>Mínimo</mat-label>
+          <input matInput min="0" placeholder="Exemplo: 2.5" type="number">
+        </mat-form-field>
 
-        <span style="font-size: small;">Até</span>
+        <mat-form-field appearance="outline">
+          <mat-label>Máximo</mat-label>
+          <input matInput min="0" placeholder="Exemplo: 50.75" type="number">
+        </mat-form-field>
 
-        <div class="input-field">
-          <label for="id-2"></label>
-          <input id="id-2" placeholder="Máximo" type="number">
-        </div>
-
-        <a class="btn-prim--pequeno" style="margin-top: 10px">buscar</a>
+        <button color="primary" mat-flat-button>BUSCAR</button>
       </div>
     </li>
 
-    <li *ngIf="avaliacoes.length > 0" id="id-filtro-avaliacao">
-      <div class="filtro-header" tabindex="0">
-        Avaliação
-      </div>
-      <div class="filtro-body">
-        <div *ngFor="let qtdEstrela of avaliacoes" class="area-estrelas">
-          <label>
-            <input class="filled-in" id="id-check-aval-{{qtdEstrela}}" type="checkbox">
-            <span class="icones-estrelas">
-              <i *ngFor="let i of [1, 2, 3, 4, 5]" [ngClass]="{'estrela-ativa': i <= qtdEstrela}"
-                 class="fas fa-star"></i>
+    <li *ngIf="ratings.length > 0" id="id-filtro-avaliacao">
+      <div class="filter__section-header">Avaliação</div>
+      <div class="filter__section-body">
+        <div *ngFor="let rating of ratings" class="stars">
+          <mat-checkbox>
+            <span style="margin-left: 10px">
+              <i *ngFor="let i of [1, 2, 3, 4, 5]" [ngClass]="{'star--active': i <= rating}"
+                 class="fas fa-star star"></i>
             </span>
-          </label>
-
+          </mat-checkbox>
         </div>
       </div>
     </li>

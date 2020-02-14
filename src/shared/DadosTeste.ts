@@ -6,6 +6,7 @@ import {DeliveryOption} from '../app/models/DeliveryOption';
 import {randomBoolean, randomFloat, randomInt} from './utilFuncoes';
 
 export class DadosTeste {
+  private static productId = 0;
 
   public static readonly avaliacoes = [
     new Avaliacao(1, 'Ótimo produto, gostei!',
@@ -133,13 +134,12 @@ export class DadosTeste {
       'https://http2.mlstatic.com/yu-gi-oh-forbidden-memories-portugus-patch-ps1-D_NQ_NP_909906-MLB32086903379_092019-F.webp'
     )
   ];
-  private static productId = 0;
 
   private static productRandom(title: string, desc: string, imgUrl: string): Produto {
     const prod = new Produto(
       imgUrl, title, desc, randomFloat(0, 2500), randomFloat(0, 100),
       [DadosTeste.categorias[randomInt(0, DadosTeste.categorias.length - 1)]],
-      randomBoolean(), ++DadosTeste.productId, randomInt(0, 10000)
+      randomBoolean(), ++DadosTeste.productId, randomInt(0, 10000), randomFloat(0, 5)
     );
     return prod;
   }

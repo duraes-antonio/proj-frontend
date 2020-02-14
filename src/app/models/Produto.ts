@@ -19,7 +19,7 @@ export class Produto {
   constructor(
     urlImg: string, titulo: string, descricao: string, precoVenda: number,
     porcentDesc?: number, categorias?: Categoria[],
-    freteGratis?: boolean, id?: number, qtdDisponivel?: number
+    freteGratis?: boolean, id?: number, qtdDisponivel?: number, mediaAval?: number
   ) {
     this.urlImagem = urlImg;
     this.titulo = titulo;
@@ -31,6 +31,7 @@ export class Produto {
     this.categorias = categorias ? categorias : [];
     this.id = id;
     this.qtdDisponivel = qtdDisponivel ? qtdDisponivel : 0;
+    this.mediaAvaliacao = mediaAval;
   }
 
   get emPromocao() {

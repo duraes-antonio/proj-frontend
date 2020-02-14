@@ -6,7 +6,7 @@
   }
 }
 
-.area-produto {
+.product {
 
   display: grid;
   background-color: white;
@@ -24,7 +24,7 @@
   }
 }
 
-.etiqueta-promo {
+.product__label-promo {
 
   position: absolute;
   justify-self: flex-end;
@@ -44,12 +44,12 @@
   padding: 15px 15px 0;
 }
 
-.preco {
+.product__price {
   font-size: large;
   font-weight: bold;
 }
 
-.preco-original {
+.product__price-orig {
   font-size: 14px;
   color: red;
   font-style: italic;

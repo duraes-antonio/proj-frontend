@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Compra, ECompraEstado} from '../../models/Compra';
-import {formatoTimestamp} from '../../../shared/padroes';
+import {fmtTimestamp} from '../../../shared/padroes';
 import {DadosTeste} from '../../../shared/DadosTeste';
 
 @Component({
@@ -11,7 +11,7 @@ import {DadosTeste} from '../../../shared/DadosTeste';
 export class TelaHistoricoCompraComponent implements OnInit {
 
   public readonly compras: Array<Compra>;
-  public readonly fmtTimestamp: string = formatoTimestamp;
+  public readonly fmtTimestamp: string = fmtTimestamp;
   public readonly enumStatusCompra = ECompraEstado;
 
   constructor() {

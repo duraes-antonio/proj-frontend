@@ -31,6 +31,12 @@ import {ModalProductMatComponent} from './modais/modal-product-mat/modal-product
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {ModalMatComponent} from './modais/modal-mat/modal-mat.component';
+import {ModalPaymentMatComponent} from './modais/modal-payment-mat/modal-payment-mat.component';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -57,7 +63,9 @@ import {MatIconModule} from '@angular/material/icon';
     ModalShippingComponent,
     ModalPaymentComponent,
     InputNumberComponent,
-    ModalProductMatComponent
+    ModalProductMatComponent,
+    ModalMatComponent,
+    ModalPaymentMatComponent
   ],
   exports: [
     NavbarComponent,
@@ -81,7 +89,8 @@ import {MatIconModule} from '@angular/material/icon';
     ModalFreteComponent,
     ModalShippingComponent,
     ModalPaymentComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    ModalPaymentMatComponent
   ],
   imports: [
     CommonModule,
@@ -93,6 +102,13 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    MatDialogModule,
+  ],
+  providers: [
+    MatDialog,
+    MatNativeDateModule
   ]
 })
 export class ComponentesModule {

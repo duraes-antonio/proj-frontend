@@ -1,82 +1,68 @@
-@import '../../../shared/shared';
+@import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
 
-.area-filtro {
-  height: 100%;
+$_padding-top-bottom: 15px;
+
+.filter {
+  height: calc(100% - 2px);
   border: 1px solid #ddd;
   overflow: hidden;
   background: white;
-  padding-bottom: 15px;
 
-  ul {
-    border: none;
-    box-shadow: none;
+  &__title {
+    padding: $_padding-top-bottom 0 $_padding-top-bottom;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: medium;
+    font-weight: 500;
+    @extend %color-text-prim--light;
+  }
+
+  &__content {
+    margin: 0;
+    padding: 0 10px;
     line-height: 2;
-    padding: 0 15px;
+
+    li {
+      display: block;
+    }
 
     li:not(:last-child):after {
-      display: flex;
-      justify-self: center;
-      text-align: center;
-      justify-content: center;
-      height: 1px;
-      width: 100%;
-      background: #e6e6e6;
-      content: '';
+      @extend %divider;
+    }
+  }
+
+  &__section-header {
+    @extend %color-text-prim--light;
+    padding-top: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  &__section-body {
+    padding: 0.25em 0.75em 1.25em;
+    display: grid;
+    @extend %color-text-sec--dark;
+  }
+
+  &__section-price {
+    @extend .filter__section-body;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+  }
+}
+
+.stars {
+  @extend %center-vert-flex;
+
+  .star {
+    padding-right: 3px;
+
+    &--active {
+      color: $link-color;
     }
   }
 }
 
-.filtro-header {
-  display: flex;
-  position: relative;
-  border: none;
-  padding-top: 1rem;
-}
-
-.filtro-body {
-  padding: 0.25em 0.75em 1.25em;
-
-  label > span {
-    font-size: 14px;
-    color: $color-prim--light;
-  }
-}
-
-.input-field {
-  margin: 0;
-
-  ::placeholder {
-    color: $color-prim--light;
-  }
-
-  input {
-    padding: 0 10px;
-    width: calc(100% - 20px);
-    font-size: small;
-    border: 1px solid $block-border-color;
-    border-radius: 5px;
-  }
-
-  input:focus {
-    border: 1px solid $link-color !important;
-    box-shadow: none !important;
-  }
-
-  input:focus + label {
-    color: $link-color;
-  }
-}
-
-.area-estrelas {
-  position: relative;
-  padding-bottom: 5px
-}
-
-.icones-estrelas {
-  display: flex;
-  align-items: center;
-}
-
-.estrela-ativa {
-  color: $link-color;
-}
