@@ -178,27 +178,28 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
   }
 }
 
-.s3 {
-  &:first-child {
-    padding-right: 10px;
-  }
-
-  &:nth-child(2), &:nth-child(3) {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  &:last-child {
-    padding-left: 10px;
-  }
-}
-
-.s6 {
-  &:nth-child(2n) {
-    padding-right: 10px;
-  }
-
-  &:not(:nth-child(2n)) {
-    padding-left: 10px;
-  }
-}
+//
+//.s3 {
+//  &:first-child {
+//    padding-right: 10px;
+//  }
+//
+//  &:nth-child(2), &:nth-child(3) {
+//    padding-left: 10px;
+//    padding-right: 10px;
+//  }
+//
+//  &:last-child {
+//    padding-left: 10px;
+//  }
+//}
+//
+//.s6 {
+//  &:nth-child(2n) {
+//    padding-right: 10px;
+//  }
+//
+//  &:not(:nth-child(2n)) {
+//    padding-left: 10px;
+//  }
+//}

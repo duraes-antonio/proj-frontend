@@ -3,10 +3,12 @@ import {Produto} from '../../models/Produto';
 import {ProductService} from '../../services/product.service';
 import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart.model';
-import {Subject, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Endereco} from '../../models/Endereco';
 import {DadosTeste} from '../../../shared/DadosTeste';
 import {Remove} from '../../actions/cart.action';
+import {MatDialog} from '@angular/material/dialog';
+import {ModalAddressComponent} from '../../componentes/modais/modal-address/modal-address.component';
 
 @Component({
   selector: 'app-tela-carrinho',
@@ -22,15 +24,14 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
   userAddresses: Endereco[] = DadosTeste.enderecos;
   currAddress: Endereco = this.userAddresses[0];
   tempAddress: Endereco;
-  showModalAddress: boolean;
   prodAmount = new Map<number, number>();
 
-  private prodAmount$ = new Subject<number>();
   private cart$: Subscription;
 
-  /*TODO: Relacionar produto com quantidade*/
-
-  constructor(private cartStore: Store<Cart>) {
+  constructor(
+    private cartStore: Store<Cart>,
+    public dialog: MatDialog
+  ) {
   }
 
   ngOnInit() {
@@ -57,7 +58,14 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
   }
 
   showModalAdress() {
-    this.showModalAddress = true;
+    const modalAddr = this.dialog.open(
+      ModalAddressComponent,
+      ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.userAddresses})
+    );
+    modalAddr.componentInstance.chosenAddress
+      .subscribe((addr: Endereco) => this.tempAddress = addr);
+    modalAddr.componentInstance.action
+      .subscribe(() => this.currAddress = this.tempAddress);
   }
 
   removeFromCart(id: number) {

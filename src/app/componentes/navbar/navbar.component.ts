@@ -7,9 +7,7 @@ import {Store} from '@ngrx/store';
 @Component({
   selector: 'app-navbar',
   templateUrl: 'navbar.component.html',
-  styleUrls: [
-    'navbar.component.scss'
-  ]
+  styleUrls: ['navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
@@ -59,34 +57,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.cart$.unsubscribe();
   }
 
-  /**
-   * Oculta o menu lateral se já estiver sendo exibido, senão, exibe-o.
+  /**Oculta o menu lateral se já estiver sendo exibido, senão, exibe-o.
    */
   public toggleSidenav() {
     this.exibirSidenav = !this.exibirSidenav;
   }
 
-  print(evento: string) {
-    alert(evento);
-  }
-
-  /**
-   * Oculta a lista de notificações se já estiver sendo exibida, senão, exibe-a.
+  /**Oculta a lista de notificações se já estiver sendo exibida, senão, exibe-a.
    */
   public toggleListaNotificacoes() {
     this.exibirNotificacoes = !this.exibirNotificacoes;
   }
 
-  /**
-   * Marca uma notificação como lida ou como não lida, mudando seu visual e data de leitura.
+  /**Marca uma notificação como lida ou como não lida, mudando seu visual e data de leitura.
    */
   public toggleNotificacao(notif: Notificacao) {
     notif.toggle();
     this.qtdNotifAtiva += notif.lida ? -1 : 1;
   }
 
-  /**
-   * Marca uma notificação como lida e atualiza o contador de notif.
+  /**Marca uma notificação como lida e atualiza o contador de notif.
    */
   public marcarNotificacaoComoLida(notif: Notificacao) {
 
@@ -96,10 +86,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Marca todas notificações como lidas e atualiza o contador
-   */
-  public marcarTodasNotificacoesComoLidas() {
+  /**Marca todas notificações como lidas e atualiza o contador*/
+  public markAllNotifAsRead() {
 
     if (this.qtdNotifAtiva > 0) {
       for (const notif of this.notificacoes) {

@@ -1,4 +1,5 @@
-<div #content>
+<app-modal-mat (cancel)="closed.emit()" [btnCancelTitle]="text.btnCancel"
+               [modalTitle]="text.title">
   <div class="payment-card">
     <span class="payment-card-title">Cartões de crédito</span><br>
     <div class="payment-card-icons">
@@ -33,4 +34,4 @@
       pode levar até dois dias úteis.
     </span>
   </div>
-</div>
+</app-modal-mat>

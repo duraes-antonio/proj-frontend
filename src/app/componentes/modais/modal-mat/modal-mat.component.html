@@ -1,9 +1,20 @@
-<h1 id="modal-header" mat-dialog-title>Asasasa</h1>
+<div cdk-scrollable>
+  <h1 id="modal-header" mat-dialog-title>
+    {{modalTitle}}
+  </h1>
+  <p *ngIf="modalDesc" id="modal-desc">{{modalDesc}}</p>
 
-<div #content class="modal__content" id="modal-content" mat-dialog-content>
-</div>
+  <div class="modal__content" id="modal-content" mat-dialog-content>
+    <ng-content></ng-content>
+  </div>
 
-<div class="modal__footer" id="modal-footer" mat-dialog-actions>
-  <button (click)="close()" class="actions__button" mat-button mat-dialog-close>Descartar</button>
-  <button [mat-dialog-close]="true" class="actions__button" mat-button>Salvar</button>
+  <div class="modal__footer" id="modal-footer" mat-dialog-actions>
+    <button (click)="closed.emit()" class="actions__button" mat-button mat-dialog-close>
+      {{btnCancelTitle}}
+    </button>
+    <button (click)="action.emit()" *ngIf="btnAcceptTitle"
+            [disabled]="actionDisabled" class="actions__button" mat-button mat-dialog-close>
+      {{btnAcceptTitle}}
+    </button>
+  </div>
 </div>

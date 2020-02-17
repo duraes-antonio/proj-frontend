@@ -161,7 +161,7 @@ $btn-border-radius: 4px;
     font-size: 20px;
   }
 
-  &--full {
+  @media (max-width: $width-max-small) {
     width: 100%;
   }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Compra, ECompraEstado} from '../../models/Compra';
-import {fmtTimestamp} from '../../../shared/padroes';
+import {fmtTimestamp} from '../../../shared/constants/formats';
 import {DadosTeste} from '../../../shared/DadosTeste';
 
 @Component({

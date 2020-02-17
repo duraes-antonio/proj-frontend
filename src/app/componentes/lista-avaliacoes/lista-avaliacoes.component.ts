@@ -1,7 +1,7 @@
 'use strict';
 import {Component, Input, OnInit} from '@angular/core';
 import {Avaliacao} from '../../models/Avaliacao';
-import {fmtTimestamp} from '../../../shared/padroes';
+import {fmtTimestamp} from '../../../shared/constants/formats';
 
 @Component({
   selector: 'app-lista-avaliacoes',

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TelaCarrinhoComponent} from './tela-carrinho.component';
 import {TelaCarrinhoRoutingModule} from './tela-carrinho-routing.module';
 import {ComponentesModule} from '../../componentes/componentes.module';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {ComponentesModule} from '../../componentes/componentes.module';
   imports: [
     CommonModule,
     TelaCarrinhoRoutingModule,
-    ComponentesModule
+    ComponentesModule,
+    MatButtonModule
   ]
 })
 export class TelaCarrinhoModule {

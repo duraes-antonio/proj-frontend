@@ -1,6 +1,6 @@
-<div id="form-busca"
-     style="margin: 0 15px; display: flex;justify-content: center;">
-  <input [(ngModel)]="textoDigitado" class="input-busca white"
-         id="pesquisa-input" type="search">
-  <label for="pesquisa-input"></label>
+<div class="search-section" id="form-busca">
+  <input [(ngModel)]="text" class="input-search" id="input-search" type="search">
+  <button (click)="textOut.emit(text)" class="btn-search">
+    <i aria-hidden="true" class="fas fa-search"></i>
+  </button>
 </div>

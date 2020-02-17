@@ -1,26 +1,33 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+'use strict';
+import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {DeliveryOption} from '../../../models/DeliveryOption';
+import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-modal-shipping',
-  templateUrl: './modal-shipping.component.html',
-  styleUrls: ['./modal-shipping.component.scss']
+  selector: 'app-modal-shipping-mat',
+  templateUrl: './modal-shipping-mat.component.html',
+  styleUrls: ['./modal-shipping-mat.component.scss']
 })
-export class ModalShippingComponent implements OnInit {
+export class ModalShippingMatComponent {
   modalTitle = 'Como deseja receber seus produtos?';
   confirmTitle = 'Selecionar';
   cancelTitle = 'Cancelar';
   optSelected: DeliveryOption;
 
-  @Input() optionsDelivery: DeliveryOption[];
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
   @Output() selectAddress = new EventEmitter();
 
-  constructor() {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IModalShippingData) {
   }
 
-  ngOnInit() {
+  static getConfig(data: IModalShippingData): MatDialogConfig {
+    return {
+      data: data,
+      maxHeight: '100vh',
+      maxWidth: '650px',
+      minWidth: '600px',
+    };
   }
 
   selectOptDelivery(opt: DeliveryOption, id: number, className: string) {
@@ -34,10 +41,9 @@ export class ModalShippingComponent implements OnInit {
 
     /*Adicione a classe ao novo endereço selecionado*/
     document.getElementById(`option-${id}`).classList.add(className);
-    (document.getElementById(`input-${id}`) as HTMLInputElement).checked = true;
   }
+}
 
-  emitEvent(emitter: EventEmitter<any>, value?: any): void {
-    emitter.emit(value);
-  }
+export interface IModalShippingData {
+  optionsDelivery: DeliveryOption[];
 }

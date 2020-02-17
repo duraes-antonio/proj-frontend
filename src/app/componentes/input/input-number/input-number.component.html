@@ -4,8 +4,7 @@
   </button>
   <label class="counter__label-input">
     <input (keyup)="formatInput($event, valueInit, minValue, maxValue)" [max]="maxValue" [min]="minValue"
-           [value]="valueInit"
-           class="counter__input browser-default" type="number">
+           [value]="valueInit" class="counter__input" type="number">
   </label>
   <button (click)="valueInit = increment(valueInit, minValue, maxValue)"
           [disabled]="valueInit >= maxValue" class="counter__btn-plus">+

@@ -1,52 +1,86 @@
+'use strict';
 import {
   AfterViewInit,
   Component,
-  ElementRef,
+  EventEmitter,
   HostListener,
-  Inject,
-  OnInit,
-  ViewChild
+  Input,
+  OnDestroy,
+  Output
 } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {widthMaxSmall} from '../../../../shared/constants/dom';
 
 @Component({
   selector: 'app-modal-mat',
   templateUrl: './modal-mat.component.html',
   styleUrls: ['./modal-mat.component.scss']
 })
-export class ModalMatComponent implements OnInit, AfterViewInit {
+export class ModalMatComponent implements OnDestroy, AfterViewInit {
+  @Input() show = false;
+  @Input() modalTitle: string;
+  @Input() modalDesc: string;
+  @Input() btnCancelTitle: string;
+  @Input() btnAcceptTitle: string;
+  @Input() actionDisabled = false;
 
-  @ViewChild('content') dataContainer: ElementRef;
-  private modalContent: HTMLElement;
-  private modalFooter: HTMLElement;
-  private modalHeader: HTMLElement;
+  @Output() closed = new EventEmitter();
+  @Output() action = new EventEmitter();
+
+  private content: HTMLElement;
+  private footer: HTMLElement;
+  private header: HTMLElement;
   private modal: HTMLElement;
 
-  constructor(
-    public dialogRef: MatDialogRef<ModalMatComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: HTMLElement) {
-  }
-
-  close(): void {
-    this.dialogRef.close();
-  }
-
-  ngOnInit() {
+  ngOnDestroy(): void {
+    document.body.style.overflow = 'auto';
   }
 
   ngAfterViewInit(): void {
-    this.dataContainer.nativeElement.innerHTML = this.data.innerHTML;
-    this.modal = document.getElementById('modal');
-    this.modalContent = document.getElementById('modal-content');
-    this.modalFooter = document.getElementById('modal-footer');
-    this.modalHeader = document.getElementById('modal-header');
+    this.modal = document.getElementsByClassName('mat-dialog-container')[0] as HTMLElement;
+    this.content = document.getElementById('modal-content');
+    this.footer = document.getElementById('modal-footer');
+    this.header = document.getElementById('modal-header');
+    document.body.style.overflow = 'unset';
     this.modalResize();
   }
 
   @HostListener('window:resize', ['$event'])
   private modalResize(): void {
-    const height = this.modal.offsetHeight - this.modalHeader.offsetHeight
-      - this.modalFooter.offsetHeight - 15;
-    this.modalContent.style.setProperty(`--content-height`, `${height}px`);
+    this.modal.style.setProperty(`--header-height`, `${this.header.offsetHeight}px`);
+    this.modal.style.setProperty(`--footer-height`, `${this.footer.offsetHeight}px`);
+
+    if (window.innerWidth <= widthMaxSmall) {
+      const internalHeight = this.header.offsetHeight + this.content.offsetHeight + this.footer.offsetHeight;
+      const footerMTop = this.modal.offsetHeight - internalHeight - 48;
+      this.footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
+    } else {
+      this.footer.style.setProperty('--footer-margin-top', `${10}px`);
+    }
   }
+}
+
+export class ModalData {
+  public readonly modalTitle: string;
+  public readonly modalDesc: string;
+
+  public readonly btnCancelTitle: string;
+  public readonly btnAcceptTitle?: string;
+
+  public actionDisabled?: boolean;
+
+  constructor(
+    modalTitle: string, modalDesc: string,
+    btnCancelTitle: string, btnAcceptTitle?: string, actionDisabled?: boolean
+  ) {
+    this.modalTitle = modalTitle;
+    this.modalDesc = modalDesc;
+    this.btnCancelTitle = btnCancelTitle;
+    this.btnAcceptTitle = btnAcceptTitle;
+    this.actionDisabled = actionDisabled;
+  }
+}
+
+export enum EModalEvent {
+  ACTION,
+  CLOSE
 }

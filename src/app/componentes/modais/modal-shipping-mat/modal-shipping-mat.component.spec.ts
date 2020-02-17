@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ModalShippingComponent} from './modal-shipping.component';
+import {ModalShippingMatComponent} from './modal-shipping-mat.component';
 
-describe('ModalShippingComponent', () => {
-  let component: ModalShippingComponent;
-  let fixture: ComponentFixture<ModalShippingComponent>;
+describe('ModalShippingMatComponent', () => {
+  let component: ModalShippingMatComponent;
+  let fixture: ComponentFixture<ModalShippingMatComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalShippingComponent]
+      declarations: [ModalShippingMatComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalShippingComponent);
+    fixture = TestBed.createComponent(ModalShippingMatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

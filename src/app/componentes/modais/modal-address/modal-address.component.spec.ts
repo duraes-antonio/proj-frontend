@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ModalPaymentComponent} from './modal-payment.component';
+import {ModalAddressComponent} from './modal-address.component';
 
-describe('ModalPaymentComponent', () => {
-  let component: ModalPaymentComponent;
-  let fixture: ComponentFixture<ModalPaymentComponent>;
+describe('ModalFreteMatComponent', () => {
+  let component: ModalAddressComponent;
+  let fixture: ComponentFixture<ModalAddressComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalPaymentComponent]
+      declarations: [ModalAddressComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalPaymentComponent);
+    fixture = TestBed.createComponent(ModalAddressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,5 @@
 @import '../../../../shared/styles/placeholders';
 
-.modal-title {
-  font-weight: 500 !important;
-}
-
 .payment-card, .payment-paypal, .payment-boleto {
   @extend %color-text-prim--light;
 

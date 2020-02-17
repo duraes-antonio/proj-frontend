@@ -20,41 +20,15 @@ const validation = {
   atLeastValue(value: number, minVal: number): boolean {
     return value !== undefined && value !== null && value >= minVal;
   },
-  notNullOrEmpty(value): boolean {
+  hasValue(value): boolean {
     return !(value === undefined || value == null || value === '');
   },
   validCEP(cep: string): boolean {
-    return true;
+    return validation.hasValue(cep) && validation.exactlytLen(cep, 8);
   },
   validEmail(email: string): boolean {
     return email && regex.test(email);
   }
 };
 
-const buildErrorMsg = {
-  msgMaxLen(fieldName: string, maxLenght: number): string {
-    return `O campo ${fieldName} deve possuir no máximo ${maxLenght} caracteres`;
-  },
-  msgMinLen(fieldName: string, minLenght: number): string {
-    return `O campo ${fieldName} deve possuir no mínimo ${minLenght} caracteres`;
-  },
-  msgExactlyLen(fieldName: string, lenght: number): string {
-    return `O campo ${fieldName} deve possuir exatamente ${lenght} caracteres`;
-  },
-
-  msgMaxValue(fieldName: string, maxVal: number): string {
-    return `O campo ${fieldName} não aceita valor maior que ${maxVal}`;
-  },
-  msgMinValue(fieldName: string, minVal: number): string {
-    return `O campo ${fieldName} não aceita valor menor que ${minVal}`;
-  },
-  msgNullOrEmpty(fieldName: string): string {
-    return `O campo ${fieldName} deve ser preenchido`;
-  },
-
-  msgInvalidFormat(fieldName: string): string {
-    return `O campo ${fieldName} não está em um formato válido`;
-  },
-};
-
-export {validation, buildErrorMsg};
+export {validation};

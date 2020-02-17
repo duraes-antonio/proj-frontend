@@ -1,4 +1,4 @@
-@import '../../../../shared/styles/buttons';
+@import '../../../../shared/styles/grid_materialize';
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
 @import '../../../../shared/styles/variables';
@@ -7,22 +7,14 @@ $mobile-margin-l-r: 24px;
 
 %title-modal-section {
   font-size: medium;
+  font-weight: 500;
   color: $color-prim--light;
   line-height: 3;
-
-  @media (max-width: $width-max-small) {
-    margin-left: $mobile-margin-l-r;
-  }
 }
 
 .title-options-list {
   @extend %title-modal-section;
 }
-
-.title-input-cep {
-  @extend %title-modal-section;
-}
-
 
 .current-address {
   @extend %center-vert-flex;
@@ -53,7 +45,7 @@ $mobile-margin-l-r: 24px;
   }
 
   @media (max-width: $width-max-small) {
-    margin: 0 $mobile-margin-l-r;
+    margin: 0;
   }
 }
 
@@ -63,49 +55,43 @@ $mobile-margin-l-r: 24px;
 
   &__item {
     @extend %center-vert-flex;
-    cursor: pointer;
     padding: 8px 15px;
-    height: auto;
     color: $color-sec--dark;
 
     &:not(:last-child) {
       border-bottom: 1px solid #ddd;
     }
 
-    [type="radio"] + span::before, [type="radio"] + span::after {
-      top: unset !important;
-    }
-
     &-content {
-      height: auto !important;
-      display: grid !important;
+      display: grid;
       align-items: center;
     }
 
     &-cost {
       padding: 0;
       text-align: right;
-      font-size: medium;
+      font-size: 14px;
       transition: color .1s, font-size .1s;
-    }
-
-    .label-option {
-      @extend %center-vert-flex;
-      display: contents;
-      cursor: pointer;
     }
 
     &--active {
       .delivery-options__item {
         &-cost, &-content {
-          color: $color-prim--light;
+          color: $color-prim;
         }
 
         &-cost {
-          font-size: large;
+          font-size: medium;
           font-weight: 500;
         }
       }
+    }
+
+    &--space {
+      white-space: normal;
+      word-break: break-word;
+      @extend %center-vert-flex;
+      padding-left: 5px;
     }
   }
 }

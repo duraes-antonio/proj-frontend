@@ -1,100 +1,77 @@
 <!--<app-sidenav [exibir]="exibirSidenav" [usuario]="usuarioAtual"></app-sidenav>-->
 
-<div id="area-navbar">
-  <nav class="navbar row" style="margin-bottom: 0">
+<div id="navbar-section">
+  <nav class="navbar row">
+    <div class="navbar-header">
+      <!-- Logo e menu hamburger -->
+      <div class="col s6 m3 l3 xl3 navbar__col--left">
+        <a class="icon-action--white">
+          <i (click)="toggleSidenav()" aria-hidden="true" class="fas fa-bars"
+             style="margin-right: 20px"></i>
+        </a>
+        <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
+      </div>
 
-    <!-- Logo e menu hamburger -->
-    <div class="nav-colunas col m3 l3 xl3">
-      <i (click)="toggleSidenav()" aria-hidden="true" class="fas fa-bars"
-         style="margin-right: 20px"></i>
-      <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
-    </div>
+      <!-- Barra de busca -->
+      <app-barra-busca class="col s1 m6 l6 xl6 mobile--hide"></app-barra-busca>
 
-    <!-- Barra de busca -->
-    <div class="nav-colunas" style="width: 100%;">
-      <app-barra-busca style="width: 100%;"></app-barra-busca>
-    </div>
-
-    <!-- Notificações e carrinho -->
-    <div class="nav-colunas col m3 l3 xl3"
+      <!-- Notificações e carrinho -->
+      <div class="col s6 m3 l3 xl3 navbar__col--right"
          style="padding-top: 7px; justify-content: flex-end;">
 
       <!-- Área de notificações -->
       <div>
         <!-- Contador de notificações -->
-        <a (click)="toggleListaNotificacoes()" class="icone-link">
-          <span *ngIf="qtdNotifAtiva > 0" class="area-contador_notif pulse">
-            {{qtdNotifAtiva}}
-          </span>
-          <i aria-hidden="true" class="fas fa-bell" style="margin-right: 20px"></i>
+        <a (click)="toggleListaNotificacoes()" class="icon-action--white">
+          <i *ngIf="qtdNotifAtiva" aria-hidden="true" class="fas fa-bell"
+             matBadge="{{qtdNotifAtiva < 100 ? qtdNotifAtiva : '+99'}}" matBadgeColor="warn"
+             style="margin-right: 20px">
+          </i>
         </a>
 
         <!-- Área de listagem de notificações -->
         <div *ngIf="exibirNotificacoes"
-             class="col s12 m6 l4 xl4 area-lista_notif--ativa">
-
+             class="col s12 m6 l4 xl4 notification-section">
           <!-- Cabeçalho com opções e engrenagem -->
-          <div class="area-lista_notif-topo">
+          <div class="notific-header">
             <span>Notificações</span>
-            <a (click)="marcarTodasNotificacoesComoLidas()"
-               class="icone-marcar_todas_notif"
+            <a (click)="markAllNotifAsRead()" class="notific-header__icon"
                title="Marcar todas como lidas">
               <i aria-hidden="true" class="far fa-check-square"></i>
             </a>
           </div>
 
-          <div class="divider"></div>
+          <mat-divider></mat-divider>
 
-          <!-- Lista de notificações -->
-          <div class="area-lista_notif-corpo barra-rolagem">
-            <ul class="collection">
+          <mat-selection-list style="overflow: auto;">
+            <mat-list-option *ngFor="let notif of notificacoes" [value]="notif.id">
+              <a (click)="marcarNotificacaoComoLida(notif)"
+                 [ngClass]="notif.lida ? 'notif--inativa' : 'notif--ativa'"
+                 class="notification">
 
-              <!-- Área individual da notifição -->
-              <li *ngFor="let notif of notificacoes" class="collection-item no-padding"
-                  id="area-notificacao-{{notif.id}}">
-                <div>
+                <!-- Área individual da notifição -->
+                <i aria-hidden="true" class="{{notif.classeIcone}} icone-circulo"></i>
 
-                  <!-- Área do checkbox -->
-                  <label class="checkbox md-checkbox">
-                    <input (click)="toggleNotificacao(notif)" [checked]="notif.lida"
-                           type="checkbox"/>
-                    <span></span>
-                  </label>
-
-                  <!-- Área clicável -->
-                  <a (click)="marcarNotificacaoComoLida(notif)"
-                     [ngClass]="notif.lida ? 'notif--inativa' : 'notif--ativa'"
-                     class="notificacao">
-
-                    <!-- Área individual da notifição -->
-                    <a class="icone-circulo">
-                      <i aria-hidden="true" class="{{notif.classeIcone}}"></i>
-                    </a>
-
-                    <!-- Área que contém as informações da notifição -->
-                    <div class="notific-info">
-                      <span class="notif-desc">{{notif.texto}}<br></span>
-                      <span class="notif-data">{{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
-                    </div>
-                  </a>
-
+                <!-- Área que contém as informações da notifição -->
+                <div class="notific-info">
+                  <span class="notif-desc">{{notif.texto}}<br></span>
+                  <span class="notif-data">{{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
                 </div>
-              </li>
-            </ul>
-          </div>
+              </a>
+            </mat-list-option>
+          </mat-selection-list>
+
         </div>
       </div>
 
       <!-- Área do carrinho de compras -->
-      <a class="icone-link cart-icon" routerLink="/carrinho">
-        <i aria-hidden="true" class="fas fa-shopping-cart"></i>
-        <span *ngIf="cartProdsIds.length" class="cart-icon-cont">
-          {{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}
-        </span>
+        <a class="icon-action--white" routerLink="/carrinho">
+          <i aria-hidden="true" class="fas fa-shopping-cart"
+             matBadge="{{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}"
+             matBadgeColor="warn"></i>
       </a>
     </div>
-
+    </div>
+    <app-barra-busca class="col s12 m12 l6 xl6 mobile--show" style="margin-top: 5px"></app-barra-busca>
   </nav>
 </div>
-
-

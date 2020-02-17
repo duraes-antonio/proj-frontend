@@ -1,7 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+'use strict';
+import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
+import {MatDialog} from '@angular/material/dialog';
 import {DadosTeste} from '../../../../shared/DadosTeste';
 import {Produto} from '../../../models/Produto';
 import {Avaliacao} from '../../../models/Avaliacao';
@@ -12,13 +14,16 @@ import {SequenciaProduto} from '../../../models/componentes/SequenciaProduto';
 import {Add, Remove} from '../../../actions/cart.action';
 import {ProductService} from '../../../services/product.service';
 import {calcAverage} from '../../../../shared/utilFuncoes';
+import {ModalAddressComponent} from '../../../componentes/modais/modal-address/modal-address.component';
+import {ModalShippingMatComponent} from '../../../componentes/modais/modal-shipping-mat/modal-shipping-mat.component';
+import {ModalPaymentMatComponent} from '../../../componentes/modais/modal-payment-mat/modal-payment-mat.component';
 
 @Component({
   selector: 'app-tela-visualizar-produto',
   templateUrl: './tela-visualizar-produto.component.html',
   styleUrls: ['./tela-visualizar-produto.component.scss']
 })
-export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
+export class TelaVisualizarProdutoComponent implements OnDestroy {
 
   public produto: Produto;
   public prodInCart = false;
@@ -30,9 +35,6 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   public enderecos: Endereco[] = DadosTeste.enderecos;
   public deliveryOpts: DeliveryOption[] = DadosTeste.opcoesEntrega;
 
-  /*Controle de exibição dos modais*/
-  public _showModalAddress = false;
-  public _showModalDelivery = false;
   public _showModalPayments = false;
 
   /*TODO: Remover após ter dados em um banco de dados*/
@@ -42,7 +44,8 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private cartStore: Store<Cart>
+    private cartStore: Store<Cart>,
+    private dialog: MatDialog
   ) {
     this.routeSub$ = route.params.subscribe(
       params => {
@@ -62,27 +65,45 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {
-  }
-
   ngOnDestroy(): void {
     this.routeSub$.unsubscribe();
     this.cart$.unsubscribe();
   }
 
   showModalShipp(CEP: string) {
-    this._showModalAddress = false;
     /*TODO: Chamar serviço para calculo de frete*/
-    this._showModalDelivery = true;
+    const dialogRef = this.dialog.open(
+      ModalShippingMatComponent,
+      ModalShippingMatComponent.getConfig({optionsDelivery: this.deliveryOpts})
+    );
+    dialogRef.componentInstance.action.subscribe(
+      (delivery: DeliveryOption) => {
+        this.updateChosenDelivery(delivery);
+      });
+    dialogRef.componentInstance.selectAddress.subscribe(
+      () => {
+        this.dialog.closeAll();
+        this.showModalAdress();
+      });
   }
 
   showModalAdress() {
-    this._showModalDelivery = false;
-    this._showModalAddress = true;
+    const dialogRef = this.dialog.open(
+      ModalAddressComponent,
+      ModalAddressComponent.getConfig({showInputCEP: true, addresses: this.enderecos})
+    );
+    dialogRef.componentInstance.action.subscribe(
+      cep => {
+        this.dialog.closeAll();
+        this.showModalShipp(cep);
+      });
+  }
+
+  showModalPayments() {
+    const dialogRef = this.dialog.open(ModalPaymentMatComponent, ModalPaymentMatComponent.getConfig());
   }
 
   updateChosenDelivery(delivery: DeliveryOption) {
-    this._showModalDelivery = false;
     this.deliveryChosen = delivery;
   }
 
@@ -94,10 +115,10 @@ export class TelaVisualizarProdutoComponent implements OnInit, OnDestroy {
     this.cartStore.dispatch(Remove(id));
   }
 
-  private calcAvgRating(ratings: Avaliacao[], qtdDecimals?: number): number {
+  private calcAvgRating(ratings: Avaliacao[], qtdDecimals = 2): number {
     return +(
       calcAverage(ratings, (aval: Avaliacao) => aval.nota)
-        .toFixed(2)
+        .toFixed(qtdDecimals)
     );
   }
 }

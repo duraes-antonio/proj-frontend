@@ -1,31 +1,50 @@
-@import "../../../shared/shared";
+@import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
 
-$alt-barra_busca: 48px;
-$var-padding-lateral-input: 10px;
+$_height-searchbar: 48px;
+$_padding-r-l-input: 10px;
+$_border-width: 1.5px;
 
-.input-busca {
-  width: calc(100% - 20px) !important;
-  max-width: 600px - 2*$var-padding-lateral-input !important;
-  height: 35px !important;
+.search-section {
+  margin: 0 15px;
+  @extend %center-vert-flex;
+  height: $_height-searchbar;
 
-  padding: 0 $var-padding-lateral-input !important;
-  border-color: white !important;
-  border-radius: 5px !important;
-  margin-bottom: 0 !important;
-}
+  .input-search {
+    width: calc(100% - 20px);
+    max-width: 600px - 2 * $_padding-r-l-input;
+    height: 35px;
+    padding: 0 $_padding-r-l-input;
+    border: $_border-width solid $color-sec;
+    transition: border-color 1s;
+    border-radius: 5px 0 0 5px;
+    outline: none;
 
-.input-busca:focus {
-  outline: none !important;
-  border-color: white !important;
-  box-shadow: none !important;
-}
+    &:focus {
+      border-color: $link-color;
+    }
 
-@keyframes fade {
-  0% {
-    opacity: 0;
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
   }
 
-  100% {
-    opacity: 1;
+  .btn-search {
+    height: 35px;
+    width: 40px;
+    padding: 0 $_padding-r-l-input;
+    border-radius: 0 5px 5px 0;
+    color: white;
+    background-color: $color-sec;
+    transition: font-size .35s, border-color 1s, background-color .35s;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:focus {
+      font-size: large;
+      background-color: $link-color;
+    }
   }
 }
+

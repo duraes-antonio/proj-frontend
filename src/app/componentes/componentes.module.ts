@@ -18,12 +18,9 @@ import {ModalRecupSenhaComponent} from './modais/modal-recup-senha/modal-recup-s
 import {PaginaFundoComponent} from './pagina-fundo/pagina-fundo.component';
 import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component';
 import {PaginacaoComponent} from './paginacao/paginacao.component';
-import {AvaliadorEstrelasComponent} from './avaliador-estrelas/avaliador-estrelas.component';
+import {StarRatingComponent} from './avaliador-estrelas/star-rating.component';
 import {ListaAvaliacoesComponent} from './lista-avaliacoes/lista-avaliacoes.component';
-import {ModalFreteComponent} from './modais/modal-frete/modal-frete.component';
 import {ModalBaseComponent} from './modais/modal-base/modal-base.component';
-import {ModalShippingComponent} from './modais/modal-shipping/modal-shipping.component';
-import {ModalPaymentComponent} from './modais/modal-payment/modal-payment.component';
 import {InputNumberComponent} from './input/input-number/input-number.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -37,6 +34,12 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ModalMatComponent} from './modais/modal-mat/modal-mat.component';
 import {ModalPaymentMatComponent} from './modais/modal-payment-mat/modal-payment-mat.component';
 import {MatNativeDateModule} from '@angular/material/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {ModalShippingMatComponent} from './modais/modal-shipping-mat/modal-shipping-mat.component';
+import {ModalAddressComponent} from './modais/modal-address/modal-address.component';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -56,16 +59,15 @@ import {MatNativeDateModule} from '@angular/material/core';
     PaginaFundoComponent,
     FiltroProdutoComponent,
     PaginacaoComponent,
-    AvaliadorEstrelasComponent,
+    StarRatingComponent,
     ListaAvaliacoesComponent,
-    ModalFreteComponent,
     ModalBaseComponent,
-    ModalShippingComponent,
-    ModalPaymentComponent,
     InputNumberComponent,
     ModalProductMatComponent,
     ModalMatComponent,
-    ModalPaymentMatComponent
+    ModalPaymentMatComponent,
+    ModalShippingMatComponent,
+    ModalAddressComponent
   ],
   exports: [
     NavbarComponent,
@@ -83,14 +85,12 @@ import {MatNativeDateModule} from '@angular/material/core';
     BarraBuscaComponent,
     FiltroProdutoComponent,
     PaginacaoComponent,
-    AvaliadorEstrelasComponent,
+    StarRatingComponent,
     SequenciaComponent,
     ListaAvaliacoesComponent,
-    ModalFreteComponent,
-    ModalShippingComponent,
-    ModalPaymentComponent,
     InputNumberComponent,
-    ModalPaymentMatComponent
+    ModalPaymentMatComponent,
+    ModalAddressComponent
   ],
   imports: [
     CommonModule,
@@ -105,6 +105,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDividerModule,
     MatCheckboxModule,
     MatDialogModule,
+    ScrollingModule,
+    MatRadioModule,
+    MatBadgeModule,
+    MatListModule,
   ],
   providers: [
     MatDialog,

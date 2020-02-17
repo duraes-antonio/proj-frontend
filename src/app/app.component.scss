@@ -33,10 +33,6 @@
   text-align: right;
 }
 
-::ng-deep mat-form-field {
-  margin-top: 15px !important;
-}
-
 ::ng-deep .section-title {
   @extend %color-text-prim;
   font-size: x-large;
@@ -44,3 +40,4 @@
   text-transform: uppercase;
   margin-bottom: 15px;
 }
+

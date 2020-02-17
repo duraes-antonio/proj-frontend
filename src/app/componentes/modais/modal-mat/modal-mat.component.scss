@@ -1,33 +1,34 @@
 @import '../../../../shared/styles/grid_materialize';
 @import '../../../../shared/styles/mixins';
-@import '../../../../shared/styles/variables';
+@import '../../../../shared/styles/placeholders';
 @import '../../../../shared/styles/scrollbar';
+@import '../../../../shared/styles/variables';
+
+$_margin-top_footer: 20px;
+$_margin-bot_header: 16px;
+$_padd-box: 24px;
+
+.modal__desc {
+  font-size: medium;
+  @extend %color-text-prim;
+}
 
 @include scrollbar-custom();
 .modal__content {
-  max-height: calc(var(--content-height) - 70px);
+  max-height: calc(
+    98vh - 2 * #{$_padd-box} - var(--header-height) - #{$_margin-top_footer}
+    - var(--footer-height) - #{$_margin-bot_header}
+  );
   overflow: auto;
-  text-align: center;
+  text-align: justify;
 }
 
 .modal__footer {
-  display: block;
-  text-align: right;
-  margin-top: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: var(--footer-margin-top);
 
   .actions__button:focus {
     background-color: rgba(lightgrey, .5);
-  }
-}
-
-.product__image {
-  max-height: 150px;
-  max-width: 150px;
-}
-
-.cdk-overlay-pane {
-
-  @media (max-width: $width-max-small) {
-    top: 0 !important;
   }
 }
