@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ListaLinks} from '../../models/componentes/ListaLinks';
 
 @Component({
@@ -6,7 +6,7 @@ import {ListaLinks} from '../../models/componentes/ListaLinks';
   templateUrl: './rodape.component.html',
   styleUrls: ['./rodape.component.scss']
 })
-export class RodapeComponent implements OnInit {
+export class RodapeComponent {
 
   @Input() set links(links: Array<ListaLinks>) {
     this._links = links;
@@ -16,32 +16,5 @@ export class RodapeComponent implements OnInit {
   public anoCorrente: number = (new Date()).getFullYear();
 
   constructor() {
-  }
-
-  /**
-   * Centraliza todas as colunas de links quando todas couberem na janela
-   */
-  private static ajustarTamanhoColunas() {
-
-    const listaCols = document.getElementById('lista-cols');
-    const rodape = document.getElementById('rodape');
-    const cols = document.getElementsByClassName('col-links-important');
-
-    let soma = 0;
-
-    for (let i = 0; i < cols.length; ++i) {
-      soma += cols[i].clientWidth;
-    }
-
-    if (soma < rodape.clientWidth) {
-      listaCols.classList.add('lista-col-links');
-    } else {
-      listaCols.classList.remove('lista-col-links');
-    }
-  }
-
-  ngOnInit() {
-    window.addEventListener('load', RodapeComponent.ajustarTamanhoColunas);
-    window.addEventListener('resize', RodapeComponent.ajustarTamanhoColunas);
   }
 }
