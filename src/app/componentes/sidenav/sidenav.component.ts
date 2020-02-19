@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-// import {Sidenav} from '../../../../node_modules/materialize-css/dist/js/materialize.min.js';
+import {Component, Input, ViewChild} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
 import {productsManager} from '../../../shared/constants/routes';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent {
 
   @Input()
   set exibir(none) {
@@ -20,15 +20,13 @@ export class SidenavComponent implements OnInit {
 
   constructor() { }
 
-  /**
-   * Exibe o menu-lateral e escurece o restante da janela
-   */
-  private static iniciarModal() {
-    const sidenav = document.querySelectorAll('.sidenav');
-    // Sidenav.init(sidenav, {});
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
+  reason = '';
+
+  close(reason: string) {
+    this.reason = reason;
+    this.sidenav.close();
   }
 
-  ngOnInit() {
-    document.addEventListener('DOMContentLoaded', SidenavComponent.iniciarModal);
-  }
 }

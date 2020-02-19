@@ -6,13 +6,14 @@
 
 <!--<app-modal-recup-senha></app-modal-recup-senha>-->
 <app-navbar></app-navbar>
-<div class="area-centralizada">
-  <div id="area-utilizavel" class="area-utilizavel row">
-    <div>
-      <router-outlet></router-outlet>
+<app-sidenav [exibir]="true" [usuario]="null">
+  <div class="area-centralizada">
+    <div class="area-utilizavel row" id="area-utilizavel">
+      <div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-</div>
-
-<app-menu-flutuante></app-menu-flutuante>
-<app-rodape [links]="listaLinks"></app-rodape>
+  <app-menu-flutuante></app-menu-flutuante>
+  <app-rodape [links]="listaLinks"></app-rodape>
+</app-sidenav>
