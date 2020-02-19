@@ -40,6 +40,7 @@ import {ModalAddressComponent} from './modais/modal-address/modal-address.compon
 import {MatRadioModule} from '@angular/material/radio';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import {MatListModule} from '@angular/material/list';
     MatRadioModule,
     MatBadgeModule,
     MatListModule,
+    MatSidenavModule,
   ],
   providers: [
     MatDialog,
