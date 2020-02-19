@@ -13,6 +13,10 @@ export class Notificacao {
 
   private _dataLeitura?: Date;
 
+  set lida(valor: boolean) {
+    this._lida = valor;
+  }
+
   get lida(): boolean {
     return this._lida;
   }
@@ -69,8 +73,10 @@ export class Notificacao {
    * Marca a notificação como lida e define sua data de leitura
    */
   public marcarComoLida() {
-    this._lida = true;
-    this._dataLeitura = new Date();
+    if (!this.lida) {
+      this._lida = true;
+      this._dataLeitura = new Date();
+    }
   }
 
   /**

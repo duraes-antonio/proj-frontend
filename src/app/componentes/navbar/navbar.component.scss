@@ -46,6 +46,7 @@ $val-padding: 15px;
   .navbar__col--right {
     @extend %_navbar__col;
     padding-right: 15px;
+    padding-top: 7px;
     justify-content: flex-end;
   }
 }
@@ -65,16 +66,21 @@ $val-padding: 15px;
   }
 }
 
+.mat-list-option {
+  height: auto !important;
+}
+
+
 /*Área de notificações*/
-.notification-section {
+.notific-section {
   color: black;
   position: absolute;
   right: 35px !important;
   top: 75px;
   padding: 0 !important;
   background-color: white;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(100, 100, 100, 0.5);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
 
   @media (max-width: 600px) {
     right: 0 !important;
@@ -82,55 +88,55 @@ $val-padding: 15px;
   }
 }
 
-.notific-header {
+.notifics-header {
   @extend %center-flex-space-betw;
   margin: 0 12px;
   height: 50px;
+
+  &-header__icon {
+    padding: 0;
+    color: black;
+    background-color: transparent;
+    transition: color 500ms !important;
+
+    i {
+      font-size: large;
+    }
+
+    &:hover {
+      color: red !important;
+    }
+  }
 }
 
-.notific-header__icon {
-  padding: 0;
-  color: black;
-  background-color: transparent;
-  transition: color 500ms !important;
-
-  i {
-    font-size: large;
-  }
-
-  &:hover {
-    color: red !important;
-  }
-}
-
-.notification {
+.notific {
+  @extend %center-vert-flex;
   padding: 16px 46px 16px 16px;
   cursor: pointer;
   transition: opacity 500ms;
   height: auto !important;
+  margin-top: 10px !important;
+
+  &--inactive {
+    opacity: 0.35;
+  }
+
+  &__info {
+    width: 100%;
+  }
+
+  &__desc {
+    font-size: 13px;
+    color: #333333;
+  }
+
+  &__date {
+    font-size: 12px;
+    color: grey;
+  }
 }
 
-.notif--ativa {
-  opacity: 1;
-}
 
-.notif--inativa {
-  opacity: 0.35;
-}
-
-.notific-info {
-  width: 100%;
-}
-
-.notif-desc {
-  font-size: 13px;
-  color: #333333;
-}
-
-.notif-data {
-  font-size: 12px;
-  color: grey;
-}
 
 .icone-circulo {
   @extend %center-flex;

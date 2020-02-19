@@ -16,61 +16,59 @@
       <app-barra-busca class="col s1 m6 l6 xl6 mobile--hide"></app-barra-busca>
 
       <!-- Notificações e carrinho -->
-      <div class="col s6 m3 l3 xl3 navbar__col--right"
-         style="padding-top: 7px; justify-content: flex-end;">
+      <div class="col s6 m3 l3 xl3 navbar__col--right">
 
-      <!-- Área de notificações -->
-      <div>
-        <!-- Contador de notificações -->
-        <a (click)="toggleListaNotificacoes()" class="icon-action--white">
-          <i *ngIf="qtdNotifAtiva" aria-hidden="true" class="fas fa-bell"
-             matBadge="{{qtdNotifAtiva < 100 ? qtdNotifAtiva : '+99'}}" matBadgeColor="warn"
-             style="margin-right: 20px">
-          </i>
-        </a>
+        <!-- Área de notificações -->
+        <div>
+          <!-- Contador de notificações -->
+          <a (click)="toggleListNotif()" class="icon-action--white">
+            <i [matBadgeHidden]="!numActiveNotif" aria-hidden="true" class="fas fa-bell"
+               matBadge="{{numActiveNotif < 100 ? numActiveNotif : '+99'}}"
+               matBadgeColor="warn" style="margin-right: 20px">
+            </i>
+          </a>
 
-        <!-- Área de listagem de notificações -->
-        <div *ngIf="exibirNotificacoes"
-             class="col s12 m6 l4 xl4 notification-section">
-          <!-- Cabeçalho com opções e engrenagem -->
-          <div class="notific-header">
-            <span>Notificações</span>
-            <a (click)="markAllNotifAsRead()" class="notific-header__icon"
-               title="Marcar todas como lidas">
-              <i aria-hidden="true" class="far fa-check-square"></i>
-            </a>
-          </div>
+          <!-- Área de listagem de notificações -->
+          <div *ngIf="showNotifics" class="col s12 m6 l4 xl4 notific-section">
+            <div class="notifics-header">
+              <span>Notificações</span>
+              <a (click)="markAllNotifAsRead()" class="notifics-header__icon"
+                 title="Marcar todas como lidas">
+                <i aria-hidden="true" class="far fa-check-square"></i>
+              </a>
+            </div>
 
-          <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
 
-          <mat-selection-list style="overflow: auto;">
-            <mat-list-option *ngFor="let notif of notificacoes" [value]="notif.id">
-              <a (click)="marcarNotificacaoComoLida(notif)"
-                 [ngClass]="notif.lida ? 'notif--inativa' : 'notif--ativa'"
-                 class="notification">
+            <mat-selection-list style="overflow: auto; max-height: 72vh">
+              <a *ngFor="let notif of notifics" class="notific {{notif.lida ? 'notific--inactive' : ''}}">
 
                 <!-- Área individual da notifição -->
                 <i aria-hidden="true" class="{{notif.classeIcone}} icone-circulo"></i>
 
                 <!-- Área que contém as informações da notifição -->
-                <div class="notific-info">
-                  <span class="notif-desc">{{notif.texto}}<br></span>
-                  <span class="notif-data">{{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}</span>
+                <div class="notific__info">
+                  <span class="notific__desc">{{notif.texto}}<br></span>
+                  <span class="notific__date">
+                    {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}
+                  </span>
                 </div>
+                <mat-list-option (click)="print(notif.lida)"
+                                 [selected]="notif.lida">
+                </mat-list-option>
               </a>
-            </mat-list-option>
-          </mat-selection-list>
 
+            </mat-selection-list>
+          </div>
         </div>
-      </div>
 
-      <!-- Área do carrinho de compras -->
+        <!-- Área do carrinho de compras -->
         <a class="icon-action--white" routerLink="/carrinho">
           <i aria-hidden="true" class="fas fa-shopping-cart"
              matBadge="{{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}"
              matBadgeColor="warn"></i>
-      </a>
-    </div>
+        </a>
+      </div>
     </div>
     <app-barra-busca class="col s12 m12 l6 xl6 mobile--show" style="margin-top: 5px"></app-barra-busca>
   </nav>
