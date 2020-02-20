@@ -4,7 +4,7 @@
 @import '../../../shared/styles/scrollbar';
 @import '../../../shared/styles/variables';
 
-$val-padding: 15px;
+@include scrollbar-custom();
 
 .navbar {
   @extend %center-flex-space-betw;
@@ -66,13 +66,11 @@ $val-padding: 15px;
   }
 }
 
-.mat-list-option {
-  height: auto !important;
-}
-
-
 /*Área de notificações*/
 .notific-section {
+  overflow: auto;
+  height: auto;
+  max-height: 72vh;
   color: black;
   position: absolute;
   right: 35px !important;
@@ -80,7 +78,6 @@ $val-padding: 15px;
   padding: 0 !important;
   background-color: white;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
 
   @media (max-width: 600px) {
     right: 0 !important;
@@ -93,29 +90,25 @@ $val-padding: 15px;
   margin: 0 12px;
   height: 50px;
 
-  &-header__icon {
-    padding: 0;
-    color: black;
-    background-color: transparent;
-    transition: color 500ms !important;
-
-    i {
-      font-size: large;
-    }
-
-    &:hover {
-      color: red !important;
-    }
+  &__icon {
+    font-size: smaller;
   }
 }
 
 .notific {
   @extend %center-vert-flex;
-  padding: 16px 46px 16px 16px;
-  cursor: pointer;
+
+  padding: 10px 16px;
   transition: opacity 500ms;
-  height: auto !important;
   margin-top: 10px !important;
+
+  &__link {
+    @extend %center-vert-flex;
+  }
+
+  &__checkbox {
+    z-index: 2;
+  }
 
   &--inactive {
     opacity: 0.35;
@@ -135,8 +128,6 @@ $val-padding: 15px;
     color: grey;
   }
 }
-
-
 
 .icone-circulo {
   @extend %center-flex;
