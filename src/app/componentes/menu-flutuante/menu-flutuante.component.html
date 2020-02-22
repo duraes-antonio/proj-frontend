@@ -1,13 +1,13 @@
-<div class="area-menu">
-  <a routerLink="/home" class="btn-floating waves-effect waves-light fab-prim">
+<div class="menu">
+  <button [routerLink]="actionHome.url" class="menu__btn-action" mat-mini-fab>
     <i aria-hidden="true" class="fas fa-home"></i>
-  </a>
+  </button>
 
-  <a routerLink="/login/entrar" class="btn-floating waves-effect waves-light fab-prim">
+  <button *ngIf="userLogged" [routerLink]="actionEnter.url" class="menu__btn-action" mat-mini-fab>
     <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
-  </a>
+  </button>
 
-  <a routerLink="/login/cadastrar" class="btn-floating waves-effect waves-light fab-prim">
+  <button *ngIf="!userLogged" [routerLink]="actionAdd.url" class="menu__btn-action" mat-mini-fab>
     <i aria-hidden="true" class="fas fa-user-plus"></i>
-  </a>
+  </button>
 </div>

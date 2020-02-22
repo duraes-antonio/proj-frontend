@@ -3,9 +3,8 @@
     <div class="navbar-header">
       <!-- Logo e menu hamburger -->
       <div class="col s6 m3 l3 xl3 navbar__col--left">
-        <a class="icon-action--white">
-          <i (click)="toggleSidenav()" aria-hidden="true" class="fas fa-bars"
-             style="margin-right: 20px"></i>
+        <a (click)="sidenavShow.emit()" class="icon-action--white">
+          <i aria-hidden="true" class="fas fa-bars" style="margin-right: 20px"></i>
         </a>
         <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
       </div>

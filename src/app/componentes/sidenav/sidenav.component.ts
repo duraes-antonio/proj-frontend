@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
 import {productsManager} from '../../../shared/constants/routes';
 import {MatSidenav} from '@angular/material/sidenav';
@@ -10,23 +10,55 @@ import {MatSidenav} from '@angular/material/sidenav';
 })
 export class SidenavComponent {
 
-  @Input()
-  set exibir(none) {
-    document.getElementById('btn-trigger').click();
-  }
-
   @Input() usuario: Usuario;
-  readonly routeProductsManager = productsManager;
-
-  constructor() { }
-
+  @Output() closed = new EventEmitter();
   @ViewChild('sidenav') sidenav: MatSidenav;
+  opened = false;
+  readonly actionsPersonal: LinkAction[] = [
+    new LinkAction('Meu perfil', '', 'fas fa-user-cog'),
+    new LinkAction('Suas compras', '', 'fas fa-shopping-basket'),
+    new LinkAction('Histórico de atividades', '', 'fas fa-history'),
+    new LinkAction('Segurança', '', 'fas fa-shield-alt')
+  ];
+  readonly actionsAdmin: LinkAction[] = [
+    new LinkAction('Gerenciar categorias', '', 'fas fa-tags'),
+    new LinkAction('Gerenciar produtos', productsManager, 'fas fa-box-open'),
+    new LinkAction('Gerenciar dúvidas', '', 'fas fa-comments'),
+    new LinkAction('Gerenciar usuários', '', 'fas fa-users-cog'),
+    new LinkAction('Visualizar pedido', '', 'fas fa-file-signature'),
+    new LinkAction('Visualizar relatórios', '', 'fas fa-chart-bar'),
+    new LinkAction('Personalizar loja', '', 'fas fa-pen-fancy')
+  ];
+  readonly actionLogout: LinkAction = new LinkAction('Sair', '', 'fas fa-sign-out-alt');
 
-  reason = '';
+  _show = false;
 
-  close(reason: string) {
-    this.reason = reason;
-    this.sidenav.close();
+  @Input()
+  set show(value: boolean) {
+    this._show = value;
+    value ? this.open() : this.close();
   }
 
+  close() {
+    this.sidenav.close();
+    this.opened = false;
+    this.closed.emit();
+  }
+
+  open() {
+    this.sidenav.open();
+    this.opened = true;
+  }
+}
+
+export class LinkAction {
+  public readonly title: string;
+  public readonly url: string;
+  public readonly iconClass: string;
+
+  constructor(title: string, url: string, iconClass: string) {
+    this.title = title;
+    this.url = url;
+    this.iconClass = iconClass;
+  }
 }

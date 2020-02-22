@@ -1,141 +1,52 @@
-<mat-sidenav-container (backdropClick)="close('backdrop')" class="example-container">
-  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
-    <button (click)="close('toggle button')" mat-button>Toggle</button>
+<mat-sidenav-container (backdropClick)="close()" [ngClass]="{'sidenav--show': opened}">
+  <mat-sidenav #sidenav (keydown.escape)="close()" class="sidenav" disableClose>
+    <div class="info-user__section">
+
+      <!-- Área de imagem avatar, nome e email -->
+      <div class="info-user__avatar">
+        <a href="www.google.com">
+          <img *ngIf="usuario.avatarUrl" alt="Imagem de perfil de '{{usuario.nome}}'"
+               class="img-avatar" src="{{usuario.avatarUrl}}">
+          <i *ngIf="!usuario.avatarUrl" aria-hidden="true" class="fas fa-user-circle icone-avatar"></i>
+        </a>
+      </div>
+
+      <div class="info-user__name-email">
+        <span class="info-user__name">{{usuario.nome}}</span>
+        <span class="info-user__email">{{usuario.email}}</span>
+      </div>
+    </div>
+
+    <!-- AÇÕES PESSOAIS -->
+    <mat-nav-list>
+      <a *ngFor="let action of actionsPersonal" [routerLink]="action.url" class="actions__item" mat-list-item>
+        <i aria-hidden="true" class="{{action.iconClass}} actions__item-icon"></i>
+        {{action.title}}
+      </a>
+    </mat-nav-list>
+
+    <mat-divider></mat-divider>
+
+    <!-- AÇÕES ADMINISTRATIVAS -->
+    <mat-nav-list>
+      <a *ngFor="let action of actionsAdmin" [routerLink]="action.url" class="actions__item" mat-list-item>
+        <i aria-hidden="true" class="{{action.iconClass}} actions__item-icon"></i>
+        {{action.title}}
+      </a>
+    </mat-nav-list>
+
+    <mat-divider></mat-divider>
+
+    <!-- LOGOUT -->
+    <mat-nav-list>
+      <a [routerLink]="actionLogout.url" class="actions__item" mat-list-item>
+        <i aria-hidden="true" class="{{actionLogout.iconClass}} actions__item-icon"></i>
+        {{actionLogout.title}}
+      </a>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <ng-content></ng-content>
-    <p>
-      <button (click)="sidenav.open()" mat-button>Open</button>
-    </p>
-    <p>Closed due to: {{reason}}</p>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-<!-- TODO: Realizar binding com as rotas -->
-<!--<ul id="slide-out" class="sidenav barra-rolagem">-->
-<!--  <li>-->
-<!--    <div class="area-info_usuario">-->
-
-<!--      &lt;!&ndash; Área de imagem avatar, nome e email &ndash;&gt;-->
-<!--      <div class="cabecalho-dados_pessoais black-text">-->
-
-<!--        <div class="area-avatar">-->
-<!--          <a href="www.google.com">-->
-<!--            <img *ngIf="!!usuario.avatarUrl" alt="Imagem de perfil de '{{usuario.nome}}'"-->
-<!--                 class="img-avatar" src="{{usuario.avatarUrl}}">-->
-<!--            <i *ngIf="!usuario.avatarUrl" aria-hidden="true" class="fas fa-user-circle icone-avatar"></i>-->
-<!--          </a>-->
-
-<!--        </div>-->
-
-<!--        <div class="area-info_nome_email">-->
-<!--          <span class="texto-nome">{{usuario.nome}}</span><br>-->
-<!--          <span class="email">{{usuario.email}}</span>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </li>-->
-
-
-<!--  &lt;!&ndash; Área pessoal ("Minha conta") &ndash;&gt;-->
-<!--  <li>-->
-<!--    <div class="divider" style="margin: 0"></div>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Meu perfil" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-user-cog icone"></i>Meu perfil-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Suas compras" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-shopping-basket icone"></i>Suas compras-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Histórico de Atividades" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-history icone"></i>Histórico de atividades</a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Segurança" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-shield-alt icone"></i>Segurança-->
-<!--    </a>-->
-<!--  </li>-->
-
-
-<!--  &lt;!&ndash; TODO: Validar permissões e perfis para acessar cada opção abaixo &ndash;&gt;-->
-<!--  &lt;!&ndash; Área administrativa &ndash;&gt;-->
-<!--  <li>-->
-<!--    <div class="divider"></div>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Gerenciar categorias" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-tags icone"></i>Gerenciar categorias-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Gerenciar Produtos" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a [routerLink]="routeProductsManager" class="waves-effect darken-4 texto-opcao_menu">-->
-<!--      <i aria-hidden="true" class="fas fa-box-open icone"></i>Gerenciar produtos-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Gerenciar dúvidas" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-comments icone"></i>Gerenciar dúvidas-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Gerenciar usuários" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-users-cog icone"></i>Gerenciar usuários-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Visualizar pedido" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-file-signature icone"></i>Visualizar pedido-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Visualizar relatórios" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-chart-bar icone"></i>Visualizar relatórios-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  &lt;!&ndash; Opção "Personalizar loja" &ndash;&gt;-->
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-pen-fancy icone"></i>Personalizar loja-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--  <li><div class="divider"></div></li>-->
-
-<!--  <li>-->
-<!--    <a class="waves-effect darken-4 texto-opcao_menu" href="#!">-->
-<!--      <i aria-hidden="true" class="fas fa-sign-out-alt icone"></i>Sair-->
-<!--    </a>-->
-<!--  </li>-->
-
-<!--</ul>-->
-
-<a class="sidenav-trigger" data-target="slide-out" id="btn-trigger"
-   style="display: none"></a>

@@ -5,8 +5,8 @@
 </head>
 
 <!--<app-modal-recup-senha></app-modal-recup-senha>-->
-<app-navbar></app-navbar>
-<app-sidenav [exibir]="true" [usuario]="null">
+<app-sidenav (closed)="sidenavShow = false" [show]="sidenavShow" [usuario]="user">
+  <app-navbar (sidenavShow)="sidenavShow = true"></app-navbar>
   <div class="area-centralizada">
     <div class="area-utilizavel row" id="area-utilizavel">
       <div>

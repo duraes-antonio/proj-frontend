@@ -5,9 +5,10 @@ export class Usuario {
   public email: string;
 
   // TODO: Trabalhar com endereço, redes sociais, permissões/role
-  constructor(nome: string, email: string) {
+  constructor(nome: string, email: string, urlImg?: string) {
     this.nome = nome;
     this.email = email;
+    this.avatarUrl = urlImg;
   }
 
   public definirUrlAvatar(urlImagem: string) {

@@ -1,21 +1,22 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Usuario} from '../../models/Usuario';
+'use strict';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {Notificacao} from '../../models/Notificacao';
 import {Cart} from '../../models/cart.model';
 import {Store} from '@ngrx/store';
+import {DadosTeste} from '../../../shared/DadosTeste';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: 'navbar.component.html',
   styleUrls: ['navbar.component.scss']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnDestroy {
 
-  public showSidenav: boolean;
-  public showNotifics: boolean;
-  public currUser: Usuario;
-  public notifics: Array<Notificacao>;
-  public numActiveNotif: number;
+  @Output() sidenavShow = new EventEmitter();
+
+  public showNotifics = false;
+  public notifics: Notificacao[] = DadosTeste.notificacoes;
+  public numActiveNotif: number = this.notifics.filter(n => !n.lida).length;
   public cart$;
   public cartProdsIds: number[];
 
@@ -26,43 +27,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {
-    this.showNotifics = false;
-
-    /*TODO: Alterar para receber os dados do usuário após login*/
-    this.currUser = new Usuario(
-      'Joana Maria Silva',
-      'joana@email.com'
-    );
-    this.currUser.definirUrlAvatar(
-      '../../assets/tea.png'
-    );
-
-    this.notifics = new Array<Notificacao>();
-    this.numActiveNotif = 7;
-
-    for (let i = 0; i < 7; ++i) {
-      this.notifics.push(
-        new Notificacao(
-          'Sua encomenda está a caminho! Acompanhe o estado de sua compra',
-          new Date(),
-          'www.google.com',
-          Math.floor(Math.random() * 8)
-        )
-      );
-    }
-
-    this.notifics[2].lida = true;
-  }
-
+  /*TODO: Alterar para receber os dados do usuário após login*/
   ngOnDestroy(): void {
     this.cart$.unsubscribe();
-  }
-
-  /**Oculta o menu lateral se já estiver sendo exibido, senão, exibe-o.
-   */
-  public toggleSidenav() {
-    this.showSidenav = !this.showSidenav;
   }
 
   /**Oculta a lista de notificações se já estiver sendo exibida, senão, exibe-a.
@@ -93,12 +60,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.numActiveNotif > 0) {
       this.notifics.forEach(n => n.lida = true);
       this.numActiveNotif = 0;
-    } else {
-      return;
     }
-  }
-
-  print(x) {
-    console.log(x);
   }
 }

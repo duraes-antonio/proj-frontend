@@ -4,6 +4,8 @@ import {Avaliacao} from '../app/models/Avaliacao';
 import {Endereco} from '../app/models/Endereco';
 import {DeliveryOption} from '../app/models/DeliveryOption';
 import {randomBoolean, randomFloat, randomInt} from './utilFuncoes';
+import {Usuario} from '../app/models/Usuario';
+import {Notificacao} from '../app/models/Notificacao';
 
 export class DadosTeste {
   private static productId = 0;
@@ -48,12 +50,13 @@ export class DadosTeste {
     new Endereco(445, '59628-070', 'Rua Lavoisier Maia',
       'Alto de São Manoel', 'Mossoró', 'RN', 5),
   ];
+  public static readonly notificacoes: Notificacao[] = Array
+    .from({length: 20}, () => DadosTeste.notificRandom());
   public static readonly opcoesEntrega: DeliveryOption[] = [
     {cost: 14.25, time: 12},
     {cost: DadosTeste.obterPrecoRandom(), time: 14},
     {cost: DadosTeste.obterPrecoRandom(), time: 5}
   ];
-
   public static readonly produtos = [
     DadosTeste.productRandom(
       'Funk POP - Yugi',
@@ -134,14 +137,44 @@ export class DadosTeste {
       'https://http2.mlstatic.com/yu-gi-oh-forbidden-memories-portugus-patch-ps1-D_NQ_NP_909906-MLB32086903379_092019-F.webp'
     )
   ];
+  public static readonly usuarios: Usuario[] = [
+    // tslint:disable-next-line:max-line-length
+    new Usuario(
+      'Maria da Silva',
+      'maria@gmail.com',
+      'https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117'),
+    new Usuario(
+      'Kayba Santos',
+      'kayba@gmail.com',
+      'https://i.ytimg.com/vi/6Y9moYCgD2M/hqdefault.jpg'
+    ),
+    new Usuario(
+      'Cleitin O Brabo',
+      'cleitin@gmail.com',
+      'https://vignette.wikia.nocookie.net/yugioh/images/c/c8/MaximillionPegasus.jpg/revision/latest?cb=20150530140609'
+    ),
+    new Usuario(
+      'Cleidimarço dos Santos',
+      'cleidimarco@gmail.com',
+      'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg'
+    ),
+  ];
+
+  private static notificRandom(): Notificacao {
+    return new Notificacao(
+      'Sua encomenda está a caminho! Acompanhe o estado de sua compra',
+      new Date(),
+      'www.google.com',
+      Math.floor(Math.random() * 8)
+    );
+  }
 
   private static productRandom(title: string, desc: string, imgUrl: string): Produto {
-    const prod = new Produto(
+    return new Produto(
       imgUrl, title, desc, randomFloat(0, 2500), randomFloat(0, 100),
       [DadosTeste.categorias[randomInt(0, DadosTeste.categorias.length - 1)]],
       randomBoolean(), ++DadosTeste.productId, randomInt(0, 10000), randomFloat(0, 5)
     );
-    return prod;
   }
 
   private static obterPrecoRandom(): number {

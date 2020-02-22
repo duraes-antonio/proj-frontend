@@ -1,9 +1,21 @@
-@import "../../../shared/shared";
+@import '../../../shared/styles/placeholders';
 
-.area-menu {
+.menu {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
   display: grid;
   z-index: 2;
+
+  &__btn-action {
+    span {
+      @extend %center-flex;
+    }
+
+    font-size: 20px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
 }
