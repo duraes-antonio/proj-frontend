@@ -1,5 +1,5 @@
 'use strict';
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {Slider} from '../../models/componentes/Slider';
 import Glide from '@glidejs/glide';
 
@@ -8,57 +8,36 @@ import Glide from '@glidejs/glide';
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit {
-  private _opcoes;
-  private _glide;
-  private _qtdSlides;
+export class SliderComponent implements AfterViewInit {
 
-  private _slider;
+  @Input() slider: Slider;
+  public currIndex = 0;
+  private _glide: Glide;
 
-  get slider() {
-    return this._slider;
-  }
-
-  @Input()
-  set slider(slider: Slider) {
-    this._slider = slider;
-    this._qtdSlides = slider.itens.length;
-  }
-
-  ngOnInit() {
-    this._opcoes = {
+  ngAfterViewInit(): void {
+    const options = {
       animationDuration: 300,
       type: 'carousel',
       bound: true,
       startAt: 0,
       perView: 1,
     };
+    const glideElem = document.getElementById('glide');
 
-    setTimeout(this.iniciarComponente);
+    /* Defina o número de slides (contando com as duas cópias) p/ calcular a largura
+    * máxima de cada slide*/
+    const sliderElem = document.getElementById(`slider-${this.slider.id}`);
+    sliderElem.style.setProperty('--slides-lenght', `${this.slider.tamanho + 2}`);
+
+    this._glide = new Glide(glideElem, options).mount();
+
+    /*Após cada movimento, atualize o índice do slide atual p/ estilizar o indicador*/
+    this._glide.on(['move.after'], () => {
+      this.currIndex = this._glide.index;
+    });
   }
 
-  private iniciarComponente() {
-    const sliderGlide = document.getElementById('glide');
-    this._glide = new Glide(sliderGlide, this._opcoes);
-    this._glide.mount();
-
-    // this.gerenciarBotoesSequencia(this._glide);
-    //
-    // /*Sempre que a janela for redimensionada, verifique se os botões devem
-    // * estar habilitados */
-    // this._glide.on(
-    //   ['run.after', 'resize'],
-    //   () => {
-    //     this.gerenciarBotoesSequencia(this._glide);
-    //   }
-    // );
-  }
-
-  public avancarSlide() {
-    // SliderComponent.carrossel.next();
-  }
-
-  public voltarSlide() {
-    // SliderComponent.carrossel.prev();
+  goToIndexSlide(i: number) {
+    this._glide.go(`=${i}`);
   }
 }

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
-import {productsManager} from '../../../shared/constants/routes';
+import {routes} from '../../../shared/constants/routes';
 import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
@@ -22,7 +22,7 @@ export class SidenavComponent {
   ];
   readonly actionsAdmin: LinkAction[] = [
     new LinkAction('Gerenciar categorias', '', 'fas fa-tags'),
-    new LinkAction('Gerenciar produtos', productsManager, 'fas fa-box-open'),
+    new LinkAction('Gerenciar produtos', routes.productsManager, 'fas fa-box-open'),
     new LinkAction('Gerenciar dúvidas', '', 'fas fa-comments'),
     new LinkAction('Gerenciar usuários', '', 'fas fa-users-cog'),
     new LinkAction('Visualizar pedido', '', 'fas fa-file-signature'),
@@ -40,9 +40,11 @@ export class SidenavComponent {
   }
 
   close() {
-    this.sidenav.close();
-    this.opened = false;
-    this.closed.emit();
+    if (this.sidenav) {
+      this.sidenav.close();
+      this.opened = false;
+      this.closed.emit();
+    }
   }
 
   open() {

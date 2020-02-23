@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {genSequence} from '../../../shared/utilFuncoes';
+import {genSequence} from '../../../shared/utilFunctions';
 
 @Component({
   selector: 'app-paginacao',

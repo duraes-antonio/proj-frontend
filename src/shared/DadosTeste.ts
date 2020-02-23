@@ -3,9 +3,10 @@ import {Categoria} from '../app/models/Categoria';
 import {Avaliacao} from '../app/models/Avaliacao';
 import {Endereco} from '../app/models/Endereco';
 import {DeliveryOption} from '../app/models/DeliveryOption';
-import {randomBoolean, randomFloat, randomInt} from './utilFuncoes';
+import {randomBoolean, randomFloat, randomInt} from './utilFunctions';
 import {Usuario} from '../app/models/Usuario';
 import {Notificacao} from '../app/models/Notificacao';
+import {Slide} from '../app/models/Slide';
 
 export class DadosTeste {
   private static productId = 0;
@@ -31,6 +32,7 @@ export class DadosTeste {
       3, new Date(new Date().setFullYear(2020, 1, 29))
     ),
   ];
+
   public static readonly categorias = [
     new Categoria('Acessórios', 1),
     new Categoria('Cards', 2),
@@ -38,6 +40,7 @@ export class DadosTeste {
     new Categoria('Pacote de Cards', 4),
     new Categoria('Vestuário', 5)
   ];
+
   public static readonly enderecos = [
     new Endereco(38, '29065-390', 'Rua Emília Mazoco Keijok',
       'Mata da Praia', 'Vitória', 'ES', 1),
@@ -50,14 +53,17 @@ export class DadosTeste {
     new Endereco(445, '59628-070', 'Rua Lavoisier Maia',
       'Alto de São Manoel', 'Mossoró', 'RN', 5),
   ];
+
   public static readonly notificacoes: Notificacao[] = Array
     .from({length: 20}, () => DadosTeste.notificRandom());
+
   public static readonly opcoesEntrega: DeliveryOption[] = [
     {cost: 14.25, time: 12},
     {cost: DadosTeste.obterPrecoRandom(), time: 14},
     {cost: DadosTeste.obterPrecoRandom(), time: 5}
   ];
-  public static readonly produtos = [
+
+  public static readonly produtos: Produto[] = [
     DadosTeste.productRandom(
       'Funk POP - Yugi',
       // tslint:disable-next-line:max-line-length
@@ -137,6 +143,32 @@ export class DadosTeste {
       'https://http2.mlstatic.com/yu-gi-oh-forbidden-memories-portugus-patch-ps1-D_NQ_NP_909906-MLB32086903379_092019-F.webp'
     )
   ];
+
+  public static readonly slides: Slide[] = [
+    new Slide(
+      'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
+      'www.google.com',
+      'Yu-Gi-Oh! Duel Links Promotional'
+    ),
+    new Slide(
+      'https://vignette.wikia.nocookie.net/yugioh/images/e/ed/DOD-VideoGameEN.jpg/revision/latest?cb=20110710180208',
+      'www.google.com',
+      'Yu-Gi-Oh! The Dawn of Destiny'
+    ),
+    new Slide(
+      '../../assets/slide-2.jpg',
+      'www.google.com'
+    ),
+    new Slide(
+      '../../assets/slide-3.jpg',
+      'www.google.com'
+    ),
+    new Slide(
+      '../../assets/slide-4.jpeg',
+      'www.google.com'
+    )
+  ];
+
   public static readonly usuarios: Usuario[] = [
     // tslint:disable-next-line:max-line-length
     new Usuario(
@@ -159,6 +191,7 @@ export class DadosTeste {
       'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg'
     ),
   ];
+
 
   private static notificRandom(): Notificacao {
     return new Notificacao(

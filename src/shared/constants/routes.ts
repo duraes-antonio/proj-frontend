@@ -1,10 +1,16 @@
 const manager = 'gerencia';
-export const productsView = `produto`;
-export const productView = `produto/:id`;
-export const productsManager = `${manager}/produto`;
-export const productManager = `${productsManager}/:id`;
+const productsManager = `${manager}/produto`;
+const login = `login`;
+const productsView = `produto`;
 
-export const home = `home`;
-export const login = `login`;
-export const loginEnter = `${login}/entrar`;
-export const loginRegister = `${login}/cadastrar`;
+export const routes = {
+  productsView: productsView,
+  productView: `${productsView}/:id`,
+  productsManager: productsManager,
+  productManager: `${productsManager}/:id`,
+
+  home: `home`,
+  login: login,
+  loginEnter: `${login}/entrar`,
+  loginRegister: `${login}/cadastrar`
+};

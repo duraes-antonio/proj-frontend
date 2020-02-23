@@ -1,7 +1,4 @@
 @import '../shared/styles/placeholders';
-@import '../shared/styles/scrollbar';
-
-@include scrollbar-custom();
 
 .area-centralizada {
   display: flex;

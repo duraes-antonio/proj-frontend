@@ -3,12 +3,12 @@ import {Produto} from '../Produto';
 import {ISequencia} from '../../interfaces/ISequencia';
 import {DadosTeste} from '../../../shared/DadosTeste';
 
-export class SequenciaProduto implements ISequencia<Produto> {
+export class ListProduct implements ISequencia<Produto> {
 
   public readonly id: number;
   public readonly tipo: ETipoComponente = ETipoComponente.SEQUENCIA_PRODUTO;
   public readonly titulo: string;
-  public readonly itens: Array<Produto>;
+  public readonly itens: Produto[];
 
   get tamanho() {
     return !!this.itens ? this.itens.length : 0;

@@ -1,10 +1,37 @@
-@import 'shared/styles/grid_materialize';
-@import 'shared/styles/scrollbar.scss';
-
-@include scrollbar-custom();
+@import 'shared/styles/scrollbar';
+@import 'shared/styles/variables';
 
 body {
   background: white;
+}
+
+body, html {
+  margin: 0;
+  height: 100%;
+  display: block;
+}
+
+a {
+  cursor: pointer;
+}
+
+.btn-general {
+  text-transform: uppercase;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  i {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+
+  @media (max-width: $width-max-small) {
+    width: 100%;
+  }
 }
 
 .titulo-pagina {
@@ -15,3 +42,5 @@ body {
   letter-spacing: 2px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1)
 }
+
+@include scrollbar-custom();

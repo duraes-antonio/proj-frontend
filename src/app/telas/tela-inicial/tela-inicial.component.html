@@ -1,8 +1,6 @@
 <!-- TODO: Tornar o conteúdo dinâmico -->
 <div class="area-componente">
-  <app-slider *ngFor="let slider of sliders" [slider]="slider"
-              style="width: 100%;">
-  </app-slider>
+  <app-slider *ngFor="let s of sliders" [slider]="s" style="width: 100%;"></app-slider>
 </div>
 
 <!--<div class="area-componente">-->
@@ -11,11 +9,11 @@
 <!--  </app-lista-cartao>-->
 <!--</div>-->
 
-<!--<div class="area-componente">-->
-<!--  <app-seq-produto *ngFor="let prod of seqProdutos" [sequencia]="prod"-->
-<!--                   style="width: 100%">-->
-<!--  </app-seq-produto>-->
-<!--</div>-->
+<div class="area-componente">
+  <app-seq-produto *ngFor="let prod of seqProdutos" [list]="prod"
+                   style="width: 100%">
+  </app-seq-produto>
+</div>
 
 <!--<div class="area-componente">-->
 <!--  <app-seq-lojas *ngFor="let loja of seqLojas" [sequencia]="loja"-->

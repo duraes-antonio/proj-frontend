@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-@import 'shared/styles/scrollbar';
 @import 'shared/styles/variables';
 
 @include mat-core();
@@ -11,12 +10,6 @@ $theme-warn: mat-palette($mat-red);
 $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 
 @include angular-material-theme($blue-theme);
-
-body, html {
-  margin: 0;
-  height: 100%;
-  display: block;
-}
 
 .cdk-global-scrollblock {
   overflow-y: auto;
@@ -47,40 +40,7 @@ body, html {
   word-break: break-word;
 }
 
-a {
-  cursor: pointer;
-}
-
-.btn-general {
-  text-transform: uppercase;
-
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  i {
-    margin-right: 8px;
-    font-size: 20px;
-  }
-
-  @media (max-width: $width-max-small) {
-    width: 100%;
-  }
-}
-
-.input-pading-clean {
-  .mat-form-field-wrapper {
-    padding-bottom: 0;
-  }
-}
-
 .mat-badge-content {
   font-weight: 500;
   font-size: 11px;
-}
-
-mat-sidenav {
-  @include scrollbar-custom();
 }

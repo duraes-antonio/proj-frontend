@@ -5,3 +5,25 @@
   font-size: x-large;
   font-weight: 500;
 }
+
+.title-page-w-border {
+  color: $color-prim;
+  font-size: x-large;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 15px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: $color-prim;
+    width: 100%;
+    max-width: 250px;
+    height: 3px;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    margin: 0 auto;
+  }
+}

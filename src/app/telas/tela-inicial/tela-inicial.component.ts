@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Slider} from '../../models/componentes/Slider';
-import {SequenciaProduto} from '../../models/componentes/SequenciaProduto';
+import {ListProduct} from '../../models/componentes/ListProduct';
 import {ListaCartao} from '../../models/componentes/ListaCartao';
 import {SequenciaLoja} from '../../models/componentes/SequenciaLoja';
 
@@ -9,23 +9,11 @@ import {SequenciaLoja} from '../../models/componentes/SequenciaLoja';
   templateUrl: './tela-inicial.component.html',
   styleUrls: ['./tela-inicial.component.scss']
 })
-export class TelaInicialComponent implements OnInit {
+export class TelaInicialComponent {
 
-  public readonly sliders: Array<Slider> = [];
-  public readonly cartoes: Array<ListaCartao> = [];
-  public readonly seqProdutos: Array<SequenciaProduto> = [];
-  public readonly seqLojas: Array<SequenciaLoja> = [];
-
-  constructor() {
-
-    // TODO: Receber lista de componentes do banco
-    this.sliders.push(new Slider(1));
-    this.cartoes.push(new ListaCartao(1));
-    this.seqProdutos.push(new SequenciaProduto(1));
-    this.seqLojas.push(new SequenciaLoja(3));
-
-  }
-
-  ngOnInit() {
-  }
+  // TODO: Receber lista de componentes do banco
+  public readonly sliders: Slider[] = [new Slider(1)];
+  public readonly cartoes: ListaCartao[] = [new ListaCartao(1)];
+  public readonly seqProdutos: ListProduct[] = [new ListProduct(1)];
+  public readonly seqLojas: SequenciaLoja[] = [new SequenciaLoja(3)];
 }

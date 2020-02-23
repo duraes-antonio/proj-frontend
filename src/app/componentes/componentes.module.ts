@@ -7,7 +7,7 @@ import {BannerComponent} from './banner/banner.component';
 import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {SliderComponent} from './slider/slider.component';
-import {SequenciaProdutoComponent} from './seq-produto/sequencia-produto.component';
+import {SliderProductComponent} from './slider-product/slider-product.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
 import {SequenciaComponent} from './sequencia/sequencia.component';
 import {SeqLojaComponent} from './seq-loja/seq-loja.component';
@@ -41,6 +41,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {SliderBaseComponent} from './slider-base/slider-base.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     SidenavComponent,
     SliderComponent,
     ListaCartaoComponent,
-    SequenciaProdutoComponent,
+    SliderProductComponent,
     SequenciaComponent,
     SeqLojaComponent,
     MenuFlutuanteComponent,
@@ -68,7 +69,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     ModalMatComponent,
     ModalPaymentMatComponent,
     ModalShippingMatComponent,
-    ModalAddressComponent
+    ModalAddressComponent,
+    SliderBaseComponent,
   ],
   exports: [
     NavbarComponent,
@@ -78,7 +80,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MenuFlutuanteComponent,
     ListaCartaoComponent,
     SliderComponent,
-    SequenciaProdutoComponent,
+    SliderProductComponent,
     SeqLojaComponent,
     ModalComponent,
     ModalRecupSenhaComponent,

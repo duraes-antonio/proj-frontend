@@ -10,10 +10,10 @@ import {Avaliacao} from '../../../models/Avaliacao';
 import {Endereco} from '../../../models/Endereco';
 import {DeliveryOption} from '../../../models/DeliveryOption';
 import {Cart} from '../../../models/cart.model';
-import {SequenciaProduto} from '../../../models/componentes/SequenciaProduto';
+import {ListProduct} from '../../../models/componentes/ListProduct';
 import {Add, Remove} from '../../../actions/cart.action';
 import {ProductService} from '../../../services/product.service';
-import {calcAverage} from '../../../../shared/utilFuncoes';
+import {calcAverage} from '../../../../shared/utilFunctions';
 import {ModalAddressComponent} from '../../../componentes/modais/modal-address/modal-address.component';
 import {ModalShippingMatComponent} from '../../../componentes/modais/modal-shipping-mat/modal-shipping-mat.component';
 import {ModalPaymentMatComponent} from '../../../componentes/modais/modal-payment-mat/modal-payment-mat.component';
@@ -29,7 +29,7 @@ export class TelaVisualizarProdutoComponent implements OnDestroy {
   public prodInCart = false;
   public deliveryChosen: DeliveryOption;
 
-  public seqProd = new SequenciaProduto(625);
+  public seqProd = new ListProduct(625);
   public avaliacoes: Avaliacao[] = DadosTeste.avaliacoes;
   public media: number = this.calcAvgRating(this.avaliacoes, 2);
   public enderecos: Endereco[] = DadosTeste.enderecos;

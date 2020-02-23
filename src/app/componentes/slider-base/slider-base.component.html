@@ -1,13 +1,8 @@
-<div class="glide" id="glide">
-
+<div [id]="sliderId" class="glide">
   <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides" id="slider-{{slider.id}}">
-      <li *ngFor="let slide of slider.itens" [title]="slide.titulo || 'Sem título'" class="glide__slide">
-        <div [style.backgroundImage]="'url('+ slide.imagemUrl +')'" class="bg-blur"></div>
-        <img [alt]="slide.titulo" [src]="slide.imagemUrl">
-      </li>
+    <ul class="glide__slides">
+      <ng-content></ng-content>
     </ul>
-
     <!-- Botões de Anterior e Próximo -->
     <div class="glide__arrows" data-glide-el="controls">
       <button class="glide__arrow glide__arrow--prev" data-glide-dir="<" mat-fab>
@@ -19,8 +14,8 @@
     </div>
 
     <!-- Indicadores (Bullets) -->
-    <div class="glide__bullets">
-      <button (click)="goToIndexSlide(i)" *ngFor="let s of slider.itens; let i = index;"
+    <div *ngIf="showBullets" class="glide__bullets">
+      <button (click)="goToIndexSlide(i)" *ngFor="let i of idxBullets;"
               [ngClass]="{'glide__bullet--active': i == currIndex}"
               class="glide__bullet"></button>
     </div>

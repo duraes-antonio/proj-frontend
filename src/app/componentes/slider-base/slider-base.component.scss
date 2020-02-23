@@ -1,7 +1,12 @@
 @import '../../../shared/styles/mixins';
 @import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
 
-$_slide-height: 325px;
+:root {
+  --slide-max-height: 100%;
+}
+
+$_slide-height: var(--slide-max-height);
 
 .glide {
   &__track {
@@ -17,12 +22,6 @@ $_slide-height: 325px;
   &__slide {
     @extend %center-flex;
     cursor: pointer;
-
-    img {
-      max-width: 100%;
-      max-height: $_slide-height;
-      filter: drop-shadow(1px 2px 12px rgba(black, .5));
-    }
   }
 
   &__arrows {
@@ -58,33 +57,22 @@ $_slide-height: 325px;
     right: 0;
     bottom: 2px;
     @extend %center-flex;
+    flex-wrap: wrap;
 
     .glide__bullet {
-      @include circle(12px, rgba(white, .5));
+      @include circle(12px, rgba(darkgrey, .75));
       padding: 0;
-      margin: 0 .6em;
+      margin: 0 .6em 10px;
       cursor: pointer;
-      transition: all .3s ease-in-out;
-      box-shadow: 0 .1em .5em 0 rgba(black, .9);
+      transition: all .125s ease-in-out;
+      box-shadow: 0 .1em .5em 0 rgba(black, .25);
       border: 2px solid transparent;
+      outline: none;
 
       &--active {
         background-color: white;
+        //background-color: $link-color;
       }
     }
   }
-}
-
-.bg-blur {
-  @extend %center-flex;
-  @include size(100%);
-  position: absolute;
-  background-size: cover;
-  background-position: center;
-  max-height: $_slide-height;
-  max-width: calc(100% / var(--slides-lenght) - 50px);
-
-  z-index: -1;
-  filter: blur(8px);
-  opacity: .7;
 }
