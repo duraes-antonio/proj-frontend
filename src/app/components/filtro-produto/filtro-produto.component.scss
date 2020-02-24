@@ -1,0 +1,68 @@
+@import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
+
+$_padding-top-bottom: 15px;
+
+.filter {
+  height: calc(100% - 2px);
+  border: 1px solid #ddd;
+  overflow: hidden;
+  background: white;
+
+  &__title {
+    padding: $_padding-top-bottom 0 $_padding-top-bottom;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: medium;
+    font-weight: 500;
+    @extend %color-text-prim--light;
+  }
+
+  &__content {
+    margin: 0;
+    padding: 0 10px;
+    line-height: 2;
+
+    li {
+      display: block;
+    }
+
+    li:not(:last-child):after {
+      @extend %divider;
+    }
+  }
+
+  &__section-header {
+    @extend %color-text-prim--light;
+    padding-top: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  &__section-body {
+    padding: 0.25em 0.75em 1.25em;
+    display: grid;
+    @extend %color-text-sec--dark;
+  }
+
+  &__section-price {
+    @extend .filter__section-body;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+  }
+}
+
+.stars {
+  @extend %center-vert-flex;
+
+  .star {
+    padding-right: 3px;
+
+    &--active {
+      color: $link-color;
+    }
+  }
+}
+

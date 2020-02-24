@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Compra, ECompraEstado} from '../../models/Compra';
-import {formatoTimestamp} from '../../../shared/padroes';
-import {DadosTeste} from '../../../shared/DadosTeste';
+import {fmtTimestamp} from '../../../shared/constants/formats';
+import {DataTests} from '../../../shared/dataTests';
 
 @Component({
   selector: 'app-tela-historico-compra',
@@ -11,7 +11,7 @@ import {DadosTeste} from '../../../shared/DadosTeste';
 export class TelaHistoricoCompraComponent implements OnInit {
 
   public readonly compras: Array<Compra>;
-  public readonly fmtTimestamp: string = formatoTimestamp;
+  public readonly fmtTimestamp: string = fmtTimestamp;
   public readonly enumStatusCompra = ECompraEstado;
 
   constructor() {
@@ -38,7 +38,7 @@ export class TelaHistoricoCompraComponent implements OnInit {
     );
 
     for (let i = 0; i < 3; ++i) {
-      this.compras[0].produtos.push(DadosTeste.produtos[i]);
+      this.compras[0].produtos.push(DataTests.produtos[i]);
     }
   }
 

@@ -1,0 +1,28 @@
+@import '../../../../shared/styles/placeholders';
+
+.payment-card, .payment-paypal, .payment-boleto {
+  @extend %color-text-prim--light;
+
+  &-title {
+    @extend %color-text-prim;
+    font-size: medium;
+    font-weight: 500;
+  }
+
+  &-desc {
+    margin-top: 10px;
+    @extend %center-vert-flex;
+  }
+}
+
+.payment-card-icons {
+  @extend %center-horiz-flex;
+}
+
+.fa-paypal, .fa-barcode, .fab {
+  font-size: 28px;
+}
+
+.fa-paypal, .fa-barcode, .fab:not(:last-child) {
+  padding-right: 12px;
+}

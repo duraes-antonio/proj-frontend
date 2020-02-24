@@ -1,0 +1,56 @@
+@import '~@angular/material/theming';
+@import 'shared/styles/variables';
+
+@include mat-core();
+
+$theme-primary: mat-palette($mat-blue);
+$theme-accent: mat-palette($mat-blue);
+$theme-warn: mat-palette($mat-red);
+
+$blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+
+@include angular-material-theme($blue-theme);
+
+.cdk-global-scrollblock {
+  overflow-y: auto;
+}
+
+.cdk-global-overlay-wrapper > .cdk-overlay-pane:first-child {
+  margin: auto 20px;
+  transition: all .5s;
+  max-width: calc(100% - 40px) !important;
+  width: 650px;
+
+  @media (max-width: $width-max-small) {
+    margin: 0;
+    min-width: auto !important;
+    max-width: 100vh !important;
+    width: 100%;
+    height: 100% !important;
+
+    .mat-dialog-container {
+      border-radius: 0;
+    }
+  }
+}
+
+.cdk-overlay-pane {
+  width: min-content;
+  min-width: min-content !important;
+}
+
+.mat-radio-label-content {
+  width: 100%;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.mat-badge-content {
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.mat-list-item-content {
+  width: 100%;
+  padding: 5px 24px !important;
+}

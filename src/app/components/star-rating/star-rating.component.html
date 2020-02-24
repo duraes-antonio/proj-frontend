@@ -1,0 +1,9 @@
+<div class="stars-section">
+  <div #stars class="stars" id="stars">
+    <i *ngFor="let dif of diffAvgIdxs"
+       [ngClass]="dif >= 1 ? 'star--active' : (dif > 0 && 'star--incomp')"
+       aria-hidden="true" class="fa fa-star star">
+    </i>
+  </div>
+  <span *ngIf="numRatings > 0 && showNumRatings" class="rating-counter">({{numRatings}})</span>
+</div>

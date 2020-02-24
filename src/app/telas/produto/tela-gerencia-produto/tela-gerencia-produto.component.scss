@@ -1,16 +1,16 @@
 @import '../../../../shared/styles/general';
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/placeholders';
 
 .page__header {
   color: $color-prim;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
+  @extend %center-flex;
 
   .title-page-section {
     display: grid;
     text-align: center;
     margin-right: 20px;
+    line-height: 1.2;
   }
 
   .title-page {
@@ -27,4 +27,36 @@
       font-size: 48px;
     }
   }
+}
+
+.btn-focus--grey {
+  &:focus {
+    background-color: rgba(lightgrey, .12);
+  }
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 0 0;
+
+  mat-form-field {
+    margin-right: 15px;
+    @extend %color-text-prim;
+  }
+}
+
+.action-btn {
+
+  &__item:not(:last-child) {
+    margin-right: 12px;
+  }
+}
+
+.mat-column-select {
+  overflow: initial;
+}
+
+table {
+  width: 100%;
 }

@@ -1,0 +1,82 @@
+@import '../../../shared/styles/grid_materialize';
+@import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
+
+$_banner-height: 200px;
+
+.footer {
+  width: 100%;
+  height: auto;
+  min-height: $_banner-height;
+  background-image: radial-gradient(#2d2d2d, black);
+  padding: 40px 0;
+  text-align: center;
+  color: white;
+
+  .social-media-section {
+    display: grid;
+
+    %_icon-social {
+      cursor: pointer;
+      padding: 0 12px;
+      font-size: x-large;
+      transition: all 300ms ease-in-out;
+
+      @media (min-width: 468px) {
+        &:hover {
+          color: white;
+          filter: drop-shadow(0 0 4px rgba(0, 199, 242, 0.75));
+        }
+      }
+    }
+
+    .icon {
+      @extend %_icon-social;
+
+      &-facebook {
+        color: #4267b2;
+      }
+
+      &-twitter {
+        color: #1da1f2;
+      }
+
+      &-insta {
+        color: #f20e89;
+      }
+
+      &-github {
+        color: gray;
+      }
+    }
+  }
+
+  .cols-links {
+    @extend %center-horiz-flex;
+    flex-flow: wrap;
+
+    .col-links {
+      @extend %flex-col;
+      margin: 20px !important;
+      line-height: 1.75;
+
+      &__title {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .links {
+        &__item {
+          font-size: small;
+          text-decoration: none;
+          color: $link-color;
+
+          &:hover {
+            transition: color .3s;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

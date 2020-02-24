@@ -1,0 +1,22 @@
+<app-slider-base [optionsGlide]="optionsGlide" [showBullets]="false"
+                 [sliderLength]="list.itens.length">
+  <li *ngFor="let item of list.itens" style="display: flex">
+    <a [routerLink]="['/' + routes.productsView, item.id]" class="product glide__slide">
+
+      <!-- Etiqueta de desconto -->
+      <span *ngIf="item.emPromocao" class="product__label-promo">
+        {{item.porcentDesc | number: '1.0-2'}}%
+        <i aria-hidden="true" class="fas fa-arrow-down"></i>
+      </span>
+
+      <!-- Titulo do produto -->
+      <span class="product__title">{{item.titulo}}</span>
+
+      <img [alt]="item.titulo" [src]="item.urlImagem" class="product__cover-img">
+
+      <!-- Área para preços de produtos em promoção -->
+      <span *ngIf="item.porcentDesc > 0" class="product__price-orig">{{item.preco | currency: 'BRL'}}</span>
+      <span class="product__price">{{item.precoComDesc | currency: 'BRL'}}</span>
+    </a>
+  </li>
+</app-slider-base>

@@ -1,0 +1,43 @@
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+
+.product__image {
+  @extend %flex-col;
+  @extend %center-flex;
+  text-align: center;
+
+  &-img {
+    @include max-size(150px);
+  }
+
+  .fa-image {
+    width: 150px;
+    font-size: 125px;
+    color: lightgray;
+  }
+
+  .btn-general {
+    font-size: 12px;
+
+    i {
+      font-size: 16px;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+mat-form-field {
+  margin-top: 10px;
+
+  &.s6:nth-child(2n+1) {
+    padding-left: 10px !important;
+  }
+
+  &.s6:nth-child(2n) {
+    padding-right: 10px !important;
+  }
+}

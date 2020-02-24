@@ -1,69 +1,68 @@
-.area-item {
-  text-align: center;
-  margin-bottom: 15px;
-  margin-left: 0 !important;
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/placeholders';
+
+.products {
+  display: block;
+  padding: 20px 10px 0;
 }
 
-.area-produto {
+.product {
   display: grid;
   position: relative;
-  height: 100%;
   overflow: hidden;
-  max-height: 350px;
+  height: 350px;
+  padding: 15px 0;
+  margin: 0 15px 15px 0;
 
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.15);
-  padding: 15px 0;
 
-  img {
+  text-align: center;
+  text-decoration: none;
+  @extend %color-text-prim--light;
+
+  &__cover-img {
     justify-self: center;
+    align-self: center;
     max-height: 150px;
-    max-width: 100%;
-    margin-top: 10px;
-    padding: 0 10px;
+    max-width: calc(100% - 40px);
   }
-}
 
-.etiqueta-promo {
-  position: absolute;
-  justify-self: flex-end;
-  min-width: 120px;
-  padding: 2px 10px;
-  transform: rotate(45deg);
-  right: -35px;
-  top: 15px;
+  &__title {
+    padding: 20px 30px 0;
+    display: -webkit-box;
+    height: fit-content;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-  background-color: limegreen;
-  color: white;
-  font-size: small;
-  font-weight: bold;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
-}
+  &__label-promo {
+    position: absolute;
+    justify-self: flex-end;
+    min-width: 120px;
+    padding: 2px 10px;
+    transform: rotate(45deg);
+    right: -35px;
+    top: 15px;
 
-.area-produto-info {
-  padding: 15px 15px 0;
-  display: grid;
-  font-size: 14px;
-}
+    background-color: limegreen;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+  }
 
-.produto-titulo {
-  padding: 15px 30px 0;
-  display: -webkit-box;
-  height: fit-content;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+  &__price {
+    font-size: 22px;
+  }
 
-.preco {
-  font-size: 22px;
-}
-
-.preco-original {
-  text-decoration: line-through;
-  font-style: italic;
-  color: red;
+  &__price-orig {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: red;
+  }
 }
 
 .filtro-menu-vertical {

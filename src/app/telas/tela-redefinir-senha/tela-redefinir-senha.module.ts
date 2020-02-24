@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TelaRedefinirSenhaRoutingModule} from './tela-redefinir-senha.routing.module';
 import {TelaRedefinirSenhaComponent} from './tela-redefinir-senha.component';
 import {FormsModule} from '@angular/forms';
-import {ComponentesModule} from '../../componentes/componentes.module';
+import {ComponentesModule} from '../../components/componentes.module';
 
 @NgModule({
   declarations: [

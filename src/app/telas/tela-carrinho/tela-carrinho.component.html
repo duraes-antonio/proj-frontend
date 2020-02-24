@@ -1,5 +1,5 @@
 <div class="cart-container">
-  <div class="product-list">
+  <div class="product-list row">
     <div *ngFor="let prod of productsChosen" class="product-list__item col s12 m12 l12 xl12">
       <div class="col s12 m3 l2 xl2 product__img-block">
         <img [alt]="prod.titulo" [src]="prod.urlImagem" class="product__img">
@@ -22,7 +22,7 @@
             </span>
             <span *ngIf="prod.porcentDesc > 0" class="product__attr">
               <i aria-hidden="true" class="fas fa-dollar-sign product__attr-icon"></i>
-              {{prod.porcentDesc}}% off
+              {{prod.porcentDesc | number: '1.0-2'}}% off
             </span>
           </div>
         </div>
@@ -82,11 +82,8 @@
         <span class="cart-cost__price-value">{{totalShipment + totalCost | currency: 'BRL'}}</span>
       </div>
     </div>
-    <button class="btn-contained big">Finalizar compra</button>
+    <button class="btn-general" color="primary" mat-raised-button style="margin-top: 15px">
+      Finalizar compra
+    </button>
   </div>
 </div>
-<app-modal-frete (action)="updateChosenDelivery()"
-                 (chosenAddress)="tempAddress = $event"
-                 (closed)="showModalAddress = false" *ngIf="showModalAddress"
-                 [addresses]="userAddresses" [showInputCEP]="false">
-</app-modal-frete>

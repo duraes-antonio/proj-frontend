@@ -1,5 +1,7 @@
+@import '../../../shared/styles/grid_materialize';
 @import '../../../shared/styles/mixins';
 @import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
 
 .product-list {
   display: grid;
@@ -7,7 +9,7 @@
   .product-list__item {
     @extend %center-vert-flex;
     flex-flow: wrap;
-    padding: 10px 0 10px;
+    padding: 15px 0 15px;
     border-bottom: 1px solid rgba(lightgrey, .5);
 
     &-title-desc {
@@ -59,6 +61,7 @@
 
       &-amount {
         font-size: small;
+        margin-top: 5px;
 
         .fa-times {
           font-size: 10px;
@@ -81,6 +84,7 @@
 .cart-actions {
   margin-top: 5px;
   display: flex;
+  color: $link-color;
 
   %_cart__action {
     .action-icon {
@@ -111,12 +115,16 @@
 
   &__price-title {
     width: 140px;
-    font-weight: 400;
+    font-weight: 500;
     display: inline-block;
   }
 
   &__price-value {
     font-weight: 300;
+  }
+
+  .fa-cog {
+    color: $link-color;
   }
 }
 
@@ -124,14 +132,22 @@
   margin: 30px;
 
   .cart-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+    @extend %center-flex-space-betw;
+    flex-flow: wrap;
     margin: 30px 30px 0;
 
     .btn-contained {
       width: auto;
+    }
+  }
+}
+
+@media (max-width: $width-max-medium) {
+  .cart-container {
+    margin: 30px 15px;
+
+    .cart-footer {
+      margin: 20px 0 20px;
     }
   }
 }

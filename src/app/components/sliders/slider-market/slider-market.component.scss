@@ -1,0 +1,55 @@
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+
+.glide__slide {
+  display: block;
+  height: fit-content;
+  text-align: center;
+
+  .market {
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    border: 1px solid #d7d7d7;
+    position: relative;
+
+    &__back {
+      height: 125px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      border-radius: 7px 7px 0 0;
+      opacity: 0.9;
+    }
+
+    &__info {
+      @extend %center-flex;
+      @extend %text--link;
+      padding-top: 20px;
+      min-height: 55px;
+      border-top: 1px solid #e3e3e3;
+      word-break: break-word;
+    }
+
+    &__logo {
+      @extend %center-absolute;
+      @extend %center-flex;
+      @include max-size(85px);
+      @include size(85px);
+
+      z-index: 1;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+
+      &-img {
+        max-width: 85%;
+        max-height: 75%;
+      }
+    }
+  }
+
+  @media (max-width: 360px) {
+    padding: 0 10px;
+  }
+}

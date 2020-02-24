@@ -1,0 +1,32 @@
+<div class="footer" id="rodape">
+
+  <!-- MÍDIAS SOCIAIS -->
+  <div class="social-media-section">
+    <span style="margin-bottom: 5px">Nos acompanhe nas mídias sociais:</span>
+    <!-- TODO: Obter links das redes sociais definidas pelo usuário -->
+    <div>
+      <i aria-hidden="true" class="fab fa-facebook-square icon icon-facebook"></i>
+      <i aria-hidden="true" class="fab fa-twitter-square icon icon-twitter"></i>
+      <i aria-hidden="true" class="fab fa-instagram icon icon-insta"></i>
+      <i aria-hidden="true" class="fab fa-github-square icon icon-github"></i>
+    </div>
+  </div>
+
+  <!-- Área contendo as colunas e seus links -->
+  <div class="row cols-links">
+
+    <!-- Para cada coluna contendo um cojunto de links -->
+    <div *ngFor="let listL of _links" class="col s12 m3 l2 xl2 col-links">
+      <span class="col-links__title">{{listL.titulo}}:</span>
+      <div class="links">
+        <a *ngFor="let link of listL.links" [href]="link.url"
+           class="links__item">{{link.texto}}<br>
+        </a>
+      </div>
+    </div>
+    <br>
+  </div>
+
+  <!-- Direitos autorais -->
+  <span>Todos direitos reservados. {{anoCorrente}} Yugi-Market ©</span>
+</div>

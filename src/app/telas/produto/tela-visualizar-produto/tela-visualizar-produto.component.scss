@@ -1,12 +1,14 @@
 @import '../../../../shared/styles/buttons';
+@import '../../../../shared/styles/grid_materialize';
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
 @import '../../../../shared/styles/variables';
 
 $color-green: #00a650;
 
-.container-principal {
+.main-container {
   padding: 20px;
+  display: grid;
 
   & > .col {
     padding: 0 15px;
@@ -14,7 +16,8 @@ $color-green: #00a650;
 }
 
 .divider {
-  margin: 30px 0;
+  @extend %divider;
+  margin: 20px 0;
 }
 
 .area-media-cont-opinioes {
@@ -25,6 +28,7 @@ $color-green: #00a650;
 
 .img-section {
   padding: 10px;
+  text-align: center;
 
   .main-img {
     @include max-size(300px);
@@ -38,28 +42,24 @@ $color-green: #00a650;
 }
 
 .product-info {
-  &-title {
+  padding: 10px;
+
+  &__title {
     @extend %color-text-prim;
     font-weight: 500;
+    font-size: x-large;
+    line-height: 1.25;
   }
 
-  &-desc {
+  &__desc {
     color: $color-sec--dark;
     white-space: pre-wrap;
     text-align: justify;
   }
 }
 
-.discount-flag {
-  margin-left: 5px;
-  background: limegreen;
-  font-size: small;
-  color: white;
-  padding: 0 4px;
-  border-radius: 3px
-}
-
 .shopping-section {
+  padding: 10px;
   max-width: 100%;
 
   &-price {
@@ -69,18 +69,44 @@ $color-green: #00a650;
 
   .discount {
     @extend %center-vert-flex;
+    margin-bottom: 10px;
 
-    &-text {
+    &__text {
       @extend %color-text-prim;
       text-decoration: line-through;
     }
+
+    &__flag {
+      margin-left: 5px;
+      background: limegreen;
+      font-size: small;
+      color: white;
+      padding: 0 4px;
+      border-radius: 3px
+    }
+  }
+
+  .btn-general--full {
+    margin-top: 15px;
+  }
+
+  .btn--pink {
+    color: deeppink;
+    border-color: deeppink;
   }
 }
 
 .shipping-section {
   @extend %center-vert-flex;
 
+  .fa-truck {
+    padding-right: 20px;
+    font-size: 22px;
+    @extend %color-text-prim;
+  }
+
   &-text {
+    line-height: 1.5;
     display: grid;
 
     span, strong {
@@ -88,10 +114,13 @@ $color-green: #00a650;
     }
   }
 
-  .fa-truck {
-    padding-right: 20px;
-    font-size: 22px;
+  &__more-info {
+    @extend %text--link;
+  }
+
+  &__title {
     @extend %color-text-prim;
+    font-weight: 500;
   }
 }
 
@@ -99,29 +128,34 @@ $color-green: #00a650;
   @extend %center-vert-flex;
   padding: 15px 0;
 
-  &-text {
-    display: grid;
-
-    span, strong {
-      @extend %color-text-prim;
-    }
-  }
-
   .icon-money {
     padding-right: 20px;
     font-size: 22px;
     @extend %color-text-prim;
   }
 
-  .payments-options {
-    @extend %center-vert-flex;
-    justify-content: space-between;
-    font-size: 22px;
-    padding: 8px 0 5px;
+  &-text {
+    display: grid;
 
-    &-pagseguro {
-      max-height: 18px;
+    .payments-options {
+      @extend %center-vert-flex;
+      justify-content: space-between;
+      font-size: 22px;
+      padding: 8px 0 5px;
+
+      &-pagseguro {
+        max-height: 18px;
+      }
     }
+  }
+
+  &__more-info {
+    @extend %text--link;
+  }
+
+  &__title {
+    @extend %color-text-prim;
+    font-weight: 500;
   }
 }
 
@@ -133,6 +167,15 @@ $color-green: #00a650;
   border-radius: 4px;
   margin: 15px 0;
   color: $color-green;
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__more-info {
+    color: $link-color;
+    cursor: pointer;
+  }
 
   i {
     @extend %center-flex;
@@ -155,7 +198,7 @@ $color-green: #00a650;
   margin: 15px 0;
   color: $color-prim--light;
 
-  i {
+  .smile-cry-icon {
     @extend %center-flex;
     color: $color-prim--light;
     height: 28px;
@@ -165,8 +208,4 @@ $color-green: #00a650;
     border-radius: 50%;
     font-size: 30px;
   }
-}
-
-.btn-fav {
-  @include btn-outlined(deeppink);
 }

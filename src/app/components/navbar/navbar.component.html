@@ -1,0 +1,70 @@
+<div id="navbar-section">
+  <nav class="navbar row">
+    <div class="navbar-header">
+      <!-- Logo e menu hamburger -->
+      <div class="col s6 m3 l3 xl3 navbar__col--left">
+        <a (click)="sidenavShow.emit()" class="icon-action--white">
+          <i aria-hidden="true" class="fas fa-bars" style="margin-right: 20px"></i>
+        </a>
+        <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
+      </div>
+
+      <!-- Barra de busca -->
+      <app-barra-busca class="col s1 m6 l6 xl6 mobile--hide"></app-barra-busca>
+
+      <!-- Notificações e carrinho -->
+      <div class="col s6 m3 l3 xl3 navbar__col--right">
+
+        <!-- Área de notificações -->
+        <div>
+          <!-- Contador de notificações -->
+          <a (click)="toggleListNotif()" class="icon-action--white">
+            <i [matBadgeHidden]="!numActiveNotif" aria-hidden="true" class="fas fa-bell"
+               matBadge="{{numActiveNotif < 100 ? numActiveNotif : '+99'}}"
+               matBadgeColor="warn" style="margin-right: 20px">
+            </i>
+          </a>
+
+          <!-- Área de listagem de notificações -->
+          <div *ngIf="showNotifics" class="col s12 m6 l4 xl4 notific-section">
+            <div class="notifics-header">
+              <span>Notificações</span>
+              <a (click)="markAllNotifAsRead()" class="notifics-header__icon" title="Marcar todas como lidas">
+                <i aria-hidden="true" class="far fa-check-square"></i>
+              </a>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div *ngFor="let notif of notifics" class="notific {{notif.lida ? 'notific--inactive' : ''}}">
+              <a (click)="markNotifAsRead(notif)" class="notific__link">
+
+                <!-- Área individual da notifição -->
+                <i aria-hidden="true" class="{{notif.classeIcone}} icone-circulo"></i>
+
+                <!-- Área que contém as informações da notifição -->
+                <div class="notific__info">
+                  <span class="notific__desc">{{notif.texto}}<br></span>
+                  <span class="notific__date">
+                    {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}
+                  </span>
+                </div>
+              </a>
+
+              <mat-checkbox (change)="toggleNotif(notif)" [checked]="notif.lida"
+                            class="notific__checkbox"></mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <!-- Área do carrinho de compras -->
+        <a class="icon-action--white" routerLink="/carrinho">
+          <i aria-hidden="true" class="fas fa-shopping-cart"
+             matBadge="{{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}"
+             matBadgeColor="warn"></i>
+        </a>
+      </div>
+    </div>
+    <app-barra-busca class="col s12 m12 l6 xl6 mobile--show" style="margin-top: 5px"></app-barra-busca>
+  </nav>
+</div>

@@ -1,0 +1,66 @@
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/placeholders';
+
+.products {
+  @extend %center-flex;
+  padding: 20px 10px 0;
+}
+
+.product {
+  display: grid;
+  position: relative;
+  overflow: hidden;
+  height: 350px;
+  padding: 15px 0;
+  width: 100%;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+  text-decoration: none;
+  @extend %color-text-prim--light;
+
+  &__cover-img {
+    justify-self: center;
+    align-self: center;
+    max-height: 150px;
+    max-width: calc(100% - 40px);
+  }
+
+  &__title {
+    padding: 20px 30px 0;
+    display: -webkit-box;
+    height: fit-content;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__label-promo {
+    position: absolute;
+    justify-self: flex-end;
+    min-width: 120px;
+    padding: 2px 10px;
+    transform: rotate(45deg);
+    right: -35px;
+    top: 15px;
+
+    background-color: limegreen;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  &__price {
+    font-size: 22px;
+  }
+
+  &__price-orig {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: red;
+  }
+}

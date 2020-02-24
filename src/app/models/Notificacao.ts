@@ -13,6 +13,10 @@ export class Notificacao {
 
   private _dataLeitura?: Date;
 
+  set lida(valor: boolean) {
+    this._lida = valor;
+  }
+
   get lida(): boolean {
     return this._lida;
   }
@@ -24,7 +28,7 @@ export class Notificacao {
   // TODO: Alterar para utilizar 'tipo' como ENUM
   // TODO: Alterar o ID para vir do banco
   constructor(
-    texto: string, dataCriacao: Date, link: string, tipo: number
+    texto: string, dataCriacao: Date, link: string, tipo: ETipoNotificacao
   ) {
     this.id = Math.floor(Math.random() * 1000);
     this.texto = texto;
@@ -36,19 +40,19 @@ export class Notificacao {
 
     if (tipo === ETipoNotificacao.ATUALIZACAO_SENHA) {
       this.classeIcone = 'fas fa-key';
-    } else if (tipo === ETipoNotificacao.COMPRA_EM_ENTREGA.valueOf()) {
+    } else if (tipo === ETipoNotificacao.COMPRA_EM_ENTREGA) {
       this.classeIcone = 'fas fa-shipping-fast';
-    } else if (tipo === ETipoNotificacao.COMPRA_ENTREGUE.valueOf()) {
+    } else if (tipo === ETipoNotificacao.COMPRA_ENTREGUE) {
       this.classeIcone = 'fas fa-gift';
-    } else if (tipo === ETipoNotificacao.COMPRA_SEPARADA.valueOf()) {
+    } else if (tipo === ETipoNotificacao.COMPRA_SEPARADA) {
       this.classeIcone = 'fas fa-dolly';
-    } else if (tipo === ETipoNotificacao.DUVIDA_RESPONDIDA.valueOf()) {
+    } else if (tipo === ETipoNotificacao.DUVIDA_RESPONDIDA) {
       this.classeIcone = 'fas fa-comments';
-    } else if (tipo === ETipoNotificacao.PAGAMENTO_CONFIRMADO.valueOf()) {
+    } else if (tipo === ETipoNotificacao.PAGAMENTO_CONFIRMADO) {
       this.classeIcone = 'fas fa-hand-holding-usd';
-    } else if (tipo === ETipoNotificacao.PAGAMENTO_DEVOLVIDO.valueOf()) {
+    } else if (tipo === ETipoNotificacao.PAGAMENTO_DEVOLVIDO) {
       this.classeIcone = 'fas fa-piggy-bank';
-    } else if (tipo === ETipoNotificacao.PAGAMENTO_PENDENTE.valueOf()) {
+    } else if (tipo === ETipoNotificacao.PAGAMENTO_PENDENTE) {
       this.classeIcone = 'fas fa-search-dollar';
     }
   }
@@ -69,8 +73,10 @@ export class Notificacao {
    * Marca a notificação como lida e define sua data de leitura
    */
   public marcarComoLida() {
-    this._lida = true;
-    this._dataLeitura = new Date();
+    if (!this.lida) {
+      this._lida = true;
+      this._dataLeitura = new Date();
+    }
   }
 
   /**

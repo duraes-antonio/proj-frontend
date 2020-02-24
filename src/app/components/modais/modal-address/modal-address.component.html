@@ -1,0 +1,33 @@
+<app-modal-mat (action)="action.emit(data.showInputCEP ? controlCep.value : addressChosenId)"
+               (closed)="closed.emit()"
+               [actionDisabled]="controlCep.invalid && addressChosenId < 1"
+               [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
+               [modalDesc]="desc" [modalTitle]="title">
+  <div style="display: grid">
+    <div *ngIf="data.showInputCEP" style="display: grid; margin-bottom: 5px">
+      <span class="title-input-cep">Informar um CEP</span>
+      <mat-form-field appearance="outline">
+        <mat-label>CEP</mat-label>
+        <input (focusin)="clearRadioAdress('addresses__item--active')"
+               (input)="formatCEP($event)" [formControl]="controlCep" matInput type="text">
+        <mat-hint align="start">{{textHintCEP}}</mat-hint>
+        <mat-error *ngIf="controlCep.invalid">{{getMsg('CEP', controlCep)}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Caso o usuário esteja logado e com algum enedereço registrado -->
+    <span class="title-adress-list">
+      Seus endereços
+    </span>
+    <mat-radio-group [(ngModel)]="addressChosenId" class="addresses">
+      <mat-radio-button (change)="selectAddress(addr.id, 'addresses__item--active')"
+                        *ngFor="let addr of data.addresses"
+                        [value]="addr.id" class="addresses__item">
+        <span class="addresses__item-content" id="{{addr.id}}">
+          <span style="font-weight: 500">{{addr.numero}} - {{addr.logradouro}} - {{addr.bairro}}</span>
+          CEP: {{addr.cep}} - {{addr.cidade}} - {{addr.estado}}
+        </span>
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+</app-modal-mat>

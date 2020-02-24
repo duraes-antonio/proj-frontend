@@ -1,41 +1,40 @@
-<div class="container-principal">
+<div class="main-container">
 
   <!-- Colunas com preço, disponibilidade, frete, ... -->
   <div class="row">
 
     <!-- Imagens -->
-    <div class="col s12 m12 l4 xl4 img-section" style="text-align: center">
-      <img [src]="produto.urlImagem" alt="Imagem do produto {{produto.titulo}}"
-           class="main-img">
+    <div class="col s12 m12 l4 xl4 img-section">
+      <img [src]="produto.urlImagem" alt="Imagem do produto {{produto.titulo}}" class="main-img">
     </div>
 
     <!-- Titulo, Cont. Avalições, Descrição e Calc. de Frete -->
     <div class="col s12 m6 l4 xl4 product-info">
 
       <!-- Título -->
-      <h5 class="product-info-title">{{produto.titulo}}</h5>
+      <h5 class="product-info__title">{{produto.titulo}}</h5>
 
       <!-- Média das avaliações -->
       <!-- TODO: Trazer info do banco de dados   -->
       <a fragment="rating" routerLink=".">
-        <app-avaliador-estrelas [fontSize]="18" [mediaAvaliacao]="media" [qtdAvaliacoes]="avaliacoes.length"
-                                [qtdEstrelas]="5"
-                                title="A média das avaliações do produto é {{media}}">
-        </app-avaliador-estrelas>
+        <app-star-rating [fontSize]="18" [maxStars]="5"
+                         [numRatings]="avaliacoes.length" [valueRating]="media"
+                         title="A média das avaliações do produto é {{media}}">
+        </app-star-rating>
       </a>
 
       <!-- Descrição -->
-      <p class="product-info-desc">{{produto.descricao}}</p>
+      <p class="product-info__desc">{{produto.descricao}}</p>
 
-      <div class="divider" style="margin: 20px 0;"></div>
+      <div class="divider"></div>
 
       <!-- Devolução -->
       <div class="devolution-section" id="id-area-devolucao">
         <i aria-hidden="true" class="fa fa-history"></i>
         <div>
-          <strong style="font-weight: 600;">Direito à devolução</strong><br>
+          <strong class="devolution-section__title">Direito à devolução</strong><br>
           <span>Após receber o produto, você tem 7 dias úteis para solicitar sua devolução.</span><br>
-          <a>Mais informações</a>
+          <a class="devolution-section__more-info">Mais informações</a>
         </div>
       </div>
     </div>
@@ -45,14 +44,14 @@
 
       <!-- Bandeira de desconto e preço sem desconto -->
       <div *ngIf="produto.porcentDesc > 0" class="discount">
-        <span class="discount-text">R$ {{produto.preco | number: '1.2-2'}}</span>
-        <span class="discount-flag">
+        <span class="discount__text">{{produto.preco | currency: 'BRL'}}</span>
+        <span class="discount__flag">
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
           {{produto.porcentDesc | number: '1.0-2'}}%
         </span>
       </div>
 
-      <span class="shopping-section-price">R$ {{produto.precoComDesc | number: '1.2-2'}}</span>
+      <span class="shopping-section-price">{{produto.precoComDesc | currency: 'BRL'}}</span>
 
       <!-- Produto DISPONÍVEL -->
       <div *ngIf="produto.qtdDisponivel > 0; else prodIndisponivel">
@@ -61,14 +60,16 @@
         <div class="payments-section">
           <i aria-hidden="true" class="fa fa-money-bill-wave icon-money"></i>
           <div class="payments-section-text">
-            <strong>Meios de pagamento</strong>
+            <span class="payments-section__title">Meios de pagamento</span>
             <div class="payments-options">
               <img alt="" class="payments-options-pagseguro"
                    src="https://assets.pagseguro.com.br/ps-bootstrap/ccf/img/logos/pagbank/pagbank-logo-animado_35px@3x.gif">
               <i aria-hidden="true" class="fab fa-cc-paypal" style="color: #2b419f"></i>
               <i aria-hidden="true" class="fa fa-barcode" style="color: black"></i>
             </div>
-            <a (click)="_showModalPayments = true">Ver mais informações</a>
+            <a (click)="showModalPayments()" class="payments-section__more-info">
+              Ver mais informações
+            </a>
           </div>
         </div>
 
@@ -77,39 +78,34 @@
           <i aria-hidden="true" class="fa fa-truck"></i>
 
           <div *ngIf="!deliveryChosen; else currDelivery" class="shipping-section-text">
-            <strong>Entrega em todo país!</strong>
+            <span class="shipping-section__title">Entrega em todo país!</span>
             <span>Clique abaixo para calcular prazo e custo.</span>
-            <a (click)="_showModalAddress = true">Calcular frete</a>
+            <a (click)="showModalAdress()" class="shipping-section__more-info">Calcular frete</a>
           </div>
 
           <ng-template #currDelivery>
             <div class="shipping-section-text">
-            <span>Custo de
-              <strong>{{deliveryChosen.cost | currency: 'BRL'}}</strong>
-            </span>
+              <span>Custo de
+                <span style="font-weight: 500">{{deliveryChosen.cost | currency: 'BRL'}}</span>
+              </span>
               <span>Data prevista para entrega é:
-              <strong>1 e 7 de fevereiro</strong>
-            </span>
-              <a (click)="_showModalAddress = true">Ver opções de frete</a>
+                <span style="font-weight: 500">1 e 7 de fevereiro</span>
+              </span>
+              <a (click)="showModalAdress()" class="shipping-section__more-info">Ver opções de frete</a>
             </div>
           </ng-template>
         </div>
 
         <!-- Botões de Comprar e Add. ao Carrinho -->
-        <button class="btn-contained" style="width: 100%; margin-top: 10px;">
+        <button class="btn-general btn-general--full" color="primary" mat-raised-button>
           <i aria-hidden="true" class="fa fa-gift"></i>
           Comprar
         </button>
-        <button (click)="addToCart(produto.id)" *ngIf="!prodInCart" class="btn-outlined"
-                style="width: 100%; margin-top: 15px;">
-          <i aria-hidden="true" class="fa fa-cart-plus"></i>
-          Adicionar ao Carrinho
-        </button>
 
-        <button (click)="remFromCart(produto.id)" *ngIf="prodInCart" class="btn-outlined"
-                style="width: 100%; margin-top: 15px;">
-          <i aria-hidden="true" class="fa fa-cart-plus"></i>
-          Remover do Carrinho
+        <button (click)="prodInCart ? remFromCart(produto.id) : addToCart(produto.id)"
+                class="btn-general btn-general--full" color="primary" mat-stroked-button>
+          <i [ngClass]="prodInCart ? 'fa-shopping-cart' : 'fa-cart-plus'" aria-hidden="true" class="fas "></i>
+          {{prodInCart ? 'Remover do' : 'Adicionar ao'}} Carrinho
         </button>
       </div>
 
@@ -118,23 +114,23 @@
 
         <!-- Aviso -->
         <div class="unavailable-section" id="id-aviso-indisp">
-          <i aria-hidden="true" class="far fa-sad-cry"></i>
+          <i aria-hidden="true" class="far fa-sad-cry smile-cry-icon"></i>
           <div>
-            <strong style="font-weight: 600;">Produto indisponível!</strong><br>
+            <span style="font-weight: 500;">Produto indisponível!</span><br>
             <span>
-            No momento, não temos esse produto em estoque, para
-            acompanhar quando estiver disponível, inscreva-se para ser notificado
-            ou adicione-o em seus favoritos.
-          </span><br>
+              No momento, não temos esse produto em estoque, para
+              acompanhar quando estiver disponível, inscreva-se para ser notificado
+              ou adicione-o em seus favoritos.
+            </span><br>
           </div>
         </div>
 
-        <button class="btn-contained" style="width: 100%; margin-top: 10px;">
+        <button class="btn-general btn-general--full" color="primary" mat-raised-button>
           <i aria-hidden="true" class="far fa-envelope"></i>
           Avise quando chegar
         </button>
 
-        <button class="btn-fav" style="width: 100%; margin-top: 15px;">
+        <button class="btn-general btn-general--full btn--pink" mat-stroked-button>
           <i aria-hidden="true" class="far fa-heart"></i>
           Adicionar aos favoritos
         </button>
@@ -145,31 +141,17 @@
   <div class="divider"></div>
 
   <!-- Descrição -->
-  <div>
-    <strong class="titulo-secao">Descrição</strong>
-    <p class="product-info-desc">{{produto.descricao}}</p>
-  </div>
+  <span class="section-title">Descrição</span>
+  <p class="product-info__desc">{{produto.descricao}}</p>
 
   <div class="divider"></div>
 
-  <div id="rating" style="display: grid; width: 100%">
-    <strong class="titulo-secao">Avaliações</strong>
-    <app-lista-avaliacoes [avaliacoes]="avaliacoes"></app-lista-avaliacoes>
-    <!-- TODO: Tornar o componente de paginação responsivo -->
-    <app-paginacao [paginaAtual]="1" [qtdPags]="14"></app-paginacao>
-  </div>
+  <!-- Avaliações -->
+  <span class="section-title">Avaliações</span>
+  <app-lista-avaliacoes [ratings]="avaliacoes"></app-lista-avaliacoes>
+  <!-- TODO: Tornar o componente de paginação responsivo -->
+  <app-paginacao [paginaAtual]="1" [qtdPags]="14"></app-paginacao>
 
   <div class="divider"></div>
 </div>
-<app-seq-produto [sequencia]="seqProd"></app-seq-produto>
-<app-modal-frete (action)="showModalShipp($event)"
-                 (closed)="_showModalAddress = false"
-                 *ngIf="_showModalAddress" [addresses]="enderecos">
-</app-modal-frete>
-<app-modal-shipping (action)="updateChosenDelivery($event)"
-                    (closed)="_showModalDelivery = false"
-                    (selectAddress)="showModalAdress()"
-                    *ngIf="_showModalDelivery" [optionsDelivery]="deliveryOpts">
-</app-modal-shipping>
-<app-modal-payment (closed)="_showModalPayments = false"
-                   *ngIf="_showModalPayments"></app-modal-payment>
+<app-slider-product [list]="seqProd"></app-slider-product>

@@ -1,0 +1,64 @@
+<!-- TODO: Realizar binding com as rotas -->
+<div class="filter">
+  <span class="filter__title">Filtros</span>
+  <mat-divider></mat-divider>
+  <ul class="filter__content">
+    <li id="id-filtro-categorias">
+      <div class="filter__section-header">Categorias</div>
+      <div class="filter__section-body">
+        <mat-checkbox *ngFor="let categ of categorias" id="id-check-categoria-{{categ.id}}">
+          {{categ.nome}}
+        </mat-checkbox>
+      </div>
+    </li>
+
+    <li *ngIf="freteGratis" id="id-filtro-frete">
+      <div class="filter__section-header">Frete</div>
+      <div class="filter__section-body">
+        <mat-checkbox id="id-check-frete">Grátis</mat-checkbox>
+      </div>
+    </li>
+
+    <li *ngIf="descontos.length > 0" id="id-filtro-desconto">
+      <div class="filter__section-header">Desconto</div>
+      <div class="filter__section-body">
+        <mat-checkbox>Até {{descontos[0][1]}}%</mat-checkbox>
+        <mat-checkbox *ngFor="let precoMinMax of descontos.slice(1, descontos.length - 1)">
+          De {{precoMinMax[0]}}% até {{precoMinMax[1]}}%
+        </mat-checkbox>
+        <mat-checkbox>Mais de {{descontos[descontos.length - 1][0] - 1}}%</mat-checkbox>
+      </div>
+    </li>
+
+    <li id="id-filtro-preco">
+      <div class="filter__section-header">Preço</div>
+      <div class="filter__section-body filter__section-price">
+        <mat-form-field appearance="outline">
+          <mat-label>Mínimo</mat-label>
+          <input matInput min="0" placeholder="Exemplo: 2.5" type="number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Máximo</mat-label>
+          <input matInput min="0" placeholder="Exemplo: 50.75" type="number">
+        </mat-form-field>
+
+        <button color="primary" mat-flat-button>BUSCAR</button>
+      </div>
+    </li>
+
+    <li *ngIf="ratings.length > 0" id="id-filtro-avaliacao">
+      <div class="filter__section-header">Avaliação</div>
+      <div class="filter__section-body">
+        <div *ngFor="let rating of ratings" class="stars">
+          <mat-checkbox>
+            <span style="margin-left: 10px">
+              <i *ngFor="let i of [1, 2, 3, 4, 5]" [ngClass]="{'star--active': i <= rating}"
+                 class="fas fa-star star"></i>
+            </span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

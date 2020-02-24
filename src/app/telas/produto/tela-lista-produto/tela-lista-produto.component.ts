@@ -1,5 +1,6 @@
+'use strict';
 import {Component, OnInit} from '@angular/core';
-import {DadosTeste} from '../../../../shared/DadosTeste';
+import {DataTests} from '../../../../shared/dataTests';
 
 @Component({
   selector: 'app-tela-lista-produto',
@@ -8,13 +9,13 @@ import {DadosTeste} from '../../../../shared/DadosTeste';
 })
 export class TelaListaProdutoComponent implements OnInit {
 
-  public readonly produtos = DadosTeste.produtos;
+  public readonly produtos = DataTests.produtos;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.produtos.pop();
+    console.log(this.produtos);
   }
 
   /*TODO: Mudar para função que requisita os produtos*/

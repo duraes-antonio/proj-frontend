@@ -1,0 +1,41 @@
+@import '../../../shared/styles/placeholders';
+
+.stars-section {
+  display: flex;
+  align-items: center;
+
+  .stars {
+
+    .star {
+      font-size: var(--font-size);
+      color: darkgrey;
+
+      &--active {
+        color: orange;
+      }
+
+      &--incomp {
+        position: relative;
+        z-index: 1;
+
+        &::after {
+          position: absolute;
+          color: orange;
+          width: var(--percent-fill);
+          z-index: 2;
+          content: "\f005";
+          overflow: hidden;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .rating-counter {
+    @extend %color-text-sec--dark;
+    font-size: small;
+    margin-left: 5px;
+  }
+}
+
+

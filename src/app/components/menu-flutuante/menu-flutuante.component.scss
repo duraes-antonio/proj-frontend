@@ -1,0 +1,25 @@
+@import '../../../shared/styles/placeholders';
+
+.menu {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: grid;
+  z-index: 2;
+
+  &__btn-action {
+    font-size: 18px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    span {
+      @extend %center-flex;
+    }
+
+    i {
+      margin-bottom: 5px;
+    }
+  }
+}

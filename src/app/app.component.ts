@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {ListaLinks} from './models/componentes/ListaLinks';
 import {Link} from './models/componentes/Link';
+import {Usuario} from './models/Usuario';
+import {DataTests} from '../shared/dataTests';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,8 @@ export class AppComponent {
   title = 'proj-frontend';
 
   listaLinks: Array<ListaLinks>;
+  readonly user: Usuario = DataTests.usuarios[0];
+  sidenavShow = false;
 
   constructor() {
     this.listaLinks = new Array<ListaLinks>();

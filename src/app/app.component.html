@@ -1,18 +1,17 @@
 <head>
-  <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" rel="stylesheet">
   <title>Teste</title>
 </head>
 
 <!--<app-modal-recup-senha></app-modal-recup-senha>-->
-<app-navbar></app-navbar>
-<div class="area-centralizada">
-  <div id="area-utilizavel" class="area-utilizavel row">
-    <div>
-      <router-outlet></router-outlet>
+<app-sidenav (closed)="sidenavShow = false" [show]="sidenavShow" [usuario]="user">
+  <app-navbar (sidenavShow)="sidenavShow = true"></app-navbar>
+  <div class="area-centralizada">
+    <div class="area-utilizavel row" id="area-utilizavel">
+      <div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-</div>
-
-<app-menu-flutuante></app-menu-flutuante>
-<app-rodape [links]="listaLinks"></app-rodape>
+  <app-menu-flutuante></app-menu-flutuante>
+  <app-rodape [links]="listaLinks"></app-rodape>
+</app-sidenav>

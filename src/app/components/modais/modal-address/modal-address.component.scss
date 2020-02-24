@@ -1,0 +1,47 @@
+@import '../../../../shared/styles/effects';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+$margin-l-r: 24px;
+
+%title-modal-section {
+  font-size: medium;
+  font-weight: 500;
+  color: $color-prim;
+  line-height: 2;
+}
+
+.title-adress-list {
+  @extend %title-modal-section;
+}
+
+.title-input-cep {
+  @extend %title-modal-section;
+}
+
+
+.addresses {
+  border: 1px solid #ddd;
+  margin: 0;
+  display: grid;
+  line-height: 1.75;
+
+  &__item {
+    padding: 8px 15px;
+    @extend %color-text-sec--dark;;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+    }
+
+    &-content {
+      height: auto;
+      display: grid;
+      align-items: center;
+    }
+
+    &--active {
+      @extend %color-text-prim;
+    }
+  }
+}

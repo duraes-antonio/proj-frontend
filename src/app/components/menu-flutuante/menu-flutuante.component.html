@@ -1,0 +1,16 @@
+<div class="menu">
+  <button [routerLink]="actionHome.url" [title]="actionHome.title"
+          class="menu__btn-action" mat-mini-fab>
+    <i aria-hidden="true" class="fas fa-home"></i>
+  </button>
+
+  <button *ngIf="userLogged" [routerLink]="actionEnter.url" [title]="actionEnter.title"
+          class="menu__btn-action" mat-mini-fab>
+    <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
+  </button>
+
+  <button *ngIf="!userLogged" [routerLink]="actionAdd.url" [title]="actionAdd.title"
+          class="menu__btn-action" mat-mini-fab>
+    <i aria-hidden="true" class="fas fa-user-plus"></i>
+  </button>
+</div>
