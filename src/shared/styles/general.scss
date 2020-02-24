@@ -7,7 +7,7 @@
 }
 
 .title-page-w-border {
-  color: $color-prim;
+  color: $color-prim--light;
   font-size: x-large;
   font-weight: 500;
   text-transform: uppercase;
@@ -17,13 +17,13 @@
   &::after {
     content: "";
     position: absolute;
-    background-color: $color-prim;
+    background-color: $color-prim--light;
     width: 100%;
-    max-width: 250px;
-    height: 3px;
+    max-width: 320px;
+    height: 4px;
     left: 0;
     right: 0;
-    bottom: -8px;
+    bottom: -16px;
     margin: 0 auto;
   }
 }

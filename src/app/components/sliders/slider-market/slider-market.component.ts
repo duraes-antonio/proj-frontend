@@ -1,25 +1,23 @@
 import {Component, Input} from '@angular/core';
-import {ListProduct} from '../../models/componentes/ListProduct';
-import {routes} from '../../../shared/constants/routes';
+import {ListMarket} from '../../../models/componentes/ListMarket';
 
 @Component({
-  selector: 'app-slider-product',
-  templateUrl: './slider-product.component.html',
-  styleUrls: ['./slider-product.component.scss']
+  selector: 'app-slider-market',
+  templateUrl: './slider-market.component.html',
+  styleUrls: ['./slider-market.component.scss']
 })
-export class SliderProductComponent {
+export class SliderMarketComponent {
 
-  readonly routes = routes;
   optionsGlide;
 
-  private _list: ListProduct;
+  private _list: ListMarket;
 
   get list() {
     return this._list;
   }
 
   @Input()
-  set list(list: ListProduct) {
+  set list(list: ListMarket) {
     this._list = list;
     this.optionsGlide = this.getOptionsGlid(list.itens.length);
   }
@@ -30,31 +28,25 @@ export class SliderProductComponent {
       type: 'slider',
       bound: true,
       startAt: 0,
-      perView: Math.min(8, countItens),
+      perView: Math.min(4, countItens),
       breakpoints: {
         1620: {
-          perView: Math.min(8, countItens)
-        },
-        1440: {
-          perView: Math.min(7, countItens)
-        },
-        1366: {
           perView: Math.min(6, countItens)
         },
-        1200: {
+        1440: {
           perView: Math.min(5, countItens)
         },
-        992: {
+        1200: {
           perView: Math.min(4, countItens)
         },
-        600: {
+        992: {
           perView: Math.min(3, countItens)
         },
-        420: {
+        768: {
           perView: Math.min(2, countItens)
         },
-        320: {
-          perView: Math.min(1, countItens)
+        600: {
+          perView: 1
         }
       }
     };

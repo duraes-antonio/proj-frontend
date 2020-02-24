@@ -6,11 +6,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BannerComponent} from './banner/banner.component';
 import {RodapeComponent} from './rodape/rodape.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import {SliderComponent} from './slider/slider.component';
-import {SliderProductComponent} from './slider-product/slider-product.component';
+import {SliderMasterComponent} from './sliders/slider-master/slider-master.component';
+import {SliderProductComponent} from './sliders/slider-product/slider-product.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
-import {SequenciaComponent} from './sequencia/sequencia.component';
-import {SliderMarketComponent} from './slider-market/slider-market.component';
+import {SliderMarketComponent} from './sliders/slider-market/slider-market.component';
 import {MenuFlutuanteComponent} from './menu-flutuante/menu-flutuante.component';
 import {RouterModule} from '@angular/router';
 import {ModalComponent} from './modais/modal/modal.component';
@@ -41,7 +40,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {SliderBaseComponent} from './slider-base/slider-base.component';
+import {SliderBaseComponent} from './sliders/slider-base/slider-base.component';
 
 @NgModule({
   declarations: [
@@ -50,10 +49,9 @@ import {SliderBaseComponent} from './slider-base/slider-base.component';
     BannerComponent,
     RodapeComponent,
     SidenavComponent,
-    SliderComponent,
+    SliderMasterComponent,
     ListaCartaoComponent,
     SliderProductComponent,
-    SequenciaComponent,
     SliderMarketComponent,
     MenuFlutuanteComponent,
     ModalComponent,
@@ -79,7 +77,7 @@ import {SliderBaseComponent} from './slider-base/slider-base.component';
     SidenavComponent,
     MenuFlutuanteComponent,
     ListaCartaoComponent,
-    SliderComponent,
+    SliderMasterComponent,
     SliderProductComponent,
     SliderMarketComponent,
     ModalComponent,
@@ -89,7 +87,6 @@ import {SliderBaseComponent} from './slider-base/slider-base.component';
     FiltroProdutoComponent,
     PaginacaoComponent,
     StarRatingComponent,
-    SequenciaComponent,
     ListaAvaliacoesComponent,
     InputNumberComponent,
     ModalPaymentMatComponent,

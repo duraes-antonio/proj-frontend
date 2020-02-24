@@ -1,5 +1,14 @@
 @import 'variables';
 
+%center-absolute {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 %center-flex {
   display: flex;
   justify-content: center;
@@ -62,6 +71,7 @@
 %text--link {
   color: $link-color;
   cursor: pointer;
+  text-decoration: none;
 }
 
 %divider {

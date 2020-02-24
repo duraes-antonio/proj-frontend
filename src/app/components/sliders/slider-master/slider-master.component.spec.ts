@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {SequenciaComponent} from './sequencia.component';
+import {SliderMasterComponent} from './slider-master.component';
 
-describe('SequenciaComponent', () => {
-  let component: SequenciaComponent;
-  let fixture: ComponentFixture<SequenciaComponent>;
+describe('SliderComponent', () => {
+  let component: SliderMasterComponent;
+  let fixture: ComponentFixture<SliderMasterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SequenciaComponent ]
+      declarations: [SliderMasterComponent]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SequenciaComponent);
+    fixture = TestBed.createComponent(SliderMasterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

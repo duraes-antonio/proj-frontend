@@ -1,0 +1,21 @@
+<app-slider-base [optionsGlide]="optionsGlide" [showBullets]="false"
+                 [sliderLength]="list.itens.length">
+  <li *ngFor="let item of list.itens" class="glide__slide">
+    <div class="market">
+
+      <!-- LOGO DA LOJA -->
+      <a [href]="item.link" class="market__logo" title="Logo da loja {{item.nome}}">
+        <img [src]="item.urlImgLogo" alt="Logo da loja {{item.nome}}}"
+             class="market__logo-img">
+      </a>
+
+      <!-- BACKGROUND DA LOJA -->
+      <div [style.backgroundImage]="'url('+ item.urlImagem +')'"
+           [title]="item.nome" class="market__back">
+      </div>
+
+      <!-- LINK PARA LOJA -->
+      <a [href]="item.link" class="market__info">{{item.nome}}</a>
+    </div>
+  </li>
+</app-slider-base>

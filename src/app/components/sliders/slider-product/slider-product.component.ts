@@ -1,23 +1,25 @@
 import {Component, Input} from '@angular/core';
-import {ListMarket} from '../../models/componentes/ListMarket';
+import {ListProduct} from '../../../models/componentes/ListProduct';
+import {routes} from '../../../../shared/constants/routes';
 
 @Component({
-  selector: 'app-slider-market',
-  templateUrl: './slider-market.component.html',
-  styleUrls: ['./slider-market.component.scss']
+  selector: 'app-slider-product',
+  templateUrl: './slider-product.component.html',
+  styleUrls: ['./slider-product.component.scss']
 })
-export class SliderMarketComponent {
+export class SliderProductComponent {
 
+  readonly routes = routes;
   optionsGlide;
 
-  private _list: ListMarket;
+  private _list: ListProduct;
 
   get list() {
     return this._list;
   }
 
   @Input()
-  set list(list: ListMarket) {
+  set list(list: ListProduct) {
     this._list = list;
     this.optionsGlide = this.getOptionsGlid(list.itens.length);
   }

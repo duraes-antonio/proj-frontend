@@ -49,3 +49,8 @@ $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
   font-weight: 500;
   font-size: 11px;
 }
+
+.mat-list-item-content {
+  width: 100%;
+  padding: 5px 24px !important;
+}

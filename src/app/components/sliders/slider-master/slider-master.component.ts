@@ -1,13 +1,13 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {Slider} from '../../models/componentes/Slider';
+import {Slider} from '../../../models/componentes/Slider';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss']
+  selector: 'app-slider-master',
+  templateUrl: './slider-master.component.html',
+  styleUrls: ['./slider-master.component.scss']
 })
-export class SliderComponent implements AfterViewInit {
+export class SliderMasterComponent implements AfterViewInit {
 
   @Input() slider: Slider;
 

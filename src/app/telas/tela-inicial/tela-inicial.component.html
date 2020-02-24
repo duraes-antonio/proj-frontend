@@ -1,17 +1,19 @@
-<!-- TODO: Tornar o conteúdo dinâmico -->
-<div class="area-componente">
-  <app-slider *ngFor="let s of sliders" [slider]="s" style="width: 100%;"></app-slider>
+<div class="components">
+  <!-- TODO: Tornar o conteúdo dinâmico -->
+  <app-slider-master *ngFor="let s of sliders" [slider]="s" style="width: 100%;"></app-slider-master>
+
+
+  <!--<div class="area-componente">-->
+  <!--  <app-lista-cartao *ngFor="let listaCartao of cartoes"-->
+  <!--                    [listaCartoes]="listaCartao" style="width: 100%">-->
+  <!--  </app-lista-cartao>-->
+  <!--</div>-->
+
+  <span class="title-page-w-border">Mais vendidos da semana :D</span>
+  <app-slider-product *ngFor="let prod of listsProd" [list]="prod" style="width: 100%">
+  </app-slider-product>
+
+  <span class="title-page-w-border">{{listsMarket[0].titulo}}</span>
+  <app-slider-market *ngFor="let loja of listsMarket" [list]="loja" style="width: 100%">
+  </app-slider-market>
 </div>
-
-<!--<div class="area-componente">-->
-<!--  <app-lista-cartao *ngFor="let listaCartao of cartoes"-->
-<!--                    [listaCartoes]="listaCartao" style="width: 100%">-->
-<!--  </app-lista-cartao>-->
-<!--</div>-->
-
-<app-slider-product *ngFor="let prod of listsProd" [list]="prod" style="width: 100%">
-</app-slider-product>
-
-<app-slider-market *ngFor="let loja of listsMarket" [list]="loja" style="width: 100%">
-</app-slider-market>
-

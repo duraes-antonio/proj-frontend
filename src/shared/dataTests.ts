@@ -63,7 +63,30 @@ export class DataTests {
       'https://www.pokemoncenter.com/'),
     new Loja(
       // tslint:disable-next-line:max-line-length
-      'https://scontent.fvix2-1.fna.fbcdn.net/v/t1.0-9/66789076_2756810070999907_1460183894459416576_n.jpg?_nc_cat=103&_nc_oc=AQlFT2VisqtBtcCQIxivMXmQZowdS6nU8U9m5sJ1D1LGELuy_PyYK1vhpnefK4Sn6wg&_nc_ht=scontent.fvix2-1.fna&oh=789bc67e60a52777437f7bba84074d2b&oe=5DD02CAB',
+      'https://lh3.googleusercontent.com/proxy/5TB3D7TYj3KrVOepF7uk5SUG-ms92nYPZkV07qQrL8jFl-8bWBc-IWHXw6l_abtvbVjMq9NPCVOGNQBK_640SNm1jg7YUvbjE35Zn3zhWCHHtcLwn5B7Ma6GaKg7gcBzAnTMKspU0kJVgkqHilzJSNNUfxSX7ZP7tHkDJqU',
+      'https://paladinsgames.com.br/uploads/configloja_favico/20181019190653_favicon.png',
+      'Paladins Games',
+      'https://paladinsgames.com.br/home'),
+    new Loja(
+      'https://i.redd.it/417kp9m2z0oz.png',
+      'https://www.domaingames.com.br/images/logo_footer.png',
+      'Domain Games',
+      'https://www.domaingames.com.br/'),
+    new Loja(
+      'https://i.imgur.com/4O9Qe0g.png',
+      'https://www.lojalotusgames.com.br/img/lotusgames2.png',
+      'Lotus Games',
+      'https://www.lojalotusgames.com.br/'),
+    new Loja(
+      // tslint:disable-next-line:max-line-length
+      'https://cdn11.bigcommerce.com/s-0kvv9/product_images/theme_images/onward.jpg?t=1581542509',
+      // tslint:disable-next-line:max-line-length
+      'https://cdn11.bigcommerce.com/s-0kvv9/stencil/5d84e5d0-2ff3-0138-06f9-0242ac110009/e/ccff5d00-2bfa-0138-bad2-0242ac11000c/img/logo.png',
+      'Toywiz',
+      'https://toywiz.com/'),
+    new Loja(
+      // tslint:disable-next-line:max-line-length
+      'https://www.duelshop.com.br/modules/themeconfigurator/img/134e7d9b06d4ef28d6e1039392666084859d0619_pkmsm3m.jpg',
       'https://www.duelshop.com.br/themes/default-bootstrap/img/logo.png',
       'Duel Shop',
       'https://www.duelshop.com.br/'),
@@ -73,7 +96,7 @@ export class DataTests {
       'World Card Games',
       'https://www.worldcardgames.com.br/'),
     new Loja(
-      'https://http2.mlstatic.com/cartas-yu-gioh-verso-anime-a-sua-escolha-D_NQ_NP_771353-MLB28253934320_092018-Q.webp',
+      'https://www.animenew.com.br/wp-content/uploads/2013/12/Yu-Gi-Oh-Arc-V.jpg',
       'https://http2.mlstatic.com/ui/navigation/4.5.0/mercadolibre/logo-pt__large_plus.png',
       'Mercado Livre',
       'https://produto.mercadolivre.com.br/')

@@ -1,8 +1,5 @@
 @import '../../../shared/styles/mixins';
 @import '../../../shared/styles/placeholders';
-@import '../../../shared/styles/scrollbar';
-
-@include scrollbar-custom();
 
 .sidenav {
   min-width: 275px;
@@ -58,6 +55,10 @@
 
 .actions__item {
   @extend %color-text-prim--light;
+  display: flex !important;
+  min-height: 48px !important;
+  height: auto !important;
+
   font-size: 14px;
   transition: color .25s;
 
