@@ -5,10 +5,10 @@ import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart.model';
 import {Subscription} from 'rxjs';
 import {Endereco} from '../../models/Endereco';
-import {DadosTeste} from '../../../shared/DadosTeste';
+import {DataTests} from '../../../shared/dataTests';
 import {Remove} from '../../actions/cart.action';
 import {MatDialog} from '@angular/material/dialog';
-import {ModalAddressComponent} from '../../componentes/modais/modal-address/modal-address.component';
+import {ModalAddressComponent} from '../../components/modais/modal-address/modal-address.component';
 
 @Component({
   selector: 'app-tela-carrinho',
@@ -21,7 +21,7 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
 
   totalCost = 0;
   totalShipment = 0;
-  userAddresses: Endereco[] = DadosTeste.enderecos;
+  userAddresses: Endereco[] = DataTests.enderecos;
   currAddress: Endereco = this.userAddresses[0];
   tempAddress: Endereco;
   prodAmount = new Map<number, number>();

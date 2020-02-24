@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {TelaContatoRoutingModule} from './tela-contato-routing.module';
 import {TelaContatoComponent} from './tela-contato.component';
-import {ComponentesModule} from '../../componentes/componentes.module';
+import {ComponentesModule} from '../../components/componentes.module';
 
 @NgModule({
   declarations: [TelaContatoComponent],

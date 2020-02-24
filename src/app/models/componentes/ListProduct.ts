@@ -1,7 +1,7 @@
 import {ETipoComponente} from '../../enum/ETipoComponente';
 import {Produto} from '../Produto';
 import {ISequencia} from '../../interfaces/ISequencia';
-import {DadosTeste} from '../../../shared/DadosTeste';
+import {DataTests} from '../../../shared/dataTests';
 
 export class ListProduct implements ISequencia<Produto> {
 
@@ -17,7 +17,7 @@ export class ListProduct implements ISequencia<Produto> {
   constructor(id) {
     // TODO: Solicitar ao backend a sequencia de id atual
     this.id = id;
-    this.itens = DadosTeste.produtos;
+    this.itens = DataTests.produtos;
     this.titulo = 'TOP Produtos mais vendidos na semana';
   }
 }

@@ -1,17 +1,14 @@
 @import '../shared/styles/placeholders';
 
 .area-centralizada {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend %center-flex;
 }
 
 .area-utilizavel {
-  width: 100%;
+  width: calc(100% - 40px);
   max-width: 100%;
-
-  margin-bottom: 0;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  margin: 0 20px;
+  overflow: hidden;
 
   .area-componente {
     display: flex;

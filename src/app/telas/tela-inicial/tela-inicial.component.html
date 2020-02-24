@@ -9,15 +9,9 @@
 <!--  </app-lista-cartao>-->
 <!--</div>-->
 
-<div class="area-componente">
-  <app-seq-produto *ngFor="let prod of seqProdutos" [list]="prod"
-                   style="width: 100%">
-  </app-seq-produto>
-</div>
+<app-slider-product *ngFor="let prod of listsProd" [list]="prod" style="width: 100%">
+</app-slider-product>
 
-<!--<div class="area-componente">-->
-<!--  <app-seq-lojas *ngFor="let loja of seqLojas" [sequencia]="loja"-->
-<!--                 style="width: 100%">-->
-<!--  </app-seq-lojas>-->
-<!--</div>-->
+<app-slider-market *ngFor="let loja of listsMarket" [list]="loja" style="width: 100%">
+</app-slider-market>
 

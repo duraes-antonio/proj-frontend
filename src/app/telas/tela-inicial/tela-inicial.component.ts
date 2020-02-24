@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Slider} from '../../models/componentes/Slider';
 import {ListProduct} from '../../models/componentes/ListProduct';
 import {ListaCartao} from '../../models/componentes/ListaCartao';
-import {SequenciaLoja} from '../../models/componentes/SequenciaLoja';
+import {ListMarket} from '../../models/componentes/ListMarket';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -11,9 +11,9 @@ import {SequenciaLoja} from '../../models/componentes/SequenciaLoja';
 })
 export class TelaInicialComponent {
 
-  // TODO: Receber lista de componentes do banco
+  // TODO: Receber lista de components do banco
   public readonly sliders: Slider[] = [new Slider(1)];
   public readonly cartoes: ListaCartao[] = [new ListaCartao(1)];
-  public readonly seqProdutos: ListProduct[] = [new ListProduct(1)];
-  public readonly seqLojas: SequenciaLoja[] = [new SequenciaLoja(3)];
+  public readonly listsProd: ListProduct[] = [new ListProduct(1)];
+  public readonly listsMarket: ListMarket[] = [new ListMarket(3)];
 }

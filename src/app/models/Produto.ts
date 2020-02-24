@@ -3,29 +3,29 @@ import {Categoria} from './Categoria';
 export class Produto {
 
   public id: number;
-  public urlImagem: string;
   public titulo: string;
   public descricao: string;
+  public urlImagem = 'assets/img/sem-imagem.png';
 
   public preco: number;
   public precoComDesc: number;
   public porcentDesc: number;
 
-  public freteGratis: boolean;
-  public categorias: Categoria[];
+  public freteGratis = false;
+  public categorias: Categoria[] = [];
   public mediaAvaliacao: number;
   public qtdDisponivel: number;
 
   constructor(
-    urlImg: string, titulo: string, descricao: string, precoVenda: number,
+    titulo: string, descricao: string, precoVenda: number, urlImg?: string,
     porcentDesc?: number, categorias?: Categoria[],
     freteGratis?: boolean, id?: number, qtdDisponivel?: number, mediaAval?: number
   ) {
-    this.urlImagem = urlImg;
     this.titulo = titulo;
     this.descricao = descricao;
     this.preco = precoVenda;
-    this.freteGratis = freteGratis;
+    this.urlImagem = urlImg ? urlImg : this.urlImagem;
+    this.freteGratis = !!freteGratis ? freteGratis : false;
     this.porcentDesc = porcentDesc;
     this.precoComDesc = porcentDesc > 0 ? this.preco * (100 - this.porcentDesc) / 100 : this.preco;
     this.categorias = categorias ? categorias : [];
@@ -36,5 +36,9 @@ export class Produto {
 
   get emPromocao() {
     return this.porcentDesc && this.porcentDesc > 0;
+  }
+
+  get semImagem(): boolean {
+    return !this.urlImagem || this.urlImagem.startsWith('assets');
   }
 }

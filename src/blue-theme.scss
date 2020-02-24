@@ -15,7 +15,7 @@ $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
   overflow-y: auto;
 }
 
-.cdk-overlay-pane {
+.cdk-global-overlay-wrapper > .cdk-overlay-pane:first-child {
   margin: auto 20px;
   transition: all .5s;
   max-width: calc(100% - 40px) !important;
@@ -32,6 +32,11 @@ $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
       border-radius: 0;
     }
   }
+}
+
+.cdk-overlay-pane {
+  width: min-content;
+  min-width: min-content !important;
 }
 
 .mat-radio-label-content {

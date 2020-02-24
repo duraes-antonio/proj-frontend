@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
-import {DadosTeste} from '../../../../shared/DadosTeste';
+import {DataTests} from '../../../../shared/dataTests';
 import {Produto} from '../../../models/Produto';
 import {Avaliacao} from '../../../models/Avaliacao';
 import {Endereco} from '../../../models/Endereco';
@@ -14,9 +14,9 @@ import {ListProduct} from '../../../models/componentes/ListProduct';
 import {Add, Remove} from '../../../actions/cart.action';
 import {ProductService} from '../../../services/product.service';
 import {calcAverage} from '../../../../shared/utilFunctions';
-import {ModalAddressComponent} from '../../../componentes/modais/modal-address/modal-address.component';
-import {ModalShippingMatComponent} from '../../../componentes/modais/modal-shipping-mat/modal-shipping-mat.component';
-import {ModalPaymentMatComponent} from '../../../componentes/modais/modal-payment-mat/modal-payment-mat.component';
+import {ModalAddressComponent} from '../../../components/modais/modal-address/modal-address.component';
+import {ModalShippingMatComponent} from '../../../components/modais/modal-shipping-mat/modal-shipping-mat.component';
+import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment-mat/modal-payment-mat.component';
 
 @Component({
   selector: 'app-tela-visualizar-produto',
@@ -30,10 +30,10 @@ export class TelaVisualizarProdutoComponent implements OnDestroy {
   public deliveryChosen: DeliveryOption;
 
   public seqProd = new ListProduct(625);
-  public avaliacoes: Avaliacao[] = DadosTeste.avaliacoes;
+  public avaliacoes: Avaliacao[] = DataTests.avaliacoes;
   public media: number = this.calcAvgRating(this.avaliacoes, 2);
-  public enderecos: Endereco[] = DadosTeste.enderecos;
-  public deliveryOpts: DeliveryOption[] = DadosTeste.opcoesEntrega;
+  public enderecos: Endereco[] = DataTests.enderecos;
+  public deliveryOpts: DeliveryOption[] = DataTests.opcoesEntrega;
 
   public _showModalPayments = false;
 

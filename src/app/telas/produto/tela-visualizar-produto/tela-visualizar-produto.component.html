@@ -17,10 +17,10 @@
       <!-- Média das avaliações -->
       <!-- TODO: Trazer info do banco de dados   -->
       <a fragment="rating" routerLink=".">
-        <app-avaliador-estrelas [fontSize]="18" [maxStars]="5"
-                                [numRatings]="avaliacoes.length" [valueRating]="media"
-                                title="A média das avaliações do produto é {{media}}">
-        </app-avaliador-estrelas>
+        <app-star-rating [fontSize]="18" [maxStars]="5"
+                         [numRatings]="avaliacoes.length" [valueRating]="media"
+                         title="A média das avaliações do produto é {{media}}">
+        </app-star-rating>
       </a>
 
       <!-- Descrição -->
@@ -154,4 +154,4 @@
 
   <div class="divider"></div>
 </div>
-<app-seq-produto [list]="seqProd"></app-seq-produto>
+<app-slider-product [list]="seqProd"></app-slider-product>

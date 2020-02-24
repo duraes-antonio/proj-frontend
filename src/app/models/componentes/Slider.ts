@@ -2,7 +2,7 @@
 import {Slide} from '../Slide';
 import {ETipoComponente} from '../../enum/ETipoComponente';
 import {ISequencia} from '../../interfaces/ISequencia';
-import {DadosTeste} from '../../../shared/DadosTeste';
+import {DataTests} from '../../../shared/dataTests';
 
 export class Slider implements ISequencia<Slide> {
 
@@ -18,6 +18,6 @@ export class Slider implements ISequencia<Slide> {
   constructor(id: number, titulo?: string, itens?: Slide[]) {
     this.id = id;
     this.titulo = titulo;
-    this.itens = DadosTeste.slides;
+    this.itens = DataTests.slides;
   }
 }

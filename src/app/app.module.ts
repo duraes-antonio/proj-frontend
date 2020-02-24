@@ -3,7 +3,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app.routing.module';
-import {ComponentesModule} from './componentes/componentes.module';
+import {ComponentesModule} from './components/componentes.module';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import {ProdutoModule} from './telas/produto/produto.module';
 import {StoreModule} from '@ngrx/store';
