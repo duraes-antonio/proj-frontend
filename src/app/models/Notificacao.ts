@@ -9,23 +9,6 @@ export class Notificacao {
   public readonly classeIcone: string;
   public readonly link: string;
 
-  private _lida: boolean;
-
-  private _dataLeitura?: Date;
-
-  set lida(valor: boolean) {
-    this._lida = valor;
-  }
-
-  get lida(): boolean {
-    return this._lida;
-  }
-
-  get dataLeitura(): Date {
-    return this._dataLeitura;
-  }
-
-  // TODO: Alterar para utilizar 'tipo' como ENUM
   // TODO: Alterar o ID para vir do banco
   constructor(
     texto: string, dataCriacao: Date, link: string, tipo: ETipoNotificacao
@@ -55,6 +38,24 @@ export class Notificacao {
     } else if (tipo === ETipoNotificacao.PAGAMENTO_PENDENTE) {
       this.classeIcone = 'fas fa-search-dollar';
     }
+  }
+
+  private _lida: boolean;
+
+  get lida(): boolean {
+    return this._lida;
+  }
+
+  set lida(valor: boolean) {
+    this._lida = valor;
+  }
+
+  private _dataLeitura?: Date;
+
+  // TODO: Alterar para utilizar 'tipo' como ENUM
+
+  get dataLeitura(): Date {
+    return this._dataLeitura;
   }
 
   /**

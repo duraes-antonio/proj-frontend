@@ -8,9 +8,9 @@ describe('PaginaFundoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaginaFundoComponent ]
+      declarations: [PaginaFundoComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

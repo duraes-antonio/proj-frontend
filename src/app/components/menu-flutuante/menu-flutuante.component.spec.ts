@@ -8,9 +8,9 @@ describe('MenuFlutuanteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuFlutuanteComponent ]
+      declarations: [MenuFlutuanteComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

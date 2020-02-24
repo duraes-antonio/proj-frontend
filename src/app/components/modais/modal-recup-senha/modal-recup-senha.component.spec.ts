@@ -8,9 +8,9 @@ describe('ModalRecupSenhaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalRecupSenhaComponent ]
+      declarations: [ModalRecupSenhaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -10,14 +10,14 @@ export class ListProduct implements ISequencia<Produto> {
   public readonly titulo: string;
   public readonly itens: Produto[];
 
-  get tamanho() {
-    return !!this.itens ? this.itens.length : 0;
-  }
-
   constructor(id) {
     // TODO: Solicitar ao backend a sequencia de id atual
     this.id = id;
     this.itens = DataTests.produtos;
     this.titulo = 'TOP Produtos mais vendidos na semana';
+  }
+
+  get tamanho() {
+    return !!this.itens ? this.itens.length : 0;
   }
 }

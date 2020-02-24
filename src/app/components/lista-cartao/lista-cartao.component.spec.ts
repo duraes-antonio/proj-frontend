@@ -8,9 +8,9 @@ describe('ListaCartaoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListaCartaoComponent ]
+      declarations: [ListaCartaoComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

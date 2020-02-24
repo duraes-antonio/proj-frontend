@@ -7,14 +7,14 @@ export enum CartActionType {
   CLEAR = 'CLE'
 }
 
-export const Add = (productId: number) => {
-  return <Action>{type: CartActionType.ADD, payload: productId};
+export const Add = (productId: number): Action => {
+  return {type: CartActionType.ADD, payload: productId} as Action;
 };
 
-export const Remove = (productId: number) => {
-  return <Action>{type: CartActionType.REMOVE, payload: productId};
+export const Remove = (productId: number): Action => {
+  return {type: CartActionType.REMOVE, payload: productId} as Action;
 };
 
-export const Clear = () => {
-  return <Action>{type: CartActionType.CLEAR};
+export const Clear = (): Action => {
+  return {type: CartActionType.CLEAR} as Action;
 };

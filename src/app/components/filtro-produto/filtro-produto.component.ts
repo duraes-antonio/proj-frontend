@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Produto} from '../../models/Produto';
 import {Categoria} from '../../models/Categoria';
-import {FiltroProdutoPesquisa} from '../../models/FiltroProduto';
+import {FiltroProdutoPesquisa} from '../../models/filters/filterProductUser.model';
 
 @Component({
   selector: 'app-filtro-produto',
@@ -16,10 +16,11 @@ export class FiltroProdutoComponent implements OnInit {
   public descontos: number[][];
   public freteGratis: boolean;
   public filtro: FiltroProdutoPesquisa = new FiltroProdutoPesquisa(1, 25);
-  private _produtos: Produto[];
 
   constructor() {
   }
+
+  private _produtos: Produto[];
 
   @Input()
   get produtos(): Produto[] {
@@ -36,6 +37,32 @@ export class FiltroProdutoComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  filtroAddDesc(parMinMax: number[], filtro: FiltroProdutoPesquisa):
+    FiltroProdutoPesquisa {
+    return {
+      ...filtro,
+      descontos: filtro.descontos.concat(parMinMax)
+    };
+  }
+
+  filtroAddPreco(filtro: FiltroProdutoPesquisa, min: number, max: number):
+    FiltroProdutoPesquisa {
+    return {...filtro, precoMin: min, precoMax: max};
+  }
+
+  filtroAddAvals(filtro: FiltroProdutoPesquisa, aval: number):
+    FiltroProdutoPesquisa {
+    return {...filtro, avaliacoes: filtro.avaliacoes.concat(aval)};
+  }
+
+  // filtroAddCateg(id: number, filtro: FiltroProdutoPesquisa):
+  //   FiltroProdutoPesquisa {
+  //   return {
+  //     ...filtro,
+  //     categoriasIds: [id].concat(filtro.categoriasIds)
+  //   };
+  // }
 
   private filtrarAvaliacoes(produtos: Produto[]): number[] {
     return [1, 2, 3, 4, 5]
@@ -58,31 +85,5 @@ export class FiltroProdutoComponent implements OnInit {
           p.porcentDesc >= desc[0] && p.porcentDesc <= desc[1]
         )
       );
-  }
-
-  // filtroAddCateg(id: number, filtro: FiltroProdutoPesquisa):
-  //   FiltroProdutoPesquisa {
-  //   return {
-  //     ...filtro,
-  //     categoriasIds: [id].concat(filtro.categoriasIds)
-  //   };
-  // }
-
-  filtroAddDesc(parMinMax: number[], filtro: FiltroProdutoPesquisa):
-    FiltroProdutoPesquisa {
-    return {
-      ...filtro,
-      descontos: filtro.descontos.concat(parMinMax)
-    };
-  }
-
-  filtroAddPreco(filtro: FiltroProdutoPesquisa, min: number, max: number):
-    FiltroProdutoPesquisa {
-    return {...filtro, precoMin: min, precoMax: max};
-  }
-
-  filtroAddAvals(filtro: FiltroProdutoPesquisa, aval: number):
-    FiltroProdutoPesquisa {
-    return {...filtro, avaliacoes: filtro.avaliacoes.concat(aval)};
   }
 }

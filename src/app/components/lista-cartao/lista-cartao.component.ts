@@ -10,7 +10,8 @@ export class ListaCartaoComponent implements OnInit {
 
   @Input() listaCartoes: ListaCartao;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

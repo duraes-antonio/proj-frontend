@@ -10,7 +10,7 @@ describe('SequenciaProdutoComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SliderProductComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

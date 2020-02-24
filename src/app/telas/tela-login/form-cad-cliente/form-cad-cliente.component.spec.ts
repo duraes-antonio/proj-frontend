@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FormCadClienteComponent } from './form-cad-cliente.component';
+import {FormCadClienteComponent} from './form-cad-cliente.component';
 
 describe('FormCadClienteComponent', () => {
   let component: FormCadClienteComponent;
@@ -8,9 +8,9 @@ describe('FormCadClienteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormCadClienteComponent ]
+      declarations: [FormCadClienteComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

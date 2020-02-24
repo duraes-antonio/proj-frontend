@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TelaRedefinirSenhaComponent } from './tela-redefinir-senha.component';
+import {TelaRedefinirSenhaComponent} from './tela-redefinir-senha.component';
 
 describe('TelaRedefinirSenhaComponent', () => {
   let component: TelaRedefinirSenhaComponent;
@@ -8,9 +8,9 @@ describe('TelaRedefinirSenhaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TelaRedefinirSenhaComponent ]
+      declarations: [TelaRedefinirSenhaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

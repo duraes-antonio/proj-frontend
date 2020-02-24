@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {TelaRedefinirSenhaComponent} from './tela-redefinir-senha.component';
 
 const redefinirSenhaRoutes: Routes = [

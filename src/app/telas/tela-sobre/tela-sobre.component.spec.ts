@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TelaSobreComponent } from './tela-sobre.component';
+import {TelaSobreComponent} from './tela-sobre.component';
 
 describe('TelaSobreComponent', () => {
   let component: TelaSobreComponent;
@@ -8,9 +8,9 @@ describe('TelaSobreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TelaSobreComponent ]
+      declarations: [TelaSobreComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

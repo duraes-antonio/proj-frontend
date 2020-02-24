@@ -10,7 +10,7 @@ describe('SliderComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SliderMasterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

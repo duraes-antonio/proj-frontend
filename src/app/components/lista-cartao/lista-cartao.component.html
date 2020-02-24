@@ -1,23 +1,23 @@
 <h5 class="titulo-componente">{{listaCartoes.titulo}}</h5>
 
 <div>
-  <div class="col s12" *ngFor="let cartao of listaCartoes.itens"
-       [ngClass]="
+  <div *ngFor="let cartao of listaCartoes.itens" [ngClass]="
      {'m12 l12 xl12': listaCartoes.tamanho == 1,
      'm6 l6 xl6': listaCartoes.tamanho == 2,
-     'm4 l4 xl4': listaCartoes.tamanho == 3}">
+     'm4 l4 xl4': listaCartoes.tamanho == 3}"
+       class="col s12">
 
     <!-- Área - Cartão individual -->
     <div class="cartao">
-      <div [style.backgroundImage]="'url('+ cartao.urlImagem +')'"
-           class="black-text background-desfocado"
-           [ngClass]="{'background-desfocado-col_100': listaCartoes.tamanho == 1,
+      <div [ngClass]="{'background-desfocado-col_100': listaCartoes.tamanho == 1,
          'background-desfocado-col_50': listaCartoes.tamanho == 2,
-         'background-desfocado-col_33': listaCartoes.tamanho == 3}">
+         'background-desfocado-col_33': listaCartoes.tamanho == 3}"
+           [style.backgroundImage]="'url('+ cartao.urlImagem +')'"
+           class="black-text background-desfocado">
       </div>
 
       <div class="black-text slide-imagem">
-        <img src="{{cartao.urlImagem}}" [alt]="cartao.descricao">
+        <img [alt]="cartao.descricao" src="{{cartao.urlImagem}}">
       </div>
     </div>
   </div>

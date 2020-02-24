@@ -13,4 +13,5 @@ import {ComponentesModule} from '../../components/componentes.module';
     ComponentesModule
   ]
 })
-export class TelaSobreModule { }
+export class TelaSobreModule {
+}

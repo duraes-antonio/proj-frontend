@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TelaHistoricoCompraComponent } from './tela-historico-compra.component';
+import {TelaHistoricoCompraComponent} from './tela-historico-compra.component';
 
 describe('TelaHistoricoCompraComponent', () => {
   let component: TelaHistoricoCompraComponent;
@@ -8,9 +8,9 @@ describe('TelaHistoricoCompraComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TelaHistoricoCompraComponent ]
+      declarations: [TelaHistoricoCompraComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

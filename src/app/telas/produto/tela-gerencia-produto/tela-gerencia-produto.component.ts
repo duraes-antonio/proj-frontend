@@ -10,7 +10,7 @@ import {Categoria} from '../../../models/Categoria';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatSort} from '@angular/material/sort';
-import {FilterProduct} from '../../../models/filters/filterProduct.model';
+import {FilterProduct} from '../../../models/filters/filterProductAdmin.model';
 
 @Component({
   selector: 'app-tela-gerencia-produto',

@@ -16,4 +16,5 @@ import {TelaHistoricoCompraRoutingModule} from './tela-historico-compra-routing.
     TelaHistoricoCompraRoutingModule
   ]
 })
-export class TelaHistoricoCompraModule { }
+export class TelaHistoricoCompraModule {
+}

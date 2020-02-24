@@ -7,8 +7,17 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
+  /*Quando o modal for fechado, emita um valor booleano True*/
+  @Output() fechado: EventEmitter<boolean> = new EventEmitter<boolean>();
   private modal;
   private _exibir = false;
+
+  constructor() {
+  }
+
+  get mostrar(): boolean {
+    return this._exibir;
+  }
 
   @Input()
   set mostrar(valor: boolean) {
@@ -20,16 +29,6 @@ export class ModalComponent implements OnInit {
     } else {
       this.ocultar();
     }
-  }
-
-  get mostrar(): boolean {
-    return this._exibir;
-  }
-
-  /*Quando o modal for fechado, emita um valor booleano True*/
-  @Output() fechado: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() {
   }
 
   ngOnInit() {

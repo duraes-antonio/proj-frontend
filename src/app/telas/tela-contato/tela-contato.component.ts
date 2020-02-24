@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-tela-contato',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TelaContatoComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

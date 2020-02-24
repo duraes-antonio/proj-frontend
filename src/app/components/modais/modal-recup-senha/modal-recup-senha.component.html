@@ -1,7 +1,7 @@
-<app-modal [mostrar]="mostrar" (fechado)="fecharModal()">
-  <div id="area-dialogo" class="area-dialogo row">
+<app-modal (fechado)="fecharModal()" [mostrar]="mostrar">
+  <div class="area-dialogo row" id="area-dialogo">
     <div id="area-topo" style="display: grid;">
-      <div id="area-icone" class="icone--circ">
+      <div class="icone--circ" id="area-icone">
         <i aria-hidden="true" class="fas fa-key"></i>
       </div>
 
@@ -10,9 +10,9 @@
       </div>
     </div>
 
-    <div id="area-form" class="col s12 m12 l12 xl12 area-form">
+    <div class="col s12 m12 l12 xl12 area-form" id="area-form">
       <div class="input-field">
-        <input id="form-login-email" class="validate" type="email">
+        <input class="validate" id="form-login-email" type="email">
         <label for="form-login-email">Email</label>
       </div>
 
@@ -21,7 +21,7 @@
       </div>
 
       <div class="input-field">
-        <input id="form-login-tel" class="validate" type="tel">
+        <input class="validate" id="form-login-tel" type="tel">
         <label for="form-login-tel">Número telefone</label>
       </div>
     </div>

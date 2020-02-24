@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TelaInicialComponent } from './tela-inicial.component';
+import {TelaInicialComponent} from './tela-inicial.component';
 
 describe('TelaInicialComponent', () => {
   let component: TelaInicialComponent;
@@ -8,9 +8,9 @@ describe('TelaInicialComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TelaInicialComponent ]
+      declarations: [TelaInicialComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

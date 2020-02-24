@@ -8,7 +8,8 @@ import {ModalRecupSenhaComponent} from '../../../components/modais/modal-recup-s
 })
 export class FormLoginComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -1,8 +1,8 @@
 <app-pagina-fundo>
-  <div id="area-dialogo" class="area-dialogo">
+  <div class="area-dialogo" id="area-dialogo">
 
     <div id="area-topo" style="display: grid;">
-      <div id="area-icone" class="icone--circ">
+      <div class="icone--circ" id="area-icone">
         <i aria-hidden="true" class="fas fa-key"></i>
       </div>
 
@@ -11,7 +11,7 @@
 
     <div id="area-form">
       <div class="input-field">
-        <input id="recup-email" class="validate" type="email" [(ngModel)]="emailRecup">
+        <input [(ngModel)]="emailRecup" class="validate" id="recup-email" type="email">
         <label for="recup-email">Email ou Nome de Usuário</label>
       </div>
 
@@ -20,7 +20,7 @@
       </div>
 
       <div class="input-field">
-        <input id="recup-tel" class="validate" type="tel" [(ngModel)]="telRecup">
+        <input [(ngModel)]="telRecup" class="validate" id="recup-tel" type="tel">
         <label for="recup-tel">Número telefone</label>
       </div>
 
