@@ -1,28 +1,44 @@
-<app-pagina-fundo>
-  <!-- Área de abas -->
-  <div class="row" style="width: 100%; margin: 0">
-    <ul class="abas" id="tabs">
+<div class="main row">
+  <div class="back"></div>
+  <div class="text-img-section col hide-on-small-and-down m3 l7 xl8">
+    <img alt="" class="col s12 m12 l4 xl4"
+         src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7c6f1009-9bed-42c1-90b2-5672c47100ef/d93bxxt-e001f28a-13b2-405e-aea2-43e8a57d8886.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdjNmYxMDA5LTliZWQtNDJjMS05MGIyLTU2NzJjNDcxMDBlZlwvZDkzYnh4dC1lMDAxZjI4YS0xM2IyLTQwNWUtYWVhMi00M2U4YTU3ZDg4ODYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.mlYW5Xl7ccN_S0VrtAZnEp47Hl8uzIHuIZ9OOq8YCy8">
 
-      <!-- Aba de login -->
-      <li class="aba aba_esq col s6" id="entrar">
-        <a routerLink="entrar">
-          <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
-          <span>Login</span>
-        </a>
-      </li>
-
-      <!-- Aba de Cadastro -->
-      <li class="aba aba_dir col s6" id="cadastrar">
-        <a routerLink="cadastrar">
-          <i aria-hidden="true" class="fas fa-user-plus"></i>
-          <span>Registrar-se</span>
-        </a>
-      </li>
-    </ul>
+    <div class="text-section col hide-on-med-and-down l8 xl8">
+      <span class="title-page-w-border">Cadastre-se ou entre para</span>
+      <ul class="benefits">
+        <li>Receber descontos dos melhores produtos</li>
+        <li>Receber ofertas exclusivas</li>
+        <li>Receber notificações quando um produto desejado estiver disponível</li>
+        <li>Guardar seus itens na lista de favoritos</li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Área de conteúdo -->
-  <div class="area-conteudo">
-    <router-outlet></router-outlet>
+  <div class="form-section col s12 m8 l5 xl4">
+    <mat-tab-group>
+
+      <!-- LOGIN -->
+      <mat-tab class="form-section__tab">
+        <ng-template mat-tab-label>
+          <a class="form-section__tab-content" id="entrar">
+            <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
+            <span>Login</span>
+          </a>
+        </ng-template>
+        <app-form-login></app-form-login>
+      </mat-tab>
+
+      <!-- CADASTRO -->
+      <mat-tab class="form-section__tab">
+        <ng-template mat-tab-label>
+          <a class="form-section__tab-content" id="cadastrar">
+            <i aria-hidden="true" class="fas fa-user-plus"></i>
+            <span>Registrar-se</span>
+          </a>
+        </ng-template>
+        <app-form-cad-cliente></app-form-cad-cliente>
+      </mat-tab>
+    </mat-tab-group>
   </div>
-</app-pagina-fundo>
+</div>

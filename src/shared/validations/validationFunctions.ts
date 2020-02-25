@@ -2,7 +2,8 @@
  * Expressão baseada no regex usado na API do Angular Form Validators:
  * https://github.com/angular/angular/blob/e0ad9ecda0b8a541b405d2ab35335b90ceb21fd1/packages/forms/src/validators.ts#L254
 */
-const regex = /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+const regexEmail = /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+const regexPhone = /^\([1-9]{2}\)\s?(?:[2-8]|9[1-9])[0-9]{3}-?[0-9]{4}$/;
 
 const validation = {
   atMaxLen(value: string, maxLenght: number): boolean {
@@ -27,7 +28,10 @@ const validation = {
     return validation.hasValue(cep) && validation.exactlytLen(cep, 8);
   },
   validEmail(email: string): boolean {
-    return email && regex.test(email);
+    return email && regexEmail.test(email);
+  },
+  validPhone(number: string): boolean {
+    return number && regexPhone.test(number);
   }
 };
 

@@ -10,6 +10,7 @@ export const routes = {
   productManager: `${productsManager}/:id`,
 
   home: `home`,
+  forgotPass: `redefinir-senha`,
   login: login,
   loginEnter: `${login}/entrar`,
   loginRegister: `${login}/cadastrar`

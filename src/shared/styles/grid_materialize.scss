@@ -178,28 +178,78 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
   }
 }
 
-//
-//.s3 {
-//  &:first-child {
-//    padding-right: 10px;
-//  }
-//
-//  &:nth-child(2), &:nth-child(3) {
-//    padding-left: 10px;
-//    padding-right: 10px;
-//  }
-//
-//  &:last-child {
-//    padding-left: 10px;
-//  }
-//}
-//
-//.s6 {
-//  &:nth-child(2n) {
-//    padding-right: 10px;
-//  }
-//
-//  &:not(:nth-child(2n)) {
-//    padding-left: 10px;
-//  }
-//}
+
+/*********************
+  Media Query Classes
+**********************/
+.hide-on-small-only, .hide-on-small-and-down {
+  @media #{$small-and-down} {
+    display: none !important;
+  }
+}
+
+.hide-on-med-and-down {
+  @media #{$medium-and-down} {
+    display: none !important;
+  }
+}
+
+.hide-on-med-and-up {
+  @media #{$medium-and-up} {
+    display: none !important;
+  }
+}
+
+.hide-on-med-only {
+  @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) {
+    display: none !important;
+  }
+}
+
+.hide-on-large-only {
+  @media #{$large-and-up} {
+    display: none !important;
+  }
+}
+
+.hide-on-extra-large-only {
+  @media #{$extra-large-and-up} {
+    display: none !important;
+  }
+}
+
+.show-on-extra-large {
+  @media #{$extra-large-and-up} {
+    display: block !important;
+  }
+}
+
+.show-on-large {
+  @media #{$large-and-up} {
+    display: block !important;
+  }
+}
+
+.show-on-medium {
+  @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) {
+    display: block !important;
+  }
+}
+
+.show-on-small {
+  @media #{$small-and-down} {
+    display: block !important;
+  }
+}
+
+.show-on-medium-and-up {
+  @media #{$medium-and-up} {
+    display: block !important;
+  }
+}
+
+.show-on-medium-and-down {
+  @media #{$medium-and-down} {
+    display: block !important;
+  }
+}

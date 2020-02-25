@@ -146,22 +146,3 @@ $btn-border-radius: 4px;
     font-size: 18px !important;
   }
 }
-
-::ng-deep .btn-general {
-  text-transform: uppercase;
-
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  i {
-    margin-right: 8px;
-    font-size: 20px;
-  }
-
-  @media (max-width: $width-max-small) {
-    width: 100%;
-  }
-}

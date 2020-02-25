@@ -49,6 +49,8 @@ export function getMsg(field: string, control: FormControl): string {
       return buildErrorMsg.msgMinValue(field, control.errors[error]);
     } else if (error === EErrorType.REQUIRED) {
       return buildErrorMsg.msgNullOrEmpty(field);
+    } else {
+      return control.errors[error];
     }
   }
 }

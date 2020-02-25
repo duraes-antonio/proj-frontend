@@ -5,6 +5,11 @@ import {TelaLoginRoutingModule} from './tela-login.routing.module';
 import {FormCadClienteComponent} from './form-cad-cliente/form-cad-cliente.component';
 import {FormLoginComponent} from './form-login/form-login.component';
 import {ComponentesModule} from '../../components/componentes.module';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -15,7 +20,13 @@ import {ComponentesModule} from '../../components/componentes.module';
   imports: [
     CommonModule,
     TelaLoginRoutingModule,
-    ComponentesModule
+    ComponentesModule,
+    MatTabsModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatDividerModule
   ]
 })
 export class TelaLoginModule {

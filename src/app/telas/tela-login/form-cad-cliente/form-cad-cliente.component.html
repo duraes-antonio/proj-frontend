@@ -1,34 +1,42 @@
-<div>
-  <div class="input-field">
-    <input class="validate" id="form-nome" type="text" value="Alvin">
-    <label class="active" for="form-nome">Nome</label>
-  </div>
+<div class="row main-form">
 
-  <div class="input-field">
-    <input class="validate" id="form-email" type="email" value="cleiton@gmail.com">
-    <label class="active" for="form-email">Email</label>
-  </div>
+  <!-- NOME COMPLETO -->
+  <mat-form-field class="col">
+    <mat-label>Nome completo</mat-label>
+    <input [formControl]="_controlName" [maxLength]="_sizes.nameMaxLen" matInput type="text">
+    <mat-hint align="start">Ex: Irineu da Silva</mat-hint>
+    <mat-error *ngIf="_controlName.invalid">{{_getMsg(_controlName, 'Irineu da Silva')}}</mat-error>
+  </mat-form-field>
 
-  <div class="input-field">
-    <input class="validate" id="form-telefone" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}"
-           type="tel" value="(27) 99885-5521">
-    <label class="active" for="form-telefone">Telefone</label>
-  </div>
+  <mat-form-field class="col">
+    <mat-label>Email</mat-label>
+    <input [formControl]="_controlEmail" [maxLength]="_sizes.emailMaxLen" matInput type="email">
+    <mat-hint align="start">Ex: ola_marilene@gmail.com</mat-hint>
+    <mat-error *ngIf="_controlEmail.invalid">{{_getMsg(_controlEmail, 'ola_marilene@gmail.com')}}</mat-error>
+  </mat-form-field>
 
-  <div class="input-field">
-    <input class="validate" id="form-senha" type="password" value="Alvin">
-    <label class="active" for="form-senha">Senha</label>
-  </div>
+  <mat-form-field class="col">
+    <mat-label>Telefone</mat-label>
+    <input (input)="formatPhone($event)" [formControl]="_controlPhone" [maxLength]="_sizes.phoneMaxLen" matInput
+           type="tel">
+    <mat-hint align="start">Ex: 27 4002-8922 (Adicione apenas os dígitos)</mat-hint>
+    <mat-error *ngIf="_controlPhone.invalid">{{_getMsg(_controlPhone, '27 4002-8922')}}</mat-error>
+  </mat-form-field>
 
-  <div class="input-field">
-    <input class="validate" id="form-confirmar-senha" type="password" value="Alvin">
-    <label class="active" for="form-confirmar-senha">Confirmação de senha</label>
-  </div>
+  <mat-form-field class="col">
+    <mat-label>Senha</mat-label>
+    <input [formControl]="_controlPass" [maxLength]="_sizes.passwordMaxLen" matInput type="password">
+    <mat-error *ngIf="_controlPass.invalid">{{_getMsg(_controlPass)}}</mat-error>
+  </mat-form-field>
 
-  <div style="text-align: center">
-    <a class="waves-effect waves-light btn grey btn-prim">
-      <i aria-hidden="true" class="fas fa-paper-plane"></i>
-      Confirmar
-    </a>
-  </div>
+  <mat-form-field class="col">
+    <mat-label>Confirmação de senha</mat-label>
+    <input [formControl]="_controlPassConfirm" [maxLength]="_sizes.passwordMaxLen" matInput type="password">
+    <mat-error *ngIf="_controlPassConfirm.invalid">{{_getMsg(_controlPassConfirm)}}</mat-error>
+  </mat-form-field>
+
+  <button class="btn-general" mat-raised-button>
+    <i aria-hidden="true" class="fas fa-paper-plane"></i>
+    Criar conta
+  </button>
 </div>

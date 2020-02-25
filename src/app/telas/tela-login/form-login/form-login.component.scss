@@ -1,84 +1,8 @@
-@import "../../../../shared/shared.scss";
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
 
-$val-b-radius: 18px;
-
-.area-login {
-  width: 95%;
-  display: flex;
-  justify-content: center;
-}
-
-.area-form-fundo {
-  width: 100%;
-  height: auto;
-  padding: 0;
-  padding-bottom: 20px;
-
-  border-radius: $val-b-radius;
-  background-color: #f7f7f7;
-  box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.abas {
-  border-radius: 20px 20px 0 0;
-  height: 72px;
-}
-
-.aba {
-
-  height: 100%;
-  color: $link-color--inactive;
-  border-bottom: 2px solid lightgrey;
-  padding: 12px 0;
-  line-height: normal;
-
-  a {
-    color: $link-color--inactive;
-    display: grid;
-  }
-
-  i {
-    font-size: 20px;
-    padding-bottom: 6px;
-  }
-
-  @media (max-width: 320px) {
-
-    a {
-      font-size: smaller;
-    }
-  }
-}
-
-.abas .aba:hover {
-  background-color: #ededed;
-
-  a {
-    color: black;
-  }
-}
-
-.abas .aba a.active {
-  color: $link-color;
-  background-color: transparent;
-}
-
-.area-logar_redes_sociais {
-  display: grid;
-  justify-content: center;
-  margin-top: 5px;
-  text-align: center;
-}
-
-.area-icones_redes_sociais {
-  margin-top: 5px;
-  display: flex;
-  justify-content: center;
-  flex-flow: wrap;
-}
-
-@mixin btn-circ($color-hex) {
-  @extend .fab-prim;
+@mixin _btn--circ($color-hex) {
   background-color: $color-hex;
 
   &:hover {
@@ -86,14 +10,44 @@ $val-b-radius: 18px;
   }
 }
 
-.btn-circ-facebook {
-  @include btn-circ($val-cor-facebook);
-}
+.form-login {
+  @extend %flex-col;
+  background-color: white;
+  padding: 20px;
 
-.btn-circ-twitter {
-  @include btn-circ($val-cor-twitter);
-}
+  .btn-general {
+    color: white;
+    background-color: $color-prim--light;
+    margin: 15px 0;
+  }
 
-.btn-circ-google {
-  @include btn-circ($val-cor-google);
+  .social-media {
+    @extend %flex-col;
+    text-align: center;
+
+    &__title {
+      @extend %color-text-prim--light;
+      margin: 15px;
+    }
+
+    .btn-color {
+      font-size: large;
+
+      &--facebook {
+        @include _btn--circ($color-facebook);
+      }
+
+      &--google {
+        @include _btn--circ($color-google);
+      }
+
+      &--twitter {
+        @include _btn--circ($color-twitter);
+      }
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
 }

@@ -1,108 +1,67 @@
-@import "../../../shared/shared.scss";
+@import '../../../shared/styles/general';
+@import '../../../shared/styles/grid_materialize';
+@import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
 
-$val-b-radius: 18px;
+.main {
+  @extend %center-flex-space-betw;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 30px 20px;
 
-/*Área das abas (Login e cadastro)*/
-.abas {
-  border-radius: 20px 20px 0 0;
-  height: 70px;
-  margin: 0;
-}
-
-.aba {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  transition: all 0.5s;
-  border-bottom: 2px solid lightgrey;
-
-  a {
+  .back {
+    position: absolute;
+    z-index: 0;
     width: 100%;
-    height: 100%;
-    transition: all 0.5s;
-    color: $link-color--inactive;
-    display: grid;
+    height: 280px;
+    background-color: #eee;
   }
 
-  i {
-    font-size: 20px;
-    padding-bottom: 6px;
-  }
+  .text-img-section {
+    @extend %center-vert-flex;
 
-  @media (max-width: 320px) {
-
-    a {
-      font-size: smaller;
+    img {
+      max-width: 280px;
+      filter: drop-shadow(1px 2px 4px rgba(black, .25));
     }
-  }
 
-  @media (pointer: fine) {
-    &:hover {
-      background-color: $color-sec;
+    .text-section {
+      @extend %color-text-prim--light;
+      z-index: 1;
+      padding-right: 20px;
 
-      a {
-        color: $link-color--hover;
+      .title-page-w-border {
+        font-size: large;
+
+        &::after {
+          bottom: -10px;
+        }
+      }
+
+      .benefits {
+        line-height: 1.75;
+        margin-top: 20px;
+        font-size: medium;
       }
     }
   }
-}
 
-.aba--ativa {
-  a {
-    color: $link-color;
-  }
+  .form-section {
+    background-color: white;
+    z-index: 1;
+    border-radius: 5px;
+    min-height: 450px;
+    box-shadow: 2px 3px 15px rgba(black, 0.2);
 
-  border-bottom: 2px solid $link-color;
-}
+    &__tab-content {
+      @extend %center-flex;
+      text-transform: uppercase;
+      padding: 20px;
 
-.aba_esq {
-  border-radius: $val-b-radius 0 0 0;
-  border-right: 1px solid lightgray;
-}
-
-.aba_dir {
-  border-radius: 0 $val-b-radius 0 0;
-}
-
-.area-conteudo {
-  padding: 20px;
-}
-
-/*Área ícones*/
-.area-logar_redes_sociais {
-  display: grid;
-  justify-content: center;
-  margin-top: 5px;
-  text-align: center;
-}
-
-.area-icones_redes_sociais {
-  margin-top: 5px;
-  display: flex;
-  justify-content: center;
-  flex-flow: wrap;
-}
-
-@mixin btn-circ($color-hex) {
-  @extend .fab-prim;
-  background-color: $color-hex;
-
-  @media (pointer: fine) {
-    &:hover {
-      background-color: rgba($color-hex, 0.9);
+      i {
+        font-size: large;
+        margin-right: 10px;
+      }
     }
   }
-}
-
-.btn-circ-facebook {
-  @include btn-circ($val-cor-facebook);
-}
-
-.btn-circ-twitter {
-  @include btn-circ($val-cor-twitter);
-}
-
-.btn-circ-google {
-  @include btn-circ($val-cor-google);
 }

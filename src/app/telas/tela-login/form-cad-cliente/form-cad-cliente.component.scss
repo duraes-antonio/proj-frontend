@@ -1,1 +1,14 @@
-@import "../../../../shared/shared.scss";
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../styles';
+
+.main-form {
+  @extend %flex-col;
+  background-color: transparent;
+  padding: 20px;
+  margin-bottom: 0;
+
+  .mat-form-field {
+    margin-bottom: 15px;
+  }
+}

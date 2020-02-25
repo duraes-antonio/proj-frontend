@@ -54,3 +54,23 @@ $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
   width: 100%;
   padding: 5px 24px !important;
 }
+
+.mat-tab-body {
+  background-color: white;
+}
+
+.mat-tab-header {
+  border-radius: 5px 5px 0 0;
+}
+
+.mat-tab-label {
+  width: 100%;
+  min-height: 72px;
+  height: auto;
+}
+
+.mat-mini-fab {
+  .mat-button-wrapper {
+    line-height: 1 !important;
+  }
+}

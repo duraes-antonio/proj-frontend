@@ -1,46 +1,42 @@
-<div>
+<div class="row form-login">
 
-  <div class="input-field">
-    <input class="validate" id="form-login" type="text" value="cleiton@gmail.com">
-    <label class="active" for="form-login">Email ou Nome de usuário</label>
-  </div>
-  <div class="input-field">
-    <input class="validate" id="form-login-senha" type="password" value="dsadsadas">
-    <label class="active" for="form-login-senha">Senha</label>
-  </div>
+  <!-- EMAIL -->
+  <mat-form-field class="col">
+    <mat-label>Email ou Nome de usuário</mat-label>
+    <input [formControl]="_controlEmail" [maxLength]="_sizes.emailMaxLen" matInput type="email">
+    <mat-error *ngIf="_controlEmail.invalid">{{_getMsg(_controlEmail, 'teste@gmail.com')}}</mat-error>
+  </mat-form-field>
+
+  <!-- SENHA -->
+  <mat-form-field class="col">
+    <mat-label>Senha</mat-label>
+    <input [formControl]="_controlPass" [maxLength]="_sizes.passwordMaxLen" matInput type="password">
+    <mat-error *ngIf="_controlPass.invalid">{{_getMsg(_controlPass)}}</mat-error>
+  </mat-form-field>
 
   <div style="text-align: right;">
-    <a routerLink="../../redefinir-senha">Esqueceu sua senha?</a>
+    <a [routerLink]="'/' + _routes.forgotPass">Esqueceu sua senha?</a>
   </div>
 
-  <div style="text-align: center">
-    <a class="waves-effect waves-light btn grey btn-prim"
-       style="margin: 10px 0;">
-      Entrar
-    </a>
-  </div>
+  <button class="btn-general" mat-raised-button>
+    Entrar
+  </button>
 
-  <div class="divider"></div>
+  <mat-divider></mat-divider>
 
-  <div class="area-logar_redes_sociais">
-    <h6>Ou entre usando:</h6>
-    <div class="area-icones_redes_sociais">
-      <div>
-        <a class="btn-floating waves-effect waves-light btn-circ-twitter">
-          <i aria-hidden="true" class="fab fa-twitter"></i>
-        </a>
-      </div>
-      <div>
-        <a class="btn-floating waves-effect waves-light btn-circ-facebook">
-          <i aria-hidden="true" class="fab fa-facebook-f"></i>
-        </a>
-      </div>
-      <div>
-        <a class="btn-floating waves-effect waves-light btn-circ-google">
-          <i aria-hidden="true" class="fab fa-google"></i>
-        </a>
-      </div>
+  <!-- REDES SOCIAIS -->
+  <div class="social-media">
+    <span class="social-media__title">Ou entre usando:</span>
+    <div class="social-media__icons">
+      <button class="btn-color btn-color--twitter" mat-mini-fab>
+        <i aria-hidden="true" class="fab fa-twitter"></i>
+      </button>
+      <button class="btn-color btn-color--facebook" mat-mini-fab>
+        <i aria-hidden="true" class="fab fa-facebook-f"></i>
+      </button>
+      <button class="btn-color btn-color--google" mat-mini-fab>
+        <i aria-hidden="true" class="fab fa-google"></i>
+      </button>
     </div>
   </div>
-
 </div>

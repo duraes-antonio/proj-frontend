@@ -1,7 +1,7 @@
 'use strict';
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
-import {FormControl, ValidatorFn, Validators} from '@angular/forms';
+import {FormControl, ValidatorFn} from '@angular/forms';
 import {Endereco} from '../../../models/Endereco';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
 import {validation} from '../../../../shared/validations/validationFunctions';
@@ -17,7 +17,7 @@ export class ModalAddressComponent {
   @Output() action = new EventEmitter<string>();
   @Output() chosenAddress = new EventEmitter<Endereco>();
 
-  controlCep = new FormControl('', [Validators.minLength(2), this.cepValidator()]);
+  controlCep = new FormControl('', [this.cepValidator()]);
   textHintCEP = 'Exemplo de CEP: 29161688';
   addressChosenId = 0;
 
