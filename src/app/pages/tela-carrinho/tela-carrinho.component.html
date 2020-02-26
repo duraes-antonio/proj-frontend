@@ -2,42 +2,42 @@
   <div class="product-list row">
     <div *ngFor="let prod of productsChosen" class="product-list__item col s12 m12 l12 xl12">
       <div class="col s12 m3 l2 xl2 product__img-block">
-        <img [alt]="prod.titulo" [src]="prod.urlImagem" class="product__img">
+        <img [alt]="prod.title" [src]="prod.urlImage" class="product__img">
       </div>
 
       <div class="col s12 m9 l10 xl10 text-section">
         <div class="col s12 m12 l8 xl8 product-list__item-title-desc">
-          <span class="product__name">{{prod.titulo}}</span>
+          <span class="product__name">{{prod.title}}</span>
 
           <!-- Quantidade, frete grátis e disconto -->
           <div class="product__info">
-            <span [ngClass]="{'text-red': prod.qtdDisponivel < 10}"
+            <span [ngClass]="{'text-red': prod.amountAvailable < 10}"
                   class="product__attr product__attr--min">
               <i aria-hidden="true" class="fas fa-cubes product__attr-icon"></i>
-              {{prod.qtdDisponivel}} disponíveis
+              {{prod.amountAvailable}} disponíveis
             </span>
-            <span *ngIf="prod.freteGratis" class="product__attr">
+            <span *ngIf="prod.freeDelivery" class="product__attr">
               <i aria-hidden="true" class="fas fa-truck product__attr-icon" style="font-size: 14px"></i>
               frete grátis
             </span>
-            <span *ngIf="prod.porcentDesc > 0" class="product__attr">
+            <span *ngIf="prod.percentOff > 0" class="product__attr">
               <i aria-hidden="true" class="fas fa-dollar-sign product__attr-icon"></i>
-              {{prod.porcentDesc | number: '1.0-2'}}% off
+              {{prod.percentOff | number: '1.0-2'}}% off
             </span>
           </div>
         </div>
 
         <div class="col s12 m12 l4 xl4 section_price_counter">
           <span class="product__price">
-            {{prod.precoComDesc * prodAmount.get(prod.id) | currency: 'BRL'}}
+            {{prod.priceWithDiscount * prodAmount.get(prod.id) | currency: 'BRL'}}
             <span [hidden]="prodAmount.get(prod.id) < 2" class="product__price-amount">
-              {{prod.precoComDesc | currency: 'BRL'}}
+              {{prod.priceWithDiscount | currency: 'BRL'}}
               <i aria-hidden="true" class="fa fa-times"></i>
               {{prodAmount.get(prod.id)}}
             </span>
           </span>
           <app-input-number (outValue)="changeAmount(prod.id, $event)"
-                            [maxValue]="prod.qtdDisponivel" [minValue]="1">
+                            [maxValue]="prod.amountAvailable" [minValue]="1">
           </app-input-number>
         </div>
 
@@ -71,8 +71,8 @@
 
       <div class="cart-cost__price">
         <span class="cart-cost__price-title">Entrega em:</span>
-        <a (click)="showModalAdress()" class="cart-cost__price-value">{{currAddress.cep}},
-          {{currAddress.numero}}, {{currAddress.bairro}}
+        <a (click)="showModalAdress()" class="cart-cost__price-value">{{currAddress.zipCode}},
+          {{currAddress.number}}, {{currAddress.neighborhood}}
           <i aria-hidden="true" class="fa fa-cog" style="margin-left: 5px"></i>
         </a>
       </div>

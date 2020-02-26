@@ -12,7 +12,7 @@ export class ModalShippingMatComponent {
   modalTitle = 'Como deseja receber seus produtos?';
   confirmTitle = 'Selecionar';
   cancelTitle = 'Cancelar';
-  optSelected: DeliveryOption;
+  optSelected?: DeliveryOption;
 
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
@@ -40,7 +40,11 @@ export class ModalShippingMatComponent {
     }
 
     /*Adicione a classe ao novo endereço selecionado*/
-    document.getElementById(`option-${id}`).classList.add(className);
+    const optSelected = document.getElementById(`option-${id}`);
+
+    if (optSelected) {
+      optSelected.classList.add(className);
+    }
   }
 }
 

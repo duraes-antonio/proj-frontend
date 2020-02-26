@@ -7,31 +7,31 @@ const regexPhone = /^\([1-9]{2}\)\s?(?:[2-8]|9[1-9])[0-9]{3}-?[0-9]{4}$/;
 
 const validation = {
   atMaxLen(value: string, maxLenght: number): boolean {
-    return value && value.length <= maxLenght;
+    return this.hasValue(value) && value.length <= maxLenght;
   },
   atLeastLen(value: string, minLenght: number): boolean {
-    return value && value.length >= minLenght;
+    return this.hasValue(value) && value.length >= minLenght;
   },
   exactlytLen(value: string, lenght: number): boolean {
-    return value && value.length === lenght;
+    return this.hasValue(value) && value.length === lenght;
   },
   atMaxValue(value: number, maxVal: number): boolean {
-    return value && value <= maxVal;
+    return value !== undefined && value !== null && value <= maxVal;
   },
   atLeastValue(value: number, minVal: number): boolean {
     return value !== undefined && value !== null && value >= minVal;
   },
-  hasValue(value): boolean {
+  hasValue(value: any): boolean {
     return !(value === undefined || value == null || value === '');
   },
   validCEP(cep: string): boolean {
     return validation.hasValue(cep) && validation.exactlytLen(cep, 8);
   },
   validEmail(email: string): boolean {
-    return email && regexEmail.test(email);
+    return this.hasValue(email) && regexEmail.test(email);
   },
   validPhone(number: string): boolean {
-    return number && regexPhone.test(number);
+    return this.hasValue(number) && regexPhone.test(number);
   }
 };
 

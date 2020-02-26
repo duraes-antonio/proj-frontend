@@ -10,13 +10,13 @@ import {genSequence, randomInt} from '../../../../shared/utilFunctions';
 })
 export class SliderBaseComponent implements AfterViewInit {
 
-  @Input() sliderId: string;
+  @Input() sliderId = '';
   @Input() showBullets = true;
   @Input() maxHeight = '500px';
-  @Input() optionsGlide;
+  @Input() optionsGlide: any;
 
-  public idxBullets = [];
-  public currIndex = 0;
+  idxBullets: number[] = [];
+  currIndex = 0;
   private _glide: Glide;
   private _sliderLen = 0;
 
@@ -38,6 +38,11 @@ export class SliderBaseComponent implements AfterViewInit {
     const options = this.optionsGlide;
 
     const glideElem = document.getElementById(this.sliderId);
+
+    if (!glideElem) {
+      throw new Error('O elemento HTML Glide não foi encontrado!');
+    }
+
     glideElem.style.setProperty('--slide-max-height', this.maxHeight);
     this._glide = new Glide(glideElem, options).mount();
 

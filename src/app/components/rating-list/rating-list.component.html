@@ -1,21 +1,21 @@
 <div *ngFor="let rating of ratings" class="rating">
   <div class="rating__user-info">
     <div class="rating__user-avatar">
-      <img [src]="rating.avaliadorUrlAvatar" alt="Imagem de {{rating.avaliadorNome}}, cliente da loja"
+      <img [src]="rating.userAvatarUrl" alt="Imagem de {{rating.userName}}, cliente da loja"
            class="rating__user-avatar-img">
     </div>
-    <span class="rating__user-name">{{rating.avaliadorNome}}</span>
+    <span class="rating__user-name">{{rating.userName}}</span>
   </div>
 
   <div class="rating__comment">
     <div class="rating__date-stars">
       <app-star-rating [fontSize]="16" [maxStars]="5"
-                       [showNumRatings]="false" [valueRating]="rating.nota"
+                       [showNumRatings]="false" [valueRating]="rating.value"
                        style="margin-bottom: 3px;">
       </app-star-rating>
-      <span class="rating__date">{{rating.data | date: fmtData}}</span>
+      <span class="rating__date">{{rating.date | date: fmtData}}</span>
     </div>
-    <span class="rating__summary">{{rating.resumo}}</span>
-    <span class="rating__full-text">{{rating.comentario}}</span>
+    <span class="rating__summary">{{rating.title}}</span>
+    <span class="rating__full-text">{{rating.comment}}</span>
   </div>
 </div>

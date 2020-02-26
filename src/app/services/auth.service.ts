@@ -2,7 +2,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {IUserLogin} from '../interfaces/userLogin';
 import {HttpClient} from '@angular/common/http';
-import {Usuario} from '../models/Usuario';
+import {User} from '../models/user';
 import {ERole} from '../enum/roles';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthService {
 
   static userLoggedEmitter = new EventEmitter<boolean>();
   static userRole: ERole = ERole.UNKNOWN;
-  static userInfo: Usuario;
+  static userInfo: User;
   private _userLogged = false;
 
   constructor(private http: HttpClient) {

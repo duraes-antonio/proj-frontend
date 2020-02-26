@@ -1,56 +1,56 @@
 import {DataTests} from '../../shared/dataTests';
-import {Produto} from '../models/Produto';
+import {Product} from '../models/product';
 import {FiltroProdutoPesquisa} from '../models/filters/filterProductUser.model';
 import {Observable, of} from 'rxjs';
 
 export class ProductService {
 
   /*TODO: Realizar busca no Backend*/
-  static getAll(ids: number[]): Produto[] {
-    return DataTests.produtos
+  static getAll(ids: number[]): Product[] {
+    return DataTests.products
       .filter(p => ids.some(id => id === p.id));
   }
 
-  static get(filter: FiltroProdutoPesquisa): Observable<Produto[]> {
+  static get(filter: FiltroProdutoPesquisa): Observable<Product[]> {
     console.log(filter);
     const textLower = filter && filter.texto ? filter.texto.toLowerCase() : '';
-    let prods = DataTests.produtos.filter(p => {
-      return p.titulo.toLowerCase().indexOf(textLower) > -1
-        || p.descricao.toLowerCase().indexOf(textLower) > -1
-        || p.categorias.some(c => c.nome.toLowerCase().indexOf(textLower) > -1);
+    let prods = DataTests.products.filter(p => {
+      return p.title.toLowerCase().indexOf(textLower) > -1
+        || p.desc.toLowerCase().indexOf(textLower) > -1
+        || p.categories.some(c => c.name.toLowerCase().indexOf(textLower) > -1);
     });
 
     if (filter.descMin) {
-      prods = prods.filter(p => p.porcentDesc >= filter.descMin);
+      prods = prods.filter(p => p.percentOff >= filter.descMin);
     }
 
     if (filter.descMax) {
-      prods = prods.filter(p => p.porcentDesc <= filter.descMax);
+      prods = prods.filter(p => p.percentOff <= filter.descMax);
     }
 
     if (filter.precoMin) {
-      prods = prods.filter(p => p.precoComDesc >= filter.precoMin);
+      prods = prods.filter(p => p.priceWithDiscount >= filter.precoMin);
     }
 
     if (filter.precoMax) {
-      prods = prods.filter(p => p.precoComDesc <= filter.precoMax);
+      prods = prods.filter(p => p.priceWithDiscount <= filter.precoMax);
     }
 
-    if (!!filter.freteGratis) {
-      prods = prods.filter(p => p.freteGratis === filter.freteGratis);
+    if (filter.freteGratis) {
+      prods = prods.filter(p => p.freeDelivery === filter.freteGratis);
     }
 
     if (filter.categorias && filter.categorias.length) {
       prods = prods.filter(
         p => filter.categorias.some(
-          cf => p.categorias.some(cp => cp.id === cf)
+          cf => p.categories.some(cp => cp.id === cf)
         )
       );
     }
 
     if (filter.avaliacoes && filter.avaliacoes.length) {
       prods = prods.filter(p => filter.avaliacoes
-        .some(a => Math.floor(p.mediaAvaliacao) === a)
+        .some(a => Math.floor(p.avgReview) === a)
       );
     }
     console.log(prods);
@@ -58,14 +58,14 @@ export class ProductService {
     return of([...prods]);
   }
 
-  static getById(id: number): Produto {
-    return DataTests.produtos.find(p => p.id === id);
+  static getById(id: number): Product | undefined {
+    return DataTests.products.find(p => p.id === id);
   }
 
   /*TODO: Realizar persistência no Backend*/
-  static put(product: Produto) {
-    const index = DataTests.produtos.findIndex(p => p.id === product.id);
-    DataTests.produtos[index] = product;
+  static put(product: Product) {
+    const index = DataTests.products.findIndex(p => p.id === product.id);
+    DataTests.products[index] = product;
     return product;
   }
 }

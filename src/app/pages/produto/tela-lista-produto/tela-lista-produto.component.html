@@ -11,19 +11,19 @@
          class="col s6s m6s l3s xl3s product">
 
         <!-- Etiqueta de desconto -->
-        <span *ngIf="item.emPromocao" class="product__label-promo">
-          {{item.porcentDesc | number: '1.0-2'}}%
+        <span *ngIf="item.percentOff > 0" class="product__label-promo">
+          {{item.percentOff | number: '1.0-2'}}%
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
         </span>
 
         <!-- Titulo do produto -->
-        <span class="product__title">{{item.titulo}}</span>
+        <span class="product__title">{{item.title}}</span>
 
-        <img [alt]="item.titulo" [src]="item.urlImagem" class="product__cover-img">
+        <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
 
         <!-- Área para preços de produtos em promoção -->
-        <span *ngIf="item.porcentDesc > 0" class="product__price-orig">{{item.preco | currency: 'BRL'}}</span>
-        <span class="product__price">{{item.precoComDesc | currency: 'BRL'}}</span>
+        <span *ngIf="item.percentOff > 0" class="product__price-orig">{{item.price | currency: 'BRL'}}</span>
+        <span class="product__price">{{item.priceWithDiscount | currency: 'BRL'}}</span>
       </a>
     </div>
 

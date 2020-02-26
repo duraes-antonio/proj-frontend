@@ -6,13 +6,14 @@ import {ModalPaymentMatComponent} from './modal-payment-mat/modal-payment-mat.co
 import {ModalProductMatComponent} from './modal-product-mat/modal-product-mat.component';
 import {ModalRecupSenhaComponent} from './modal-recup-senha/modal-recup-senha.component';
 import {ModalShippingMatComponent} from './modal-shipping-mat/modal-shipping-mat.component';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -40,7 +41,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    ScrollingModule
   ],
   providers: [
     MatDialog

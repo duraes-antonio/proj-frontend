@@ -36,21 +36,26 @@ export const buildErrorMsg = {
 };
 
 export function getMsg(field: string, control: FormControl): string {
-  for (const error in control.errors) {
-    if (error === EErrorType.FORMAT) {
-      return buildErrorMsg.msgInvalidFormat(field);
-    } else if (error === EErrorType.MAX_LEN) {
-      return buildErrorMsg.msgMaxLen(field, control.errors[error]);
-    } else if (error === EErrorType.MAX_VAL) {
-      return buildErrorMsg.msgMaxValue(field, control.errors[error]);
-    } else if (error === EErrorType.MIN_LEN) {
-      return buildErrorMsg.msgMinLen(field, control.errors[error]);
-    } else if (error === EErrorType.MIN_VAL) {
-      return buildErrorMsg.msgMinValue(field, control.errors[error]);
-    } else if (error === EErrorType.REQUIRED) {
-      return buildErrorMsg.msgNullOrEmpty(field);
-    } else {
-      return control.errors[error];
-    }
+  if (!control.errors) {
+    throw new Error('Não há erros para serem analisados!');
+  }
+
+  const keyError = Object.keys(control.errors)[0];
+  const error = control.errors[keyError];
+
+  if (error === EErrorType.FORMAT) {
+    return buildErrorMsg.msgInvalidFormat(field);
+  } else if (error === EErrorType.MAX_LEN) {
+    return buildErrorMsg.msgMaxLen(field, control.errors[error]);
+  } else if (error === EErrorType.MAX_VAL) {
+    return buildErrorMsg.msgMaxValue(field, control.errors[error]);
+  } else if (error === EErrorType.MIN_LEN) {
+    return buildErrorMsg.msgMinLen(field, control.errors[error]);
+  } else if (error === EErrorType.MIN_VAL) {
+    return buildErrorMsg.msgMinValue(field, control.errors[error]);
+  } else if (error === EErrorType.REQUIRED) {
+    return buildErrorMsg.msgNullOrEmpty(field);
+  } else {
+    return control.errors[error];
   }
 }

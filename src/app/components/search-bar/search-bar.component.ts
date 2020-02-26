@@ -7,7 +7,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent {
-  text: string;
+  text = '';
 
   @Output() textOut = new EventEmitter<string>();
   @Output() searchAction = new EventEmitter<string>();

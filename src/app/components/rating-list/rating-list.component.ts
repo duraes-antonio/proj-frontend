@@ -1,6 +1,6 @@
 'use strict';
 import {Component, Input} from '@angular/core';
-import {Avaliacao} from '../../models/Avaliacao';
+import {Review} from '../../models/review';
 import {fmtTimestamp} from '../../../shared/constants/formats';
 
 @Component({
@@ -10,6 +10,6 @@ import {fmtTimestamp} from '../../../shared/constants/formats';
 })
 export class RatingListComponent {
 
-  @Input() ratings: Avaliacao[];
-  public fmtData: string = fmtTimestamp;
+  @Input() ratings: Review[] = [];
+  fmtData: string = fmtTimestamp;
 }

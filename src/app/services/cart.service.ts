@@ -1,25 +1,34 @@
+'use strict';
+
 export class CartService {
 
-  public static addProducts(prodId: number): void {
-    const cartJsonStr: number[] = JSON.parse(window.localStorage.getItem('cart'));
+  static addProducts(prodId: number): void {
+    const cartFromStorage = window.localStorage.getItem('cart');
 
-    if (!cartJsonStr) {
+    /*Se não houver a variável de carrinho no localstore, crie-a*/
+    if (!cartFromStorage) {
       window.localStorage.setItem('cart', JSON.stringify([prodId]));
-    } else if (!(cartJsonStr as number[]).some(pId => pId === prodId)) {
-      window.localStorage.setItem('cart', JSON.stringify([...cartJsonStr, prodId]));
+    } else {
+      /*Se houver, verifique se o produto está contido nela*/
+      const cartJsonStr: number[] = JSON.parse(cartFromStorage);
+
+      if (!cartJsonStr.some(pId => pId === prodId)) {
+        window.localStorage.setItem('cart', JSON.stringify([...cartJsonStr, prodId]));
+      }
     }
   }
 
-  public static getProducts(): number[] {
-    return JSON.parse(window.localStorage.getItem('cart'));
+  static getProducts(): number[] {
+    const cartFromStorage = window.localStorage.getItem('cart');
+    return !cartFromStorage ? [] : JSON.parse(cartFromStorage);
   }
 
-  public static containsProduct(productId): boolean {
+  static containsProduct(productId: number): boolean {
     const prods = window.localStorage.getItem('cart');
     return !prods || (JSON.parse(prods) as number[]).indexOf(productId) > -1;
   }
 
-  public static removeProduct(id: number) {
+  static removeProduct(id: number) {
     const prods = window.localStorage.getItem('cart');
 
     if (prods) {
@@ -32,7 +41,7 @@ export class CartService {
     }
   }
 
-  public static clear() {
+  static clear() {
     window.localStorage.removeItem('cart');
   }
 }

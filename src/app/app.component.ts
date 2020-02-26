@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {LinkList} from './models/componentes/LinkList';
-import {Link} from './models/componentes/Link';
-import {Usuario} from './models/Usuario';
+import {ListLink} from './models/componentes/listLink';
+import {Link} from './models/componentes/link';
+import {User} from './models/user';
 import {DataTests} from '../shared/dataTests';
 import {ERole} from './enum/roles';
 
@@ -13,12 +13,12 @@ import {ERole} from './enum/roles';
 export class AppComponent {
   title = 'proj-frontend';
 
-  listaLinks: Array<LinkList>;
-  readonly user: Usuario = DataTests.usuarios[0];
+  listaLinks: Array<ListLink>;
+  readonly user: User = DataTests.users[0];
   sidenavShow = false;
 
   constructor() {
-    this.listaLinks = new Array<LinkList>();
+    this.listaLinks = new Array<ListLink>();
     const urlGoogle = 'www.google.com';
 
     const titulosLoja = ['Sobre', 'Contato', 'Categorias', 'Promoções'];
@@ -48,9 +48,9 @@ export class AppComponent {
       linksParceiros.push(new Link(link, urlGoogle));
     }
 
-    this.listaLinks.push(new LinkList('Loja', linksLoja));
-    this.listaLinks.push(new LinkList('Minha conta', linksMinhaConta, ERole.CUSTOMER));
-    this.listaLinks.push(new LinkList('Área Administrativa', linksAdmin, ERole.ADMIN));
-    this.listaLinks.push(new LinkList('Parceiros', linksParceiros));
+    this.listaLinks.push(new ListLink('Loja', linksLoja));
+    this.listaLinks.push(new ListLink('Minha conta', linksMinhaConta, ERole.CUSTOMER));
+    this.listaLinks.push(new ListLink('Área Administrativa', linksAdmin, ERole.ADMIN));
+    this.listaLinks.push(new ListLink('Parceiros', linksParceiros));
   }
 }

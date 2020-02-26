@@ -1,7 +1,7 @@
 <app-modal-mat (action)="emitProduct()" (closed)="closed.emit()" [btnAcceptTitle]="textModal.btnAction"
                [btnCancelTitle]="textModal.btnCancel" [modalTitle]="textModal.title">
   <div class="product__image">
-    <img *ngIf="!product.semImagem; else withoutImage" [src]="product.urlImagem" class="product__image-img">
+    <img *ngIf="!product.urlImage; else withoutImage" [src]="product.urlImage" class="product__image-img">
     <ng-template #withoutImage>
       <i aria-hidden="true" class="far fa-image"></i>
     </ng-template>
@@ -9,7 +9,7 @@
     <div style="display: flex; margin-top: 15px">
       <button class="btn-general" mat-stroked-button>
         <i aria-hidden="true" class="far fa-file-image"></i>
-        <span>{{product.semImagem ? 'Adicionar' : 'Substituir'}} Imagem</span>
+        <span>{{!product.urlImage ? 'Adicionar' : 'Substituir'}} Imagem</span>
       </button>
       <!--      <button mat-stroked-button class="btn-general">-->
       <!--        <i aria-hidden="true" class="fas fa-plus"></i>-->
@@ -28,7 +28,7 @@
       <mat-label>Categorias</mat-label>
       <mat-select [formControl]="categoryControl" multiple>
         <mat-option *ngFor="let cat of productCategs" [value]="cat">
-          {{cat.nome}}
+          {{cat.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -36,7 +36,7 @@
     <!-- Título -->
     <mat-form-field class="col s12">
       <mat-label>Título</mat-label>
-      <input #fieldTitle [(ngModel)]="product.titulo" class="input"
+      <input #fieldTitle [(ngModel)]="product.title" class="input"
              matInput maxlength="100" type="text">
       <mat-hint align="end">{{fieldTitle.value.length}} / 100</mat-hint>
     </mat-form-field>
@@ -44,7 +44,7 @@
     <!-- Descrição -->
     <mat-form-field class="col s12">
       <mat-label>Descrição</mat-label>
-      <textarea #autosize="cdkTextareaAutosize" #fieldDescription [(ngModel)]="product.descricao"
+      <textarea #autosize="cdkTextareaAutosize" #fieldDescription [(ngModel)]="product.desc"
                 cdkAutosizeMaxRows="10" cdkAutosizeMinRows="1" cdkTextareaAutosize
                 class="input" matInput maxlength="2000"></textarea>
       <mat-hint align="end">{{fieldDescription.value.length}} / 2000</mat-hint>
@@ -60,7 +60,7 @@
     <!-- Preço de venda -->
     <mat-form-field class="col s6">
       <mat-label>Preço de venda</mat-label>
-      <input [(ngModel)]="product.qtdDisponivel" matInput type="number">
+      <input [(ngModel)]="product.amountAvailable" matInput type="number">
       <span matPrefix>R$&nbsp;</span>
     </mat-form-field>
 

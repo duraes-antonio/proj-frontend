@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ListMarket} from '../../../models/componentes/ListMarket';
+import {ListMarket} from '../../../models/componentes/listMarket';
 
 @Component({
   selector: 'app-slider-market',
@@ -8,18 +8,21 @@ import {ListMarket} from '../../../models/componentes/ListMarket';
 })
 export class SliderMarketComponent {
 
-  optionsGlide;
+  optionsGlide: any;
 
-  private _list: ListMarket;
+  private _list?: ListMarket;
 
   get list() {
     return this._list;
   }
 
   @Input()
-  set list(list: ListMarket) {
+  set list(list: ListMarket | undefined) {
     this._list = list;
-    this.optionsGlide = this.getOptionsGlid(list.itens.length);
+
+    if (list) {
+      this.optionsGlide = this.getOptionsGlid(list.items.length);
+    }
   }
 
   private getOptionsGlid(countItens: number): any {

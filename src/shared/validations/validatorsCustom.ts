@@ -1,4 +1,5 @@
-import {FormControl, ValidatorFn} from '@angular/forms';
+'use strict';
+import {AbstractControl, ValidatorFn} from '@angular/forms';
 import {masks} from '../input-masks/maskFunctions';
 import {validation} from './validationFunctions';
 import {EErrorType} from './msgErrorFunctions';
@@ -6,7 +7,7 @@ import {fieldSize} from '../constants/fieldSize';
 
 export const validators = {
   cepValidator(): ValidatorFn {
-    return (control: FormControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
       const cep = masks.cep(control.value);
 
       if (!validation.hasValue(cep)) {
@@ -18,7 +19,7 @@ export const validators = {
     };
   },
   emailValidator(): ValidatorFn {
-    return (control: FormControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
 
       if (!validation.hasValue(control.value)) {
         return {[EErrorType.REQUIRED]: true};
@@ -37,7 +38,7 @@ export const validators = {
     };
   },
   textValidator(maxLen: number, minLen = 1, required = true): ValidatorFn {
-    return (control: FormControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
 
       if (validation.hasValue(control.value)) {
         const name = control.value.toString().trim();
@@ -56,7 +57,7 @@ export const validators = {
     };
   },
   phoneValidator(): ValidatorFn {
-    return (control: FormControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
 
       if (!validation.hasValue(control.value)) {
         return {[EErrorType.REQUIRED]: true};

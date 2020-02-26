@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ListProduct} from '../../../models/componentes/ListProduct';
+import {ListProduct} from '../../../models/componentes/listProduct';
 import {routes} from '../../../../shared/constants/routes';
 
 @Component({
@@ -10,18 +10,18 @@ import {routes} from '../../../../shared/constants/routes';
 export class SliderProductComponent {
 
   readonly routes = routes;
-  optionsGlide;
+  optionsGlide: any;
 
-  private _list: ListProduct;
+  private _list: ListProduct = new ListProduct('', [], 0);
 
-  get list() {
+  get list(): ListProduct {
     return this._list;
   }
 
   @Input()
   set list(list: ListProduct) {
     this._list = list;
-    this.optionsGlide = this.getOptionsGlid(list.itens.length);
+    this.optionsGlide = this.getOptionsGlid(list.items.length);
   }
 
   private getOptionsGlid(countItens: number): any {

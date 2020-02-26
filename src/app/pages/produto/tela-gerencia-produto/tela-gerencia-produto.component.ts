@@ -1,12 +1,12 @@
 'use strict';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Produto} from '../../../models/Produto';
+import {Product} from '../../../models/product';
 import {DataTests} from '../../../../shared/dataTests';
 import {ProductService} from '../../../services/product.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ModalProductMatComponent} from '../../../components/modais/modal-product-mat/modal-product-mat.component';
 import {FormControl} from '@angular/forms';
-import {Categoria} from '../../../models/Categoria';
+import {Category} from '../../../models/category';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatSort} from '@angular/material/sort';
@@ -19,21 +19,21 @@ import {FilterProduct} from '../../../models/filters/filterProductAdmin.model';
 })
 export class TelaGerenciaProdutoComponent implements OnInit {
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort = new MatSort();
 
   readonly controlCategories = new FormControl();
   filter = new FilterProduct();
-  products: Produto[] = DataTests.produtos;
-  categories: Categoria[] = DataTests.categorias;
-  productChosen: Produto;
+  products: Product[] = DataTests.products;
+  categories: Category[] = DataTests.categories;
+  productChosen?: Product;
   textSearch = '';
 
   /*Dados usados na tabela de produtos*/
   displayedColumns = [
     'select', 'id', 'titulo', 'porcentDesc', 'preco', 'freteGratis', 'qtdDisponivel', 'categorias'
   ];
-  dataSource = new MatTableDataSource<Produto>(this.products);
-  selection = new SelectionModel<Produto>(true, []);
+  dataSource = new MatTableDataSource<Product>(this.products);
+  selection = new SelectionModel<Product>(true, []);
 
   constructor(private dialog: MatDialog) {
   }
@@ -43,10 +43,10 @@ export class TelaGerenciaProdutoComponent implements OnInit {
   }
 
   createProduct() {
-    const config = ModalProductMatComponent.getConfig({product: null});
+    const config = ModalProductMatComponent.getConfig({});
     const dialogRef = this.dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
-      (prod: Produto) => {
+      (prod: Product) => {
         /*TODO: Persistir no banco*/
         prod.id = this.products.length + 1;
         this.products.push(prod);
@@ -60,7 +60,7 @@ export class TelaGerenciaProdutoComponent implements OnInit {
     const config = ModalProductMatComponent.getConfig({product: this.productChosen});
     const dialogRef = this.dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
-      (prod: Produto) => {
+      (prod: Product) => {
         const idxProd = this.products.findIndex(p => p.id === prod.id);
 
         if (idxProd > -1) {
@@ -71,7 +71,7 @@ export class TelaGerenciaProdutoComponent implements OnInit {
     );
   }
 
-  saveProduct(product: Produto) {
+  saveProduct(product: Product) {
     ProductService.put(product);
   }
 

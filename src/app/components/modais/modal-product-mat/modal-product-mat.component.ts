@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import {FormControl} from '@angular/forms';
-import {Produto} from '../../../models/Produto';
-import {Categoria} from '../../../models/Categoria';
+import {Product} from '../../../models/product';
+import {Category} from '../../../models/category';
 import {DataTests} from '../../../../shared/dataTests';
 
 @Component({
@@ -12,23 +12,23 @@ import {DataTests} from '../../../../shared/dataTests';
 })
 export class ModalProductMatComponent {
 
-  readonly product: Produto = this.data.product ? this.data.product : new Produto('', '', 0);
+  readonly product: Product = this.data.product ? this.data.product : new Product('', '', 0);
   readonly textModal = {
-    title: this.data.product ? this.data.product.titulo : 'Novo produto',
+    title: this.data.product ? this.data.product.title : 'Novo produto',
     btnAction: 'Salvar',
     btnCancel: 'Descartar',
   };
-  productCategs: Categoria[] = DataTests.categorias;
+  productCategs: Category[] = DataTests.categories;
   categoryControl = new FormControl();
 
   @Output() closed = new EventEmitter();
-  @Output() action = new EventEmitter<Produto>();
+  @Output() action = new EventEmitter<Product>();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IModalProductData) {
-    const categCheckeds = [];
+    const categCheckeds: Category[] = [];
     this.productCategs.forEach(
       c => {
-        if (this.product.categorias.some(cp => c.id === cp.id)) {
+        if (this.product.categories.some(cp => c.id === cp.id)) {
           categCheckeds.push(c);
         }
       }
@@ -45,11 +45,11 @@ export class ModalProductMatComponent {
   }
 
   emitProduct() {
-    this.product.categorias = this.categoryControl.value;
+    this.product.categories = this.categoryControl.value;
     this.action.emit(this.product);
   }
 }
 
 export interface IModalProductData {
-  product?: Produto;
+  product?: Product;
 }

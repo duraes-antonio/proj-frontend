@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {Usuario} from '../../models/Usuario';
+import {User} from '../../models/user';
 import {routes} from '../../../shared/constants/routes';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/auth.service';
@@ -11,9 +11,9 @@ import {AuthService} from '../../services/auth.service';
 })
 export class SidenavComponent {
 
-  @Input() usuario: Usuario;
+  @Input() user?: User;
   @Output() closed = new EventEmitter();
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav') sidenav?: MatSidenav;
   opened = false;
   readonly actionsPersonal: LinkAction[] = [
     new LinkAction('Meu perfil', '', 'fas fa-user-cog'),
@@ -32,15 +32,15 @@ export class SidenavComponent {
   ];
   readonly actionLogout: LinkAction = new LinkAction('Sair', routes.home, 'fas fa-sign-out-alt');
 
+  constructor(private auth: AuthService) {
+  }
+
   _show = false;
 
   @Input()
   set show(value: boolean) {
     this._show = value;
     value ? this.open() : this.close();
-  }
-
-  constructor(private auth: AuthService) {
   }
 
   close() {
@@ -52,8 +52,10 @@ export class SidenavComponent {
   }
 
   open() {
-    this.sidenav.open();
-    this.opened = true;
+    if (this.sidenav) {
+      this.sidenav.open();
+      this.opened = true;
+    }
   }
 
   logout() {

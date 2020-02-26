@@ -4,18 +4,18 @@
     <div class="market">
 
       <!-- LOGO DA LOJA -->
-      <a [href]="item.link" class="market__logo" title="Logo da loja {{item.nome}}">
-        <img [src]="item.urlImgLogo" alt="Logo da loja {{item.nome}}}"
+      <a [href]="item.url" class="market__logo" title="Logo da loja {{item.name}}">
+        <img [src]="item.logoImgUrl" alt="Logo da loja {{item.name}}}"
              class="market__logo-img">
       </a>
 
       <!-- BACKGROUND DA LOJA -->
-      <div [style.backgroundImage]="'url('+ item.urlImagem +')'"
-           [title]="item.nome" class="market__back">
+      <div [style.backgroundImage]="'url('+ item.imageUrl +')'"
+           [title]="item.name" class="market__back">
       </div>
 
       <!-- LINK PARA LOJA -->
-      <a [href]="item.link" class="market__info">{{item.nome}}</a>
+      <a [href]="item.url" class="market__info">{{item.name}}</a>
     </div>
   </li>
 </app-slider-base>

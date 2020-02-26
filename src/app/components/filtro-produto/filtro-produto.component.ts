@@ -1,7 +1,7 @@
 'use strict';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Produto} from '../../models/Produto';
-import {Categoria} from '../../models/Categoria';
+import {Product} from '../../models/product';
+import {Category} from '../../models/category';
 import {FiltroProdutoPesquisa} from '../../models/filters/filterProductUser.model';
 
 @Component({
@@ -13,32 +13,31 @@ export class FiltroProdutoComponent {
 
   @Output() filterEmit = new EventEmitter<FiltroProdutoPesquisa>();
 
-  categoriesInit: Set<Categoria>;
-  ratingsInit: number[];
-  discountsInit: number[][];
-  freeDeliveryInit: boolean;
+  categoriesInit = new Set<Category>();
+  ratingsInit: number[] = [];
+  discountsInit: number[][] = [];
+  freeDeliveryInit?: boolean;
   filter = new FiltroProdutoPesquisa(1, 10);
 
   freeDelivery = false;
-  priceMin: number;
-  priceMax: number;
+  priceMin = 0;
+  priceMax = 150;
   readonly categories: number[] = [];
   readonly discounts: number[] = [];
   readonly ratings: number[] = [];
-
-  private _produtos: Produto[];
+  private _produtos: Product[] = [];
 
   @Input()
-  get produtos(): Produto[] {
+  get produtos(): Product[] {
     return this._produtos;
   }
 
-  set produtos(produtos: Produto[]) {
+  set produtos(produtos: Product[]) {
     this._produtos = produtos;
     this.ratingsInit = this.prepareRatings(produtos);
     this.categoriesInit = this.prepareCategory(produtos);
     this.discountsInit = this.prepareDiscounts(produtos);
-    this.freeDeliveryInit = produtos.some(p => p.freteGratis);
+    this.freeDeliveryInit = produtos.some(p => p.freeDelivery);
   }
 
 
@@ -62,13 +61,15 @@ export class FiltroProdutoComponent {
     } else {
       this.discounts.push(indexPair);
     }
-    this.filter = {
-      ...this.filter,
-      descMin: this.discounts && this.discounts.length
-        ? this.discountsInit[Math.min(...this.discounts)][0] : null,
-      descMax: this.discounts && this.discounts.length
-        ? this.discountsInit[Math.max(...this.discounts)][1] : null,
-    };
+
+    if (this.discounts && this.discounts.length) {
+      this.filter = {
+        ...this.filter,
+        descMin: this.discountsInit[Math.min(...this.discounts)][0],
+        descMax: this.discountsInit[Math.max(...this.discounts)][1],
+      };
+    }
+
     this.filterEmit.emit(this.filter);
   }
 
@@ -96,26 +97,26 @@ export class FiltroProdutoComponent {
     this.filterEmit.emit(this.filter);
   }
 
-  private prepareRatings(prods: Produto[]): number[] {
+  private prepareRatings(prods: Product[]): number[] {
     return [0, 1, 2, 3, 4, 5]
       .filter(num =>
-        prods.some(p => Math.floor(p.mediaAvaliacao) === num)
+        prods.some(p => Math.floor(p.avgReview) === num)
       );
   }
 
-  private prepareCategory(prods: Produto[]): Set<Categoria> {
+  private prepareCategory(prods: Product[]): Set<Category> {
     return new Set(
       prods
-        .map(p => p.categorias)
+        .map(p => p.categories)
         .reduce((a, b) => a.concat(b), [])
     );
   }
 
-  private prepareDiscounts(prods: Produto[]): number[][] {
+  private prepareDiscounts(prods: Product[]): number[][] {
     return [[1, 10], [11, 25], [26, 40], [41, 60], [61, 80], [81, 99]]
       .filter(desc =>
         prods.some(p =>
-          p.porcentDesc >= desc[0] && p.porcentDesc <= desc[1]
+          p.percentOff >= desc[0] && p.percentOff <= desc[1]
         )
       );
   }

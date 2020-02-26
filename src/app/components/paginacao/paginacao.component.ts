@@ -8,11 +8,10 @@ import {genSequence} from '../../../shared/utilFunctions';
 })
 export class PaginacaoComponent implements OnInit {
 
-  public indicePags: number[];
-  @Output() paginaSelecionada: EventEmitter<number> = new EventEmitter<number>();
-
   @Input() paginaAtual = 1;
-  private _qtdPag: number;
+  indicePags: number[] = [];
+  @Output() paginaSelecionada = new EventEmitter<number>();
+  private _qtdPag = 1;
 
   @Input()
   get qtdPags(): number {
@@ -28,11 +27,11 @@ export class PaginacaoComponent implements OnInit {
   }
 
   exibirBtnPagAnt(pagAtual: number): boolean {
-    return pagAtual && pagAtual > 1;
+    return pagAtual > 1;
   }
 
   exibirBtnPagProx(pagAtual: number, qtdPaginas: number): boolean {
-    return pagAtual && pagAtual < qtdPaginas;
+    return pagAtual < qtdPaginas;
   }
 
   gerarSeqIndPags(

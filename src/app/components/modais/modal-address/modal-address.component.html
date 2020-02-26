@@ -9,7 +9,7 @@
       <mat-form-field appearance="outline">
         <mat-label>CEP</mat-label>
         <input (focusin)="clearRadioAdress('addresses__item--active')"
-               (input)="formatCEP($event)" [formControl]="controlCep" matInput type="text">
+               (input)="formatCEP($event.target)" [formControl]="controlCep" matInput type="text">
         <mat-hint align="start">{{textHintCEP}}</mat-hint>
         <mat-error *ngIf="controlCep.invalid">{{getMsg('CEP', controlCep)}}</mat-error>
       </mat-form-field>
@@ -24,8 +24,8 @@
                         *ngFor="let addr of data.addresses"
                         [value]="addr.id" class="addresses__item">
         <span class="addresses__item-content" id="{{addr.id}}">
-          <span style="font-weight: 500">{{addr.numero}} - {{addr.logradouro}} - {{addr.bairro}}</span>
-          CEP: {{addr.cep}} - {{addr.cidade}} - {{addr.estado}}
+          <span style="font-weight: 500">{{addr.number}} - {{addr.street}} - {{addr.neighborhood}}</span>
+          CEP: {{addr.zipCode}} - {{addr.city}} - {{addr.state}}
         </span>
       </mat-radio-button>
     </mat-radio-group>

@@ -9,7 +9,7 @@
       <div class="filter__section-header">Categorias</div>
       <div class="filter__section-body">
         <mat-checkbox (change)="categoryChange(categ.id)" *ngFor="let categ of categoriesInit">
-          {{categ.nome}}
+          {{categ.name}}
         </mat-checkbox>
       </div>
     </li>

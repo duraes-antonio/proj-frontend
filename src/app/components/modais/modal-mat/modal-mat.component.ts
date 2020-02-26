@@ -17,19 +17,19 @@ import {widthMaxSmall} from '../../../../shared/constants/dom';
 })
 export class ModalMatComponent implements OnDestroy, AfterViewInit {
   @Input() show = false;
-  @Input() modalTitle: string;
-  @Input() modalDesc: string;
-  @Input() btnCancelTitle: string;
-  @Input() btnAcceptTitle: string;
+  @Input() modalTitle?: string;
+  @Input() modalDesc?: string;
+  @Input() btnCancelTitle?: string;
+  @Input() btnAcceptTitle?: string;
   @Input() actionDisabled = false;
 
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
 
-  private content: HTMLElement;
-  private footer: HTMLElement;
-  private header: HTMLElement;
-  private modal: HTMLElement;
+  private content: HTMLElement = new HTMLElement();
+  private footer: HTMLElement = new HTMLElement();
+  private header: HTMLElement = new HTMLElement();
+  private modal: HTMLElement = new HTMLElement();
 
   ngOnDestroy(): void {
     document.body.style.overflow = 'auto';
@@ -37,9 +37,9 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.modal = document.getElementsByClassName('mat-dialog-container')[0] as HTMLElement;
-    this.content = document.getElementById('modal-content');
-    this.footer = document.getElementById('modal-footer');
-    this.header = document.getElementById('modal-header');
+    this.content = document.getElementById('modal-content') as HTMLElement;
+    this.footer = document.getElementById('modal-footer') as HTMLElement;
+    this.header = document.getElementById('modal-header') as HTMLElement;
     document.body.style.overflow = 'unset';
     this.modalResize();
   }
@@ -50,37 +50,13 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
     this.modal.style.setProperty(`--footer-height`, `${this.footer.offsetHeight}px`);
 
     if (window.innerWidth <= widthMaxSmall) {
-      const internalHeight = this.header.offsetHeight + this.content.offsetHeight + this.footer.offsetHeight;
+      const internalHeight = this.header.offsetHeight
+        + this.content.offsetHeight
+        + this.footer.offsetHeight;
       const footerMTop = this.modal.offsetHeight - internalHeight - 48;
       this.footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
     } else {
       this.footer.style.setProperty('--footer-margin-top', `${10}px`);
     }
   }
-}
-
-export class ModalData {
-  public readonly modalTitle: string;
-  public readonly modalDesc: string;
-
-  public readonly btnCancelTitle: string;
-  public readonly btnAcceptTitle?: string;
-
-  public actionDisabled?: boolean;
-
-  constructor(
-    modalTitle: string, modalDesc: string,
-    btnCancelTitle: string, btnAcceptTitle?: string, actionDisabled?: boolean
-  ) {
-    this.modalTitle = modalTitle;
-    this.modalDesc = modalDesc;
-    this.btnCancelTitle = btnCancelTitle;
-    this.btnAcceptTitle = btnAcceptTitle;
-    this.actionDisabled = actionDisabled;
-  }
-}
-
-export enum EModalEvent {
-  ACTION,
-  CLOSE
 }

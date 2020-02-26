@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {Slider} from '../../models/componentes/Slider';
-import {ListProduct} from '../../models/componentes/ListProduct';
-import {ListaCartao} from '../../models/componentes/ListaCartao';
-import {ListMarket} from '../../models/componentes/ListMarket';
+import {Slider} from '../../models/componentes/slider';
+import {ListProduct} from '../../models/componentes/listProduct';
+import {ListMarket} from '../../models/componentes/listMarket';
+import {DataTests} from '../../../shared/dataTests';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -12,8 +12,8 @@ import {ListMarket} from '../../models/componentes/ListMarket';
 export class TelaInicialComponent {
 
   // TODO: Receber lista de components do banco
-  public readonly sliders: Slider[] = [new Slider(1)];
-  public readonly cartoes: ListaCartao[] = [new ListaCartao(1)];
-  public readonly listsProd: ListProduct[] = [new ListProduct(1)];
-  public readonly listsMarket: ListMarket[] = [new ListMarket(3)];
+  public readonly sliders: Slider[] = [...DataTests.sliders];
+  // public readonly cartoes: ListCard[] = [new ListCard(1)];
+  public readonly listsProd: ListProduct[] = [...DataTests.listProducts];
+  public readonly listsMarket: ListMarket[] = [...DataTests.listMarkets];
 }

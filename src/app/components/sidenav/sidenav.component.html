@@ -5,15 +5,15 @@
       <!-- Área de imagem avatar, nome e email -->
       <div class="info-user__avatar">
         <a href="www.google.com">
-          <img *ngIf="usuario.avatarUrl" alt="Imagem de perfil de '{{usuario.nome}}'"
-               class="img-avatar" src="{{usuario.avatarUrl}}">
-          <i *ngIf="!usuario.avatarUrl" aria-hidden="true" class="fas fa-user-circle icone-avatar"></i>
+          <img *ngIf="user.avatarUrl" alt="Imagem de perfil de '{{user.name}}'"
+               class="img-avatar" src="{{user.avatarUrl}}">
+          <i *ngIf="!user.avatarUrl" aria-hidden="true" class="fas fa-user-circle icone-avatar"></i>
         </a>
       </div>
 
       <div class="info-user__name-email">
-        <span class="info-user__name">{{usuario.nome}}</span>
-        <span class="info-user__email">{{usuario.email}}</span>
+        <span class="info-user__name">{{user.name}}</span>
+        <span class="info-user__email">{{user.email}}</span>
       </div>
     </div>
 

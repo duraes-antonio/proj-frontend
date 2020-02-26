@@ -5,12 +5,11 @@ import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
 import {DataTests} from '../../../../shared/dataTests';
-import {Produto} from '../../../models/Produto';
-import {Avaliacao} from '../../../models/Avaliacao';
-import {Endereco} from '../../../models/Endereco';
+import {Product} from '../../../models/product';
+import {Review} from '../../../models/review';
+import {Address} from '../../../models/address';
 import {DeliveryOption} from '../../../models/deliveryOption';
 import {Cart} from '../../../models/cart.model';
-import {ListProduct} from '../../../models/componentes/ListProduct';
 import {Add, Remove} from '../../../actions/cart.action';
 import {ProductService} from '../../../services/product.service';
 import {calcAverage} from '../../../../shared/utilFunctions';
@@ -25,17 +24,15 @@ import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment
 })
 export class TelaVisualizarProdutoComponent implements OnDestroy {
 
-  public produto: Produto;
-  public prodInCart = false;
-  public deliveryChosen: DeliveryOption;
+  produto?: Product;
+  deliveryChosen?: DeliveryOption;
+  prodInCart = false;
 
-  public seqProd = new ListProduct(625);
-  public avaliacoes: Avaliacao[] = DataTests.avaliacoes;
-  public media: number = this.calcAvgRating(this.avaliacoes, 2);
-  public enderecos: Endereco[] = DataTests.enderecos;
-  public deliveryOpts: DeliveryOption[] = DataTests.opcoesEntrega;
-
-  public _showModalPayments = false;
+  seqProd = [...DataTests.listProducts];
+  avaliacoes: Review[] = DataTests.reviews;
+  media: number = this.calcAvgRating(this.avaliacoes, 2);
+  enderecos: Address[] = DataTests.addresses;
+  deliveryOpts: DeliveryOption[] = DataTests.deliveryOptions;
 
   /*TODO: Remover após ter dados em um banco de dados*/
   private routeSub$: Subscription;
@@ -58,9 +55,11 @@ export class TelaVisualizarProdutoComponent implements OnDestroy {
       });
     this.cart$ = cartStore.subscribe(
       (res: any) => {
+        const currProdId = this.produto ? this.produto.id : 0;
+
         if ((res.cart as Cart).productsId) {
           this.prodInCart = (res.cart as Cart).productsId
-            .some(id => id === this.produto.id);
+            .some(id => id === currProdId);
         }
       });
   }
@@ -93,14 +92,14 @@ export class TelaVisualizarProdutoComponent implements OnDestroy {
       ModalAddressComponent.getConfig({showInputCEP: true, addresses: this.enderecos})
     );
     dialogRef.componentInstance.action.subscribe(
-      cep => {
+      (cep: string) => {
         this.dialog.closeAll();
         this.showModalShipp(cep);
       });
   }
 
   showModalPayments() {
-    const dialogRef = this.dialog.open(ModalPaymentMatComponent, ModalPaymentMatComponent.getConfig());
+    this.dialog.open(ModalPaymentMatComponent, ModalPaymentMatComponent.getConfig());
   }
 
   updateChosenDelivery(delivery: DeliveryOption) {
@@ -115,10 +114,7 @@ export class TelaVisualizarProdutoComponent implements OnDestroy {
     this.cartStore.dispatch(Remove(id));
   }
 
-  private calcAvgRating(ratings: Avaliacao[], qtdDecimals = 2): number {
-    return +(
-      calcAverage(ratings, (aval: Avaliacao) => aval.nota)
-        .toFixed(qtdDecimals)
-    );
+  private calcAvgRating(ratings: Review[], qtdDecimals = 2): number {
+    return calcAverage(ratings, (aval: Review) => aval.value, qtdDecimals);
   }
 }

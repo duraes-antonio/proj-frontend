@@ -5,14 +5,14 @@
 
     <!-- Imagens -->
     <div class="col s12 m12 l4 xl4 img-section">
-      <img [src]="produto.urlImagem" alt="Imagem do produto {{produto.titulo}}" class="main-img">
+      <img [src]="produto.urlImage" alt="Imagem do produto {{produto.title}}" class="main-img">
     </div>
 
     <!-- Titulo, Cont. Avalições, Descrição e Calc. de Frete -->
     <div class="col s12 m6 l4 xl4 product-info">
 
       <!-- Título -->
-      <h5 class="product-info__title">{{produto.titulo}}</h5>
+      <h5 class="product-info__title">{{produto.title}}</h5>
 
       <!-- Média das avaliações -->
       <!-- TODO: Trazer info do banco de dados   -->
@@ -24,7 +24,7 @@
       </a>
 
       <!-- Descrição -->
-      <p class="product-info__desc">{{produto.descricao}}</p>
+      <p class="product-info__desc">{{produto.desc}}</p>
 
       <div class="divider"></div>
 
@@ -43,18 +43,18 @@
     <div class="col s12 m6 l4 xl4 shopping-section">
 
       <!-- Bandeira de desconto e preço sem desconto -->
-      <div *ngIf="produto.porcentDesc > 0" class="discount">
-        <span class="discount__text">{{produto.preco | currency: 'BRL'}}</span>
+      <div *ngIf="produto.percentOff > 0" class="discount">
+        <span class="discount__text">{{produto.price | currency: 'BRL'}}</span>
         <span class="discount__flag">
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
-          {{produto.porcentDesc | number: '1.0-2'}}%
+          {{produto.percentOff | number: '1.0-2'}}%
         </span>
       </div>
 
-      <span class="shopping-section-price">{{produto.precoComDesc | currency: 'BRL'}}</span>
+      <span class="shopping-section-price">{{produto.priceWithDiscount | currency: 'BRL'}}</span>
 
       <!-- Produto DISPONÍVEL -->
-      <div *ngIf="produto.qtdDisponivel > 0; else prodIndisponivel">
+      <div *ngIf="produto.amountAvailable > 0; else prodIndisponivel">
 
         <!-- Seção de meios de pagamento -->
         <div class="payments-section">
@@ -142,7 +142,7 @@
 
   <!-- Descrição -->
   <span class="section-title">Descrição</span>
-  <p class="product-info__desc">{{produto.descricao}}</p>
+  <p class="product-info__desc">{{produto.desc}}</p>
 
   <div class="divider"></div>
 

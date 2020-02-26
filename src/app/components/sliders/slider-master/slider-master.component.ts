@@ -1,6 +1,6 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {Slider} from '../../../models/componentes/Slider';
+import {Slider} from '../../../models/componentes/slider';
 
 @Component({
   selector: 'app-slider-master',
@@ -9,7 +9,7 @@ import {Slider} from '../../../models/componentes/Slider';
 })
 export class SliderMasterComponent implements AfterViewInit {
 
-  @Input() slider: Slider;
+  @Input() slider?: Slider;
 
   readonly glideOptions = {
     animationDuration: 300,
@@ -20,9 +20,20 @@ export class SliderMasterComponent implements AfterViewInit {
   };
 
   ngAfterViewInit(): void {
+
+    if (!this.slider) {
+      throw new Error('O Slider recebido não pode ser nulo!');
+    }
+
     /* Defina o número de slides (contando com as duas cópias) p/ calcular a largura
     * máxima de cada slide*/
     const sliderElem = document.getElementById(`slide-${this.slider.id}`);
-    sliderElem.parentElement.style.setProperty('--slides-lenght', `${this.slider.tamanho + 2}`);
+
+    if (sliderElem && sliderElem.parentElement) {
+      sliderElem.parentElement.style.setProperty(
+        '--slides-lenght',
+        `${this.slider.lenght + 2}`
+      );
+    }
   }
 }

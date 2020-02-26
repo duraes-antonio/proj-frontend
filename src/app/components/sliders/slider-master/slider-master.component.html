@@ -1,9 +1,9 @@
-<app-slider-base [maxHeight]="'325px'" [optionsGlide]="glideOptions" [sliderLength]="slider.itens.length">
-  <li *ngFor="let slide of slider.itens" [title]="slide.titulo || 'Sem título'"
+<app-slider-base [maxHeight]="'325px'" [optionsGlide]="glideOptions" [sliderLength]="slider.items.length">
+  <li *ngFor="let slide of slider.items" [title]="slide.title || 'Sem título'"
       id="slide-{{slider.id}}" style="display: block;">
     <a class="glide__slide" href="https://www.google.com">
-      <div [style.backgroundImage]="'url('+ slide.imagemUrl +')'" class="bg-blur"></div>
-      <img [alt]="slide.titulo" [src]="slide.imagemUrl">
+      <div [style.backgroundImage]="'url('+ slide.imageUrl +')'" class="bg-blur"></div>
+      <img [alt]="slide.title" [src]="slide.imageUrl">
     </a>
   </li>
 </app-slider-base>

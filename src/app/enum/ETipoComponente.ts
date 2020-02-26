@@ -1,7 +1,0 @@
-export enum ETipoComponente {
-  LISTA_CARTAO,
-  LISTA_CATEGORIA,
-  SEQUENCIA_LOJA,
-  SEQUENCIA_PRODUTO,
-  SLIDER
-}

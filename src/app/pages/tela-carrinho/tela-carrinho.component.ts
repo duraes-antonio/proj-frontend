@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Produto} from '../../models/Produto';
+import {Component, OnDestroy} from '@angular/core';
+import {Product} from '../../models/product';
 import {ProductService} from '../../services/product.service';
 import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart.model';
 import {Subscription} from 'rxjs';
-import {Endereco} from '../../models/Endereco';
+import {Address} from '../../models/address';
 import {DataTests} from '../../../shared/dataTests';
 import {Remove} from '../../actions/cart.action';
 import {MatDialog} from '@angular/material/dialog';
@@ -15,15 +15,23 @@ import {ModalAddressComponent} from '../../components/modais/modal-address/modal
   templateUrl: './tela-carrinho.component.html',
   styleUrls: ['./tela-carrinho.component.scss']
 })
-export class TelaCarrinhoComponent implements OnInit, OnDestroy {
+export class TelaCarrinhoComponent implements OnDestroy {
 
-  productsChosen: Produto[] = [];
+  productsChosen: Product[] = [];
 
   totalCost = 0;
   totalShipment = 0;
-  userAddresses: Endereco[] = DataTests.enderecos;
-  currAddress: Endereco = this.userAddresses[0];
-  tempAddress: Endereco;
+  userAddresses: Address[] = DataTests.addresses;
+  currAddress: Address = this.userAddresses[0];
+  tempAddress: Address = {
+    id: 0,
+    city: '',
+    neighborhood: '',
+    number: 0,
+    state: '',
+    street: '',
+    zipCode: ''
+  };
   prodAmount = new Map<number, number>();
 
   private cart$: Subscription;
@@ -32,9 +40,6 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
     private cartStore: Store<Cart>,
     public dialog: MatDialog
   ) {
-  }
-
-  ngOnInit() {
     this.cart$ = this.cartStore.subscribe(
       (res: any) => {
         const ids = (res.cart as Cart).productsId;
@@ -63,7 +68,7 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
       ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.userAddresses})
     );
     modalAddr.componentInstance.chosenAddress
-      .subscribe((addr: Endereco) => this.tempAddress = addr);
+      .subscribe((addr: Address) => this.tempAddress = addr);
     modalAddr.componentInstance.action
       .subscribe(() => this.currAddress = this.tempAddress);
   }
@@ -79,10 +84,16 @@ export class TelaCarrinhoComponent implements OnInit, OnDestroy {
 
   private updateCost() {
     this.totalCost = this.productsChosen
-      .map(p => p.precoComDesc * this.prodAmount.get(p.id))
+      .map(p => {
+        const amount = this.prodAmount.get(p.id);
+        return p.priceWithDiscount * (amount ? amount : 1);
+      })
       .reduce((p, c) => p + c);
     this.totalShipment = this.productsChosen
-      .map(p => p.precoComDesc * .1 * this.prodAmount.get(p.id))
+      .map(p => {
+        const amount = this.prodAmount.get(p.id);
+        return p.priceWithDiscount * .1 * (amount ? amount : 1);
+      })
       .reduce((p, c) => p + c);
   }
 }

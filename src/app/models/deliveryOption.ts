@@ -1,4 +1,11 @@
+'use strict';
+
 export class DeliveryOption {
-  public readonly cost: number;
-  public readonly time: number;
+  readonly cost: number;
+  readonly timeDays: number;
+
+  constructor(cost: number, time: number) {
+    this.cost = cost;
+    this.timeDays = time;
+  }
 }

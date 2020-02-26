@@ -3,7 +3,7 @@ import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
-import {Notificacao} from '../../models/Notificacao';
+import {NotificationModel} from '../../models/notification';
 import {Cart} from '../../models/cart.model';
 import {DataTests} from '../../../shared/dataTests';
 import {AuthService} from '../../services/auth.service';
@@ -19,9 +19,9 @@ export class NavbarComponent implements OnDestroy {
   @Output() sidenavShow = new EventEmitter();
 
   showNotifics = false;
-  notifics: Notificacao[] = DataTests.notificacoes;
-  numActiveNotif: number = this.notifics.filter(n => !n.lida).length;
-  cartProdsIds: number[];
+  notifics: NotificationModel[] = DataTests.notifications;
+  numActiveNotif: number = this.notifics.filter(n => !n.read).length;
+  cartProdsIds: number[] = [];
   userLogged = false;
   private _cart$: Subscription;
   private _userLogged$: Subscription;
@@ -30,53 +30,41 @@ export class NavbarComponent implements OnDestroy {
     private store: Store<Cart>,
     private router: Router
   ) {
-    this._cart$ = this.store.subscribe(
-      (res: any) => {
-        this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];
-      });
+    this._cart$ = this.store.subscribe((res: any) => {
+      this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];
+    });
     this._userLogged$ = AuthService.userLoggedEmitter.subscribe(
-      res => this.userLogged = res
+      (res: boolean) => this.userLogged = res
     );
   }
 
-  /*TODO: Alterar para receber os dados do usuário após login*/
   ngOnDestroy(): void {
     this._cart$.unsubscribe();
     this._userLogged$.unsubscribe();
   }
 
-  /**
-   * Oculta a lista de notificações se já estiver sendo exibida, senão, exibe-a.
-   */
   toggleListNotif() {
     this.showNotifics = !this.showNotifics;
   }
 
-  /**
-   * Marca uma notificação como lida ou como não lida, mudando seu visual e data de leitura.
-   */
-  toggleNotif(notif: Notificacao) {
+  /* TODO: Chamar serviço*/
+  toggleNotif(notif: NotificationModel) {
     notif.toggle();
-    this.numActiveNotif += notif.lida ? -1 : 1;
+    notif.read ? --this.numActiveNotif : ++this.numActiveNotif;
   }
 
-  /**
-   * Marca uma notificação como lida e atualiza o contador de notif.
-   */
-  markNotifAsRead(notif: Notificacao) {
-
-    if (notif.lida !== true) {
-      notif.marcarComoLida();
-      this.numActiveNotif -= 1;
+  /* TODO: Chamar serviço*/
+  markNotifAsRead(notif: NotificationModel) {
+    if (!notif.read) {
+      notif.read = true;
+      --this.numActiveNotif;
     }
   }
 
-  /**
-   * Marca todas notificações como lidas e atualiza o contador
-   */
+  /* TODO: Chamar serviço*/
   markAllNotifAsRead() {
     if (this.numActiveNotif > 0) {
-      this.notifics.forEach(n => n.lida = true);
+      this.notifics.forEach(n => n.read = true);
       this.numActiveNotif = 0;
     }
   }

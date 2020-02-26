@@ -43,13 +43,13 @@
 
               <!-- NOTIFICAÇÃO INDIVIDUAL -->
               <a (click)="markNotifAsRead(notif)" class="notific__link">
-                <i aria-hidden="true" class="{{notif.classeIcone}} icone-circulo"></i>
+                <i aria-hidden="true" class="{{notif.classIcon}} icone-circulo"></i>
 
                 <!-- INFORMAÇÕES DA NOTIFIÇÃO -->
                 <div class="notific__info">
-                  <span class="notific__desc">{{notif.texto}}<br></span>
+                  <span class="notific__desc">{{notif.text}}<br></span>
                   <span class="notific__date">
-                    {{notif.dataCriacao | date: 'dd/MM/yyyy - hh:mm:ss'}}
+                    {{notif.date | date: 'dd/MM/yyyy - hh:mm:ss'}}
                   </span>
                 </div>
               </a>

@@ -1,11 +1,11 @@
 'use strict';
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
-import {FormControl, ValidatorFn} from '@angular/forms';
-import {Endereco} from '../../../models/Endereco';
+import {FormControl} from '@angular/forms';
+import {Address} from '../../../models/address';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
-import {validation} from '../../../../shared/validations/validationFunctions';
-import {EErrorType, getMsg} from '../../../../shared/validations/msgErrorFunctions';
+import {getMsg} from '../../../../shared/validations/msgErrorFunctions';
+import {validators} from '../../../../shared/validations/validatorsCustom';
 
 @Component({
   selector: 'app-modal-frete-mat',
@@ -15,9 +15,9 @@ import {EErrorType, getMsg} from '../../../../shared/validations/msgErrorFunctio
 export class ModalAddressComponent {
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter<string>();
-  @Output() chosenAddress = new EventEmitter<Endereco>();
+  @Output() chosenAddress = new EventEmitter<Address>();
 
-  controlCep = new FormControl('', [this.cepValidator()]);
+  controlCep = new FormControl('', [validators.cepValidator()]);
   textHintCEP = 'Exemplo de CEP: 29161688';
   addressChosenId = 0;
 
@@ -56,35 +56,29 @@ export class ModalAddressComponent {
     }
 
     /*Adicione a classe ao novo endereço selecionado*/
-    document.getElementById(id.toString()).classList.add(className);
+    const addressSelected = document.getElementById(id.toString());
+
+    if (addressSelected) {
+      addressSelected.classList.add(className);
+    }
 
     this.chosenAddress.emit(this.data.addresses.find(a => a.id === id));
 
     if (this.data.showInputCEP) {
-      this.controlCep.setValue(this.data.addresses.find(a => a.id === id).cep);
+      const address = this.data.addresses.find(a => a.id === id);
+
+      if (address) {
+        this.controlCep.setValue(address.zipCode);
+      }
     }
   }
 
-  formatCEP(e): void {
-    e.target.value = masks.cep(e.target.value);
-  }
-
-  cepValidator(): ValidatorFn {
-    return (control: FormControl): { [key: string]: any } | null => {
-      const cep = masks.cep(control.value);
-
-      if (!validation.hasValue(cep)) {
-        return {[EErrorType.REQUIRED]: true};
-      } else if (!validation.validCEP(cep.replace('-', ''))) {
-        return {[EErrorType.FORMAT]: true};
-      }
-
-      return null;
-    };
+  formatCEP(eTarget: any): void {
+    eTarget.value = masks.cep(eTarget.value);
   }
 
   clearRadioAdress(activeAddressClass: string) {
-    this.addressChosenId = null;
+    this.addressChosenId = 0;
     const activeRadios = document.getElementsByClassName(activeAddressClass);
 
     if (activeRadios.length > 0) {
@@ -94,6 +88,6 @@ export class ModalAddressComponent {
 }
 
 export interface IModalAddressData {
-  addresses: Endereco[];
+  addresses: Address[];
   showInputCEP: boolean;
 }

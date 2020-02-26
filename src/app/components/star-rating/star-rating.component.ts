@@ -12,7 +12,7 @@ export class StarRatingComponent {
   @Input() showNumRatings = true;
   @Input() numRatings = 0;
   public diffAvgIdxs = this.calcDiffAvgIndex(this.maxStars, this.valueRating);
-  @ViewChild('stars') private starsElem: ElementRef<HTMLElement>;
+  @ViewChild('stars') private starsElem?: ElementRef<HTMLElement>;
 
   private _maxStars = 5;
 
@@ -45,14 +45,16 @@ export class StarRatingComponent {
   private updateValues() {
     this.diffAvgIdxs = this.calcDiffAvgIndex(this.maxStars, this.valueRating);
     setTimeout(() => {
-      this.starsElem.nativeElement.style.setProperty(
-        '--percent-fill',
-        `${100 * this.diffAvgIdxs[Math.floor(this.valueRating)]}%`
-      );
-      this.starsElem.nativeElement.style.setProperty(
-        '--font-size',
-        ` ${this.fontSize}px`
-      );
-    }, 500);
+      if (this.starsElem) {
+        this.starsElem.nativeElement.style.setProperty(
+          '--percent-fill',
+          `${100 * this.diffAvgIdxs[Math.floor(this.valueRating)]}%`
+        );
+        this.starsElem.nativeElement.style.setProperty(
+          '--font-size',
+          ` ${this.fontSize}px`
+        );
+      }
+    });
   }
 }

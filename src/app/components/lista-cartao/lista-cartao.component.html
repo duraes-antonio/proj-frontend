@@ -1,23 +1,23 @@
-<h5 class="titulo-componente">{{listaCartoes.titulo}}</h5>
+<h5 class="titulo-componente">{{listaCartoes.title}}</h5>
 
 <div>
-  <div *ngFor="let cartao of listaCartoes.itens" [ngClass]="
-     {'m12 l12 xl12': listaCartoes.tamanho == 1,
-     'm6 l6 xl6': listaCartoes.tamanho == 2,
-     'm4 l4 xl4': listaCartoes.tamanho == 3}"
+  <div *ngFor="let cartao of listaCartoes.items" [ngClass]="
+     {'m12 l12 xl12': listaCartoes.lenght == 1,
+     'm6 l6 xl6': listaCartoes.lenght == 2,
+     'm4 l4 xl4': listaCartoes.lenght == 3}"
        class="col s12">
 
     <!-- Área - Cartão individual -->
     <div class="cartao">
-      <div [ngClass]="{'background-desfocado-col_100': listaCartoes.tamanho == 1,
-         'background-desfocado-col_50': listaCartoes.tamanho == 2,
-         'background-desfocado-col_33': listaCartoes.tamanho == 3}"
-           [style.backgroundImage]="'url('+ cartao.urlImagem +')'"
+      <div [ngClass]="{'background-desfocado-col_100': listaCartoes.lenght == 1,
+         'background-desfocado-col_50': listaCartoes.lenght == 2,
+         'background-desfocado-col_33': listaCartoes.lenght == 3}"
+           [style.backgroundImage]="'url('+ cartao.urlImage +')'"
            class="black-text background-desfocado">
       </div>
 
       <div class="black-text slide-imagem">
-        <img [alt]="cartao.descricao" src="{{cartao.urlImagem}}">
+        <img [alt]="cartao.desc" src="{{cartao.urlImage}}">
       </div>
     </div>
   </div>
