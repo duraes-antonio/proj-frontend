@@ -40,9 +40,11 @@ export class TelaListaProdutoComponent implements OnInit, OnDestroy {
   }
 
   filterSearch(filter: FiltroProdutoPesquisa) {
-    ProductService.get(filter).pipe(take(1)).subscribe(prods => {
-      this.prods.length = 0;
-      prods.forEach(p => this.prods.push(p));
-    });
+    ProductService.get({...filter, texto: this.filterText})
+      .pipe(take(1))
+      .subscribe(prods => {
+        this.prods.length = 0;
+        prods.forEach(p => this.prods.push(p));
+      });
   }
 }

@@ -1,10 +1,10 @@
-import {Categoria} from '../Categoria';
-
+'use strict';
 export class FiltroProdutoPesquisa {
   public readonly avaliacoes: number[];
-  public readonly categorias: Categoria[];
-  public readonly descontos: number[];
+  public readonly categorias: number[];
   public readonly freteGratis: boolean;
+  public readonly descMin: number;
+  public readonly descMax: number;
   public readonly precoMin: number;
   public readonly precoMax: number;
 
@@ -14,7 +14,7 @@ export class FiltroProdutoPesquisa {
 
   constructor(
     pagAtual: number, qtdItens: number, texto?: string, avaliacoes?: number[],
-    categorias?: Categoria[], descontos?: number[], freteGratis?: boolean,
+    categorias?: number[], descMin?: number, descMax?: number, freteGratis?: boolean,
     precoMin?: number, precoMax?: number) {
     this.paginaAtual = pagAtual;
     this.qtdItens = qtdItens;
@@ -22,7 +22,8 @@ export class FiltroProdutoPesquisa {
 
     this.avaliacoes = avaliacoes;
     this.categorias = categorias;
-    this.descontos = descontos;
+    this.descMin = descMin;
+    this.descMax = descMax;
     this.freteGratis = freteGratis;
     this.precoMin = precoMin;
     this.precoMax = precoMax;

@@ -1,3 +1,4 @@
+'use strict';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Produto} from '../../models/Produto';
 import {Categoria} from '../../models/Categoria';
@@ -10,15 +11,20 @@ import {FiltroProdutoPesquisa} from '../../models/filters/filterProductUser.mode
 })
 export class FiltroProdutoComponent {
 
-  @Output() filtroSelecao = new EventEmitter<FiltroProdutoPesquisa>();
-  public categories: Set<Categoria>;
-  public ratings: number[];
-  public discounts: number[][];
-  public freeDelivery: boolean;
-  public filter: FiltroProdutoPesquisa = new FiltroProdutoPesquisa(1, 25);
+  @Output() filterEmit = new EventEmitter<FiltroProdutoPesquisa>();
 
-  constructor() {
-  }
+  categoriesInit: Set<Categoria>;
+  ratingsInit: number[];
+  discountsInit: number[][];
+  freeDeliveryInit: boolean;
+  filter = new FiltroProdutoPesquisa(1, 10);
+
+  freeDelivery = false;
+  priceMin: number;
+  priceMax: number;
+  readonly categories: number[] = [];
+  readonly discounts: number[] = [];
+  readonly ratings: number[] = [];
 
   private _produtos: Produto[];
 
@@ -29,43 +35,75 @@ export class FiltroProdutoComponent {
 
   set produtos(produtos: Produto[]) {
     this._produtos = produtos;
-    this.ratings = this.filterRatings(produtos);
-    this.categories = this.filterCategory(produtos);
-    this.discounts = this.filterDiscounts(produtos);
-    this.freeDelivery = produtos.some(p => p.freteGratis);
+    this.ratingsInit = this.prepareRatings(produtos);
+    this.categoriesInit = this.prepareCategory(produtos);
+    this.discountsInit = this.prepareDiscounts(produtos);
+    this.freeDeliveryInit = produtos.some(p => p.freteGratis);
   }
 
-  filtroAddDesc(parMinMax: number[], filtro: FiltroProdutoPesquisa):
-    FiltroProdutoPesquisa {
-    return {...filtro, descontos: filtro.descontos.concat(parMinMax)};
+
+  categoryChange(categId: number) {
+    const index = this.categories.findIndex(id => id === categId);
+
+    if (index > -1) {
+      this.categories.splice(index, 1);
+    } else {
+      this.categories.push(categId);
+    }
+    this.filter = {...this.filter, categorias: this.categories};
+    this.filterEmit.emit(this.filter);
   }
 
-  filtroAddPreco(filtro: FiltroProdutoPesquisa, min: number, max: number):
-    FiltroProdutoPesquisa {
-    return {...filtro, precoMin: min, precoMax: max};
+  discountChange(indexPair: number) {
+    const index = this.discounts.findIndex(idx => idx === indexPair);
+
+    if (index > -1) {
+      this.discounts.splice(index, 1);
+    } else {
+      this.discounts.push(indexPair);
+    }
+    this.filter = {
+      ...this.filter,
+      descMin: this.discounts && this.discounts.length
+        ? this.discountsInit[Math.min(...this.discounts)][0] : null,
+      descMax: this.discounts && this.discounts.length
+        ? this.discountsInit[Math.max(...this.discounts)][1] : null,
+    };
+    this.filterEmit.emit(this.filter);
   }
 
-  filtroAddAvals(filtro: FiltroProdutoPesquisa, aval: number):
-    FiltroProdutoPesquisa {
-    return {...filtro, avaliacoes: filtro.avaliacoes.concat(aval)};
+  freeDeliveryChange() {
+    this.freeDelivery = !this.freeDelivery;
+    this.filter = {...this.filter, freteGratis: this.freeDelivery};
+    this.filterEmit.emit(this.filter);
   }
 
-  // filtroAddCateg(id: number, filtro: FiltroProdutoPesquisa):
-  //   FiltroProdutoPesquisa {
-  //   return {
-  //     ...filtro,
-  //     categoriasIds: [id].concat(filtro.categoriasIds)
-  //   };
-  // }
+  ratingChange(value: number) {
+    const index = this.ratings.findIndex(v => v === value);
 
-  private filterRatings(prods: Produto[]): number[] {
-    return [1, 2, 3, 4, 5]
+    if (index > -1) {
+      this.ratings.splice(index, 1);
+    } else {
+      this.ratings.push(value);
+    }
+
+    this.filter = {...this.filter, avaliacoes: [...this.ratings]};
+    this.filterEmit.emit(this.filter);
+  }
+
+  priceChange() {
+    this.filter = {...this.filter, precoMax: this.priceMax, precoMin: this.priceMin};
+    this.filterEmit.emit(this.filter);
+  }
+
+  private prepareRatings(prods: Produto[]): number[] {
+    return [0, 1, 2, 3, 4, 5]
       .filter(num =>
-        prods.some(p => p.mediaAvaliacao >= num)
+        prods.some(p => Math.floor(p.mediaAvaliacao) === num)
       );
   }
 
-  private filterCategory(prods: Produto[]): Set<Categoria> {
+  private prepareCategory(prods: Produto[]): Set<Categoria> {
     return new Set(
       prods
         .map(p => p.categorias)
@@ -73,7 +111,7 @@ export class FiltroProdutoComponent {
     );
   }
 
-  private filterDiscounts(prods: Produto[]): number[][] {
+  private prepareDiscounts(prods: Produto[]): number[][] {
     return [[1, 10], [11, 25], [26, 40], [41, 60], [61, 80], [81, 99]]
       .filter(desc =>
         prods.some(p =>

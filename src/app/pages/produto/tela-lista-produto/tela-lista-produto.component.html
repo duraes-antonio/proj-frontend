@@ -1,7 +1,7 @@
 <div class="row" style="display: flex; margin-bottom: 0">
 
   <!-- Filtros à esquerda da página -->
-  <app-filtro-produto (filtroSelecao)="filterSearch($event)" [produtos]="prods"
+  <app-filtro-produto (filterEmit)="filterSearch($event)" [produtos]="prods"
                       class="col m4 l3 xl2"></app-filtro-produto>
 
   <!-- Área dos produtos -->

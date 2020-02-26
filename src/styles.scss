@@ -63,15 +63,3 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
-::ng-deep input[type="number"] {
-  display: block;
-  text-align: right;
-}
-
-::ng-deep .section-title {
-  @extend %color-text-prim;
-  font-size: x-large;
-  font-weight: 500;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}

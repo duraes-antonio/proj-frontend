@@ -12,18 +12,49 @@ export class ProductService {
   }
 
   static get(filter: FiltroProdutoPesquisa): Observable<Produto[]> {
-    const textLower = filter.texto.toLowerCase();
-    let prods;
+    console.log(filter);
+    const textLower = filter && filter.texto ? filter.texto.toLowerCase() : '';
+    let prods = DataTests.produtos.filter(p => {
+      return p.titulo.toLowerCase().indexOf(textLower) > -1
+        || p.descricao.toLowerCase().indexOf(textLower) > -1
+        || p.categorias.some(c => c.nome.toLowerCase().indexOf(textLower) > -1);
+    });
 
-    if (!textLower || !textLower.trim()) {
-      prods = DataTests.produtos.slice(0, 10);
-    } else {
-      prods = DataTests.produtos.filter(p => {
-        return p.titulo.toLowerCase().indexOf(textLower) > -1
-          || p.descricao.toLowerCase().indexOf(textLower) > -1
-          || p.categorias.some(c => c.nome.toLowerCase().indexOf(textLower) > -1);
-      });
+    if (filter.descMin) {
+      prods = prods.filter(p => p.porcentDesc >= filter.descMin);
     }
+
+    if (filter.descMax) {
+      prods = prods.filter(p => p.porcentDesc <= filter.descMax);
+    }
+
+    if (filter.precoMin) {
+      prods = prods.filter(p => p.precoComDesc >= filter.precoMin);
+    }
+
+    if (filter.precoMax) {
+      prods = prods.filter(p => p.precoComDesc <= filter.precoMax);
+    }
+
+    if (!!filter.freteGratis) {
+      prods = prods.filter(p => p.freteGratis === filter.freteGratis);
+    }
+
+    if (filter.categorias && filter.categorias.length) {
+      prods = prods.filter(
+        p => filter.categorias.some(
+          cf => p.categorias.some(cp => cp.id === cf)
+        )
+      );
+    }
+
+    if (filter.avaliacoes && filter.avaliacoes.length) {
+      prods = prods.filter(p => filter.avaliacoes
+        .some(a => Math.floor(p.mediaAvaliacao) === a)
+      );
+    }
+    console.log(prods);
+
     return of([...prods]);
   }
 
