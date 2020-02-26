@@ -1,0 +1,11 @@
+<div class="search-section">
+  <label for="form-search"></label>
+  <input (keydown.enter)="searchAction.emit(text)" [(ngModel)]="text"
+         class="input-search" id="form-search" type="search">
+
+  <div class="search__buttons">
+    <button (click)="searchAction.emit(text)" class="btn-search">
+      <i aria-hidden="true" class="fas fa-search"></i>
+    </button>
+  </div>
+</div>

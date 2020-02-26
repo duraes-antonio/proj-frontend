@@ -1,0 +1,43 @@
+<div class="area-dialogo" id="area-dialogo">
+
+  <div id="area-topo" style="display: grid;">
+    <div class="icone--circ" id="area-icone">
+      <i aria-hidden="true" class="fas fa-key"></i>
+    </div>
+
+    <h5 class="titulo-pagina">Redefinir senha</h5>
+  </div>
+
+  <div id="area-form">
+    <div class="input-field">
+      <input [(ngModel)]="emailRecup" class="validate" id="recup-email" type="email">
+      <label for="recup-email">Email ou Nome de Usuário</label>
+    </div>
+
+    <div>
+      <p style="font-size: large; font-weight: bolder;">OU</p>
+    </div>
+
+    <div class="input-field">
+      <input [(ngModel)]="telRecup" class="validate" id="recup-tel" type="tel">
+      <label for="recup-tel">Número telefone</label>
+    </div>
+
+    <div>
+      <p *ngIf="emailRecup.trim().length > 0" style="text-align: justify;">
+        Ao clicar no botão abaixo, um <b>email</b> será enviado para que você possa
+        recuperar o acesso à sua conta.
+      </p>
+      <p *ngIf="telRecup.trim().length > 0" style="text-align: justify;">
+        Ao clicar no botão abaixo, um <b>SMS</b> será enviado para que você possa
+        recuperar o acesso à sua conta.
+      </p>
+    </div>
+
+    <a class="waves-effect waves-light btn grey btn-prim">
+      <i aria-hidden="true" class="fas fa-paper-plane"></i>
+      Enviar
+    </a>
+  </div>
+
+</div>

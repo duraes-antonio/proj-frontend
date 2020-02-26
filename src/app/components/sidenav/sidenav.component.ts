@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Usuario} from '../../models/Usuario';
 import {routes} from '../../../shared/constants/routes';
 import {MatSidenav} from '@angular/material/sidenav';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -29,7 +30,7 @@ export class SidenavComponent {
     new LinkAction('Visualizar relatórios', '', 'fas fa-chart-bar'),
     new LinkAction('Personalizar loja', '', 'fas fa-pen-fancy')
   ];
-  readonly actionLogout: LinkAction = new LinkAction('Sair', '', 'fas fa-sign-out-alt');
+  readonly actionLogout: LinkAction = new LinkAction('Sair', routes.home, 'fas fa-sign-out-alt');
 
   _show = false;
 
@@ -37,6 +38,9 @@ export class SidenavComponent {
   set show(value: boolean) {
     this._show = value;
     value ? this.open() : this.close();
+  }
+
+  constructor(private auth: AuthService) {
   }
 
   close() {
@@ -50,6 +54,11 @@ export class SidenavComponent {
   open() {
     this.sidenav.open();
     this.opened = true;
+  }
+
+  logout() {
+    this.auth.signOut();
+    this.close();
   }
 }
 

@@ -7,9 +7,6 @@ import {Component} from '@angular/core';
 })
 export class ModalRecupSenhaComponent {
 
-  constructor() {
-  }
-
   private static _mostrar = false;
 
   get mostrar(): boolean {

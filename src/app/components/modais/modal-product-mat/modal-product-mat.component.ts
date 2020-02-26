@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
+import {FormControl} from '@angular/forms';
 import {Produto} from '../../../models/Produto';
 import {Categoria} from '../../../models/Categoria';
 import {DataTests} from '../../../../shared/dataTests';
-import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-modal-product-mat',

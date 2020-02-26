@@ -1,0 +1,43 @@
+<div class="row form-login">
+
+  <!-- EMAIL -->
+  <mat-form-field class="col">
+    <mat-label>Email</mat-label>
+    <input [formControl]="_controlEmail" [maxLength]="_sizes.emailMaxLen" matInput type="email">
+    <mat-error *ngIf="_controlEmail.invalid">{{_getMsg(_controlEmail, 'teste@gmail.com')}}</mat-error>
+  </mat-form-field>
+
+  <!-- SENHA -->
+  <mat-form-field class="col">
+    <mat-label>Senha</mat-label>
+    <input [formControl]="_controlPass" [maxLength]="_sizes.passwordMaxLen" matInput type="password">
+    <mat-error *ngIf="_controlPass.invalid">{{_getMsg(_controlPass)}}</mat-error>
+  </mat-form-field>
+
+  <div style="text-align: right;">
+    <a [routerLink]="'/' + _routes.forgotPass">Esqueceu sua senha?</a>
+  </div>
+
+  <button (click)="signIn()" [disabled]="_controlEmail.invalid || _controlPass.invalid"
+          class="btn-general" mat-raised-button>
+    Entrar
+  </button>
+
+  <mat-divider></mat-divider>
+
+  <!-- REDES SOCIAIS -->
+  <div class="social-media">
+    <span class="social-media__title">Ou entre usando:</span>
+    <div class="social-media__icons">
+      <button class="btn-color btn-color--twitter" mat-mini-fab>
+        <i aria-hidden="true" class="fab fa-twitter"></i>
+      </button>
+      <button class="btn-color btn-color--facebook" mat-mini-fab>
+        <i aria-hidden="true" class="fab fa-facebook-f"></i>
+      </button>
+      <button class="btn-color btn-color--google" mat-mini-fab>
+        <i aria-hidden="true" class="fab fa-google"></i>
+      </button>
+    </div>
+  </div>
+</div>

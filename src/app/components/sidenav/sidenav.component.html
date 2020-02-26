@@ -39,7 +39,7 @@
 
     <!-- LOGOUT -->
     <mat-nav-list>
-      <a [routerLink]="actionLogout.url" class="actions__item" mat-list-item>
+      <a (click)="logout()" [routerLink]="actionLogout.url" class="actions__item" mat-list-item>
         <i aria-hidden="true" class="{{actionLogout.iconClass}} actions__item-icon"></i>
         {{actionLogout.title}}
       </a>

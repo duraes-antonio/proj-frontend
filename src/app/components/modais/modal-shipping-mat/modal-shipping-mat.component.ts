@@ -1,6 +1,6 @@
 'use strict';
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
-import {DeliveryOption} from '../../../models/DeliveryOption';
+import {DeliveryOption} from '../../../models/deliveryOption';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 
 @Component({

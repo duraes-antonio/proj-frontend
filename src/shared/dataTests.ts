@@ -2,7 +2,7 @@ import {Produto} from '../app/models/Produto';
 import {Categoria} from '../app/models/Categoria';
 import {Avaliacao} from '../app/models/Avaliacao';
 import {Endereco} from '../app/models/Endereco';
-import {DeliveryOption} from '../app/models/DeliveryOption';
+import {DeliveryOption} from '../app/models/deliveryOption';
 import {randomBoolean, randomFloat, randomInt} from './utilFunctions';
 import {Usuario} from '../app/models/Usuario';
 import {Notificacao} from '../app/models/Notificacao';
@@ -260,9 +260,5 @@ export class DataTests {
 
   private static obterPrecoRandom(): number {
     return Math.random() * 1000;
-  }
-
-  private static sortearValorDesc(): number {
-    return Math.round(Math.random() * 100);
   }
 }

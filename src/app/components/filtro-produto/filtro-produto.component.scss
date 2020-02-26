@@ -41,9 +41,9 @@ $_padding-top-bottom: 15px;
   }
 
   &__section-body {
+    @extend %color-text-sec--dark;
     padding: 0.25em 0.75em 1.25em;
     display: grid;
-    @extend %color-text-sec--dark;
   }
 
   &__section-price {

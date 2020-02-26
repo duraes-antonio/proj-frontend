@@ -1,0 +1,32 @@
+<div class="row" style="display: flex; margin-bottom: 0">
+
+  <!-- Filtros à esquerda da página -->
+  <app-filtro-produto (filtroSelecao)="filterSearch($event)" [produtos]="prods"
+                      class="col m4 l3 xl2"></app-filtro-produto>
+
+  <!-- Área dos produtos -->
+  <div style="display: grid; width: 100%">
+    <div class="products">
+      <a *ngFor="let item of prods" [routerLink]="[item.id]"
+         class="col s6s m6s l3s xl3s product">
+
+        <!-- Etiqueta de desconto -->
+        <span *ngIf="item.emPromocao" class="product__label-promo">
+          {{item.porcentDesc | number: '1.0-2'}}%
+          <i aria-hidden="true" class="fas fa-arrow-down"></i>
+        </span>
+
+        <!-- Titulo do produto -->
+        <span class="product__title">{{item.titulo}}</span>
+
+        <img [alt]="item.titulo" [src]="item.urlImagem" class="product__cover-img">
+
+        <!-- Área para preços de produtos em promoção -->
+        <span *ngIf="item.porcentDesc > 0" class="product__price-orig">{{item.preco | currency: 'BRL'}}</span>
+        <span class="product__price">{{item.precoComDesc | currency: 'BRL'}}</span>
+      </a>
+    </div>
+
+    <app-paginacao [qtdPags]="32" style="width: 100%;"></app-paginacao>
+  </div>
+</div>
