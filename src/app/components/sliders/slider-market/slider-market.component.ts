@@ -10,14 +10,14 @@ export class SliderMarketComponent {
 
   optionsGlide: any;
 
-  private _list?: ListMarket;
+  private _list = new ListMarket('', []);
 
   get list() {
     return this._list;
   }
 
   @Input()
-  set list(list: ListMarket | undefined) {
+  set list(list: ListMarket) {
     this._list = list;
 
     if (list) {

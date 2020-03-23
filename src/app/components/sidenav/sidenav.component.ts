@@ -11,7 +11,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class SidenavComponent {
 
-  @Input() user?: User;
+  @Input() user = new User('', '');
   @Output() closed = new EventEmitter();
   @ViewChild('sidenav') sidenav?: MatSidenav;
   opened = false;

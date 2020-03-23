@@ -24,7 +24,7 @@ import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment
 })
 export class TelaVisualizarProdutoComponent implements OnDestroy {
 
-  produto?: Product;
+  product: Product = new Product('', '', 0);
   deliveryChosen?: DeliveryOption;
   prodInCart = false;
 
@@ -47,15 +47,17 @@ export class TelaVisualizarProdutoComponent implements OnDestroy {
     this.routeSub$ = route.params.subscribe(
       params => {
         const idProduto = +params['id'];
-        this.produto = ProductService.getById(idProduto);
+        const prodTemp = ProductService.getById(idProduto);
 
-        if (!this.produto) {
+        if (!prodTemp) {
           router.navigateByUrl('404');
+        } else {
+          this.product = prodTemp;
         }
       });
     this.cart$ = cartStore.subscribe(
       (res: any) => {
-        const currProdId = this.produto ? this.produto.id : 0;
+        const currProdId = this.product ? this.product.id : 0;
 
         if ((res.cart as Cart).productsId) {
           this.prodInCart = (res.cart as Cart).productsId

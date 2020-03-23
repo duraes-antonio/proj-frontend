@@ -21,7 +21,7 @@
            class="col s12 m3 l2 xl2 col-links">
         <span class="col-links__title">{{listL.title}}:</span>
         <div class="links">
-          <a *ngFor="let link of listL.links" [href]="link.url"
+          <a *ngFor="let link of listL.items" [href]="link.url"
              class="links__item">{{link.text}}<br>
           </a>
         </div>

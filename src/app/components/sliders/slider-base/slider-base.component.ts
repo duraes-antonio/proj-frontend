@@ -1,7 +1,8 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import Glide from '@glidejs/glide';
 import {genSequence, randomInt} from '../../../../shared/utilFunctions';
+// @ts-ignore
+import Glide from '@glidejs/glide';
 
 @Component({
   selector: 'app-slider-base',

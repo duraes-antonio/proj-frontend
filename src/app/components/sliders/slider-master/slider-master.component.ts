@@ -9,7 +9,7 @@ import {Slider} from '../../../models/componentes/slider';
 })
 export class SliderMasterComponent implements AfterViewInit {
 
-  @Input() slider?: Slider;
+  @Input() slider = new Slider(0, []);
 
   readonly glideOptions = {
     animationDuration: 300,
