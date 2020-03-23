@@ -203,12 +203,6 @@ export class DataTests {
       'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg'
     ),
   ];
-  static readonly listProducts: ListProduct[] = [
-    new ListProduct('Ofertas da semana :D', DataTests.products, 1),
-  ];
-  static readonly listMarkets: ListMarket[] = [
-    new ListMarket('Ofertas da semana :D', DataTests.markets, 1),
-  ];
   private static itemOrderId = 0;
   static readonly itemsOrder: ItemOrder[] = [
     new ItemOrder(
@@ -294,6 +288,12 @@ export class DataTests {
     ),
   ];
   private static productId = 0;
+  static readonly listProducts: ListProduct[] = [
+    new ListProduct('Ofertas da semana :D', DataTests.products, 1),
+  ];
+  static readonly listMarkets: ListMarket[] = [
+    new ListMarket('Ofertas da semana :D', DataTests.markets, 1),
+  ];
 
   private static notificRandom(): NotificationModel {
     return new NotificationModel(
