@@ -17,8 +17,8 @@ a {
 }
 
 .btn-general {
-  color: white;
-  background-color: $color-prim--light;
+  // color: white;
+  // background-color: $color-prim--light;
   text-transform: uppercase;
 
   span {
@@ -30,6 +30,10 @@ a {
   i {
     margin-right: 8px;
     font-size: 20px;
+  }
+
+  &--full {
+    width: 100%;
   }
 
   @media (max-width: $width-max-small) {
