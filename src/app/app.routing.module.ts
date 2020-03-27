@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {ProdutoRoutingModule} from './pages/produto/produto-routing.module';
+import {ProdutoRoutingModule} from './pages/product/produto-routing.module';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'historico-compra',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/tela-historico-compra/tela-historico-compra.module')
         .then(m => m.TelaHistoricoCompraModule)
@@ -29,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/tela-login/tela-login.module').then(m => m.TelaLoginModule)
+    loadChildren: () => import('./pages/tela-login/tela-login.module')
+      .then(m => m.TelaLoginModule)
   },
   {
     path: 'redefinir-senha',

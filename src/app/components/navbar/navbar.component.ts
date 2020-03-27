@@ -7,7 +7,7 @@ import {NotificationModel} from '../../models/notification';
 import {Cart} from '../../models/cart.model';
 import {DataTests} from '../../../shared/dataTests';
 import {AuthService} from '../../services/auth.service';
-import {routes} from '../../../shared/constants/routes';
+import {routesFrontend} from '../../../shared/constants/routesFrontend';
 
 @Component({
   selector: 'app-navbar',
@@ -33,6 +33,7 @@ export class NavbarComponent implements OnDestroy {
     this._cart$ = this.store.subscribe((res: any) => {
       this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];
     });
+    this.userLogged = !!AuthService.userLogged;
     this._userLogged$ = AuthService.userLoggedEmitter.subscribe(
       (res: boolean) => this.userLogged = res
     );
@@ -70,6 +71,6 @@ export class NavbarComponent implements OnDestroy {
   }
 
   search(text: string) {
-    this.router.navigate([routes.productsView], {queryParams: {text: text}});
+    this.router.navigate([routesFrontend.productsView], {queryParams: {text: text}});
   }
 }

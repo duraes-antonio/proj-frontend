@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app.routing.module';
 import {ComponentesModule} from './components/componentes.module';
 import {CommonModule, registerLocaleData} from '@angular/common';
-import {ProdutoModule} from './pages/produto/produto.module';
+import {ProdutoModule} from './pages/product/produto.module';
 import {StoreModule} from '@ngrx/store';
 import {cartReducer} from './reducers/cart.reducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {User} from '../../models/user';
-import {routes} from '../../../shared/constants/routes';
+import {routesFrontend} from '../../../shared/constants/routesFrontend';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/auth.service';
 
@@ -23,14 +23,14 @@ export class SidenavComponent {
   ];
   readonly actionsAdmin: LinkAction[] = [
     new LinkAction('Gerenciar categorias', '', 'fas fa-tags'),
-    new LinkAction('Gerenciar produtos', routes.productsManager, 'fas fa-box-open'),
+    new LinkAction('Gerenciar produtos', routesFrontend.productsManager, 'fas fa-box-open'),
     new LinkAction('Gerenciar dúvidas', '', 'fas fa-comments'),
     new LinkAction('Gerenciar usuários', '', 'fas fa-users-cog'),
     new LinkAction('Visualizar pedido', '', 'fas fa-file-signature'),
     new LinkAction('Visualizar relatórios', '', 'fas fa-chart-bar'),
     new LinkAction('Personalizar loja', '', 'fas fa-pen-fancy')
   ];
-  readonly actionLogout: LinkAction = new LinkAction('Sair', routes.home, 'fas fa-sign-out-alt');
+  readonly actionLogout: LinkAction = new LinkAction('Sair', routesFrontend.home, 'fas fa-sign-out-alt');
 
   constructor(private auth: AuthService) {
   }
@@ -59,8 +59,9 @@ export class SidenavComponent {
   }
 
   logout() {
-    this.auth.signOut();
-    this.close();
+    this.auth.logout().subscribe(() => {
+      this.close();
+    });
   }
 }
 

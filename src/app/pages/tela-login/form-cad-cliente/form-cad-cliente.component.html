@@ -35,7 +35,7 @@
     <mat-error *ngIf="_controlPassConfirm.invalid">{{_getMsg(_controlPassConfirm)}}</mat-error>
   </mat-form-field>
 
-  <button class="btn-general" mat-raised-button>
+  <button (click)="signIn()" [disabled]="_formG.invalid" class="btn-general" color="primary" mat-raised-button>
     <i aria-hidden="true" class="fas fa-paper-plane"></i>
     Criar conta
   </button>

@@ -1,9 +1,9 @@
 'use strict';
-import {AbstractControl, ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
 import {masks} from '../input-masks/maskFunctions';
 import {validation} from './validationFunctions';
-import {EErrorType} from './msgErrorFunctions';
 import {fieldSize} from '../constants/fieldSize';
+import {EErrorType} from './msgErrorFunctionsFront';
 
 export const validators = {
   cepValidator(): ValidatorFn {
@@ -35,6 +35,20 @@ export const validators = {
         return {[EErrorType.FORMAT]: true};
       }
       return null;
+    };
+  },
+  passEqualsValidator(originalPassCtrl: FormControl): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+
+      if (!control.value) {
+        return {[EErrorType.REQUIRED]: true};
+      }
+
+      if (originalPassCtrl.value === control.value) {
+        return null;
+      }
+
+      return {[EErrorType.EQUALS]: ['Senha', 'Confirmação de Senha']};
     };
   },
   textValidator(maxLen: number, minLen = 1, required = true): ValidatorFn {

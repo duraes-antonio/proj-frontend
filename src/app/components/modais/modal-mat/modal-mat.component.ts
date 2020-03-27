@@ -26,10 +26,10 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
 
-  private content: HTMLElement = new HTMLElement();
-  private footer: HTMLElement = new HTMLElement();
-  private header: HTMLElement = new HTMLElement();
-  private modal: HTMLElement = new HTMLElement();
+  private content?: HTMLElement;
+  private footer?: HTMLElement;
+  private header?: HTMLElement;
+  private modal?: HTMLElement;
 
   ngOnDestroy(): void {
     document.body.style.overflow = 'auto';
@@ -46,17 +46,19 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   private modalResize(): void {
-    this.modal.style.setProperty(`--header-height`, `${this.header.offsetHeight}px`);
-    this.modal.style.setProperty(`--footer-height`, `${this.footer.offsetHeight}px`);
+    if (this.modal && this.header && this.content && this.footer) {
+      this.modal.style.setProperty(`--header-height`, `${this.header.offsetHeight}px`);
+      this.modal.style.setProperty(`--footer-height`, `${this.footer.offsetHeight}px`);
 
-    if (window.innerWidth <= widthMaxSmall) {
-      const internalHeight = this.header.offsetHeight
-        + this.content.offsetHeight
-        + this.footer.offsetHeight;
-      const footerMTop = this.modal.offsetHeight - internalHeight - 48;
-      this.footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
-    } else {
-      this.footer.style.setProperty('--footer-margin-top', `${10}px`);
+      if (window.innerWidth <= widthMaxSmall) {
+        const internalHeight = this.header.offsetHeight
+          + this.content.offsetHeight
+          + this.footer.offsetHeight;
+        const footerMTop = this.modal.offsetHeight - internalHeight - 48;
+        this.footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
+      } else {
+        this.footer.style.setProperty('--footer-margin-top', `${10}px`);
+      }
     }
   }
 }

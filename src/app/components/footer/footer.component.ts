@@ -10,18 +10,16 @@ import {ERole} from '../../enum/roles';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnDestroy {
-  _roles = ERole;
-  _userLogged = false;
-  _userRole = ERole.UNKNOWN;
+  _userRoles: ERole[] = [ERole.UNKNOWN];
   _currYear: number = (new Date()).getFullYear();
 
   private _userLogged$: Subscription;
 
   constructor() {
+    this._userRoles = AuthService.userLogged?.roles ?? this._userRoles;
     this._userLogged$ = AuthService.userLoggedEmitter.subscribe(
-      (res: boolean) => {
-        this._userLogged = res;
-        this._userRole = AuthService.userRole;
+      () => {
+        this._userRoles = AuthService.userLogged?.roles ?? this._userRoles;
       }
     );
   }
@@ -42,6 +40,8 @@ export class FooterComponent implements OnDestroy {
   }
 
   allowRead(readRole: ERole): boolean {
-    return ERole.UNKNOWN === readRole || this._userRole === ERole.ADMIN || readRole === this._userRole;
+    return ERole.UNKNOWN === readRole
+      || this._userRoles.includes(ERole.ADMIN)
+      || this._userRoles.includes(readRole);
   }
 }

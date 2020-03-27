@@ -1,6 +1,8 @@
 import {FormControl} from '@angular/forms';
 
 export enum EErrorType {
+  CUSTOM = 'custom',
+  EQUALS = 'equals',
   FORMAT = 'format',
   MIN_LEN = 'minLen',
   MIN_VAL = 'minVal',
@@ -29,10 +31,13 @@ export const buildErrorMsg = {
   msgNullOrEmpty(): string {
     return `Este campo deve ser preenchido`;
   },
+  msgMustEquals(field1: string, field2: string): string {
+    return `${field2} deve ser igual a ${field1}`;
+  },
 
   msgInvalidFormat(example: string): string {
     const exampleTrim = example ? ` Exemplo: ${example}` : '';
-    return `Este campo não está em um formato válido.${exampleTrim}`;
+    return `Formato inválido. ${exampleTrim}`;
   },
 };
 
@@ -41,8 +46,7 @@ export function getMsgFront(control: FormControl, example?: string): string {
     throw new Error('Não há erros para serem analisados!');
   }
 
-  const keyError = Object.keys(control.errors)[0];
-  const error = control.errors[keyError];
+  const error = Object.keys(control.errors)[0];
 
   if (error === EErrorType.FORMAT) {
     if (!example) {
@@ -59,6 +63,12 @@ export function getMsgFront(control: FormControl, example?: string): string {
     return buildErrorMsg.msgMinValue(control.errors[error]);
   } else if (error === EErrorType.REQUIRED) {
     return buildErrorMsg.msgNullOrEmpty();
+  } else if (error === EErrorType.EQUALS) {
+    return buildErrorMsg.msgMustEquals(
+      control.errors[error][0], control.errors[error][1]
+    );
+  } else if (error === EErrorType.CUSTOM) {
+    return control.errors[error];
   } else {
     return control.errors[error];
   }

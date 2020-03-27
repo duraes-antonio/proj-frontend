@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ListProduct} from '../../../models/componentes/listProduct';
-import {routes} from '../../../../shared/constants/routes';
+import {routesFrontend} from '../../../../shared/constants/routesFrontend';
 
 @Component({
   selector: 'app-slider-product',
@@ -9,7 +9,7 @@ import {routes} from '../../../../shared/constants/routes';
 })
 export class SliderProductComponent {
 
-  readonly routes = routes;
+  readonly routes = routesFrontend;
   optionsGlide: any;
 
   private _list: ListProduct = new ListProduct('', [], 0);

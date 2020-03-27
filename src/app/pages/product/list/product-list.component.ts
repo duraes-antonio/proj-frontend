@@ -9,10 +9,10 @@ import {Product} from '../../../models/product';
 
 @Component({
   selector: 'app-tela-lista-produto',
-  templateUrl: './tela-lista-produto.component.html',
-  styleUrls: ['./tela-lista-produto.component.scss']
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
-export class TelaListaProdutoComponent implements OnDestroy {
+export class ProductListComponent implements OnDestroy {
 
   filterText = '';
   prods: Product[] = [];

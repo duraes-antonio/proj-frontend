@@ -1,13 +1,5 @@
 import {FormControl} from '@angular/forms';
-
-export enum EErrorType {
-  FORMAT = 'format',
-  MIN_LEN = 'minLen',
-  MIN_VAL = 'minVal',
-  MAX_LEN = 'maxLen',
-  MAX_VAL = 'maxVal',
-  REQUIRED = 'required'
-}
+import {EErrorType} from './msgErrorFunctionsFront';
 
 export const buildErrorMsg = {
   msgMaxLen(fieldName: string, maxLenght: number): string {
@@ -28,6 +20,9 @@ export const buildErrorMsg = {
   },
   msgNullOrEmpty(fieldName: string): string {
     return `O campo ${fieldName} deve ser preenchido`;
+  },
+  msgMustEquals(field1: string, field2: string): string {
+    return `${field2} deve ser igual a ${field2}`;
   },
 
   msgInvalidFormat(fieldName: string): string {

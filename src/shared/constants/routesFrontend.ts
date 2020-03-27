@@ -3,7 +3,7 @@ const productsManager = `${manager}/produto`;
 const login = `login`;
 const productsView = `produto`;
 
-export const routes = {
+export const routesFrontend = {
   productsView: productsView,
   productView: `${productsView}/:id`,
   productsManager: productsManager,

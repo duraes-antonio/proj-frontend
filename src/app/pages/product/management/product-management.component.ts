@@ -14,10 +14,10 @@ import {FilterProduct} from '../../../models/filters/filterProductAdmin.model';
 
 @Component({
   selector: 'app-tela-gerencia-produto',
-  templateUrl: './tela-gerencia-produto.component.html',
-  styleUrls: ['./tela-gerencia-produto.component.scss']
+  templateUrl: './product-management.component.html',
+  styleUrls: ['./product-management.component.scss']
 })
-export class TelaGerenciaProdutoComponent implements OnInit {
+export class ProductManagementComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort = new MatSort();
 

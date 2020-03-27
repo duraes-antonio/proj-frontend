@@ -4,6 +4,7 @@ import {Link} from './models/componentes/link';
 import {User} from './models/user';
 import {DataTests} from '../shared/dataTests';
 import {ERole} from './enum/roles';
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -52,5 +53,7 @@ export class AppComponent {
     this.listaLinks.push(new ListLink('Minha conta', linksMinhaConta, ERole.CUSTOMER));
     this.listaLinks.push(new ListLink('Área Administrativa', linksAdmin, ERole.ADMIN));
     this.listaLinks.push(new ListLink('Parceiros', linksParceiros));
+
+    AuthService.loadFromLocalToken();
   }
 }

@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProdutoRoutingModule} from './produto-routing.module';
-import {TelaVisualizarProdutoComponent} from './tela-visualizar-produto/tela-visualizar-produto.component';
-import {TelaListaProdutoComponent} from './tela-lista-produto/tela-lista-produto.component';
+import {ProductDetailsComponent} from './details/product-details.component';
+import {ProductListComponent} from './list/product-list.component';
 import {ComponentesModule} from '../../components/componentes.module';
-import {TelaGerenciaProdutoComponent} from './tela-gerencia-produto/tela-gerencia-produto.component';
+import {ProductManagementComponent} from './management/product-management.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -22,9 +22,9 @@ import {SliderModule} from '../../components/sliders/slider.module';
 
 @NgModule({
   declarations: [
-    TelaListaProdutoComponent,
-    TelaVisualizarProdutoComponent,
-    TelaGerenciaProdutoComponent
+    ProductListComponent,
+    ProductDetailsComponent,
+    ProductManagementComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +45,7 @@ import {SliderModule} from '../../components/sliders/slider.module';
     SliderModule
   ],
   exports: [
-    TelaListaProdutoComponent
+    ProductListComponent
   ],
   providers: [
     MatDialog,

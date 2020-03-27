@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TelaGerenciaProdutoComponent} from './tela-gerencia-produto.component';
+import {ProductManagementComponent} from './product-management.component';
 
 describe('TelaGerenciaProdutoComponent', () => {
-  let component: TelaGerenciaProdutoComponent;
-  let fixture: ComponentFixture<TelaGerenciaProdutoComponent>;
+  let component: ProductManagementComponent;
+  let fixture: ComponentFixture<ProductManagementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TelaGerenciaProdutoComponent]
+      declarations: [ProductManagementComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TelaGerenciaProdutoComponent);
+    fixture = TestBed.createComponent(ProductManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

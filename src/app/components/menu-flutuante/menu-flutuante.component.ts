@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {LinkAction} from '../sidenav/sidenav.component';
-import {routes} from '../../../shared/constants/routes';
+import {routesFrontend} from '../../../shared/constants/routesFrontend';
 
 @Component({
   selector: 'app-menu-flutuante',
@@ -10,11 +10,11 @@ import {routes} from '../../../shared/constants/routes';
 export class MenuFlutuanteComponent {
 
   actionHome = new LinkAction(
-    'Página Home', routes.home, 'fas fa-home');
+    'Página Home', routesFrontend.home, 'fas fa-home');
   actionEnter = new LinkAction(
-    'Página de Login', routes.loginEnter, 'fas fa-sign-in-alt');
+    'Página de Login', routesFrontend.loginEnter, 'fas fa-sign-in-alt');
   actionAdd = new LinkAction(
-    'Página de cadastro de pessoas', routes.loginRegister, 'fas fa-user-plus');
+    'Página de cadastro de pessoas', routesFrontend.loginRegister, 'fas fa-user-plus');
 
   /*TODO: Chamar serviço que realiza verificação*/
   userLogged = true;

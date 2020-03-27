@@ -19,16 +19,16 @@ import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment
 
 @Component({
   selector: 'app-tela-visualizar-produto',
-  templateUrl: './tela-visualizar-produto.component.html',
-  styleUrls: ['./tela-visualizar-produto.component.scss']
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./product-details.component.scss']
 })
-export class TelaVisualizarProdutoComponent implements OnDestroy {
+export class ProductDetailsComponent implements OnDestroy {
 
   product: Product = new Product('', '', 0);
   deliveryChosen?: DeliveryOption;
   prodInCart = false;
 
-  seqProd = [...DataTests.listProducts];
+  seqProd = [...DataTests.listProducts][0];
   avaliacoes: Review[] = DataTests.reviews;
   media: number = this.calcAvgRating(this.avaliacoes, 2);
   enderecos: Address[] = DataTests.addresses;
