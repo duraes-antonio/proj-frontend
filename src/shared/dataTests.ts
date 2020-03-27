@@ -18,6 +18,12 @@ import {EStateOrder} from '../app/enum/stateOrder';
 import {ItemOrder} from '../app/models/itemOrder';
 
 export class DataTests {
+  private static itemOrderId = 0;
+  private static marketId = 0;
+  private static notificId = 0;
+  private static orderId = 0;
+  private static productId = 0;
+
   static readonly addresses: Address[] = [
     new Address(38, '29065-390', 'Rua Emília Mazoco Keijok',
       'Mata da Praia', 'Vitória', 'ES', 1),
@@ -203,14 +209,12 @@ export class DataTests {
       'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg'
     ),
   ];
-  private static itemOrderId = 0;
   static readonly itemsOrder: ItemOrder[] = [
     new ItemOrder(
       ++DataTests.itemOrderId, randomInt(1, 1000), randomFloat(0, 2000),
       randomInt(1, DataTests.products.length)
     ),
   ];
-  private static marketId = 0;
   static readonly markets: Market[] = [
     new Market(
       ++DataTests.marketId,
@@ -265,8 +269,6 @@ export class DataTests {
       'Mercado Livre',
       'https://produto.mercadolivre.com.br/')
   ];
-  private static notificId = 0;
-  private static orderId = 0;
   static readonly orders: Order[] = [
     new Order(
       ++DataTests.orderId, [], new Date(), EStateOrder.DELIVERED,
@@ -287,7 +289,6 @@ export class DataTests {
       new Date()
     ),
   ];
-  private static productId = 0;
   static readonly listProducts: ListProduct[] = [
     new ListProduct('Ofertas da semana :D', DataTests.products, 1),
   ];
