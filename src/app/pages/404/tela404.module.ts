@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Tela404Component} from './tela404.component';
+import {Page404Component} from './page404.component';
 import {Tela404RoutingModule} from './tela404-routing.module';
 
 
 @NgModule({
   declarations: [
-    Tela404Component
+    Page404Component
   ],
   exports: [
-    Tela404Component
+    Page404Component
   ],
   imports: [
     CommonModule,

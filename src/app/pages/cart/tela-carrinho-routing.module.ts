@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TelaCarrinhoComponent} from './tela-carrinho.component';
+import {CartComponent} from './cart.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TelaCarrinhoComponent
+    component: CartComponent
   }
 ];
 

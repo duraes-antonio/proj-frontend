@@ -134,7 +134,7 @@
   .cart-footer {
     @extend %center-flex-space-betw;
     flex-flow: wrap;
-    margin: 30px 30px 0;
+    margin: 30px 0 0;
 
     .btn-contained {
       width: auto;

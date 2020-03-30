@@ -18,13 +18,16 @@
       <!-- TODO: Trazer info do banco de dados   -->
       <a fragment="rating" routerLink=".">
         <app-star-rating [fontSize]="18" [maxStars]="5"
-                         [numRatings]="avaliacoes.length" [valueRating]="media"
-                         title="A média das avaliações do produto é {{media}}">
+                         [numRatings]="reviews.length" [valueRating]="avgRating"
+                         title="A média das avaliações do produto é {{avgRating}}">
         </app-star-rating>
       </a>
 
       <!-- Descrição -->
-      <p class="product-info__desc">{{product.desc}}</p>
+      <p class="product-info__desc">
+        {{sliceText(product.desc, 40)}}
+        <strong style="color: #222; letter-spacing: 2px">...</strong>
+      </p>
 
       <div class="divider"></div>
 
@@ -148,7 +151,7 @@
 
   <!-- Avaliações -->
   <span class="section-title">Avaliações</span>
-  <app-rating-list [ratings]="avaliacoes"></app-rating-list>
+  <app-rating-list [ratings]="reviews"></app-rating-list>
   <!-- TODO: Tornar o componente de paginação responsivo -->
   <app-paginacao [paginaAtual]="1" [qtdPags]="14"></app-paginacao>
 

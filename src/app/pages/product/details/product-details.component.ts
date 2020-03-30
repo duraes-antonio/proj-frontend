@@ -16,9 +16,10 @@ import {calcAverage} from '../../../../shared/utilFunctions';
 import {ModalAddressComponent} from '../../../components/modais/modal-address/modal-address.component';
 import {ModalShippingMatComponent} from '../../../components/modais/modal-shipping-mat/modal-shipping-mat.component';
 import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment-mat/modal-payment-mat.component';
+import {routesFrontend} from '../../../../shared/constants/routesFrontend';
 
 @Component({
-  selector: 'app-tela-visualizar-produto',
+  selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
@@ -29,9 +30,9 @@ export class ProductDetailsComponent implements OnDestroy {
   prodInCart = false;
 
   seqProd = [...DataTests.listProducts][0];
-  avaliacoes: Review[] = DataTests.reviews;
-  media: number = this.calcAvgRating(this.avaliacoes, 2);
-  enderecos: Address[] = DataTests.addresses;
+  reviews: Review[] = DataTests.reviews;
+  avgRating: number = this.calcAvgRating(this.reviews, 2);
+  addresses: Address[] = DataTests.addresses;
   deliveryOpts: DeliveryOption[] = DataTests.deliveryOptions;
 
   /*TODO: Remover após ter dados em um banco de dados*/
@@ -50,7 +51,7 @@ export class ProductDetailsComponent implements OnDestroy {
         const prodTemp = ProductService.getById(idProduto);
 
         if (!prodTemp) {
-          router.navigateByUrl('404');
+          router.navigate([routesFrontend.notFound]);
         } else {
           this.product = prodTemp;
         }
@@ -91,7 +92,10 @@ export class ProductDetailsComponent implements OnDestroy {
   showModalAdress() {
     const dialogRef = this.dialog.open(
       ModalAddressComponent,
-      ModalAddressComponent.getConfig({showInputCEP: true, addresses: this.enderecos})
+      ModalAddressComponent.getConfig({
+        showInputCEP: true,
+        addresses: this.addresses
+      })
     );
     dialogRef.componentInstance.action.subscribe(
       (cep: string) => {
@@ -114,6 +118,10 @@ export class ProductDetailsComponent implements OnDestroy {
 
   remFromCart(id: number) {
     this.cartStore.dispatch(Remove(id));
+  }
+
+  sliceText(text: string, numTerms: number) {
+    return text.split(' ').slice(0, 40).join(' ');
   }
 
   private calcAvgRating(ratings: Review[], qtdDecimals = 2): number {

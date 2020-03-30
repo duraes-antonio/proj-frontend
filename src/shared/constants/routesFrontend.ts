@@ -4,6 +4,8 @@ const login = `login`;
 const productsView = `produto`;
 
 export const routesFrontend = {
+  notFound: `404`,
+
   productsView: productsView,
   productView: `${productsView}/:id`,
   productsManager: productsManager,

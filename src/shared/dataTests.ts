@@ -270,24 +270,9 @@ export class DataTests {
       'https://produto.mercadolivre.com.br/')
   ];
   static readonly orders: Order[] = [
-    new Order(
-      ++DataTests.orderId, [], new Date(), EStateOrder.DELIVERED,
-      new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)),
-      DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)],
-      new Date()
-    ),
-    new Order(
-      ++DataTests.orderId, [], new Date(), EStateOrder.DELIVERED,
-      new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)),
-      DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)],
-      new Date()
-    ),
-    new Order(
-      ++DataTests.orderId, [], new Date(), EStateOrder.DELIVERED,
-      new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)),
-      DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)],
-      new Date()
-    ),
+    new Order(++DataTests.orderId, [], EStateOrder.DELIVERED, new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)), DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)], new Date(), new Date()),
+    new Order(++DataTests.orderId, [], EStateOrder.DELIVERED, new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)), DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)], new Date(), new Date()),
+    new Order(++DataTests.orderId, [], EStateOrder.DELIVERED, new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)), DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)], new Date(), new Date()),
   ];
   static readonly listProducts: ListProduct[] = [
     new ListProduct('Ofertas da semana :D', DataTests.products, 1),

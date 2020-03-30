@@ -11,11 +11,11 @@ import {MatDialog} from '@angular/material/dialog';
 import {ModalAddressComponent} from '../../components/modais/modal-address/modal-address.component';
 
 @Component({
-  selector: 'app-tela-carrinho',
-  templateUrl: './tela-carrinho.component.html',
-  styleUrls: ['./tela-carrinho.component.scss']
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss']
 })
-export class TelaCarrinhoComponent implements OnDestroy {
+export class CartComponent implements OnDestroy {
 
   productsChosen: Product[] = [];
 

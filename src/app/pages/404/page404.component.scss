@@ -1,0 +1,33 @@
+@import '../../../shared/styles/placeholders';
+
+.page-container {
+  @extend %center-horiz-flex;
+  margin: 40px 0;
+
+  .page {
+    color: dimgray;
+    text-align: center;
+    font-weight: 300;
+    display: grid;
+
+    &__title {
+      line-height: 1.25;
+      font-size: xx-large;
+    }
+
+    &__redirect {
+      line-height: 1.25;
+      font-size: 1.25em;
+      display: contents;
+
+      &--link {
+        transition: color .2s;
+
+        &:hover {
+          font-weight: 400;
+          color: limegreen !important;
+        }
+      }
+    }
+  }
+}

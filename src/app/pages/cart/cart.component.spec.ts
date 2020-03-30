@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {Tela404Component} from './tela404.component';
+import {CartComponent} from './cart.component';
 
-describe('Tela404Component', () => {
-  let component: Tela404Component;
-  let fixture: ComponentFixture<Tela404Component>;
+describe('TelaCarrinhoComponent', () => {
+  let component: CartComponent;
+  let fixture: ComponentFixture<CartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [Tela404Component]
+      declarations: [CartComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Tela404Component);
+    fixture = TestBed.createComponent(CartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

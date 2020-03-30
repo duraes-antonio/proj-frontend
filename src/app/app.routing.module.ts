@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: 'carrinho',
     loadChildren: () =>
-      import('./pages/tela-carrinho/tela-carrinho.module')
+      import('./pages/cart/tela-carrinho.module')
         .then(m => m.TelaCarrinhoModule)
   },
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
   {
     path: '404',
     loadChildren: () =>
-      import('./pages/tela-404/tela404.module')
+      import('./pages/404/tela404.module')
         .then(m => m.Tela404Module)
   },
   {

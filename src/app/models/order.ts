@@ -16,12 +16,12 @@ export class Order {
   readonly dateDelivery?: Date;
 
   constructor(
-    id: number = 0, items: ItemOrder[], date: Date, state: EStateOrder,
-    delivery: DeliveryOption, address: Address, dateDelivery?: Date
+    id: number = 0, items: ItemOrder[], state: EStateOrder,
+    delivery: DeliveryOption, address: Address, date?: Date, dateDelivery?: Date
   ) {
     this.id = id;
     this.items = items;
-    this.date = date;
+    this.date = date ?? new Date();
     this.state = state;
     this.costDelivery = delivery.cost;
     this.daysForDelivery = delivery.timeDays;
