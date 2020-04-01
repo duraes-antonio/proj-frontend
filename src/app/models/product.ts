@@ -17,6 +17,12 @@ export class Product {
   avgReview = 0;
   amountAvailable = 0;
 
+  cost = 0;
+  height = 0;
+  width = 0;
+  length = 0;
+  weight = 0;
+
   constructor(
     title: string, desc: string, priceSell: number, urlImg?: string,
     percOff?: number, categories?: Category[], freeDelivery?: boolean,

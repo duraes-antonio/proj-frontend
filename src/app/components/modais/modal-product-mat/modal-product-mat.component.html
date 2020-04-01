@@ -1,7 +1,7 @@
 <app-modal-mat (action)="emitProduct()" (closed)="closed.emit()" [btnAcceptTitle]="textModal.btnAction"
                [btnCancelTitle]="textModal.btnCancel" [modalTitle]="textModal.title">
   <div class="product__image">
-    <img *ngIf="!product.urlImage; else withoutImage" [src]="product.urlImage" class="product__image-img">
+    <img *ngIf="product.urlImage; else withoutImage" [src]="product.urlImage" class="product__image-img">
     <ng-template #withoutImage>
       <i aria-hidden="true" class="far fa-image"></i>
     </ng-template>
@@ -11,14 +11,6 @@
         <i aria-hidden="true" class="far fa-file-image"></i>
         <span>{{!product.urlImage ? 'Adicionar' : 'Substituir'}} Imagem</span>
       </button>
-      <!--      <button mat-stroked-button class="btn-general">-->
-      <!--        <i aria-hidden="true" class="fas fa-plus"></i>-->
-      <!--        Adicionar-->
-      <!--      </button>-->
-      <!--      <button mat-stroked-button class="btn-general">-->
-      <!--        <i aria-hidden="true" class="fas fa-minus"></i>-->
-      <!--        Remover-->
-      <!--      </button>-->
     </div>
   </div>
 
@@ -26,7 +18,7 @@
     <!-- Categorias -->
     <mat-form-field class="col s12">
       <mat-label>Categorias</mat-label>
-      <mat-select [formControl]="categoryControl" multiple>
+      <mat-select [formControl]="_controlCategory" multiple>
         <mat-option *ngFor="let cat of productCategs" [value]="cat">
           {{cat.name}}
         </mat-option>
@@ -35,62 +27,100 @@
 
     <!-- Título -->
     <mat-form-field class="col s12">
-      <mat-label>Título</mat-label>
-      <input #fieldTitle [(ngModel)]="product.title" class="input"
-             matInput maxlength="100" type="text">
+      <mat-label>Título <span style="color: red">*</span></mat-label>
+      <input #fieldTitle [formControl]="_controlTitle"
+             [maxLength]="_sizes.titleMax" matInput type="text">
       <mat-hint align="end">{{fieldTitle.value.length}} / 100</mat-hint>
+      <mat-error *ngIf="_controlTitle.invalid">{{_getMsg(_controlTitle)}}</mat-error>
     </mat-form-field>
 
     <!-- Descrição -->
     <mat-form-field class="col s12">
-      <mat-label>Descrição</mat-label>
-      <textarea #autosize="cdkTextareaAutosize" #fieldDescription [(ngModel)]="product.desc"
-                cdkAutosizeMaxRows="10" cdkAutosizeMinRows="1" cdkTextareaAutosize
-                class="input" matInput maxlength="2000"></textarea>
-      <mat-hint align="end">{{fieldDescription.value.length}} / 2000</mat-hint>
+      <mat-label>Descrição <span style="color: red">*</span></mat-label>
+      <textarea #autosize="cdkTextareaAutosize" #fieldDescription [formControl]="_controlDesc"
+                [maxLength]="_sizes.descMax" cdkAutosizeMaxRows="10" cdkAutosizeMinRows="1"
+                cdkTextareaAutosize class="input" matInput></textarea>
+      <mat-hint align="end">{{fieldDescription.value.length}} / {{_sizes.descMax}}</mat-hint>
+      <mat-error *ngIf="_controlDesc.invalid">{{_getMsg(_controlDesc)}}</mat-error>
     </mat-form-field>
+
 
     <!-- Custo -->
     <mat-form-field class="col s6">
       <mat-label>Custo</mat-label>
-      <input matInput type="number">
-      <span matPrefix>R$&nbsp;</span>
+      <input [formControl]="_controlCost" [max]="9999999" matInput min="0"
+             step="0.5" type="number">
+      <span matSuffix>R$</span>
+      <mat-error *ngIf="_controlCost.invalid">{{_getMsg(_controlCost, '75 ou 2.8')}}</mat-error>
     </mat-form-field>
 
     <!-- Preço de venda -->
     <mat-form-field class="col s6">
-      <mat-label>Preço de venda</mat-label>
-      <input [(ngModel)]="product.amountAvailable" matInput type="number">
-      <span matPrefix>R$&nbsp;</span>
+      <mat-label>Preço de venda <span style="color: red">*</span></mat-label>
+      <input [formControl]="_controlPrice" [max]="_sizes.priceMax" [min]="_sizes.priceMin" matInput
+             step="0.5" type="number">
+      <span matSuffix>R$</span>
+      <mat-error *ngIf="_controlPrice.invalid">{{_getMsg(_controlPrice, '25 ou 1.78')}}</mat-error>
+    </mat-form-field>
+
+    <!-- Porcentagem de desconto -->
+    <mat-form-field class="col s6">
+      <mat-label>Desconto</mat-label>
+      <input [formControl]="_controlDiscount" [max]="_sizes.percentOffMax" [min]="_sizes.percentOffMin" matInput
+             step="0.5" type="number">
+      <span matSuffix>%</span>
+      <mat-hint align="start">Exemplo: 80 (para 80% de desconto)</mat-hint>
+      <mat-error *ngIf="_controlDiscount.invalid">{{_getMsg(_controlDiscount, '75 ou 11.7')}}</mat-error>
+    </mat-form-field>
+
+    <!-- Unidades disponíveis -->
+    <mat-form-field class="col s6">
+      <mat-label>Unidades disponíveis</mat-label>
+      <input (input)="formatNum($event.target)" [formControl]="_controlQuantity"
+             [max]="_sizes.amountAvailableMax" [min]="_sizes.amountAvailableMin"
+             matInput type="number">
+      <mat-error *ngIf="_controlQuantity.invalid">{{_getMsg(_controlQuantity)}}</mat-error>
     </mat-form-field>
 
 
     <!-- Altura -->
     <mat-form-field class="col s6">
       <mat-label>Altura (cm)</mat-label>
-      <input matInput type="number">
+      <input (input)="formatNum($event.target)" [formControl]="_controlHeight"
+             [max]="_sizes.heightMax" [min]="_sizes.heightMin"
+             matInput step="0.5" type="number">
       <mat-hint align="start">Altura em centímetros</mat-hint>
+      <mat-error *ngIf="_controlHeight.invalid">{{_getMsg(_controlHeight, '75.85')}}</mat-error>
     </mat-form-field>
 
     <!-- Largura -->
     <mat-form-field class="col s6">
       <mat-label>Largura (cm)</mat-label>
-      <input matInput type="number">
+      <input (input)="formatNum($event.target)" [formControl]="_controlWidth"
+             [max]="_sizes.widthMax" [min]="_sizes.widthMin"
+             matInput step="0.5" type="number">
       <mat-hint align="start">Largura em centímetros</mat-hint>
+      <mat-error *ngIf="_controlWidth.invalid">{{_getMsg(_controlWidth, '10.85 ou 25')}}</mat-error>
     </mat-form-field>
 
     <!-- Comprimento -->
     <mat-form-field class="col s6">
       <mat-label>Comprimento (cm)</mat-label>
-      <input matInput type="number">
+      <input (input)="formatNum($event.target)" [formControl]="_controlLength"
+             [max]="_sizes.lengthMax" [min]="_sizes.lengthMin"
+             matInput step="0.5" type="number">
       <mat-hint align="start">Comprimento em centímetros</mat-hint>
+      <mat-error *ngIf="_controlLength.invalid">{{_getMsg(_controlLength, '11 ou 141.14')}}</mat-error>
     </mat-form-field>
 
     <!-- Peso -->
     <mat-form-field class="col s6">
       <mat-label>Peso (kg)</mat-label>
-      <input matInput type="number">
+      <input (input)="formatNum($event.target)" [formControl]="_controlWeight"
+             [max]="_sizes.weightMax" [min]="_sizes.weightMin"
+             matInput step="0.1" type="number">
       <mat-hint align="start">Peso em kilogramas</mat-hint>
+      <mat-error *ngIf="_controlWeight.invalid">{{_getMsg(_controlWeight, '1.25 ou 0.45 (450 gramas)')}}</mat-error>
     </mat-form-field>
   </div>
 </app-modal-mat>

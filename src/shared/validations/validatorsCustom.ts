@@ -37,6 +37,19 @@ export const validators = {
       return null;
     };
   },
+  numberValidator(min: number, max: number, required = false): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const num = masks.numberUnsigned(control.value);
+      if (!validation.validNumber(num)) {
+        return {[EErrorType.FORMAT]: true};
+      } else if (+num > max) {
+        return {[EErrorType.MAX_VAL]: max};
+      } else if (+num < min) {
+        return {[EErrorType.MIN_VAL]: min};
+      }
+      return null;
+    };
+  },
   passEqualsValidator(originalPassCtrl: FormControl): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
 
@@ -49,6 +62,21 @@ export const validators = {
       }
 
       return {[EErrorType.EQUALS]: ['Senha', 'Confirmação de Senha']};
+    };
+  },
+  phoneValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+
+      if (!validation.hasValue(control.value)) {
+        return {[EErrorType.REQUIRED]: true};
+      }
+
+      const phoneNumber = control.value.toString().trim();
+
+      if (!validation.validPhone(phoneNumber)) {
+        return {[EErrorType.FORMAT]: true};
+      }
+      return null;
     };
   },
   textValidator(maxLen: number, minLen = 1, required = true): ValidatorFn {
@@ -68,21 +96,6 @@ export const validators = {
       }
 
       return required ? {[EErrorType.REQUIRED]: true} : null;
-    };
-  },
-  phoneValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-
-      if (!validation.hasValue(control.value)) {
-        return {[EErrorType.REQUIRED]: true};
-      }
-
-      const phoneNumber = control.value.toString().trim();
-
-      if (!validation.validPhone(phoneNumber)) {
-        return {[EErrorType.FORMAT]: true};
-      }
-      return null;
     };
   }
 };

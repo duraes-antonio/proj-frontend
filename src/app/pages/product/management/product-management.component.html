@@ -1,11 +1,9 @@
-<div style="padding: 30px 20px">
+<div style="padding: 30px 10px">
   <!-- TÍTULO DA PÁGINA -->
   <div class="page__header">
-    <div class="title-page-section">
-      <span class="title-page">Gerenciar</span>
-      <span class="title-page title-page--2nd-line">Produtos</span>
+    <div class="title-page-w-border">
+      <span>Gerenciar produtos</span>
     </div>
-    <i aria-hidden="true" class="fas fa-box-open title-page-icon"></i>
   </div>
 
   <!-- FILTROS E BOTÕES -->
@@ -45,89 +43,81 @@
     </div>
 
     <div class="actions-btn">
-      <button (click)="createProduct()" class="action-btn__item btn-focus--grey col s6 m6 l6 xl6"
+      <button (click)="searchProduct()" class="btn-general col" color="primary"
               mat-raised-button>
+        <mat-icon>search</mat-icon>
+        Buscar
+      </button>
+      <button (click)="createProduct()" class="btn-general col" color="primary"
+              mat-stroked-button>
         <mat-icon>add</mat-icon>
         Novo produto
-      </button>
-
-      <!-- TODO: Continuar funcionalidade -->
-      <button class="action-btn__item btn-focus--grey col s6 m6 l6 xl6" mat-raised-button>
-        <mat-icon>attach_money</mat-icon>
-        Alterar preço
       </button>
     </div>
   </div>
 
-  <!-- TABELA -->
-  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table matSort>
+  <!-- Área dos produtos -->
+  <div style="width: 100%">
+    <div class="products">
+      <a (click)="selectProduct(item.id)" *ngFor="let item of products"
+         class="row product">
 
-    <!-- CHECKBOX -->
-    <ng-container matColumnDef="select">
-      <th *matHeaderCellDef mat-header-cell>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </th>
-      <td *matCellDef="let row" mat-cell>
-        <mat-checkbox (change)="$event ? selection.toggle(row) : null"
-                      (click)="$event.stopPropagation()"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
+        <!-- 'titulo', 'porcentDesc', 'preco', 'freteGratis', 'qtdDisponivel', 'categorias'-->
+        <!-- Imagem principal do produto -->
+        <div *ngIf="_window.screen.width > 480" class="col s4 m3 l2 xl1 product__cover">
+          <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
+        </div>
 
-    <!-- ID -->
-    <ng-container matColumnDef="id">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Id</th>
-      <td *matCellDef="let p" mat-cell>{{p.id}}</td>
-    </ng-container>
+        <div *ngIf="_window.screen.width < 481" class="col s12 product__cover-title">
+          <div class="col s5 m3 l2 xl1 product__cover">
+            <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
+          </div>
+          <span class="product__title col s7 m12 l3 xl3">{{item.title}}</span>
+        </div>
 
-    <!-- TITULO -->
-    <ng-container matColumnDef="titulo">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Título</th>
-      <td *matCellDef="let p" mat-cell>{{p.titulo}}</td>
-    </ng-container>
+        <!-- Dados textuais (preço, frete grátis, ...) -->
+        <div [ngClass]="_window.screen.width > 480 ? 's8' : 's12'"
+             class="col m9 l10 xl11 product__props">
 
-    <!-- PORCENTAGEM DE DESCONTO -->
-    <ng-container matColumnDef="porcentDesc">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Desconto</th>
-      <td *matCellDef="let p" mat-cell>
-        <span *ngIf="p.porcentDesc">{{p.porcentDesc | number: '1.0-2'}}%</span>
-      </td>
-    </ng-container>
+          <!-- Titulo do produto -->
+          <span *ngIf="_window.screen.width > 480" class="product__title col s12 m12 l3 xl3">{{item.title}}</span>
 
-    <!-- PREÇO -->
-    <ng-container matColumnDef="preco">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Preço</th>
-      <td *matCellDef="let p" mat-cell>{{p.preco | currency: 'BRL'}}</td>
-    </ng-container>
+          <!-- Preço do produto -->
+          <div class="col s6 m3 l2 xl2 product__prop">
+            <span class="product__prop--title">Preço</span>
+            <span>{{item.price | currency: 'BRL'}}</span>
+          </div>
 
-    <!-- FRETE GRÁTIS -->
-    <ng-container matColumnDef="freteGratis">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Frete grátis</th>
-      <td *matCellDef="let p" mat-cell>{{p.freteGratis}}</td>
-    </ng-container>
+          <!-- Preço com desconto -->
+          <div class="col s6 m3 l2 xl2 product__prop">
+            <span class="product__prop--title">Preço com desconto</span>
+            <span>{{item.priceWithDiscount | currency: 'BRL'}}</span>
+          </div>
 
-    <!-- QTD DISPONÍVEL -->
-    <ng-container matColumnDef="qtdDisponivel">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Unidades disponíveis</th>
-      <td *matCellDef="let p" mat-cell>{{p.qtdDisponivel}}</td>
-    </ng-container>
+          <!-- Desconto -->
+          <div [ngClass]="{'s6': _window.screen.width < 481}"
+               class="col s4 m3 l1 xl1 product__prop">
+            <span class="product__prop--title">Desconto</span>
+            <span>{{item.percentOff | number: '1.0-2'}}%</span>
+          </div>
 
-    <!-- CATEGORIAS -->
-    <ng-container matColumnDef="categorias">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Categorias</th>
-      <td *matCellDef="let p" mat-cell>
-        <ul *ngIf="p.categorias" style="padding-inline-start: 20px;">
-          <li *ngFor="let categ of p.categorias">{{categ.nome}}</li>
-        </ul>
-      </td>
-    </ng-container>
+          <!-- Unidades disponíveis -->
+          <div [ngClass]="{'s6': _window.screen.width < 481}"
+               class="col s4 m3 l2 xl2 product__prop">
+            <span class="product__prop--title">Disponíveis</span>
+            <span>{{item.amountAvailable}} un</span>
+          </div>
 
-    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr (click)="selectProduct(row.id)" *matRowDef="let row; columns: displayedColumns;" mat-row>
-    </tr>
-  </table>
+          <!-- Frete grátis -->
+          <div [ngClass]="{'s6': _window.screen.width < 481}"
+               class="col s4 m3 l2 xl1 product__prop">
+            <span class="product__prop--title">Frete grátis</span>
+            <span>{{item.freeDelivery ? 'Sim' : 'Não'}}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <app-paginacao [qtdPags]="32" style="width: 100%;"></app-paginacao>
+  </div>
 </div>

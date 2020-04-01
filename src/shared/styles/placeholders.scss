@@ -36,6 +36,11 @@
   flex-flow: column;
 }
 
+%flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 
 %color-text-prim--light {
   color: $color-prim--light;

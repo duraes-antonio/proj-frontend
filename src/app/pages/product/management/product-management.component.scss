@@ -1,16 +1,15 @@
 @import '../../../../shared/styles/general';
 @import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
 
 .page__header {
   color: $color-prim;
   @extend %center-flex;
 
-  .title-page-section {
-    display: grid;
-    text-align: center;
-    margin-right: 20px;
-    line-height: 1.2;
+  .title-page-w-border {
+    margin-bottom: 30px;
   }
 
   .title-page {
@@ -29,34 +28,90 @@
   }
 }
 
-.btn-focus--grey {
-  &:focus {
-    background-color: rgba(lightgrey, .12);
-  }
-}
-
 .header-actions {
-  display: flex;
-  flex-wrap: wrap;
+  @extend %flex-wrap;
   margin: 15px 0 0;
 
   mat-form-field {
-    margin-right: 15px;
     @extend %color-text-prim;
+    margin-right: 15px;
   }
 }
 
-.action-btn {
+.actions-btn {
+  .btn-general:not(:last-child) {
+    margin-right: 15px;
 
-  &__item:not(:last-child) {
-    margin-right: 12px;
+    @media (max-width: $width-max-small) {
+      margin-bottom: 15px;
+    }
   }
 }
 
-.mat-column-select {
-  overflow: initial;
+.products {
+  display: block;
 }
 
-table {
-  width: 100%;
+.product {
+  @extend %center-vert-flex;
+  @extend %color-text-prim--light;
+  flex-wrap: wrap;
+  padding: 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.1);
+
+  text-align: center;
+  text-decoration: none;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &__cover-img {
+    @include max-size(100px);
+  }
+
+  &__cover-title {
+    @extend %center-vert-flex;
+
+    .product__cover-img {
+      max-width: 85px;
+    }
+
+    .product__title {
+      padding: 5px;
+      font-size: .9rem;
+    }
+  }
+
+  &__props {
+    @extend %center-vert-flex;
+    flex-flow: wrap;
+
+    .product__prop {
+      @extend %flex-col;
+      margin-top: 5px;
+      padding: 5px;
+
+      &--title {
+        @extend %color-text-prim;
+        font-weight: 500;
+      }
+
+      @media (max-width: 720px) {
+        font-size: .8rem;
+      }
+
+      @media (max-width: $width-max-medium) {
+        margin-left: 0 !important;
+      }
+    }
+
+    &__title {
+      border: 1px solid green;
+      padding: 10px 20px;
+    }
+  }
 }

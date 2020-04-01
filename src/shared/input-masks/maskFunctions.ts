@@ -13,6 +13,14 @@ export const masks = {
       .replace(/(\d{3})(\d{2})/, '$1-$2')
       .replace(/(-\d{2})\d+?$/, '$1');
   },
+  numberUnsigned(value: string): string {
+    return (value === undefined || value === null)
+      ? ''
+      : value
+        .toString()
+        .replace(',', '.')
+        .replace(/[^.\d]/g, '');
+  },
   phone(value: string): string {
     return value
       .replace(/\D/g, '')
@@ -22,11 +30,11 @@ export const masks = {
       .replace(/(-\d{4})\d+?$/, '$1');
   },
   valueOrMin(value: string | number, minVal: number): number {
-    const valNum = +value.toString().replace(/\D/g, '');
-    return valNum >= minVal ? valNum : minVal;
+    const valNum = +this.numberUnsigned(value.toString());
+    return Math.max(valNum, minVal);
   },
   valueOrMax(value: string | number, maxVal: number): number {
-    const valNum = +value.toString().replace(/\D/g, '');
-    return valNum <= maxVal ? valNum : maxVal;
+    const valNum = +this.numberUnsigned(value.toString());
+    return Math.min(valNum, maxVal);
   }
 };

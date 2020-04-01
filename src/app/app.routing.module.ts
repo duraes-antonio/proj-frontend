@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/tela-login/tela-login.module')
+    loadChildren: () => import('./pages/login/tela-login.module')
       .then(m => m.TelaLoginModule)
   },
   {

@@ -11,8 +11,7 @@ export class ProductService {
       .filter(p => ids.some(id => id === p.id));
   }
 
-  static get(filter: FiltroProdutoPesquisa): Observable<Product[]> {
-    console.log(filter);
+  static get(filter?: FiltroProdutoPesquisa): Observable<Product[]> {
     const textLower = filter && filter.texto ? filter.texto.toLowerCase() : '';
     let prods = DataTests.products.filter(p => {
       return p.title.toLowerCase().indexOf(textLower) > -1
@@ -20,27 +19,27 @@ export class ProductService {
         || p.categories.some(c => c.name.toLowerCase().indexOf(textLower) > -1);
     });
 
-    if (filter.descMin) {
+    if (filter?.descMin) {
       prods = prods.filter(p => p.percentOff >= filter.descMin);
     }
 
-    if (filter.descMax) {
+    if (filter?.descMax) {
       prods = prods.filter(p => p.percentOff <= filter.descMax);
     }
 
-    if (filter.precoMin) {
+    if (filter?.precoMin) {
       prods = prods.filter(p => p.priceWithDiscount >= filter.precoMin);
     }
 
-    if (filter.precoMax) {
+    if (filter?.precoMax) {
       prods = prods.filter(p => p.priceWithDiscount <= filter.precoMax);
     }
 
-    if (filter.freteGratis) {
+    if (filter?.freteGratis) {
       prods = prods.filter(p => p.freeDelivery === filter.freteGratis);
     }
 
-    if (filter.categorias && filter.categorias.length) {
+    if (filter?.categorias && filter.categorias.length) {
       prods = prods.filter(
         p => filter.categorias.some(
           cf => p.categories.some(cp => cp.id === cf)
@@ -48,13 +47,11 @@ export class ProductService {
       );
     }
 
-    if (filter.avaliacoes && filter.avaliacoes.length) {
+    if (filter?.avaliacoes && filter.avaliacoes.length) {
       prods = prods.filter(p => filter.avaliacoes
         .some(a => Math.floor(p.avgReview) === a)
       );
     }
-    console.log(prods);
-
     return of([...prods]);
   }
 
