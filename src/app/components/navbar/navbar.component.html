@@ -7,7 +7,9 @@
         <a (click)="sidenavShow.emit()" *ngIf="userLogged" class="icon-action--white">
           <i aria-hidden="true" class="fas fa-bars" style="margin-right: 20px"></i>
         </a>
-        <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
+        <a [routerLink]="routes.home">
+          <img alt="yugioh_logo" src="../../../assets/yugioh-logo.png"/>
+        </a>
       </div>
 
       <!-- BARRA DE BUSCA -->
@@ -17,55 +19,75 @@
       <!-- NOTIFICAÇÕES E CARRINHO -->
       <div class="col s6 m3 l3 xl3 navbar__col--right">
 
-        <!-- NOTIFICAÇÕES -->
-        <div *ngIf="userLogged">
+        <!-- CARRINHO -->
+        <a [routerLink]="routes.cart" class="icon-action--white" title="Carrinho">
+          <i [matBadgeHidden]="cartProdsIds.length < 1" aria-hidden="true"
+             class="fas fa-shopping-cart"
+             matBadge="{{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}" matBadgeColor="warn"></i>
+        </a>
+        <ng-container *ngIf="userLogged; else userUnknown">
 
-          <!-- CONTADOR DE NOTIFICAÇÕES -->
-          <a (click)="toggleListNotif()" class="icon-action--white">
-            <i [matBadgeHidden]="!numActiveNotif" aria-hidden="true" class="fas fa-bell"
-               matBadge="{{numActiveNotif < 100 ? numActiveNotif : '+99'}}"
-               matBadgeColor="warn" style="margin-right: 20px">
-            </i>
-          </a>
+          <!-- NOTIFICAÇÕES -->
+          <div *ngIf="userLogged">
 
-          <!-- LISTA DE NOTIFICAÇÕES -->
-          <div *ngIf="showNotifics" class="col s12 m6 l4 xl4 notific-section">
-            <div class="notifics-header">
-              <span>Notificações</span>
-              <a (click)="markAllNotifAsRead()" class="notifics-header__icon" title="Marcar todas como lidas">
-                <i aria-hidden="true" class="far fa-check-square"></i>
-              </a>
-            </div>
+            <!-- CONTADOR DE NOTIFICAÇÕES -->
+            <a (click)="toggleListNotif()" class="icon-action--white">
+              <i [matBadgeHidden]="!numActiveNotif" aria-hidden="true" class="fas fa-bell"
+                 matBadge="{{numActiveNotif < 100 ? numActiveNotif : '+99'}}"
+                 matBadgeColor="warn" style="margin-right: 20px">
+              </i>
+            </a>
 
-            <mat-divider></mat-divider>
+            <!-- LISTA DE NOTIFICAÇÕES -->
+            <div *ngIf="showNotifics" class="col s12 m6 l4 xl4 notific-section">
+              <div class="notifics-header">
+                <span>Notificações</span>
+                <a (click)="markAllNotifAsRead()" class="notifics-header__icon" title="Marcar todas como lidas">
+                  <i aria-hidden="true" class="far fa-check-square"></i>
+                </a>
+              </div>
 
-            <div *ngFor="let notif of notifics" class="notific {{notif.lida ? 'notific--inactive' : ''}}">
+              <mat-divider></mat-divider>
 
-              <!-- NOTIFICAÇÃO INDIVIDUAL -->
-              <a (click)="markNotifAsRead(notif)" class="notific__link">
-                <i aria-hidden="true" class="{{notif.classIcon}} icone-circulo"></i>
+              <div *ngFor="let notif of notifics" class="notific {{notif.read ? 'notific--inactive' : ''}}">
 
-                <!-- INFORMAÇÕES DA NOTIFIÇÃO -->
-                <div class="notific__info">
-                  <span class="notific__desc">{{notif.text}}<br></span>
-                  <span class="notific__date">
-                    {{notif.date | date: 'dd/MM/yyyy - hh:mm:ss'}}
-                  </span>
-                </div>
-              </a>
+                <!-- NOTIFICAÇÃO INDIVIDUAL -->
+                <a (click)="markNotifAsRead(notif)" class="notific__link">
+                  <i aria-hidden="true" class="{{notif.classIcon}} icone-circulo"></i>
 
-              <mat-checkbox (change)="toggleNotif(notif)" [checked]="notif.lida"
-                            class="notific__checkbox"></mat-checkbox>
+                  <!-- INFORMAÇÕES DA NOTIFIÇÃO -->
+                  <div class="notific__info">
+                    <span class="notific__desc">{{notif.text}}<br></span>
+                    <span class="notific__date">
+                      {{notif.date | date: 'dd/MM/yyyy - hh:mm:ss'}}
+                    </span>
+                  </div>
+                </a>
+
+                <mat-checkbox (change)="toggleNotif(notif)" [checked]="notif.read"
+                              class="notific__checkbox"></mat-checkbox>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- CARRINHO -->
-        <a class="icon-action--white" routerLink="/carrinho">
-          <i aria-hidden="true" class="fas fa-shopping-cart"
-             matBadge="{{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}"
-             matBadgeColor="warn"></i>
-        </a>
+          <!-- LOGOUT -->
+          <a (click)="logout()" *ngIf="userLogged" class="icon-action--white" title="Sair">
+            <i aria-hidden="true" class="fas fa-sign-out-alt"></i>
+          </a>
+        </ng-container>
+
+        <ng-template #userUnknown>
+          <!-- CRIAR CONTA -->
+          <a *ngIf="!userLogged" [routerLink]="routes.loginRegister" class="icon-action--white" title="Cadastrar-se">
+            <i aria-hidden="true" class="fas fa-user-plus"></i>
+          </a>
+
+          <!-- LOGIN -->
+          <a *ngIf="!userLogged" [routerLink]="routes.loginEnter" class="icon-action--white" title="Entrar (login)">
+            <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
+          </a>
+        </ng-template>
+
       </div>
     </div>
     <app-search-bar (searchAction)="search($event)" class="col s12 m12 l6 xl6 mobile--show"

@@ -23,14 +23,16 @@ export class NavbarComponent implements OnDestroy {
   numActiveNotif: number = this.notifics.filter(n => !n.read).length;
   cartProdsIds: number[] = [];
   userLogged = false;
+  routes = routesFrontend;
   private _cart$: Subscription;
   private _userLogged$: Subscription;
 
   constructor(
-    private store: Store<Cart>,
-    private router: Router
+    private _store: Store<Cart>,
+    private _router: Router,
+    private _auth: AuthService
   ) {
-    this._cart$ = this.store.subscribe((res: any) => {
+    this._cart$ = this._store.subscribe((res: any) => {
       this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];
     });
     this.userLogged = !!AuthService.userLogged;
@@ -71,6 +73,10 @@ export class NavbarComponent implements OnDestroy {
   }
 
   search(text: string) {
-    this.router.navigate([routesFrontend.productsView], {queryParams: {text: text}});
+    this._router.navigate([routesFrontend.productsView], {queryParams: {text: text}});
+  }
+
+  logout() {
+    this._auth.logout().subscribe();
   }
 }

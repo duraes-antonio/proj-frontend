@@ -148,6 +148,11 @@
 }
 
 .icon-action--white {
+  @include max-size(24px);
   color: white;
   font-size: 24px;
+
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
 }

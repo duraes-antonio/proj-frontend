@@ -66,9 +66,9 @@ export class SidenavComponent {
 }
 
 export class LinkAction {
-  public readonly title: string;
-  public readonly url: string;
-  public readonly iconClass: string;
+  readonly title: string;
+  readonly url: string;
+  readonly iconClass: string;
 
   constructor(title: string, url: string, iconClass: string) {
     this.title = title;

@@ -36,8 +36,6 @@ export class SliderBaseComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const options = this.optionsGlide;
-
     const glideElem = document.getElementById(this.sliderId);
 
     if (!glideElem) {
@@ -45,7 +43,7 @@ export class SliderBaseComponent implements AfterViewInit {
     }
 
     glideElem.style.setProperty('--slide-max-height', this.maxHeight);
-    this._glide = new Glide(glideElem, options).mount();
+    this._glide = new Glide(glideElem, {...this.optionsGlide, keyboard: false}).mount();
 
     /*Após cada movimento, atualize o índice do slide atual p/ estilizar o indicador*/
     if (this.showBullets) {

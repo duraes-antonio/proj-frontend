@@ -21,7 +21,6 @@ import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component'
 import {FooterComponent} from './footer/footer.component';
 import {InputNumberComponent} from './input/input-number/input-number.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
-import {MenuFlutuanteComponent} from './menu-flutuante/menu-flutuante.component';
 import {ModalModule} from './modais/modal.module';
 import {NavbarComponent} from './navbar/navbar.component';
 import {PaginacaoComponent} from './paginacao/paginacao.component';
@@ -38,7 +37,6 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     FooterComponent,
     SidenavComponent,
     ListaCartaoComponent,
-    MenuFlutuanteComponent,
     FiltroProdutoComponent,
     PaginacaoComponent,
     StarRatingComponent,
@@ -49,7 +47,6 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     NavbarComponent,
     FooterComponent,
     SidenavComponent,
-    MenuFlutuanteComponent,
     ListaCartaoComponent,
     SearchBarComponent,
     FiltroProdutoComponent,
