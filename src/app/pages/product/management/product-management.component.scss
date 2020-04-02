@@ -34,16 +34,27 @@
 
   mat-form-field {
     @extend %color-text-prim;
-    margin-right: 15px;
+    padding: 0 5px;
   }
 }
 
-.actions-btn {
-  .btn-general:not(:last-child) {
-    margin-right: 15px;
+.search-actions {
+  @extend %flex-wrap;
+  justify-content: space-between;
 
+  .search_new-prod {
+    .btn-general:not(:last-child) {
+      margin-right: 15px;
+
+      @media (max-width: $width-max-small) {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .sort_pagination {
     @media (max-width: $width-max-small) {
-      margin-bottom: 15px;
+      margin-top: 20px;
     }
   }
 }

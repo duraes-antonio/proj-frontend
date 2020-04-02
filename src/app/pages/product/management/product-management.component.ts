@@ -8,6 +8,7 @@ import {ModalProductMatComponent} from '../../../components/modais/modal-product
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
 import {FilterProduct} from '../../../models/filters/filterProductAdmin.model';
+import {EProductSort} from '../../../models/filters/filterProductUser.model';
 
 @Component({
   selector: 'app-tela-gerencia-produto',
@@ -17,17 +18,20 @@ import {FilterProduct} from '../../../models/filters/filterProductAdmin.model';
 export class ProductManagementComponent {
 
   readonly controlCategories = new FormControl();
+  readonly optsSort: { key: EProductSort, name: string }[] = [
+    {key: EProductSort.AVERAGE_REVIEW, name: 'Maior avaliação'},
+    {key: EProductSort.DISCOUNTS, name: 'Maior desconto'},
+    {key: EProductSort.NEWEST, name: 'Mais novos'},
+    {key: EProductSort.OLDEST, name: 'Mais antigos'},
+    {key: EProductSort.PRICE_HIGH, name: 'Maior preço'},
+    {key: EProductSort.PRICE_LOW, name: 'Menor preço'}
+  ];
   filter = new FilterProduct();
   products: Product[] = DataTests.products;
   categories: Category[] = DataTests.categories;
   productChosen?: Product;
   textSearch = '';
   _window = window;
-
-  /*Dados usados na tabela de produtos*/
-  displayedColumns = [
-    'select', 'id', 'titulo', 'porcentDesc', 'preco', 'freteGratis', 'qtdDisponivel', 'categorias'
-  ];
 
   constructor(private _dialog: MatDialog) {
   }

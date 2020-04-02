@@ -29,3 +29,13 @@ export class FiltroProdutoPesquisa {
     this.precoMax = precoMax ? precoMax : this.precoMax;
   }
 }
+
+export enum EProductSort {
+  AVERAGE_REVIEW,
+  DEFAULT,
+  DISCOUNTS,
+  NEWEST,
+  OLDEST,
+  PRICE_HIGH,
+  PRICE_LOW,
+}

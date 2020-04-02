@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {Product} from '../../../models/product';
 import {Category} from '../../../models/category';
 import {DataTests} from '../../../../shared/dataTests';
@@ -28,6 +28,7 @@ export class ModalProductMatComponent {
   readonly _getMsg = getMsgFront;
   readonly _sizes = productSizes;
   readonly _controlCategory = new FormControl();
+
   readonly _controlTitle = new FormControl(
     this.product.title, validators.textValidator(this._sizes.titleMax, 10)
   );
@@ -44,28 +45,40 @@ export class ModalProductMatComponent {
   );
   readonly _controlQuantity = new FormControl(
     this.product.amountAvailable,
-    validators.numberValidator(0, 9999999, true)
+    validators.numberValidator(this._sizes.amountAvailableMin, this._sizes.amountAvailableMax, true)
   );
   readonly _controlDiscount = new FormControl(
     +this.product.percentOff.toFixed(2),
     validators.numberValidator(this._sizes.percentOffMin, this._sizes.percentOffMax, false)
   );
   readonly _controlHeight = new FormControl(
-    this.product.height,
+    null,
     validators.numberValidator(this._sizes.heightMin, this._sizes.heightMax, true)
   );
   readonly _controlWidth = new FormControl(
-    this.product.width,
+    null,
     validators.numberValidator(this._sizes.widthMin, this._sizes.widthMax, true)
   );
   readonly _controlLength = new FormControl(
-    this.product.length,
+    null,
     validators.numberValidator(this._sizes.lengthMin, this._sizes.lengthMax, true)
   );
   readonly _controlWeight = new FormControl(
-    this.product.weight,
+    null,
     validators.numberValidator(this._sizes.weightMin, this._sizes.weightMax, true)
   );
+  readonly _formGroup = new FormBuilder().group({
+    title: this._controlTitle,
+    desc: this._controlDesc,
+    cost: this._controlCost,
+    price: this._controlPrice,
+    quantity: this._controlQuantity,
+    discount: this._controlDiscount,
+    height: this._controlHeight,
+    width: this._controlWidth,
+    length: this._controlLength,
+    weight: this._controlWeight,
+  });
 
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter<Product>();

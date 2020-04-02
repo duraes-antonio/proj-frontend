@@ -28,9 +28,9 @@ export const productSizes = {
   costMax: 9999999,
   descMin: 10,
   descMax: 4000,
-  heightMin: 0,
+  heightMin: 1,
   heightMax: 9999,
-  lengthMin: 0,
+  lengthMin: 1,
   lengthMax: 9999,
   percentOffMax: 100,
   percentOffMin: 0,
@@ -38,9 +38,9 @@ export const productSizes = {
   priceMax: Number.MAX_SAFE_INTEGER,
   titleMin: 20,
   titleMax: 128,
-  weightMin: 0,
+  weightMin: 0.01,
   weightMax: 9999,
-  widthMin: 0,
+  widthMin: 1,
   widthMax: 9999,
   urlMainImageMax: 512
 };
