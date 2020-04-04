@@ -2,7 +2,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from '../../models/product';
 import {Category} from '../../models/category';
-import {FiltroProdutoPesquisa} from '../../models/filters/filterProductUser.model';
+import {FilterProduct} from '../../models/filters/filterProductUser.model';
 
 @Component({
   selector: 'app-filtro-produto',
@@ -11,13 +11,13 @@ import {FiltroProdutoPesquisa} from '../../models/filters/filterProductUser.mode
 })
 export class FiltroProdutoComponent {
 
-  @Output() filterEmit = new EventEmitter<FiltroProdutoPesquisa>();
+  @Output() filterEmit = new EventEmitter<FilterProduct>();
 
   categoriesInit = new Set<Category>();
   ratingsInit: number[] = [];
   discountsInit: number[][] = [];
   freeDeliveryInit?: boolean;
-  filter = new FiltroProdutoPesquisa(1, 10);
+  filter = new FilterProduct(1, 10);
 
   freeDelivery = false;
   priceMin = 0;

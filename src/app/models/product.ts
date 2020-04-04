@@ -1,7 +1,7 @@
 'use strict';
 import {Category} from './category';
 
-export class Product {
+export class Product implements ProductAdd {
 
   id = 0;
   title: string;
@@ -14,6 +14,7 @@ export class Product {
 
   freeDelivery = false;
   categories: Category[] = [];
+  categoriesId: string[] = [];
   avgReview = 0;
   amountAvailable = 0;
 
@@ -22,6 +23,7 @@ export class Product {
   width = 0;
   length = 0;
   weight = 0;
+  visible = false;
 
   constructor(
     title: string, desc: string, priceSell: number, urlImg?: string,
@@ -40,4 +42,20 @@ export class Product {
     this.amountAvailable = amountAvailable ? amountAvailable : this.amountAvailable;
     this.avgReview = avgReview ? avgReview : this.avgReview;
   }
+}
+
+export interface ProductAdd {
+  readonly amountAvailable: number;
+  readonly categoriesId: string[];
+  readonly desc: string;
+  readonly freeDelivery: boolean;
+  readonly percentOff: number;
+  readonly price: number;
+  readonly title: string;
+  readonly urlMainImage?: string;
+  readonly cost: number;
+  readonly height: number;
+  readonly width: number;
+  readonly length: number;
+  readonly weight: number;
 }

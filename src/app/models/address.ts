@@ -1,6 +1,16 @@
 'use strict';
 
-export class Address {
+export interface AddressAdd {
+  readonly street: string;
+  readonly number: number;
+  readonly zipCode: string;
+  readonly neighborhood: string;
+  readonly city: string;
+  readonly state: string;
+}
+
+/*TODO: Converter para interface após utilizar serviço*/
+export class Address implements AddressAdd {
   readonly id: number;
   readonly street: string;
   readonly number: number;
@@ -8,6 +18,7 @@ export class Address {
   readonly neighborhood: string;
   readonly city: string;
   readonly state: string;
+  readonly userId: string;
 
   constructor(
     number: number, zipcode: string, street: string, neigborhood: string,
@@ -19,5 +30,6 @@ export class Address {
     this.city = city;
     this.state = state;
     this.id = id;
+    this.userId = '';
   }
 }

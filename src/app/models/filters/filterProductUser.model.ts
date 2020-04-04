@@ -1,6 +1,6 @@
 'use strict';
 
-export class FiltroProdutoPesquisa {
+export class FilterProduct {
   readonly avaliacoes: number[] = [];
   readonly categorias: number[] = [];
   readonly freteGratis?: boolean;
@@ -28,6 +28,22 @@ export class FiltroProdutoPesquisa {
     this.precoMin = precoMin ? precoMin : this.precoMin;
     this.precoMax = precoMax ? precoMax : this.precoMax;
   }
+}
+
+export class FilterProductBackend {
+  avgReview?: number[] = [];
+  categoriesId?: string[] = [];
+  discounts?: number[][] = [];
+  freeDelivery?: boolean;
+  ids?: string[] = [];
+  priceMax?: number;
+  priceMin?: number;
+  text?: string;
+  sortBy?: EProductSort = EProductSort.DEFAULT;
+
+  countTotal = 0;
+  currentPage = 1;
+  perPage = 15;
 }
 
 export enum EProductSort {
