@@ -20,7 +20,7 @@ export class AuthService {
   static urlPrevius = '';
   static userLoggedEmitter = new EventEmitter<boolean>();
   static userLogged: User | null;
-  private routeApi = `${environment.apiUrl}/auth`;
+  private _routeApi = `${environment.apiUrl}/auth`;
 
   constructor(
     private _http: HttpClient,
@@ -83,7 +83,7 @@ export class AuthService {
 
   login(dataLogin: IUserLogin): Observable<LoginReturn> {
     return this._http
-      .post<LoginReturn>(`${this.routeApi}/authenticate`, dataLogin)
+      .post<LoginReturn>(`${this._routeApi}/authenticate`, dataLogin)
       .pipe(
         take(1),
         tap((data: LoginReturn) => {
@@ -99,7 +99,7 @@ export class AuthService {
   logout(): Observable<void> {
     return this._http
       .post<void>(
-        `${this.routeApi}/signout`,
+        `${this._routeApi}/signout`,
         {},
         {headers: AuthService.getHeaders()})
       .pipe(

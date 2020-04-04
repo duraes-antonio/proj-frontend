@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Product} from '../../models/product';
-import {ProductService} from '../../services/product.service';
+import {Product2Service} from '../../services/product2.service';
 import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart.model';
 import {Subscription} from 'rxjs';
@@ -23,15 +23,6 @@ export class CartComponent implements OnDestroy {
   totalShipment = 0;
   userAddresses: Address[] = DataTests.addresses;
   currAddress: Address = this.userAddresses[0];
-  tempAddress: Address = {
-    id: 0,
-    city: '',
-    neighborhood: '',
-    number: 0,
-    state: '',
-    street: '',
-    zipCode: ''
-  };
   prodAmount = new Map<number, number>();
 
   private cart$: Subscription;
@@ -45,7 +36,7 @@ export class CartComponent implements OnDestroy {
         const ids = (res.cart as Cart).productsId;
 
         if (ids && ids.length > 0) {
-          this.productsChosen = ProductService.getAll(ids);
+          this.productsChosen = Product2Service.getAll(ids);
           this.productsChosen
             .map(p => this.prodAmount.set(p.id, 1));
           this.updateCost();
@@ -58,19 +49,23 @@ export class CartComponent implements OnDestroy {
   }
 
   updateChosenDelivery() {
-    this.currAddress = this.tempAddress;
+    // this.currAddress = this.tempAddress;
     // TODO: Calcular custo de entrega
   }
 
   showModalAdress() {
+    let tempAddress: Address;
     const modalAddr = this.dialog.open(
       ModalAddressComponent,
       ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.userAddresses})
     );
     modalAddr.componentInstance.chosenAddress
-      .subscribe((addr: Address) => this.tempAddress = addr);
+      .subscribe((addr: Address) => tempAddress = addr);
     modalAddr.componentInstance.action
-      .subscribe(() => this.currAddress = this.tempAddress);
+      .subscribe(() => {
+        this.currAddress = tempAddress;
+        this.updateChosenDelivery();
+      });
   }
 
   removeFromCart(id: number) {
@@ -89,6 +84,7 @@ export class CartComponent implements OnDestroy {
         return p.priceWithDiscount * (amount ? amount : 1);
       })
       .reduce((p, c) => p + c);
+    this.updateChosenDelivery();
     this.totalShipment = this.productsChosen
       .map(p => {
         const amount = this.prodAmount.get(p.id);

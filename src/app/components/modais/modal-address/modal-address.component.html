@@ -11,7 +11,7 @@
         <input (focusin)="clearRadioAdress('addresses__item--active')"
                (input)="formatCEP($event.target)" [formControl]="controlCep" matInput type="text">
         <mat-hint align="start">{{textHintCEP}}</mat-hint>
-        <mat-error *ngIf="controlCep.invalid">{{getMsg('CEP', controlCep)}}</mat-error>
+        <mat-error *ngIf="controlCep.invalid">{{getMsg(controlCep, '29161688')}}</mat-error>
       </mat-form-field>
     </div>
 

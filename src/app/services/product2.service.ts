@@ -1,9 +1,9 @@
 import {DataTests} from '../../shared/dataTests';
 import {Product} from '../models/product';
-import {FiltroProdutoPesquisa} from '../models/filters/filterProductUser.model';
+import {FilterProduct} from '../models/filters/filterProductUser.model';
 import {Observable, of} from 'rxjs';
 
-export class ProductService {
+export class Product2Service {
 
   /*TODO: Realizar busca no Backend*/
   static getAll(ids: number[]): Product[] {
@@ -11,7 +11,7 @@ export class ProductService {
       .filter(p => ids.some(id => id === p.id));
   }
 
-  static get(filter?: FiltroProdutoPesquisa): Observable<Product[]> {
+  static get(filter?: FilterProduct): Observable<Product[]> {
     const textLower = filter && filter.texto ? filter.texto.toLowerCase() : '';
     let prods = DataTests.products.filter(p => {
       return p.title.toLowerCase().indexOf(textLower) > -1

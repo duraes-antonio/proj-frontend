@@ -4,8 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import {FormControl} from '@angular/forms';
 import {Address} from '../../../models/address';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
-import {getMsg} from '../../../../shared/validations/msgErrorFunctions';
 import {validators} from '../../../../shared/validations/validatorsCustom';
+import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 
 @Component({
   selector: 'app-modal-frete-mat',
@@ -21,7 +21,7 @@ export class ModalAddressComponent {
   textHintCEP = 'Exemplo de CEP: 29161688';
   addressChosenId = 0;
 
-  readonly getMsg = getMsg;
+  readonly getMsg = getMsgFront;
   private readonly text = {
     cancelTitle: 'Cancelar',
     confirmTitle: 'Calcular',
@@ -39,7 +39,7 @@ export class ModalAddressComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: IModalAddressData) {
   }
 
-  static getConfig(data: IModalAddressData): MatDialogConfig<any> {
+  static getConfig(data: IModalAddressData): MatDialogConfig {
     return {
       data: data,
       maxHeight: '100vh',

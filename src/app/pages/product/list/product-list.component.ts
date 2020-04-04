@@ -2,8 +2,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {FiltroProdutoPesquisa} from '../../../models/filters/filterProductUser.model';
-import {ProductService} from '../../../services/product.service';
+import {FilterProduct} from '../../../models/filters/filterProductUser.model';
+import {Product2Service} from '../../../services/product2.service';
 import {take} from 'rxjs/operators';
 import {Product} from '../../../models/product';
 
@@ -21,7 +21,7 @@ export class ProductListComponent implements OnDestroy {
   constructor(private route: ActivatedRoute) {
     this.params$ = this.route.queryParams.subscribe((params: Params) => {
       this.filterText = params && params['text'] ? params['text'] : '';
-      this.textSearch(new FiltroProdutoPesquisa(1, 10, this.filterText));
+      this.textSearch(new FilterProduct(1, 10, this.filterText));
     });
   }
 
@@ -29,14 +29,14 @@ export class ProductListComponent implements OnDestroy {
     this.params$.unsubscribe();
   }
 
-  textSearch(filter: FiltroProdutoPesquisa) {
-    ProductService.get(filter).pipe(take(1)).subscribe(prods => {
+  textSearch(filter: FilterProduct) {
+    Product2Service.get(filter).pipe(take(1)).subscribe(prods => {
       this.prods = prods;
     });
   }
 
-  filterSearch(filter: FiltroProdutoPesquisa) {
-    ProductService.get({...filter, texto: this.filterText})
+  filterSearch(filter: FilterProduct) {
+    Product2Service.get({...filter, texto: this.filterText})
       .pipe(take(1))
       .subscribe(prods => {
         this.prods.length = 0;

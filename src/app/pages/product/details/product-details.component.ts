@@ -11,7 +11,7 @@ import {Address} from '../../../models/address';
 import {DeliveryOption} from '../../../models/deliveryOption';
 import {Cart} from '../../../models/cart.model';
 import {Add, Remove} from '../../../actions/cart.action';
-import {ProductService} from '../../../services/product.service';
+import {Product2Service} from '../../../services/product2.service';
 import {calcAverage} from '../../../../shared/utilFunctions';
 import {ModalAddressComponent} from '../../../components/modais/modal-address/modal-address.component';
 import {ModalShippingMatComponent} from '../../../components/modais/modal-shipping-mat/modal-shipping-mat.component';
@@ -49,8 +49,8 @@ export class ProductDetailsComponent implements OnDestroy {
     ) {
         this._routeSub$ = route.params.subscribe(
             params => {
-                const idProduto = +params['id'];
-                const prod = ProductService.getById(idProduto);
+              const idProduto = +params['id'];
+              const prod = Product2Service.getById(idProduto);
 
                 if (!prod) {
                     router.navigate([routesFrontend.notFound]);

@@ -2,12 +2,11 @@
 import {Component} from '@angular/core';
 import {Product} from '../../../models/product';
 import {DataTests} from '../../../../shared/dataTests';
-import {ProductService} from '../../../services/product.service';
+import {Product2Service} from '../../../services/product2.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ModalProductMatComponent} from '../../../components/modais/modal-product-mat/modal-product-mat.component';
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
-import {FilterProduct} from '../../../models/filters/filterProductAdmin.model';
 import {EProductSort} from '../../../models/filters/filterProductUser.model';
 
 @Component({
@@ -26,7 +25,6 @@ export class ProductManagementComponent {
     {key: EProductSort.PRICE_HIGH, name: 'Maior preço'},
     {key: EProductSort.PRICE_LOW, name: 'Menor preço'}
   ];
-  filter = new FilterProduct();
   products: Product[] = DataTests.products;
   categories: Category[] = DataTests.categories;
   productChosen?: Product;
@@ -49,7 +47,7 @@ export class ProductManagementComponent {
   }
 
   selectProduct(id: number) {
-    this.productChosen = ProductService.getById(id);
+    this.productChosen = Product2Service.getById(id);
     const config = ModalProductMatComponent.getConfig({product: this.productChosen});
     const dialogRef = this._dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
@@ -65,7 +63,7 @@ export class ProductManagementComponent {
   }
 
   saveProduct(product: Product) {
-    ProductService.put(product);
+    Product2Service.put(product);
   }
 
   searchProduct() {
