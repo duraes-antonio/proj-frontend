@@ -15,5 +15,6 @@ export const routesFrontend = {
   forgotPass: 'redefinir-senha',
   login: login,
   loginEnter: `${login}/entrar`,
-  loginRegister: `${login}/cadastrar`
+  loginRegister: `${login}/cadastrar`,
+  finishOrder: '/finalizar-compra'
 };
