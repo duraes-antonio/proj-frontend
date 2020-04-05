@@ -67,66 +67,118 @@
     </div>
   </div>
 
-  <!-- Área dos produtos -->
+  <!-- PRODUTOS -->
   <div style="width: 100%">
     <div class="products">
-      <a (click)="selectProduct(item.id)" *ngFor="let item of products"
-         class="row product">
+      <div *ngFor="let item of products"
+           class="row product">
 
-        <!-- 'titulo', 'porcentDesc', 'preco', 'freteGratis', 'qtdDisponivel', 'categorias'-->
-        <!-- Imagem principal do produto -->
-        <div *ngIf="_window.screen.width > 480" class="col s4 m3 l2 xl1 product__cover">
-          <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
-        </div>
+        <!-- Imagem e dados do produto -->
+        <a (click)="selectProduct(item.id)" class="col s10 m11 l11 xl11 product__data">
 
-        <div *ngIf="_window.screen.width < 481" class="col s12 product__cover-title">
-          <div class="col s5 m3 l2 xl1 product__cover">
+          <!-- Imagem principal do produto -->
+          <div *ngIf="_window.screen.width > 480" class="col s3 m3 l2 xl1 product__cover">
             <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
           </div>
-          <span class="product__title col s7 m12 l3 xl3">{{item.title}}</span>
+
+          <div *ngIf="_window.screen.width < 481" class="col s12 product__cover-title">
+            <div class="col s5 m3 l2 xl1 product__cover">
+              <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
+            </div>
+            <span class="product__title col s7 m12 l3 xl3">{{item.title}}</span>
+          </div>
+
+          <!-- Dados textuais (preço, frete grátis, ...) -->
+          <div [ngClass]="_window.screen.width > 480 ? 's8' : 's12'"
+               class="col m9 l10 xl11 product__props">
+
+            <!-- Titulo do produto -->
+            <span *ngIf="_window.screen.width > 480" class="product__title col s12 m12 l3 xl3">
+              {{item.title}}
+            </span>
+
+            <!-- Preço do produto -->
+            <div class="col s6 m3 l2 xl2 product__prop">
+              <span class="product__prop--title">Preço</span>
+              <span>{{item.price | currency: 'BRL'}}</span>
+            </div>
+
+            <!-- Preço com desconto -->
+            <div class="col s6 m3 l2 xl2 product__prop">
+              <span class="product__prop--title">Preço c/ desconto</span>
+              <span>{{item.priceWithDiscount | currency: 'BRL'}}</span>
+            </div>
+
+            <!-- Desconto -->
+            <div [ngClass]="{'s6': _window.screen.width < 481}"
+                 class="col s4 m3 l1 xl1 product__prop">
+              <span class="product__prop--title">Desconto</span>
+              <span>{{item.percentOff | number: '1.0-2'}}%</span>
+            </div>
+
+            <!-- Unidades disponíveis -->
+            <div [ngClass]="{'s6': _window.screen.width < 481}"
+                 class="col s4 m3 l2 xl2 product__prop">
+              <span class="product__prop--title">Disponíveis</span>
+              <span>{{item.amountAvailable}} un</span>
+            </div>
+
+            <!-- Frete grátis -->
+            <div [ngClass]="{'s6': _window.screen.width < 481}"
+                 class="col s4 m3 l2 xl1 product__prop">
+              <span class="product__prop--title">Frete grátis</span>
+              <span>{{item.freeDelivery ? 'Sim' : 'Não'}}</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Menu contextual -->
+        <div class="col s2 m1 l1 xl1">
+          <button [matMenuTriggerFor]="menu" aria-label="Menu de opções para produto"
+                  color="primary" mat-icon-button
+                  title="Menu de opções para produto">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <ng-template matMenuContent>
+              <button class="button-icon" mat-menu-item>
+                <mat-icon class="icon-menu">
+                  <i aria-hidden="true" class="fas fa-pencil-alt"></i>
+                </mat-icon>
+                <span>Editar</span>
+              </button>
+
+              <button class="button-icon" mat-menu-item>
+                <mat-icon>
+                  <i aria-hidden="true" class="fas fa-trash-alt icon-menu"></i>
+                </mat-icon>
+                <span>Excluir</span>
+              </button>
+
+              <button *ngIf="item.visible; else productInvisible" class="button-icon" mat-menu-item>
+                <mat-icon>
+                  <i aria-hidden="true" class="fas fa-eye-slash"></i>
+                </mat-icon>
+                <span>Esconder</span>
+              </button>
+              <ng-template #productInvisible>
+                <button class="button-icon" mat-menu-item>
+                  <mat-icon>
+                    <i aria-hidden="true" class="fas fa-eye"></i>
+                  </mat-icon>
+                  <span>Tornar Visível</span>
+                </button>
+              </ng-template>
+            </ng-template>
+          </mat-menu>
         </div>
 
-        <!-- Dados textuais (preço, frete grátis, ...) -->
-        <div [ngClass]="_window.screen.width > 480 ? 's8' : 's12'"
-             class="col m9 l10 xl11 product__props">
-
-          <!-- Titulo do produto -->
-          <span *ngIf="_window.screen.width > 480" class="product__title col s12 m12 l3 xl3">{{item.title}}</span>
-
-          <!-- Preço do produto -->
-          <div class="col s6 m3 l2 xl2 product__prop">
-            <span class="product__prop--title">Preço</span>
-            <span>{{item.price | currency: 'BRL'}}</span>
-          </div>
-
-          <!-- Preço com desconto -->
-          <div class="col s6 m3 l2 xl2 product__prop">
-            <span class="product__prop--title">Preço com desconto</span>
-            <span>{{item.priceWithDiscount | currency: 'BRL'}}</span>
-          </div>
-
-          <!-- Desconto -->
-          <div [ngClass]="{'s6': _window.screen.width < 481}"
-               class="col s4 m3 l1 xl1 product__prop">
-            <span class="product__prop--title">Desconto</span>
-            <span>{{item.percentOff | number: '1.0-2'}}%</span>
-          </div>
-
-          <!-- Unidades disponíveis -->
-          <div [ngClass]="{'s6': _window.screen.width < 481}"
-               class="col s4 m3 l2 xl2 product__prop">
-            <span class="product__prop--title">Disponíveis</span>
-            <span>{{item.amountAvailable}} un</span>
-          </div>
-
-          <!-- Frete grátis -->
-          <div [ngClass]="{'s6': _window.screen.width < 481}"
-               class="col s4 m3 l2 xl1 product__prop">
-            <span class="product__prop--title">Frete grátis</span>
-            <span>{{item.freeDelivery ? 'Sim' : 'Não'}}</span>
-          </div>
-        </div>
-      </a>
+        <span *ngIf="!item.visible" class="col s12 text-warning">
+          <i aria-hidden="true" class="fas fa-eye-slash"></i>
+          Este produto não está visível para seus clientes.
+          Para alterar, clique no menu (três pontos azuis) à direita.
+        </span>
+      </div>
     </div>
 
     <app-paginacao [qtdPags]="32" style="width: 100%;"></app-paginacao>

@@ -18,6 +18,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {SliderModule} from '../../components/sliders/slider.module';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {SliderModule} from '../../components/sliders/slider.module';
     MatCheckboxModule,
     MatTableModule,
     MatSortModule,
-    SliderModule
+    SliderModule,
+    MatMenuModule
   ],
   exports: [
     ProductListComponent
