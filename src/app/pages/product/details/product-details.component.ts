@@ -39,7 +39,7 @@ export class ProductDetailsComponent implements OnDestroy {
     /*TODO: Remover após ter dados em um banco de dados*/
     private _routeSub$: Subscription;
     private _cart$: Subscription;
-    private _cartProdIds: number[] = [];
+  private _cartProdIds: string[] = [];
 
     constructor(
         private route: ActivatedRoute,

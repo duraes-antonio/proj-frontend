@@ -5,10 +5,15 @@ import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart.model';
 import {Subscription} from 'rxjs';
 import {Address} from '../../models/address';
-import {DataTests} from '../../../shared/dataTests';
 import {Remove} from '../../actions/cart.action';
 import {MatDialog} from '@angular/material/dialog';
 import {ModalAddressComponent} from '../../components/modais/modal-address/modal-address.component';
+import {AddressService} from '../../services/address.service';
+import {take} from 'rxjs/operators';
+import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {ShippingService} from '../../services/shipping.service';
+import {DeliveryOption} from '../../models/deliveryOption';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,45 +22,52 @@ import {ModalAddressComponent} from '../../components/modais/modal-address/modal
 })
 export class CartComponent implements OnDestroy {
 
+  totalCostProducts = 0;
+  totalCostShipment = 0;
   productsChosen: Product[] = [];
-
-  totalCost = 0;
-  totalShipment = 0;
-  userAddresses: Address[] = DataTests.addresses;
-  currAddress: Address = this.userAddresses[0];
-  prodAmount = new Map<number, number>();
-
+  userAddresses: Address[] = [];
+  currentAddress?: Address;
+  prodAmount = new Map<string, number>();
+  routes = routesFrontend;
   private cart$: Subscription;
 
   constructor(
-    private cartStore: Store<Cart>,
-    public dialog: MatDialog
+    private _cartStore: Store<Cart>,
+    private _addressServ: AddressService,
+    private _dialog: MatDialog,
+    private _shippingServ: ShippingService
   ) {
-    this.cart$ = this.cartStore.subscribe(
+    this.cart$ = this._cartStore.subscribe(
       (res: any) => {
         const ids = (res.cart as Cart).productsId;
 
-        if (ids && ids.length > 0) {
+        if (ids && ids.length) {
           this.productsChosen = Product2Service.getAll(ids);
-          this.productsChosen
-            .map(p => this.prodAmount.set(p.id, 1));
+          this.productsChosen.map(p => this.prodAmount.set(p.id, 1));
           this.updateCost();
         }
       });
+    if (AuthService.isLoggedIn()) {
+      this._addressServ
+        .get()
+        .pipe(take(1))
+        .subscribe((addresses: Address[]) => {
+          if (addresses.length) {
+            this.userAddresses = addresses;
+            this.currentAddress = addresses[0];
+            this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {
     this.cart$.unsubscribe();
   }
 
-  updateChosenDelivery() {
-    // this.currAddress = this.tempAddress;
-    // TODO: Calcular custo de entrega
-  }
-
   showModalAdress() {
     let tempAddress: Address;
-    const modalAddr = this.dialog.open(
+    const modalAddr = this._dialog.open(
       ModalAddressComponent,
       ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.userAddresses})
     );
@@ -63,33 +75,44 @@ export class CartComponent implements OnDestroy {
       .subscribe((addr: Address) => tempAddress = addr);
     modalAddr.componentInstance.action
       .subscribe(() => {
-        this.currAddress = tempAddress;
-        this.updateChosenDelivery();
+        this.currentAddress = tempAddress;
+        this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
       });
   }
 
-  removeFromCart(id: number) {
-    this.cartStore.dispatch(Remove(id));
+  removeFromCart(id: string) {
+    this._cartStore.dispatch(Remove(id));
   }
 
-  changeAmount(idProduct: number, amount: number) {
+  changeAmount(idProduct: string, amount: number) {
     this.prodAmount.set(idProduct, amount);
     this.updateCost();
   }
 
+  private calculateCostShipping(
+    cep: string, mapProductIdQuantity: Map<string, number>
+  ): void {
+    const prodIdQuantity = Array.from(mapProductIdQuantity)
+      .map((pairIdQuantity: [string, number]) => {
+        return {productId: pairIdQuantity[0], amount: pairIdQuantity[1]};
+      });
+    this._shippingServ.calculateShippingCostDays(cep, prodIdQuantity)
+      .pipe(take(1))
+      .subscribe((deliveryOpt: DeliveryOption) => {
+        this.totalCostShipment = deliveryOpt.cost;
+      });
+  }
+
   private updateCost() {
-    this.totalCost = this.productsChosen
+    this.totalCostProducts = this.productsChosen
       .map(p => {
         const amount = this.prodAmount.get(p.id);
-        return p.priceWithDiscount * (amount ? amount : 1);
+        return p.priceWithDiscount * (amount ?? 1);
       })
       .reduce((p, c) => p + c);
-    this.updateChosenDelivery();
-    this.totalShipment = this.productsChosen
-      .map(p => {
-        const amount = this.prodAmount.get(p.id);
-        return p.priceWithDiscount * .1 * (amount ? amount : 1);
-      })
-      .reduce((p, c) => p + c);
+
+    if (this.currentAddress) {
+      this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
+    }
   }
 }

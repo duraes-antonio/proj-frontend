@@ -6,7 +6,7 @@ import {Observable, of} from 'rxjs';
 export class Product2Service {
 
   /*TODO: Realizar busca no Backend*/
-  static getAll(ids: number[]): Product[] {
+  static getAll(ids: string[]): Product[] {
     return DataTests.products
       .filter(p => ids.some(id => id === p.id));
   }
@@ -56,7 +56,7 @@ export class Product2Service {
   }
 
   static getById(id: number): Product | undefined {
-    return DataTests.products.find(p => p.id === id);
+    return DataTests.products.find(p => p.id === id.toString());
   }
 
   /*TODO: Realizar persistência no Backend*/

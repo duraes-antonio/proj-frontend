@@ -7,11 +7,11 @@ export enum CartActionType {
   CLEAR = 'CLE'
 }
 
-export const Add = (productId: number): Action => {
+export const Add = (productId: string): Action => {
   return {type: CartActionType.ADD, payload: productId} as Action;
 };
 
-export const Remove = (productId: number): Action => {
+export const Remove = (productId: string): Action => {
   return {type: CartActionType.REMOVE, payload: productId} as Action;
 };
 

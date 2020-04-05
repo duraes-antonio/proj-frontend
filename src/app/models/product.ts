@@ -3,7 +3,7 @@ import {Category} from './category';
 
 export class Product implements ProductAdd {
 
-  id = 0;
+  id: string;
   title: string;
   desc: string;
   urlImage?: string;
@@ -38,7 +38,7 @@ export class Product implements ProductAdd {
     this.percentOff = percOff ? percOff : this.percentOff;
     this.priceWithDiscount = this.percentOff > 0 ? this.price * (100 - this.percentOff) / 100 : this.price;
     this.categories = categories ? categories : [];
-    this.id = id ? id : this.id;
+    this.id = id ? id.toString() : '1';
     this.amountAvailable = amountAvailable ? amountAvailable : this.amountAvailable;
     this.avgReview = avgReview ? avgReview : this.avgReview;
   }

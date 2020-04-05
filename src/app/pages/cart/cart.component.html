@@ -6,27 +6,29 @@
       </div>
 
       <div class="col s12 m9 l10 xl10 text-section">
+        <!-- Título e desconto -->
         <div class="col s12 m12 l8 xl8 product-list__item-title-desc">
-          <span class="product__name">{{prod.title}}</span>
+          <span class="product__name col">{{prod.title}}</span>
 
-          <!-- Quantidade, frete grátis e disconto -->
-          <div class="product__info">
+          <!-- Quantidade, frete grátis e desconto -->
+          <div class="product__info col">
             <span [ngClass]="{'text-red': prod.amountAvailable < 10}"
-                  class="product__attr product__attr--min">
+                  class="product__attr col xs7 s5 m4 l3 xl3">
               <i aria-hidden="true" class="fas fa-cubes product__attr-icon"></i>
               {{prod.amountAvailable}} disponíveis
             </span>
-            <span *ngIf="prod.freeDelivery" class="product__attr">
+            <span *ngIf="prod.freeDelivery" class="product__attr col xs5 s4 m3 l3 xl2">
               <i aria-hidden="true" class="fas fa-truck product__attr-icon" style="font-size: 14px"></i>
               frete grátis
             </span>
-            <span *ngIf="prod.percentOff > 0" class="product__attr">
+            <span *ngIf="prod.percentOff > 0" class="product__attr col xs4 s3 m3 l3 xl2">
               <i aria-hidden="true" class="fas fa-dollar-sign product__attr-icon"></i>
               {{prod.percentOff | number: '1.0-2'}}% off
             </span>
           </div>
         </div>
 
+        <!-- Preço e contador de unidades -->
         <div class="col s12 m12 l4 xl4 section_price_counter">
           <span class="product__price">
             {{prod.priceWithDiscount * prodAmount.get(prod.id) | currency: 'BRL'}}
@@ -52,7 +54,6 @@
             Remover
           </a>
         </div>
-
       </div>
     </div>
   </div>
@@ -60,31 +61,38 @@
   <!-- Rodapé c/ preços e endereço de entrega -->
   <div class="cart-footer">
     <div class="cart-cost">
+      <!-- Custo dos produtos -->
       <div class="cart-cost__price">
         <span class="cart-cost__price-title">Produtos:</span>
-        <span class="cart-cost__price-value">{{totalCost | currency: 'BRL'}}</span>
+        <span class="cart-cost__price-value">{{totalCostProducts | currency: 'BRL'}}</span>
       </div>
 
-      <div class="cart-cost__price">
-        <span class="cart-cost__price-title">Entrega:</span>
-        <span class="cart-cost__price-value">{{totalShipment | currency: 'BRL'}}</span>
-      </div>
+      <!-- Custo e endereço de entrega -->
+      <ng-container *ngIf="userAddresses.length">
+        <!-- Custo -->
+        <div class="cart-cost__price">
+          <span class="cart-cost__price-title">Entrega:</span>
+          <span class="cart-cost__price-value">{{totalCostShipment | currency: 'BRL'}}</span>
+        </div>
 
-      <div class="cart-cost__price">
-        <span class="cart-cost__price-title">Entrega em:</span>
-        <a (click)="showModalAdress()" class="cart-cost__price-value">{{currAddress.zipCode}},
-          {{currAddress.number}}, {{currAddress.neighborhood}}
-          <i aria-hidden="true" class="fa fa-cog" style="margin-left: 5px"></i>
-        </a>
-      </div>
+        <!-- Endereço -->
+        <div class="cart-cost__price">
+          <span class="cart-cost__price-title">Entrega em:</span>
+          <a (click)="showModalAdress()" class="cart-cost__price-value">{{currentAddress.zipCode}},
+            {{currentAddress.number}}, {{currentAddress.neighborhood}}
+            <i aria-hidden="true" class="fa fa-cog" style="margin-left: 5px"></i>
+          </a>
+        </div>
+      </ng-container>
 
+      <!-- Custo total -->
       <div class="cart-cost__price">
         <span class="cart-cost__price-title">Total:</span>
-        <span class="cart-cost__price-value">{{totalShipment + totalCost | currency: 'BRL'}}</span>
+        <span class="cart-cost__price-value">{{totalCostShipment + totalCostProducts | currency: 'BRL'}}</span>
       </div>
     </div>
-    <button class="btn-general" color="primary" mat-raised-button style="margin-top: 15px">
+    <a [routerLink]="routes.finishOrder" class="btn-general" color="primary" mat-raised-button>
       Finalizar compra
-    </button>
+    </a>
   </div>
 </div>

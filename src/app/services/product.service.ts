@@ -114,4 +114,8 @@ export class ProductService {
       {headers: AuthService.getHeaders()}
     );
   }
+
+  calculateCost() {
+
+  }
 }

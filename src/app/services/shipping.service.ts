@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {DeliveryOption} from '../models/deliveryOption';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
@@ -16,12 +16,14 @@ export class ShippingService {
   }
 
   /*TODO: Chamar serviço do backend quando estiver pronto*/
-  calculateDeliveryCostDays(
-    dimensions: { height: number; width: number; length: number; weight: number }[]
-  ): Observable<DeliveryOption> {
+  calculateShippingCostDays(cep: string, items: { amount: number, productId: string }[]): Observable<DeliveryOption> {
+    const cost = items
+      .map(item => item.amount * Math.random() * 100)
+      .reduce((p, c) => p + c);
+    return of({cost: cost, timeDays: 7} as DeliveryOption);
     return this._http.post<DeliveryOption>(
       this._endpointUrl,
-      dimensions,
+      {items, cep},
       {headers: AuthService.getHeaders()}
     );
   }

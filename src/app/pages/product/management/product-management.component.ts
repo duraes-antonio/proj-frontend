@@ -40,7 +40,7 @@ export class ProductManagementComponent {
     dialogRef.componentInstance.action.subscribe(
       (prod: Product) => {
         /*TODO: Persistir no banco*/
-        prod.id = this.products.length + 1;
+        prod.id = Math.random().toString();
         this.products.push(prod);
       }
     );

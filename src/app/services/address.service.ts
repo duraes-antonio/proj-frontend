@@ -3,8 +3,9 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthService} from './auth.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Address, AddressAdd} from '../models/address';
+import {DataTests} from '../../shared/dataTests';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AddressService {
 
   private _routeApi = `${environment.apiUrl}/address`;
 
+  /*TODO: Realizar requisições ao backend*/
   constructor(
     private _http: HttpClient,
     private _router: Router
@@ -27,6 +29,7 @@ export class AddressService {
   }
 
   get(): Observable<Address[]> {
+    return of(DataTests.addresses);
     return this._http.get<Address[]>(
       this._routeApi,
       {headers: AuthService.getHeaders()}

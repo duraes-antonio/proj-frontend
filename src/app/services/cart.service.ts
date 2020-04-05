@@ -18,24 +18,24 @@ export class CartService {
     }
   }
 
-  static getProducts(): number[] {
+  static getProducts(): string[] {
     const cartFromStorage = window.localStorage.getItem('cart');
     return !cartFromStorage ? [] : JSON.parse(cartFromStorage);
   }
 
-  static containsProduct(productId: number): boolean {
+  static containsProduct(productId: string): boolean {
     const prods = window.localStorage.getItem('cart');
-    return !prods || (JSON.parse(prods) as number[]).indexOf(productId) > -1;
+    return !prods || (JSON.parse(prods) as string[]).indexOf(productId) > -1;
   }
 
-  static removeProduct(id: number) {
+  static removeProduct(id: string) {
     const prods = window.localStorage.getItem('cart');
 
     if (prods) {
       window.localStorage.setItem(
         'cart',
         JSON.stringify(
-          (JSON.parse(prods) as number[]).filter(pId => pId !== id)
+          (JSON.parse(prods) as string[]).filter(pId => pId !== id)
         )
       );
     }
