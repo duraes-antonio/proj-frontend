@@ -14,6 +14,7 @@ import {routesFrontend} from '../../../shared/constants/routesFrontend';
 import {ShippingService} from '../../services/shipping.service';
 import {DeliveryOption} from '../../models/deliveryOption';
 import {AuthService} from '../../services/auth.service';
+import {ProductService} from '../../services/product.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,13 +24,14 @@ import {AuthService} from '../../services/auth.service';
 export class CartComponent implements OnDestroy {
 
   totalCostProducts = 0;
-  totalCostShipment = 0;
+  totalCostShipping = 0;
   productsChosen: Product[] = [];
   userAddresses: Address[] = [];
   currentAddress?: Address;
-  prodAmount = new Map<string, number>();
+  prodAmount = new Map<Product, number>();
   routes = routesFrontend;
-  private cart$: Subscription;
+  private _cart$: Subscription;
+  private _modalSelect$?: Subscription;
 
   constructor(
     private _cartStore: Store<Cart>,
@@ -37,16 +39,21 @@ export class CartComponent implements OnDestroy {
     private _dialog: MatDialog,
     private _shippingServ: ShippingService
   ) {
-    this.cart$ = this._cartStore.subscribe(
+    // Inscreva-se p/ receber atualizações do carrinho
+    this._cart$ = this._cartStore.subscribe(
       (res: any) => {
         const ids = (res.cart as Cart).productsId;
 
+        /*Se no carrinho houver ids de produtos, então busque eles no banco
+        * e atualize os custos do carrinho*/
         if (ids && ids.length) {
           this.productsChosen = Product2Service.getAll(ids);
-          this.productsChosen.map(p => this.prodAmount.set(p.id, 1));
+          this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
           this.updateCost();
         }
       });
+
+    // Se o usuário estiver logado, obtenha seus endereços e definar um p/ entrega
     if (AuthService.isLoggedIn()) {
       this._addressServ
         .get()
@@ -62,7 +69,8 @@ export class CartComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cart$.unsubscribe();
+    this._cart$.unsubscribe();
+    this._modalSelect$?.unsubscribe();
   }
 
   showModalAdress() {
@@ -71,9 +79,10 @@ export class CartComponent implements OnDestroy {
       ModalAddressComponent,
       ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.userAddresses})
     );
-    modalAddr.componentInstance.chosenAddress
+    this._modalSelect$ = modalAddr.componentInstance.chosenAddress
       .subscribe((addr: Address) => tempAddress = addr);
     modalAddr.componentInstance.action
+      .pipe(take(1))
       .subscribe(() => {
         this.currentAddress = tempAddress;
         this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
@@ -84,32 +93,25 @@ export class CartComponent implements OnDestroy {
     this._cartStore.dispatch(Remove(id));
   }
 
-  changeAmount(idProduct: string, amount: number) {
-    this.prodAmount.set(idProduct, amount);
+  changeAmount(product: Product, amount: number) {
+    this.prodAmount.set(product, amount);
     this.updateCost();
   }
 
-  private calculateCostShipping(
-    cep: string, mapProductIdQuantity: Map<string, number>
-  ): void {
-    const prodIdQuantity = Array.from(mapProductIdQuantity)
-      .map((pairIdQuantity: [string, number]) => {
-        return {productId: pairIdQuantity[0], amount: pairIdQuantity[1]};
+  private calculateCostShipping(cep: string, mapProdQuantity: Map<Product, number>) {
+    const prodIdQuantity = Array.from(mapProdQuantity)
+      .map((pairIdQuantity: [Product, number]) => {
+        return {productId: pairIdQuantity[0].id, amount: pairIdQuantity[1]};
       });
     this._shippingServ.calculateShippingCostDays(cep, prodIdQuantity)
       .pipe(take(1))
       .subscribe((deliveryOpt: DeliveryOption) => {
-        this.totalCostShipment = deliveryOpt.cost;
+        this.totalCostShipping = deliveryOpt.cost;
       });
   }
 
   private updateCost() {
-    this.totalCostProducts = this.productsChosen
-      .map(p => {
-        const amount = this.prodAmount.get(p.id);
-        return p.priceWithDiscount * (amount ?? 1);
-      })
-      .reduce((p, c) => p + c);
+    this.totalCostProducts = ProductService.calculateCost(this.prodAmount);
 
     if (this.currentAddress) {
       this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);

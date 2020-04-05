@@ -12,12 +12,19 @@ import {FilterProductBackend} from '../models/filters/filterProductUser.model';
 })
 export class ProductService {
 
-  private _routeApi = `${environment.apiUrl}/address`;
-
   constructor(
     private _http: HttpClient,
     private _router: Router
   ) {
+  }
+
+  private _routeApi = `${environment.apiUrl}/address`;
+
+  static calculateCost(mapProductQuantity: Map<Product, number>): number {
+    return Array.from(mapProductQuantity)
+      .map(pairProdQuantity => pairProdQuantity[0].priceWithDiscount
+        * pairProdQuantity[1])
+      .reduce((p, c) => p + c);
   }
 
   clearEmptyFields(obj: any): any {
@@ -113,9 +120,5 @@ export class ProductService {
       `${this._routeApi}/hide/${productId}`,
       {headers: AuthService.getHeaders()}
     );
-  }
-
-  calculateCost() {
-
   }
 }
