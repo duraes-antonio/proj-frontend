@@ -16,5 +16,5 @@ export const routesFrontend = {
   login: login,
   loginEnter: `${login}/entrar`,
   loginRegister: `${login}/cadastrar`,
-  finishOrder: '/finalizar-compra'
+  checkout: 'finalizar-compra'
 };

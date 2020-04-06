@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {ProdutoRoutingModule} from './pages/product/produto-routing.module';
 import {AuthGuard} from './guards/auth.guard';
+import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
 
 const routes: Routes = [
   {
@@ -67,6 +68,7 @@ const extraOptions: ExtraOptions = {
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, extraOptions),
+    CheckoutRoutingModule,
     ProdutoRoutingModule
   ],
   exports: [RouterModule]

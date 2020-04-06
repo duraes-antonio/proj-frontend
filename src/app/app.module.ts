@@ -4,7 +4,7 @@ import localePt from '@angular/common/locales/pt';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app.routing.module';
 import {ComponentesModule} from './components/componentes.module';
-import {CommonModule, registerLocaleData} from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import {ProdutoModule} from './pages/product/produto.module';
 import {StoreModule} from '@ngrx/store';
 import {cartReducer} from './reducers/cart.reducer';
@@ -14,6 +14,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import {CheckoutModule} from './pages/checkout/checkout.module';
 
 registerLocaleData(localePt);
 
@@ -22,18 +23,18 @@ registerLocaleData(localePt);
     AppComponent
   ],
   imports: [
-    CommonModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
+    CheckoutModule,
     ComponentesModule,
+    HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ProdutoModule,
     StoreModule.forRoot({
       cart: cartReducer
-    }),
-    BrowserAnimationsModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    })
   ],
   providers: [
     AuthService,

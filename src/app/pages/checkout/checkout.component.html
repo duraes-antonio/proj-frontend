@@ -1,0 +1,17 @@
+<div class="payment-methods row">
+  <a *ngFor="let payMethod of paymentMethods"
+     class="payment-methods__item col s12 m6s l4s xl4s">
+    <img [src]="payMethod.urlImageMethod" alt="" class="payment-method__img">
+    <span
+      class="text--justify">Este meio permite o pagamento (único ou parcelado) com cartão das seguintes bandeiras:</span>
+    <div class="card-flags">
+      <img *ngFor="let opt of payMethod.cardOptions" [alt]="opt.title"
+           [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+    </div>
+    <span class="text--justify">Outros meios permitidos:</span>
+    <div class="card-flags">
+      <img *ngFor="let opt of payMethod.anothersOptions" [alt]="opt.title"
+           [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+    </div>
+  </a>
+</div>

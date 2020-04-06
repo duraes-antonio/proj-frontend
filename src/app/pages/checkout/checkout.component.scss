@@ -1,0 +1,52 @@
+@import '../../../shared/styles/grid_materialize';
+@import '../../../shared/styles/variables';
+@import '../../../shared/styles/placeholders';
+
+.payment-methods {
+  @extend %flex-wrap;
+  margin-top: 20px;
+
+  &__item {
+    @extend %color-text-sec--dark;
+    display: grid;
+    justify-items: center;
+    text-align: justify;
+    border: 1px solid $block-border-color;
+    border-radius: 5px;
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    box-shadow: 2px 3px 7px rgba(black, .1);
+
+    &:first-child {
+      margin-left: 0 !important;
+    }
+
+    @media (min-width: $width-max-small + 1) and (max-width: $width-max-medium) {
+      &:nth-last-child(odd) {
+        margin-left: 0 !important;
+      }
+    }
+
+    .text--justify {
+      justify-self: baseline;
+    }
+
+    .payment-method__img {
+      height: 32px;
+      margin: 10px 0 15px;
+    }
+
+    .card-flags {
+      @extend %flex-wrap;
+      margin: 5px 0 15px;
+
+      &__item {
+        max-width: 28px;
+        padding: 0 5px;
+        margin: 5px 5px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+    }
+  }
+}
