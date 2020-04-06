@@ -10,23 +10,23 @@ export class CheckoutComponent {
 
   private _pathImagesPayment = `${paths.assets}/payments`;
   private _cardOptions: PaymentMethodOption[] = [
-    {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${this._pathImagesPayment}/american-express.png`},
-    {title: EPaymentName.DINERS, urlImage: `${this._pathImagesPayment}/diners.png`},
-    {title: EPaymentName.ELO, urlImage: `${this._pathImagesPayment}/elo.png`},
-    {title: EPaymentName.HIPER, urlImage: `${this._pathImagesPayment}/hiper.png`},
-    {title: EPaymentName.HIPERCARD, urlImage: `${this._pathImagesPayment}/hipercard.png`},
-    {title: EPaymentName.MASTERCARD, urlImage: `${this._pathImagesPayment}/mastercard.png`},
-    {title: EPaymentName.VISA, urlImage: `${this._pathImagesPayment}/visa.png`},
+    {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${this._pathImagesPayment}/american-express.webp`},
+    {title: EPaymentName.DINERS, urlImage: `${this._pathImagesPayment}/diners.webp`},
+    {title: EPaymentName.ELO, urlImage: `${this._pathImagesPayment}/elo.webp`},
+    {title: EPaymentName.HIPER, urlImage: `${this._pathImagesPayment}/hiper.webp`},
+    {title: EPaymentName.HIPERCARD, urlImage: `${this._pathImagesPayment}/hipercard.webp`},
+    {title: EPaymentName.MASTERCARD, urlImage: `${this._pathImagesPayment}/mastercard.webp`},
+    {title: EPaymentName.VISA, urlImage: `${this._pathImagesPayment}/visa.webp`},
   ];
   private _anotherOptions: PaymentMethodOption[] = [
-    {title: EPaymentName.BOLETO, urlImage: `${this._pathImagesPayment}/boleto.png`},
-    {title: EPaymentName.MERCADO_PAGO, urlImage: `${this._pathImagesPayment}/mercado-pago.png`},
-    {title: EPaymentName.PAGSEGURO, urlImage: `${this._pathImagesPayment}/pagseguro.png`},
-    {title: EPaymentName.PAYPAL, urlImage: `${this._pathImagesPayment}/paypal.png`},
+    {title: EPaymentName.BOLETO, urlImage: `${this._pathImagesPayment}/boleto.webp`},
+    {title: EPaymentName.MERCADO_PAGO, urlImage: `${this._pathImagesPayment}/mercado-pago.webp`},
+    {title: EPaymentName.PAGSEGURO, urlImage: `${this._pathImagesPayment}/pagseguro.webp`},
+    {title: EPaymentName.PAYPAL, urlImage: `${this._pathImagesPayment}/paypal.webp`},
   ];
   paymentMethods: PaymentMethod[] = [
     {
-      urlImageMethod: 'https://logodownload.org/wp-content/uploads/2016/09/pagseguro-logo.png',
+      urlImageMethod: `${this._pathImagesPayment}/methods/pagseguro.webp`,
       anothersOptions: this._anotherOptions
         .filter(opt => opt.title !== EPaymentName.MERCADO_PAGO
           && opt.title !== EPaymentName.PAYPAL
@@ -35,7 +35,7 @@ export class CheckoutComponent {
       title: 'PagSeguro'
     },
     {
-      urlImageMethod: 'https://logodownload.org/wp-content/uploads/2019/06/mercado-pago-logo.png',
+      urlImageMethod: `${this._pathImagesPayment}/methods/mercado-pago.webp`,
       anothersOptions: this._anotherOptions
         .filter(opt => opt.title !== EPaymentName.PAGSEGURO
           && opt.title !== EPaymentName.PAYPAL
@@ -44,7 +44,7 @@ export class CheckoutComponent {
       title: 'Mercado pago'
     },
     {
-      urlImageMethod: 'https://logodownload.org/wp-content/uploads/2014/10/paypal-logo-3.png',
+      urlImageMethod: `${this._pathImagesPayment}/methods/paypal.webp`,
       anothersOptions: this._anotherOptions
         .filter(opt => opt.title === EPaymentName.PAYPAL),
       cardOptions: this._cardOptions.filter(opt => opt.title !== EPaymentName.DINERS),
