@@ -8,6 +8,8 @@ import {ModalProductMatComponent} from '../../../components/modais/modal-product
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
 import {EProductSort} from '../../../models/filters/filterProductUser.model';
+import {ProductService} from '../../../services/product.service';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tela-gerencia-produto',
@@ -31,7 +33,10 @@ export class ProductManagementComponent {
   textSearch = '';
   _window = window;
 
-  constructor(private _dialog: MatDialog) {
+  constructor(
+    private _dialog: MatDialog,
+    private _productServ: ProductService
+  ) {
   }
 
   createProduct() {
@@ -46,8 +51,10 @@ export class ProductManagementComponent {
     );
   }
 
-  selectProduct(id: number) {
-    this.productChosen = Product2Service.getById(id);
+  selectProduct(id: string) {
+    this._productServ.getById(id)
+      .pipe(take(1))
+      .subscribe(p => this.productChosen = p);
     const config = ModalProductMatComponent.getConfig({product: this.productChosen});
     const dialogRef = this._dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(

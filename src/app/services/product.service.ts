@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
 import {FilterProductBackend} from '../models/filters/filterProductUser.model';
+import {DataTests} from '../../shared/dataTests';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +97,15 @@ export class ProductService {
       : {};
     return this._http.get<Product[]>(
       this._routeApi, {headers: AuthService.getHeaders(), params}
+    );
+  }
+
+  /*TODO: Subsituir por serviço real*/
+  getById(id: string): Observable<Product | undefined> {
+    return of(DataTests.products.find(p => p.id === id));
+    return this._http.get<Product>(
+      `${this._routeApi}/${id}`,
+      {headers: AuthService.getHeaders()}
     );
   }
 
