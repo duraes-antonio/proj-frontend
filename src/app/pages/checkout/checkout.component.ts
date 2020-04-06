@@ -55,6 +55,10 @@ export class CheckoutComponent {
 
   constructor() {
   }
+
+  selectPayMethod(paymentMethod: PaymentMethod) {
+    this.methodChosen = paymentMethod;
+  }
 }
 
 interface PaymentMethodOption {

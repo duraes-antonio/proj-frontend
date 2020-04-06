@@ -17,23 +17,13 @@
     margin-bottom: 20px;
     box-shadow: 2px 3px 7px rgba(black, .1);
 
+    &--active {
+      border-color: $link-color;
+      box-shadow: 2px 3px 7px rgba($link-color, .1);
+    }
+
     &:first-child {
       margin-left: 0 !important;
-    }
-
-    @media (min-width: $width-max-small + 1) and (max-width: $width-max-medium) {
-      &:nth-last-child(odd) {
-        margin-left: 0 !important;
-      }
-    }
-
-    .text--justify {
-      justify-self: baseline;
-    }
-
-    .payment-method__img {
-      height: 32px;
-      margin: 10px 0 15px;
     }
 
     .card-flags {
@@ -46,6 +36,21 @@
         margin: 5px 5px 0;
         border-radius: 5px;
         border: 1px solid #ddd;
+      }
+    }
+
+    .payment-method__img {
+      height: 32px;
+      margin: 10px 0 15px;
+    }
+
+    .text--justify {
+      justify-self: baseline;
+    }
+
+    @media (min-width: $width-max-small + 1) and (max-width: $width-max-medium) {
+      &:nth-last-child(odd) {
+        margin-left: 0 !important;
       }
     }
   }
