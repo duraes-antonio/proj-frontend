@@ -12,7 +12,6 @@ addons:
     token: ${SONAR_TOKEN}
 
 before_script:
-  - git rm package-lock.json
   - yarn install
 
 script:
