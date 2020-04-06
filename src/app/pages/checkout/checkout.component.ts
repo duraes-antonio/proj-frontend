@@ -8,7 +8,6 @@ import {paths} from '../../../shared/constants/paths';
 })
 export class CheckoutComponent {
 
-  methodChosen: PaymentMethod = this.paymentMethods[0];
   private _pathImagesPayment = `${paths.assets}/payments`;
   private _cardOptions: PaymentMethodOption[] = [
     {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${this._pathImagesPayment}/american-express.png`},
@@ -52,6 +51,7 @@ export class CheckoutComponent {
       title: 'PayPal'
     },
   ];
+  methodChosen: PaymentMethod = this.paymentMethods[0];
 
   constructor() {
   }
