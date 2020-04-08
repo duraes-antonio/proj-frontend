@@ -1,5 +1,12 @@
 import {Component} from '@angular/core';
 import {paths} from '../../../shared/constants/paths';
+import {Product} from '../../models/product';
+import {ProductService} from '../../services/product.service';
+import {CartService} from '../../services/cart.service';
+import {Address} from '../../models/address';
+import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {take} from 'rxjs/operators';
+import {AddressService} from '../../services/address.service';
 
 @Component({
   selector: 'app-checkout',
@@ -24,7 +31,7 @@ export class CheckoutComponent {
     {title: EPaymentName.PAGSEGURO, urlImage: `${this._pathImagesPayment}/pagseguro.webp`},
     {title: EPaymentName.PAYPAL, urlImage: `${this._pathImagesPayment}/paypal.webp`},
   ];
-  paymentMethods: PaymentMethod[] = [
+  readonly paymentMethods: PaymentMethod[] = [
     {
       urlImageMethod: `${this._pathImagesPayment}/methods/pagseguro.webp`,
       anothersOptions: this._anotherOptions
@@ -51,9 +58,33 @@ export class CheckoutComponent {
       title: 'PayPal'
     },
   ];
-  methodChosen: PaymentMethod = this.paymentMethods[0];
+  readonly routes = routesFrontend;
+  products: Product[] = [];
+  addressDelivery?: Address;
+  methodChosen?: PaymentMethod;
+  productsPreview: Product[] = [];
+  productsPreviewTitle = '';
 
-  constructor() {
+  constructor(
+    private _productServ: ProductService,
+    private _addressServ: AddressService
+  ) {
+    this._addressServ.getMain()
+      .pipe(take(1))
+      .subscribe((address?: Address) => this.addressDelivery = undefined);
+
+    const prodIds: string[] = CartService.getProducts();
+
+    // Se no carrinho houver ids de produtos, então busque eles no backend
+    if (prodIds && prodIds.length) {
+      this._productServ.get({ids: prodIds, countTotal: 0, currentPage: 1, perPage: 3})
+        .pipe(take(1))
+        .subscribe(prods => this.products = prods);
+      this.productsPreview = this.products.slice(0, 3);
+      this.productsPreviewTitle = this.productsPreview
+        .map(p => p.title.split(' ').slice(0, 4).join(' '))
+        .join(', ');
+    }
   }
 
   selectPayMethod(paymentMethod: PaymentMethod) {

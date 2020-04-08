@@ -36,9 +36,17 @@ export class AddressService {
     );
   }
 
-  getById(id: string): Observable<Address> {
+  getById(id: string): Observable<Address | undefined> {
     return this._http.get<Address>(
       `${this._routeApi}/${id}`,
+      {headers: AuthService.getHeaders()}
+    );
+  }
+
+  getMain(): Observable<Address | undefined> {
+    return of(DataTests.addresses[0]);
+    return this._http.get<Address>(
+      `${this._routeApi}/main`,
       {headers: AuthService.getHeaders()}
     );
   }

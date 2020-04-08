@@ -1,5 +1,12 @@
 @import 'variables';
 
+%base_model_block {
+  box-shadow: 2px 3px 7px rgba(black, .07);
+  border: 1px solid $block-border-color;
+  border-radius: 5px;
+  padding: 15px 10px;
+}
+
 %center-absolute {
   position: absolute;
   margin: auto;
@@ -12,6 +19,12 @@
 %center-flex {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+%center-grid {
+  display: grid;
+  justify-items: center;
   align-items: center;
 }
 
@@ -40,7 +53,6 @@
   display: flex;
   flex-wrap: wrap;
 }
-
 
 %color-text-prim--light {
   color: $color-prim--light;

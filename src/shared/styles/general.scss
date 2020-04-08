@@ -9,7 +9,7 @@
 .title-page-w-border {
   color: $color-prim--light;
   font-size: x-large;
-  font-weight: 500;
+  font-weight: 400;
   text-transform: uppercase;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -21,10 +21,10 @@
     background-color: $color-prim--light;
     width: 100%;
     max-width: 320px;
-    height: 4px;
+    height: 3px;
     left: 0;
     right: 0;
-    bottom: -16px;
+    bottom: -11px;
     margin: 0 auto;
   }
 }

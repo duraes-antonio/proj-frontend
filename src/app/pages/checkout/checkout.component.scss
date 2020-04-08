@@ -1,57 +1,168 @@
+@import '../../../shared/styles/general';
 @import '../../../shared/styles/grid_materialize';
-@import '../../../shared/styles/variables';
+@import '../../../shared/styles/mixins';
 @import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
 
-.payment-methods {
-  @extend %flex-wrap;
-  margin-top: 20px;
+.title-page-w-border {
+  @extend %center-vert-flex;
+  align-self: flex-start;
+  width: fit-content;
+  margin: 0 0 20px;
+  font-size: 1.2rem;
+  text-transform: inherit;
 
-  &__item {
-    @extend %color-text-sec--dark;
-    display: grid;
-    justify-items: center;
-    text-align: justify;
-    border: 1px solid $block-border-color;
-    border-radius: 5px;
-    padding: 15px 10px;
-    margin-bottom: 20px;
-    box-shadow: 2px 3px 7px rgba(black, .1);
+  i {
+    font-size: 1.5rem;
+  }
 
-    &--active {
-      border-color: $link-color;
-      box-shadow: 2px 3px 7px rgba($link-color, .1);
-    }
+  &::after {
+    content: none;
+    background-color: #bbb;
+  }
+}
 
-    &:first-child {
-      margin-left: 0 !important;
-    }
+.order-resume {
+  display: flex;
+  margin: 30px 0;
 
-    .card-flags {
-      @extend %flex-wrap;
-      margin: 5px 0 15px;
+  .address-section {
+    .address-data {
+      @extend %center-flex-space-betw;
+      flex-wrap: wrap;
 
-      &__item {
-        max-width: 28px;
-        padding: 0 5px;
-        margin: 5px 5px 0;
-        border-radius: 5px;
-        border: 1px solid #ddd;
+      .address-fields {
+        @extend %color-text-sec--dark;
+        display: grid;
+        line-height: 1.75;
+
+        &__item {
+          &-title {
+            @extend %color-text-prim--light;
+            padding-right: 5px;
+            font-weight: 500;
+          }
+        }
       }
     }
 
-    .payment-method__img {
-      height: 32px;
-      margin: 10px 0 15px;
+    @media (max-width: $width-max-small) {
+      margin-bottom: 20px;
     }
 
-    .text--justify {
-      justify-self: baseline;
+    @media (min-width: $width-max-small + 1) {
+      padding-right: 20px;
+    }
+  }
+
+  .products-resume {
+    @extend %flex-col;
+    align-items: center;
+
+    &__cost {
+      font-size: large;
     }
 
-    @media (min-width: $width-max-small + 1) and (max-width: $width-max-medium) {
-      &:nth-last-child(odd) {
+    &-imgs {
+      display: flex;
+      margin-bottom: 20px;
+
+      &__img-block {
+        @include circle(100px, white);
+        @extend %center-flex;
+        box-shadow: 1px 2px 6px rgba(black, .08);
+        border: 1px solid #eee;
+        margin: 0 5px;
+
+        &:not(:first-child) {
+          margin-left: -20px;
+        }
+
+        &__img {
+          height: 90%;
+        }
+      }
+    }
+
+    @media (max-width: $width-max-small) {
+      margin-top: 20px;
+    }
+
+    @media (min-width: $width-max-small + 1) {
+      padding-left: 20px;
+    }
+  }
+
+  @media (max-width: $width-max-small) {
+    flex-wrap: wrap;
+  }
+}
+
+.payment-section {
+  @extend %flex-col;
+  align-items: center;
+  margin: 20px 0 30px;
+
+  .payment-methods {
+    @extend %flex-wrap;
+
+    &__item {
+      @extend %color-text-sec--dark;
+      @extend %base_model_block;
+      display: grid;
+      justify-items: center;
+      text-align: justify;
+
+      &--active {
+        border-color: $link-color;
+        box-shadow: 2px 3px 7px rgba($link-color, .1);
+      }
+
+      &:first-child {
         margin-left: 0 !important;
       }
+
+      .card-flags {
+        @extend %flex-wrap;
+        margin: 5px 0 15px;
+
+        &__item {
+          max-width: 28px;
+          padding: 0 5px;
+          margin: 5px 5px 0;
+          border-radius: 5px;
+          border: 1px solid #ddd;
+        }
+      }
+
+      .payment-method__img {
+        height: 32px;
+        margin: 10px 0 15px;
+      }
+
+      .text--justify {
+        justify-self: baseline;
+      }
+
+      @media (max-width: $width-max-medium) {
+        margin-bottom: 20px;
+      }
+
+      @media (min-width: $width-max-small + 1) and (max-width: $width-max-medium) {
+        &:nth-last-child(odd) {
+          margin-left: 0 !important;
+        }
+      }
     }
+  }
+}
+
+.message-section {
+  i {
+    @extend %center-flex;
+    @include circle(24px, darkorange);
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
   }
 }

@@ -89,18 +89,22 @@ export class ProductService {
     );
   }
 
+  /*TODO: Subsituir dados mockados por consulta*/
   get(filter?: FilterProductBackend): Observable<Product[]> {
     const params = filter
       ? new HttpParams({
         fromObject: this.primitiveFieldsToString(this.clearEmptyFields(filter))
       })
       : {};
+    return of(DataTests.products
+      .filter(p => !filter || filter?.ids?.includes(p.id))
+    );
     return this._http.get<Product[]>(
       this._routeApi, {headers: AuthService.getHeaders(), params}
     );
   }
 
-  /*TODO: Subsituir por serviço real*/
+  /*TODO: Subsituir dados mockados por consulta*/
   getById(id: string): Observable<Product | undefined> {
     return of(DataTests.products.find(p => p.id === id));
     return this._http.get<Product>(

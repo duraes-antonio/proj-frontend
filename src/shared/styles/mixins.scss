@@ -25,6 +25,7 @@
 
 @mixin circle($width, $bg-color) {
   @include min-max-size($width);
+  overflow: hidden;
   border-radius: 50%;
   background-color: $bg-color;
 }

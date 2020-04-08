@@ -1,18 +1,116 @@
-<div class="payment-methods row">
-  <a *ngFor="let payMethod of paymentMethods" (click)="selectPayMethod(payMethod)"
-     [ngClass]="{'payment-methods__item--active': payMethod === methodChosen}"
-     class="payment-methods__item col s12 m6s l4s xl4s">
-    <img [alt]="payMethod.title" [src]="payMethod.urlImageMethod" class="payment-method__img">
-    <span
-      class="text--justify">Este meio permite o pagamento (único ou parcelado) com cartão das seguintes bandeiras:</span>
-    <div class="card-flags">
-      <img *ngFor="let opt of payMethod.cardOptions" [alt]="opt.title"
-           [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+<div class="order-resume row">
+  <!-- Seção endereço -->
+  <div class="address-section col s12 m6 l6 xl6">
+    <h2 class="title-page-w-border">
+      <i aria-hidden="true" class="fas fa-map-marker-alt" style="margin-right: 10px"></i>
+      Endereço
+    </h2>
+
+    <!-- Aviso sobre revisão de endereço -->
+    <div *ngIf="addressDelivery" class="message-section message-section--yellow">
+      <i aria-hidden="true" class="fas fa-exclamation"></i>
+      <div>
+        <span class="message-section__title">Confira seu endereço!</span><br>
+        <span>
+          Para evitar transtornos com a entrega dos produtos, recomendamos a revisão dos
+          dados do endereço de entrega antes de cada compra.
+        </span>
+      </div>
     </div>
-    <span class="text--justify">Outros meios permitidos:</span>
-    <div class="card-flags">
-      <img *ngFor="let opt of payMethod.anothersOptions" [alt]="opt.title"
-           [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+
+    <!-- Campos com dados de endereço E botão de alterar -->
+    <div *ngIf="addressDelivery; else addressEmpty" class="address-data row">
+      <div class="address-fields col s12 m12 l8 xl8">
+        <span class="address-fields__item"><span
+          class="address-fields__item-title">Número:</span> {{addressDelivery.number}}</span>
+        <span class="address-fields__item"><span
+          class="address-fields__item-title">CEP:</span> {{addressDelivery.zipCode}}</span>
+        <span class="address-fields__item"><span
+          class="address-fields__item-title">Logradouro:</span> {{addressDelivery.street}}</span>
+        <span class="address-fields__item"><span
+          class="address-fields__item-title">Bairro:</span> {{addressDelivery.neighborhood}}</span>
+        <span class="address-fields__item"><span
+          class="address-fields__item-title">Cidade:</span> {{addressDelivery.city}}</span>
+        <span class="address-fields__item"><span
+          class="address-fields__item-title">Estado:</span> {{addressDelivery.state}}</span>
+      </div>
+      <button class="btn-general col s12 m12 l4 xl4" color="primary"
+              mat-button>Alterar endereço
+      </button>
     </div>
-  </a>
+
+    <!-- Alerta para criar endereço E botão p/ criar -->
+    <ng-template #addressEmpty>
+      <div class="message-section message-section--yellow">
+        <i aria-hidden="true" class="fas fa-exclamation"></i>
+        <div>
+          <span class="message-section__title">Registre um endereço!</span><br>
+          <span>
+            Essa conta ainda não possui um endereço cadastrado. Por favor,
+            registre um ou mais endereços para receber sua compra.
+          </span>
+        </div>
+      </div>
+      <button class="btn-general col s12 m12 l4 xl4" color="primary" mat-button>
+        Cadastrar endereço
+      </button>
+    </ng-template>
+  </div>
+
+  <mat-divider [vertical]="true"></mat-divider>
+  <mat-divider class="col s12 hide-on-med-and-up"></mat-divider>
+
+  <!-- Seção de produtos -->
+  <div class="products-resume col s12 m6 l6 xl6">
+    <h2 class="title-page-w-border">
+      <i aria-hidden="true" class="fas fa-shopping-basket" style="margin-right: 10px"></i>
+      Resumo do pedido
+    </h2>
+    <div class="products-resume-imgs">
+      <div *ngFor="let productPrev of productsPreview"
+           [title]="productPrev.title" class="products-resume-imgs__img-block">
+        <img [alt]="productPrev.title" [src]="productPrev.urlImage"
+             [title]="productPrev.title" class="products-resume-imgs__img-block__img">
+      </div>
+    </div>
+    <a [routerLink]="'/' + routes.cart">{{productsPreviewTitle}}</a>
+    <div class="col s12" style="display: grid; margin-top: 20px; line-height: 1.5">
+      <div class="products-resume__cost">
+        <span class="col s8 m8 l8 xl3">Produtos:</span>
+        <span class="col s4 m4 l4 xl3">R$25</span>
+      </div>
+      <div class="products-resume__cost">
+        <span class="col s8 m8 l8 xl3">Entrega:</span>
+        <span class="col s4 m4 l4 xl3">R$125.38</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="payment-section row">
+  <h2 class="title-page-w-border">
+    <i aria-hidden="true" class="far fa-credit-card" style="margin-right: 10px"></i>
+    Meios de pagamento
+  </h2>
+  <div class="payment-methods">
+    <a (click)="selectPayMethod(payMethod)" *ngFor="let payMethod of paymentMethods"
+       [ngClass]="{'payment-methods__item--active': payMethod === methodChosen}"
+       class="payment-methods__item col s12 m6s l4s xl12">
+      <img [alt]="payMethod.title" [src]="payMethod.urlImageMethod" class="payment-method__img">
+      <span class="text--justify">
+        Este meio permite o pagamento (único ou parcelado) com cartão das seguintes bandeiras:
+      </span>
+      <div class="card-flags">
+        <img *ngFor="let opt of payMethod.cardOptions" [alt]="opt.title"
+             [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+      </div>
+      <span class="text--justify">Outros meios permitidos:</span>
+      <div class="card-flags">
+        <img *ngFor="let opt of payMethod.anothersOptions" [alt]="opt.title"
+             [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+      </div>
+    </a>
+  </div>
 </div>

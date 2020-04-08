@@ -68,3 +68,36 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
+.message-section {
+  @extend %center-flex;
+  @extend %color-text-prim--light;
+  $color-background: #666;
+  font-size: small;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 15px 0;
+  background: rgba($color-background, .1);
+
+  &--green {
+    background: rgba(green, .1);
+    color: green;
+  }
+
+  &--blue {
+    background: rgba(dodgerblue, .1);
+    color: dodgerblue;
+  }
+
+  &--yellow {
+    background: rgba(orange, .1);
+  }
+
+  &--red {
+    background: rgba(darkred, .1);
+    color: darkred;
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+}
