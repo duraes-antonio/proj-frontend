@@ -1,6 +1,7 @@
 @import 'variables';
 
 %base_model_block {
+  background-color: white;
   box-shadow: 2px 3px 7px rgba(black, .07);
   border: 1px solid $block-border-color;
   border-radius: 5px;
@@ -39,9 +40,19 @@
   align-items: center;
 }
 
+%grid-center-vert {
+  display: grid;
+  align-items: center;
+}
+
 %center-horiz-flex {
   display: flex;
   justify-content: center;
+}
+
+%grid-horiz-vert {
+  display: grid;
+  justify-items: center;
 }
 
 %flex-col {
