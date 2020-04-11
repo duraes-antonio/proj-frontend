@@ -3,8 +3,15 @@ import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {ProdutoRoutingModule} from './pages/product/produto-routing.module';
 import {AuthGuard} from './guards/auth.guard';
 import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
+import {routesFrontend} from '../shared/constants/routesFrontend';
 
+const routesConst = routesFrontend;
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: routesConst.home,
+    pathMatch: 'full'
+  },
   {
     path: 'contato',
     loadChildren: () =>
@@ -25,13 +32,13 @@ const routes: Routes = [
         .then(m => m.TelaHistoricoCompraModule)
   },
   {
-    path: 'home',
+    path: routesConst.home,
     loadChildren: () =>
       import('./pages/tela-inicial/tela-inical.module')
         .then(m => m.TelaInicalModule)
   },
   {
-    path: 'login',
+    path: routesConst.login,
     loadChildren: () => import('./pages/login/tela-login.module')
       .then(m => m.TelaLoginModule)
   },

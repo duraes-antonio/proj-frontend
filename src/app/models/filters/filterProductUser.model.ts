@@ -40,8 +40,6 @@ export class FilterProductBackend {
   priceMin?: number;
   text?: string;
   sortBy?: EProductSort = EProductSort.DEFAULT;
-
-  countTotal = 0;
   currentPage = 1;
   perPage = 15;
 }
