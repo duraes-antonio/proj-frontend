@@ -47,7 +47,7 @@ export class ModalAddressComponent {
     };
   }
 
-  selectAddress(id: number, className: string) {
+  selectAddress(id: string, className: string) {
     const items = document.getElementsByClassName(className);
 
     /*Remova a classe que realça o endereço selecionado atualmente*/

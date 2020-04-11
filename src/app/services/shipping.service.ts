@@ -16,9 +16,9 @@ export class ShippingService {
   }
 
   /*TODO: Chamar serviço do backend quando estiver pronto*/
-  calculateShippingCostDays(cep: string, items: { amount: number, productId: string }[]): Observable<DeliveryOption> {
+  calculateCostDays(cep: string, items: { quantity: number, productId: string }[]): Observable<DeliveryOption> {
     const cost = items
-      .map(item => item.amount * Math.random() * 100)
+      .map(item => item.quantity * Math.random() * 100)
       .reduce((p, c) => p + c);
     return of({cost: cost, timeDays: 7} as DeliveryOption);
     return this._http.post<DeliveryOption>(

@@ -26,15 +26,15 @@ export class DataTests {
 
   static readonly addresses: Address[] = [
     new Address(38, '29065-390', 'Rua Emília Mazoco Keijok',
-      'Mata da Praia', 'Vitória', 'ES', 1),
+      'Mata da Praia', 'Vitória', 'ES', '1'),
     new Address(783, '29300-120', 'Rua Dona Joanna',
-      'Centro', 'Cachoeiro de Itapemirim', 'ES', 2),
+      'Centro', 'Cachoeiro de Itapemirim', 'ES', '2'),
     new Address(231, '91910-670', 'Avenida Flor de Maracá',
-      'Cristal', 'Porto Alegre', 'RS', 3),
+      'Cristal', 'Porto Alegre', 'RS', '3'),
     new Address(21, '69316-027', 'Rua Estrela do Norte',
-      'Raiar do Sol', 'Boa Vista', 'RO', 4),
+      'Raiar do Sol', 'Boa Vista', 'RO', '4'),
     new Address(445, '59628-070', 'Rua Lavoisier Maia',
-      'Alto de São Manoel', 'Mossoró', 'RN', 5),
+      'Alto de São Manoel', 'Mossoró', 'RN', '5'),
   ];
   static readonly cards = [
     new Card(1, '../../assets/card-1.jpeg', ''),

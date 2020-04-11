@@ -2,11 +2,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {CheckoutComponent} from './checkout.component';
 import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {AuthGuard} from '../../guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: routesFrontend.checkout,
-    component: CheckoutComponent
+    canActivate: [AuthGuard],
+    component: CheckoutComponent,
+    path: routesFrontend.checkout
   }
 ];
 

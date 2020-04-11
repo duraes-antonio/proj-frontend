@@ -15,6 +15,7 @@ import {ShippingService} from '../../services/shipping.service';
 import {DeliveryOption} from '../../models/deliveryOption';
 import {AuthService} from '../../services/auth.service';
 import {ProductService} from '../../services/product.service';
+import {CheckoutModel} from '../../models/checkout.model';
 
 @Component({
   selector: 'app-cart',
@@ -98,12 +99,25 @@ export class CartComponent implements OnDestroy {
     this.updateCost();
   }
 
+  saveOrder() {
+    if (this.prodAmount.size) {
+      const checkoutObj: CheckoutModel = {
+        addressId: this.currentAddress?.id,
+        productsIdQuantity: Array.from(this.prodAmount)
+          .map((pair: [Product, number]) => {
+            return {productId: pair[0].id, quantity: pair[1]};
+          })
+      };
+      localStorage.setItem('order', JSON.stringify(checkoutObj));
+    }
+  }
+
   private calculateCostShipping(cep: string, mapProdQuantity: Map<Product, number>) {
     const prodIdQuantity = Array.from(mapProdQuantity)
       .map((pairIdQuantity: [Product, number]) => {
-        return {productId: pairIdQuantity[0].id, amount: pairIdQuantity[1]};
+        return {productId: pairIdQuantity[0].id, quantity: pairIdQuantity[1]};
       });
-    this._shippingServ.calculateShippingCostDays(cep, prodIdQuantity)
+    this._shippingServ.calculateCostDays(cep, prodIdQuantity)
       .pipe(take(1))
       .subscribe((deliveryOpt: DeliveryOption) => {
         this.totalCostShipping = deliveryOpt.cost;
@@ -111,7 +125,10 @@ export class CartComponent implements OnDestroy {
   }
 
   private updateCost() {
-    this.totalCostProducts = ProductService.calculateCost(this.prodAmount);
+    this.totalCostProducts = ProductService.calculateCostFromArray(
+      Array.from(this.prodAmount)
+        .map((productQuantity: [Product, number]) => productQuantity)
+    );
 
     if (this.currentAddress) {
       this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);

@@ -21,11 +21,10 @@ export class ProductService {
 
   private _routeApi = `${environment.apiUrl}/address`;
 
-  static calculateCost(mapProductQuantity: Map<Product, number>): number {
-    return Array.from(mapProductQuantity)
-      .map(pairProdQuantity => pairProdQuantity[0].priceWithDiscount
-        * pairProdQuantity[1])
-      .reduce((p, c) => p + c);
+  static calculateCostFromArray(productQuantity: [Product, number][]): number {
+    return productQuantity
+      .map(prodUnits => prodUnits[0].priceWithDiscount * prodUnits[1])
+      .reduce((prev, current) => prev + current);
   }
 
   clearEmptyFields(obj: any): any {

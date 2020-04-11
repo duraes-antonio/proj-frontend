@@ -91,7 +91,8 @@
         <span class="cart-cost__price-value">{{totalCostShipping + totalCostProducts | currency: 'BRL'}}</span>
       </div>
     </div>
-    <a [routerLink]="['/' + routes.checkout]" class="btn-general" color="primary" mat-raised-button>
+    <a (click)="saveOrder()" [routerLink]="['/' + routes.checkout]"
+       [disabled]="prodAmount.size < 1" class="btn-general" color="primary" mat-raised-button>
       Finalizar compra
     </a>
   </div>

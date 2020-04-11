@@ -107,6 +107,7 @@
 .cart-cost {
   @extend %color-text-prim--light;
   display: grid;
+  line-height: 2;
   font-size: 16px;
 
   &__price-title {

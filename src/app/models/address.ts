@@ -11,7 +11,7 @@ export interface AddressAdd {
 
 /*TODO: Converter para interface após utilizar serviço*/
 export class Address implements AddressAdd {
-  readonly id: number;
+  readonly id: string;
   readonly street: string;
   readonly number: number;
   readonly zipCode: string;
@@ -22,7 +22,7 @@ export class Address implements AddressAdd {
 
   constructor(
     number: number, zipcode: string, street: string, neigborhood: string,
-    city: string, state: string, id = 0) {
+    city: string, state: string, id = '') {
     this.number = number;
     this.zipCode = zipcode;
     this.street = street;
