@@ -43,6 +43,12 @@ $width-max-small: 768px;
 
       .address-data {
         display: grid;
+        grid-row-gap: 10px;
+
+        .address-btns {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
 
         .address-fields {
           @extend %color-text-sec--dark;

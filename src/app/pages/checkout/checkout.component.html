@@ -50,7 +50,7 @@
       </div>
 
       <!-- Campos com dados de endereço E botão de alterar -->
-      <div *ngIf="addressDelivery; else addressEmpty" class="address-data" style="display: grid">
+      <div *ngIf="addressDelivery; else addressEmpty" class="address-data">
         <div class="address-fields">
           <span class="address-fields__item"><span
             class="address-fields__item-title">Número:</span> {{addressDelivery.number}}</span>
@@ -65,7 +65,7 @@
           <span class="address-fields__item"><span
             class="address-fields__item-title">Estado:</span> {{addressDelivery.state}}</span>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr">
+        <div class="address-btns">
           <button (click)="showModalSelectionAdress()" class="btn-general" color="primary" mat-button>
             Selecionar outro
           </button>

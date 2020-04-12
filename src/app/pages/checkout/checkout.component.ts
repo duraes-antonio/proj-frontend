@@ -23,7 +23,7 @@ import {ModalManageAddressComponent} from '../../components/modais/modal-create-
 export class CheckoutComponent implements AfterViewInit, OnDestroy {
 
   addressesUser: Address[] = [];
-  readonly paymentMethods: PaymentMethod[] = this._getPaymentMethods();
+  readonly paymentMethods: PaymentMethod[] = this._getPaymentMethods(`${paths.assets}/payments`);
   readonly routes = routesFrontend;
   addressDelivery?: Address;
   methodChosen?: PaymentMethod;
@@ -32,7 +32,6 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
   productsPreview: Product[] = [];
   productsPreviewTitle = '';
   productQuantityHidden = 0;
-  private readonly _pathImagesPayment = `${paths.assets}/payments`;
   productsCost = 0;
   deliveryCost = 0;
   private _modalAddressSelect$?: Subscription;
@@ -47,7 +46,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       this._addressServ.get()
         .pipe(take(1))
         .subscribe((addresses: Address[]) => {
-          if (!addresses.length) {
+          if (addresses.length) {
             this.addressesUser = addresses;
             this.addressDelivery = addresses[0];
           }
@@ -95,7 +94,11 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
   }
 
   selectPayMethod(paymentMethod: PaymentMethod) {
-    this.methodChosen = paymentMethod;
+    if (this.addressDelivery) {
+      this.methodChosen = paymentMethod;
+    } else {
+      this.showModalAddAdress();
+    }
   }
 
   showModalSelectionAdress() {
@@ -127,24 +130,24 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       });
   }
 
-  private _getCardPaymentOptions(): PaymentMethodOption[] {
+  private _getCardPaymentOptions(pathDirPaymentsImages: string): PaymentMethodOption[] {
     return [
-      {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${this._pathImagesPayment}/american-express.webp`},
-      {title: EPaymentName.DINERS, urlImage: `${this._pathImagesPayment}/diners.webp`},
-      {title: EPaymentName.ELO, urlImage: `${this._pathImagesPayment}/elo.webp`},
-      {title: EPaymentName.HIPER, urlImage: `${this._pathImagesPayment}/hiper.webp`},
-      {title: EPaymentName.HIPERCARD, urlImage: `${this._pathImagesPayment}/hipercard.webp`},
-      {title: EPaymentName.MASTERCARD, urlImage: `${this._pathImagesPayment}/mastercard.webp`},
-      {title: EPaymentName.VISA, urlImage: `${this._pathImagesPayment}/visa.webp`},
+      {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${pathDirPaymentsImages}/american-express.webp`},
+      {title: EPaymentName.DINERS, urlImage: `${pathDirPaymentsImages}/diners.webp`},
+      {title: EPaymentName.ELO, urlImage: `${pathDirPaymentsImages}/elo.webp`},
+      {title: EPaymentName.HIPER, urlImage: `${pathDirPaymentsImages}/hiper.webp`},
+      {title: EPaymentName.HIPERCARD, urlImage: `${pathDirPaymentsImages}/hipercard.webp`},
+      {title: EPaymentName.MASTERCARD, urlImage: `${pathDirPaymentsImages}/mastercard.webp`},
+      {title: EPaymentName.VISA, urlImage: `${pathDirPaymentsImages}/visa.webp`},
     ];
   }
 
-  private _getPaymentMethods(): PaymentMethod[] {
-    const anotherOptions = this._getSecondaryPaymentOptions();
-    const cardOptions = this._getCardPaymentOptions();
+  private _getPaymentMethods(pathDirPaymentsImages: string): PaymentMethod[] {
+    const anotherOptions = this._getSecondaryPaymentOptions(pathDirPaymentsImages);
+    const cardOptions = this._getCardPaymentOptions(pathDirPaymentsImages);
     return [
       {
-        urlImageMethod: `${this._pathImagesPayment}/methods/pagseguro.webp`,
+        urlImageMethod: `${pathDirPaymentsImages}/methods/pagseguro.webp`,
         anothersOptions: anotherOptions
           .filter(opt => opt.title !== EPaymentName.MERCADO_PAGO
             && opt.title !== EPaymentName.PAYPAL
@@ -153,7 +156,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
         title: 'PagSeguro'
       },
       {
-        urlImageMethod: `${this._pathImagesPayment}/methods/mercado-pago.webp`,
+        urlImageMethod: `${pathDirPaymentsImages}/methods/mercado-pago.webp`,
         anothersOptions: anotherOptions
           .filter(opt => opt.title !== EPaymentName.PAGSEGURO
             && opt.title !== EPaymentName.PAYPAL
@@ -162,7 +165,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
         title: 'Mercado pago'
       },
       {
-        urlImageMethod: `${this._pathImagesPayment}/methods/paypal.webp`,
+        urlImageMethod: `${pathDirPaymentsImages}/methods/paypal.webp`,
         anothersOptions: anotherOptions
           .filter(opt => opt.title === EPaymentName.PAYPAL),
         cardOptions: cardOptions.filter(opt => opt.title !== EPaymentName.DINERS),
@@ -171,12 +174,12 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     ];
   }
 
-  private _getSecondaryPaymentOptions(): PaymentMethodOption[] {
+  private _getSecondaryPaymentOptions(pathDirPaymentsImages: string): PaymentMethodOption[] {
     return [
-      {title: EPaymentName.BOLETO, urlImage: `${this._pathImagesPayment}/boleto.webp`},
-      {title: EPaymentName.MERCADO_PAGO, urlImage: `${this._pathImagesPayment}/mercado-pago.webp`},
-      {title: EPaymentName.PAGSEGURO, urlImage: `${this._pathImagesPayment}/pagseguro.webp`},
-      {title: EPaymentName.PAYPAL, urlImage: `${this._pathImagesPayment}/paypal.webp`},
+      {title: EPaymentName.BOLETO, urlImage: `${pathDirPaymentsImages}/boleto.webp`},
+      {title: EPaymentName.MERCADO_PAGO, urlImage: `${pathDirPaymentsImages}/mercado-pago.webp`},
+      {title: EPaymentName.PAGSEGURO, urlImage: `${pathDirPaymentsImages}/pagseguro.webp`},
+      {title: EPaymentName.PAYPAL, urlImage: `${pathDirPaymentsImages}/paypal.webp`},
     ];
   }
 

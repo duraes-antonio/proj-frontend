@@ -77,8 +77,8 @@ export class AddressService {
     ).pipe(take(1));
   }
 
-  patch(obj: any): Observable<void> {
-    return this._http.patch<void>(
+  patch(obj: any): Observable<Address> {
+    return this._http.patch<Address>(
       this._routeApi,
       {obj, zipCode: obj.zipCode ? obj.zipCode.replace('-', '') : undefined},
       {headers: AuthService.getHeaders()}
