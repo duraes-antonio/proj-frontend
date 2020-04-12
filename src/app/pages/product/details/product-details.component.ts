@@ -17,6 +17,7 @@ import {ModalAddressComponent} from '../../../components/modais/modal-address/mo
 import {ModalShippingMatComponent} from '../../../components/modais/modal-shipping-mat/modal-shipping-mat.component';
 import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment-mat/modal-payment-mat.component';
 import {routesFrontend} from '../../../../shared/constants/routesFrontend';
+import {CartService} from '../../../services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -129,5 +130,11 @@ export class ProductDetailsComponent implements OnDestroy {
 
   private calcAvgRating(ratings: Review[], qtdDecimals = 2): number {
     return calcAverage(ratings, (aval: Review) => aval.value, qtdDecimals);
+  }
+
+  buy(product: Product) {
+    this.addToCart(product.id);
+    CartService.saveOrder([[product, 1]]);
+    this.router.navigate([routesFrontend.checkout]);
   }
 }
