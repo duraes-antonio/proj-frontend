@@ -43,18 +43,6 @@ const routes: Routes = [
       .then(m => m.TelaLoginModule)
   },
   {
-    path: 'redefinir-senha',
-    loadChildren: () =>
-      import('./pages/tela-redefinir-senha/tela-redefinir-senha.module')
-        .then(m => m.TelaRedefinirSenhaModule)
-  },
-  {
-    path: 'sobre',
-    loadChildren: () =>
-      import('./pages/tela-sobre/tela-sobre.module')
-        .then(m => m.TelaSobreModule)
-  },
-  {
     path: '404',
     loadChildren: () =>
       import('./pages/404/tela404.module')
