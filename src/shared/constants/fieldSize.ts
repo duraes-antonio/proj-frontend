@@ -8,6 +8,7 @@ export const fieldSize = {
 
 export const addressSizes = {
   cityMax: 64,
+  numberMin: 0,
   numberMax: Number.MAX_SAFE_INTEGER,
   neighborhoodMax: 64,
   stateMax: 64,

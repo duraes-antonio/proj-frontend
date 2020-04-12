@@ -8,7 +8,7 @@ import {EErrorType} from './msgErrorFunctionsFront';
 export const validators = {
   cepValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const cep = masks.cep(control.value);
+      const cep = control.value ? masks.cep(control.value) : '';
 
       if (!validation.hasValue(cep)) {
         return {[EErrorType.REQUIRED]: true};
@@ -40,7 +40,13 @@ export const validators = {
   numberValidator(min: number, max: number, required = false): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const num = masks.numberUnsigned(control.value);
-      if (!validation.validNumber(num)) {
+
+      if (!required && !validation.hasValue(control.value)) {
+        return null;
+      }
+      if (required && !validation.hasValue(control.value)) {
+        return {[EErrorType.REQUIRED]: true};
+      } else if (!validation.validNumber(num)) {
         return {[EErrorType.FORMAT]: true};
       } else if (+num > max) {
         return {[EErrorType.MAX_VAL]: max};

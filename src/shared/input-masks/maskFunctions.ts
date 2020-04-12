@@ -21,6 +21,13 @@ export const masks = {
         .replace(',', '.')
         .replace(/[^.\d]/g, '');
   },
+  numberInteger(value: string): string {
+    return (value === undefined || value === null)
+      ? ''
+      : value
+        .toString()
+        .replace(/D/g, '.');
+  },
   phone(value: string): string {
     return value
       .replace(/\D/g, '')

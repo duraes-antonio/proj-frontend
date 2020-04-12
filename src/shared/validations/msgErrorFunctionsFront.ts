@@ -1,4 +1,4 @@
-import {FormControl} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
 export enum EErrorType {
   CUSTOM = 'custom',
@@ -41,7 +41,7 @@ export const buildErrorMsg = {
   },
 };
 
-export function getMsgFront(control: FormControl, example?: string): string {
+export function getMsgFront(control: AbstractControl, example?: string): string {
   if (!control.errors) {
     throw new Error('Não há erros para serem analisados!');
   }

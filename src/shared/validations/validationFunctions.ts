@@ -4,7 +4,7 @@
 */
 const regexEmail = /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const regexPhone = /^\([1-9]{2}\)\s?(?:[2-8]|9[1-9])[0-9]{3}-?[0-9]{4}$/;
-const regexNumber = /(^\d+(d*|(\.\d+))$)/;
+const regexNumber = /(^\d+(d*|(\.\d+))?$)/;
 
 const validation = {
   atMaxLen(value: string, maxLenght: number): boolean {
