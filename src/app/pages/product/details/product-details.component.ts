@@ -57,17 +57,14 @@ export class ProductDetailsComponent implements OnDestroy {
           _router.navigate([routesFrontend.notFound]);
         } else {
           this.product = prod;
-          this.prodInCart = this._cartProdIds.some(id => id === prod.id);
+          this.prodInCart = CartService.containsProduct(prod.id);
         }
       });
     this._cart$ = _cartStore.subscribe(
       (res: any) => {
-        const currProdId = this.product ? this.product.id : 0;
+        const currentProdId = this.product ? this.product.id : '';
         this._cartProdIds = (res.cart as Cart).productsId;
-
-        if (this._cartProdIds) {
-          this.prodInCart = this._cartProdIds.some(id => id === currProdId);
-        }
+        this.prodInCart = CartService.containsProduct(currentProdId);
       });
   }
 

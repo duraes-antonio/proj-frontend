@@ -22,14 +22,6 @@
   color: red;
 }
 
-::ng-deep .section-title {
-  @extend %color-text-prim;
-  font-size: x-large;
-  font-weight: 500;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
 ::ng-deep input[type="number"] {
   display: block;
   text-align: right;

@@ -1,6 +1,6 @@
 <h4 class="titulo-pagina" style="margin: 0 0 1em 0;">Histórico de Compras</h4>
 
-<div *ngIf="orders.length > 9" id="area-lista-compra" style="display: flex">
+<div *ngIf="orders.length" id="area-lista-compra" style="display: flex">
   <ul class="col s12 m10 l10 xl10 center-block">
     <li *ngFor="let compra of orders" class="area-compra">
 

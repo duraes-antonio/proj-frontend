@@ -29,15 +29,13 @@
         <strong style="color: #222; letter-spacing: 2px">...</strong>
       </p>
 
-      <div class="divider"></div>
-
       <!-- Devolução -->
-      <div class="devolution-section" id="id-area-devolucao">
+      <div class="message-section message-section--green" id="id-area-devolucao">
         <i aria-hidden="true" class="fa fa-history"></i>
         <div>
-          <strong class="devolution-section__title">Direito à devolução</strong><br>
-          <span>Após receber o produto, você tem 7 dias úteis para solicitar sua devolução.</span><br>
-          <a class="devolution-section__more-info">Mais informações</a>
+          <strong class="message-section__title">Direito à devolução</strong><br>
+          <span>Após receber o produto, você terá 7 dias úteis para solicitar sua devolução.</span><br>
+          <a class="message-section__more-info">Mais informações</a>
         </div>
       </div>
     </div>
@@ -116,7 +114,7 @@
       <ng-template #prodIndisponivel>
 
         <!-- Aviso -->
-        <div class="unavailable-section" id="id-aviso-indisp">
+        <div class="message-section" id="id-aviso-indisp">
           <i aria-hidden="true" class="far fa-sad-cry smile-cry-icon"></i>
           <div>
             <span style="font-weight: 500;">Produto indisponível!</span><br>
@@ -141,20 +139,18 @@
     </div>
   </div>
 
-  <div class="divider"></div>
-
   <!-- Descrição -->
-  <span class="section-title">Descrição</span>
-  <p class="product-info__desc">{{product.desc}}</p>
-
-  <div class="divider"></div>
+  <section class="product__section" id="description">
+    <span class="section-title">Descrição</span>
+    <p class="product-info__desc">{{product.desc}}</p>
+  </section>
 
   <!-- Avaliações -->
-  <span class="section-title">Avaliações</span>
-  <app-rating-list [ratings]="reviews"></app-rating-list>
-  <!-- TODO: Tornar o componente de paginação responsivo -->
-  <app-paginacao [paginaAtual]="1" [qtdPags]="14"></app-paginacao>
-
-  <div class="divider"></div>
+  <section class="product__section" id="reviews">
+    <span class="section-title">Avaliações</span>
+    <app-rating-list [ratings]="reviews"></app-rating-list>
+    <!-- TODO: Tornar o componente de paginação responsivo -->
+    <app-paginacao [paginaAtual]="1" [qtdPags]="14"></app-paginacao>
+  </section>
 </div>
 <app-slider-product [list]="seqProd"></app-slider-product>
