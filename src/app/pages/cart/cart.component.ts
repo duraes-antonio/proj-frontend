@@ -71,7 +71,10 @@ export class CartComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this._cart$.unsubscribe();
-    this._modalSelect$?.unsubscribe();
+
+    if (this._modalSelect$) {
+      this._modalSelect$.unsubscribe();
+    }
   }
 
   showModalAdress() {

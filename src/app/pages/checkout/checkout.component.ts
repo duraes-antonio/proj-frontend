@@ -89,7 +89,9 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     utilDOM.setBodyBackgroundColor('unset');
-    this._modalAddressSelect$?.unsubscribe();
+    if (this._modalAddressSelect$) {
+      this._modalAddressSelect$.unsubscribe();
+    }
   }
 
   selectPayMethod(paymentMethod: PaymentMethod) {

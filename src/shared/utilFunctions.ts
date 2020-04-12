@@ -34,7 +34,7 @@ export function randomFloat(
 
 export function extractPatchFromFormGroup(oldObject: object, fGroup: FormGroup): any {
   const fieldsModified: any = {};
-  Object.keys(oldObject).map((key: string) => {
+  Object.keys(oldObject).forEach((key: string) => {
     if (fGroup.controls[key] && Reflect.get(oldObject, key) !== fGroup.controls[key].value) {
       fieldsModified[key] = fGroup.controls[key].value;
     }
@@ -44,7 +44,7 @@ export function extractPatchFromFormGroup(oldObject: object, fGroup: FormGroup):
 
 export function getObjectFromFormGroup<T>(fGroup: FormGroup): T {
   const object: any = {};
-  Object.keys(fGroup.controls).map((key: string) => {
+  Object.keys(fGroup.controls).forEach((key: string) => {
     if (fGroup.controls[key]) {
       object[key] = fGroup.controls[key].value;
     }
