@@ -15,7 +15,7 @@ import {ShippingService} from '../../services/shipping.service';
 import {DeliveryOption} from '../../models/deliveryOption';
 import {AuthService} from '../../services/auth.service';
 import {ProductService} from '../../services/product.service';
-import {CheckoutModel} from '../../models/checkout.model';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -101,14 +101,10 @@ export class CartComponent implements OnDestroy {
 
   saveOrder() {
     if (this.prodAmount.size) {
-      const checkoutObj: CheckoutModel = {
-        addressId: this.currentAddress?.id,
-        productsIdQuantity: Array.from(this.prodAmount)
-          .map((pair: [Product, number]) => {
-            return {productId: pair[0].id, quantity: pair[1]};
-          })
-      };
-      localStorage.setItem('order', JSON.stringify(checkoutObj));
+      CartService.saveOrder(
+        Array.from(this.prodAmount).map((pair: [Product, number]) => pair),
+        this.currentAddress?.id
+      );
     }
   }
 
