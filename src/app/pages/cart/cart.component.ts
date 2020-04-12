@@ -93,8 +93,10 @@ export class CartComponent implements OnDestroy {
       });
   }
 
-  removeFromCart(id: string) {
-    this._cartStore.dispatch(Remove(id));
+  removeFromCart(product: Product) {
+    this._cartStore.dispatch(Remove(product.id));
+    this.prodAmount.delete(product);
+    this._updateCost();
   }
 
   changeAmount(product: Product, amount: number) {
@@ -111,6 +113,7 @@ export class CartComponent implements OnDestroy {
     }
   }
 
+  // TODO: Substituir por cálculo real
   private _calculateCostShipping(cep: string, mapProdQuantity: Map<Product, number>) {
     const prodIdQuantity = Array.from(mapProdQuantity)
       .map((pairIdQuantity: [Product, number]) => {
