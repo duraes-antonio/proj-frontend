@@ -8,7 +8,7 @@ export class NotificationModel {
   readonly type: TypeNotification;
   readonly classIcon: string;
   readonly url: string;
-  private readonly mapIconNotif = {
+  private readonly _mapIconNotif = {
     [TypeNotification.PASSWORD_UPDATED]: 'fas fa-key',
     [TypeNotification.ORDER_ON_DELIVERY]: 'fas fa-shipping-fast',
     [TypeNotification.ORDER_DELIVERED]: 'fas fa-gift',
@@ -27,7 +27,7 @@ export class NotificationModel {
     this.date = date;
     this.url = url;
     this.type = type;
-    this.classIcon = this.mapIconNotif[type];
+    this.classIcon = this._mapIconNotif[type];
   }
 
   private _read = false;

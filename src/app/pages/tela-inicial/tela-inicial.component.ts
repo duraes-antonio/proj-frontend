@@ -12,8 +12,8 @@ import {DataTests} from '../../../shared/dataTests';
 export class TelaInicialComponent {
 
   // TODO: Receber lista de components do banco
-  public readonly sliders: Slider[] = [...DataTests.sliders];
+  readonly sliders: Slider[] = [...DataTests.sliders];
   // public readonly cartoes: ListCard[] = [new ListCard(1)];
-  public readonly listsProd: ListProduct[] = [...DataTests.listProducts];
-  public readonly listsMarket: ListMarket[] = [...DataTests.listMarkets];
+  readonly listsProd: ListProduct[] = [...DataTests.listProducts];
+  readonly listsMarket: ListMarket[] = [...DataTests.listMarkets];
 }

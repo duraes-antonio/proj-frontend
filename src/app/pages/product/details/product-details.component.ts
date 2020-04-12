@@ -33,34 +33,34 @@ export class ProductDetailsComponent implements OnDestroy {
   /*TODO: Substituir por requisições*/
   seqProd = [...DataTests.listProducts][0];
   reviews: Review[] = DataTests.reviews;
-  avgRating: number = this.calcAvgRating(this.reviews, 2);
+  avgRating: number = this._calcAvgRating(this.reviews, 2);
   addresses: Address[] = DataTests.addresses;
   deliveryOpts: DeliveryOption[] = DataTests.deliveryOptions;
 
   /*TODO: Remover após ter dados em um banco de dados*/
-  private _routeSub$: Subscription;
-  private _cart$: Subscription;
+  private readonly _routeSub$: Subscription;
+  private readonly _cart$: Subscription;
   private _cartProdIds: string[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private cartStore: Store<Cart>,
-    private dialog: MatDialog
+    private readonly _route: ActivatedRoute,
+    private readonly _router: Router,
+    private readonly _cartStore: Store<Cart>,
+    private readonly _dialog: MatDialog
   ) {
-    this._routeSub$ = route.params.subscribe(
+    this._routeSub$ = _route.params.subscribe(
       params => {
         const idProduto = +params['id'];
         const prod = Product2Service.getById(idProduto);
 
         if (!prod) {
-          router.navigate([routesFrontend.notFound]);
+          _router.navigate([routesFrontend.notFound]);
         } else {
           this.product = prod;
           this.prodInCart = this._cartProdIds.some(id => id === prod.id);
         }
       });
-    this._cart$ = cartStore.subscribe(
+    this._cart$ = _cartStore.subscribe(
       (res: any) => {
         const currProdId = this.product ? this.product.id : 0;
         this._cartProdIds = (res.cart as Cart).productsId;
@@ -78,23 +78,23 @@ export class ProductDetailsComponent implements OnDestroy {
 
   showModalShipp(CEP: string) {
     /*TODO: Chamar serviço para calculo de frete*/
-    const dialogRef = this.dialog.open(
+    const dialogRef = this._dialog.open(
       ModalShippingMatComponent,
       ModalShippingMatComponent.getConfig({optionsDelivery: this.deliveryOpts})
     );
     dialogRef.componentInstance.action.subscribe(
       (delivery: DeliveryOption) => {
-        this.updateChosenDelivery(delivery);
+        this._updateChosenDelivery(delivery);
       });
     dialogRef.componentInstance.selectAddress.subscribe(
       () => {
-        this.dialog.closeAll();
+        this._dialog.closeAll();
         this.showModalAdress();
       });
   }
 
   showModalAdress() {
-    const dialogRef = this.dialog.open(
+    const dialogRef = this._dialog.open(
       ModalAddressComponent,
       ModalAddressComponent.getConfig({
         showInputCEP: true,
@@ -103,38 +103,38 @@ export class ProductDetailsComponent implements OnDestroy {
     );
     dialogRef.componentInstance.action.subscribe(
       (cep: string) => {
-        this.dialog.closeAll();
+        this._dialog.closeAll();
         this.showModalShipp(cep);
       });
   }
 
   showModalPayments() {
-    this.dialog.open(ModalPaymentMatComponent, ModalPaymentMatComponent.getConfig());
+    this._dialog.open(ModalPaymentMatComponent, ModalPaymentMatComponent.getConfig());
   }
 
   addToCart(id: string) {
-    this.cartStore.dispatch(Add(id));
+    this._cartStore.dispatch(Add(id));
   }
 
   remFromCart(id: string) {
-    this.cartStore.dispatch(Remove(id));
+    this._cartStore.dispatch(Remove(id));
   }
 
   sliceText(text: string, numTerms: number) {
     return text.split(' ').slice(0, 40).join(' ');
   }
 
-  private updateChosenDelivery(delivery: DeliveryOption) {
-    this.deliveryChosen = delivery;
-  }
-
-  private calcAvgRating(ratings: Review[], qtdDecimals = 2): number {
-    return calcAverage(ratings, (aval: Review) => aval.value, qtdDecimals);
-  }
-
   buy(product: Product) {
     this.addToCart(product.id);
     CartService.saveOrder([[product, 1]]);
-    this.router.navigate([routesFrontend.checkout]);
+    this._router.navigate([routesFrontend.checkout]);
+  }
+
+  private _updateChosenDelivery(delivery: DeliveryOption) {
+    this.deliveryChosen = delivery;
+  }
+
+  private _calcAvgRating(ratings: Review[], qtdDecimals = 2): number {
+    return calcAverage(ratings, (aval: Review) => aval.value, qtdDecimals);
   }
 }

@@ -12,7 +12,7 @@ export class UserService {
 
   private _endpoint = `${environment.apiUrl}/user`;
 
-  constructor(private _http: HttpClient) {
+  constructor(private readonly _http: HttpClient) {
   }
 
   post(obj: { email: string, name: string, password: string }): Observable<LoginReturn> {

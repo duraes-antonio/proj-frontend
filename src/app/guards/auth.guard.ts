@@ -8,7 +8,8 @@ import {routesFrontend} from '../../shared/constants/routesFrontend';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private _router: Router) { }
+  constructor(private readonly _router: Router) {
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -17,11 +18,11 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.loginAndReturn(state.url);
+    this._loginAndReturn(state.url);
     return false;
   }
 
-  private loginAndReturn(urlOrigin: string) {
+  private _loginAndReturn(urlOrigin: string) {
     AuthService.urlPrevius = urlOrigin;
     this._router.navigate([routesFrontend.login]);
   }

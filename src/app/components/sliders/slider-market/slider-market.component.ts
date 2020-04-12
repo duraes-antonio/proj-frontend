@@ -21,11 +21,11 @@ export class SliderMarketComponent {
     this._list = list;
 
     if (list) {
-      this.optionsGlide = this.getOptionsGlid(list.items.length);
+      this.optionsGlide = this._getOptionsGlid(list.items.length);
     }
   }
 
-  private getOptionsGlid(countItens: number): any {
+  private _getOptionsGlid(countItens: number): any {
     return {
       animationDuration: 300,
       type: 'slider',

@@ -22,7 +22,7 @@ export class ModalAddressComponent {
   addressChosenId = 0;
 
   readonly getMsg = getMsgFront;
-  private readonly text = {
+  private readonly _text = {
     cancelTitle: 'Cancelar',
     confirmTitle: 'Calcular',
     confirmTitleOnlyAddress: 'Selecionar',
@@ -31,10 +31,10 @@ export class ModalAddressComponent {
     modalDesc: 'Abaixo será possível conferir os prazos e custos de entrega desse produto.',
     modalDescOnlyAddress: 'Após escolher, será possível conferir os prazos e custos de entrega.'
   };
-  readonly title = this.data.showInputCEP ? this.text.modalTitle : this.text.modalTitleOnlyAddress;
-  readonly desc = this.data.showInputCEP ? this.text.modalDesc : this.text.modalDescOnlyAddress;
-  readonly btnCancelTitle = this.text.cancelTitle;
-  readonly btnActionTitle = this.data.showInputCEP ? this.text.confirmTitle : this.text.confirmTitleOnlyAddress;
+  readonly title = this.data.showInputCEP ? this._text.modalTitle : this._text.modalTitleOnlyAddress;
+  readonly desc = this.data.showInputCEP ? this._text.modalDesc : this._text.modalDescOnlyAddress;
+  readonly btnCancelTitle = this._text.cancelTitle;
+  readonly btnActionTitle = this.data.showInputCEP ? this._text.confirmTitle : this._text.confirmTitleOnlyAddress;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IModalAddressData) {
   }

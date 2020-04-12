@@ -13,7 +13,7 @@ export class FooterComponent implements OnDestroy {
   _userRoles: ERole[] = [ERole.UNKNOWN];
   _currYear: number = (new Date()).getFullYear();
 
-  private _userLogged$: Subscription;
+  private readonly _userLogged$: Subscription;
 
   constructor() {
     this._userRoles = AuthService.userLogged?.roles ?? this._userRoles;

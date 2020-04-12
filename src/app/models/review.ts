@@ -22,7 +22,7 @@ export class Review implements ReviewAdd {
 
   constructor(
     value: number, title: string, comment: string, userName: string,
-    userAvatarUrl: string, productId: string, id: number = 0, date?: Date) {
+    userAvatarUrl: string, productId: string, id = 0, date?: Date) {
     this.id = id;
     this.productId = productId;
     this.comment = comment;

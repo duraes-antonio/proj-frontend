@@ -33,7 +33,7 @@ export class SidenavComponent {
   ];
   readonly actionLogout: LinkAction = new LinkAction('Sair', routesFrontend.home, 'fas fa-sign-out-alt');
 
-  constructor(private auth: AuthService) {
+  constructor(private readonly _auth: AuthService) {
   }
 
   _show = false;
@@ -60,7 +60,7 @@ export class SidenavComponent {
   }
 
   logout() {
-    this.auth.logout()
+    this._auth.logout()
       .pipe(take(1))
       .subscribe(() => {
         this.close();

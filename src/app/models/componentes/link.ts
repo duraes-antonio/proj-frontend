@@ -1,8 +1,8 @@
 'use strict';
 
 export class Link {
-  public text: string;
-  public url: string;
+  text: string;
+  url: string;
 
   constructor(text: string, url: string) {
     this.url = url;

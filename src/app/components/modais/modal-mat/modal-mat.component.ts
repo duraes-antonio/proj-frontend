@@ -18,38 +18,38 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
 
-  private content?: HTMLElement;
-  private footer?: HTMLElement;
-  private header?: HTMLElement;
-  private modal?: HTMLElement;
+  private _content?: HTMLElement;
+  private _footer?: HTMLElement;
+  private _header?: HTMLElement;
+  private _modal?: HTMLElement;
 
   ngOnDestroy(): void {
     document.body.style.overflow = 'auto';
   }
 
   ngAfterViewInit(): void {
-    this.modal = document.getElementsByClassName('mat-dialog-container')[0] as HTMLElement;
-    this.content = document.getElementById('modal-content') as HTMLElement;
-    this.footer = document.getElementById('modal-footer') as HTMLElement;
-    this.header = document.getElementById('modal-header') as HTMLElement;
+    this._modal = document.getElementsByClassName('mat-dialog-container')[0] as HTMLElement;
+    this._content = document.getElementById('modal-content') as HTMLElement;
+    this._footer = document.getElementById('modal-footer') as HTMLElement;
+    this._header = document.getElementById('modal-header') as HTMLElement;
     document.body.style.overflow = 'unset';
-    this.modalResize();
+    this._modalResize();
   }
 
   @HostListener('window:resize', ['$event'])
-  private modalResize(): void {
-    if (this.modal && this.header && this.content && this.footer) {
-      this.modal.style.setProperty(`--header-height`, `${this.header.offsetHeight}px`);
-      this.modal.style.setProperty(`--footer-height`, `${this.footer.offsetHeight}px`);
+  private _modalResize(): void {
+    if (this._modal && this._header && this._content && this._footer) {
+      this._modal.style.setProperty(`--header-height`, `${this._header.offsetHeight}px`);
+      this._modal.style.setProperty(`--footer-height`, `${this._footer.offsetHeight}px`);
 
       if (window.innerWidth <= widthMaxSmall) {
-        const internalHeight = this.header.offsetHeight
-          + this.content.offsetHeight
-          + this.footer.offsetHeight;
-        const footerMTop = this.modal.offsetHeight - internalHeight - 75;
-        this.footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
+        const internalHeight: number = this._header.offsetHeight
+          + this._content.offsetHeight
+          + this._footer.offsetHeight;
+        const footerMTop: number = this._modal.offsetHeight - internalHeight - 75;
+        this._footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
       } else {
-        this.footer.style.setProperty('--footer-margin-top', `${10}px`);
+        this._footer.style.setProperty('--footer-margin-top', `${10}px`);
       }
     }
   }

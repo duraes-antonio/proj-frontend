@@ -35,10 +35,10 @@ export class CartComponent implements OnDestroy {
   private _modalSelect$?: Subscription;
 
   constructor(
-    private _cartStore: Store<Cart>,
-    private _addressServ: AddressService,
-    private _dialog: MatDialog,
-    private _shippingServ: ShippingService
+    private readonly _cartStore: Store<Cart>,
+    private readonly _addressServ: AddressService,
+    private readonly _dialog: MatDialog,
+    private readonly _shippingServ: ShippingService
   ) {
     // Inscreva-se p/ receber atualizações do carrinho
     this._cart$ = this._cartStore.subscribe(
@@ -50,7 +50,7 @@ export class CartComponent implements OnDestroy {
         if (ids && ids.length) {
           this.productsChosen = Product2Service.getAll(ids);
           this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
-          this.updateCost();
+          this._updateCost();
         }
       });
 
@@ -63,7 +63,7 @@ export class CartComponent implements OnDestroy {
           if (addresses.length) {
             this.userAddresses = addresses;
             this.currentAddress = addresses[0];
-            this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
+            this._calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
           }
         });
     }
@@ -86,7 +86,7 @@ export class CartComponent implements OnDestroy {
       .pipe(take(1))
       .subscribe(() => {
         this.currentAddress = tempAddress;
-        this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
+        this._calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
       });
   }
 
@@ -96,7 +96,7 @@ export class CartComponent implements OnDestroy {
 
   changeAmount(product: Product, amount: number) {
     this.prodAmount.set(product, amount);
-    this.updateCost();
+    this._updateCost();
   }
 
   saveOrder() {
@@ -108,7 +108,7 @@ export class CartComponent implements OnDestroy {
     }
   }
 
-  private calculateCostShipping(cep: string, mapProdQuantity: Map<Product, number>) {
+  private _calculateCostShipping(cep: string, mapProdQuantity: Map<Product, number>) {
     const prodIdQuantity = Array.from(mapProdQuantity)
       .map((pairIdQuantity: [Product, number]) => {
         return {productId: pairIdQuantity[0].id, quantity: pairIdQuantity[1]};
@@ -120,14 +120,14 @@ export class CartComponent implements OnDestroy {
       });
   }
 
-  private updateCost() {
+  private _updateCost() {
     this.totalCostProducts = ProductService.calculateCostFromArray(
       Array.from(this.prodAmount)
         .map((productQuantity: [Product, number]) => productQuantity)
     );
 
     if (this.currentAddress) {
-      this.calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
+      this._calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
     }
   }
 }

@@ -23,8 +23,8 @@ export class FormLoginComponent {
   readonly _routes = routesFrontend;
 
   constructor(
-    private _auth: AuthService,
-    private _router: Router
+    private readonly _auth: AuthService,
+    private readonly _router: Router
   ) {
   }
 

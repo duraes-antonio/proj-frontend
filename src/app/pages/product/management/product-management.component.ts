@@ -34,8 +34,8 @@ export class ProductManagementComponent {
   _window = window;
 
   constructor(
-    private _dialog: MatDialog,
-    private _productServ: ProductService
+    private readonly _dialog: MatDialog,
+    private readonly _productServ: ProductService
   ) {
   }
 

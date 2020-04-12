@@ -23,7 +23,7 @@ import {ModalManageAddressComponent} from '../../components/modais/modal-create-
 export class CheckoutComponent implements AfterViewInit, OnDestroy {
 
   addressesUser: Address[] = [];
-  readonly paymentMethods: PaymentMethod[] = this.getPaymentMethods();
+  readonly paymentMethods: PaymentMethod[] = this._getPaymentMethods();
   readonly routes = routesFrontend;
   addressDelivery?: Address;
   methodChosen?: PaymentMethod;
@@ -38,10 +38,10 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
   private _modalAddressSelect$?: Subscription;
 
   constructor(
-    private _addressServ: AddressService,
-    private _dialog: MatDialog,
-    private _productServ: ProductService,
-    private _shippingServ: ShippingService
+    private readonly _addressServ: AddressService,
+    private readonly _dialog: MatDialog,
+    private readonly _productServ: ProductService,
+    private readonly _shippingServ: ShippingService
   ) {
     if (AuthService.isLoggedIn()) {
       this._addressServ.get()
@@ -77,7 +77,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
           this.productsCost = ProductService.calculateCostFromArray(this.productsQuantity);
 
           if (this.addressDelivery) {
-            this.updateCostDelivery(this.addressDelivery.zipCode, this.productsQuantity);
+            this._updateCostDelivery(this.addressDelivery.zipCode, this.productsQuantity);
           }
         });
     }
@@ -108,7 +108,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       .pipe(take(1))
       .subscribe(() => {
         this.addressDelivery = tempAddress;
-        this.updateCostDelivery(tempAddress.zipCode, this.productsQuantity);
+        this._updateCostDelivery(tempAddress.zipCode, this.productsQuantity);
       });
   }
 
@@ -121,11 +121,11 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       .pipe(take(1))
       .subscribe((address: Address) => {
         this.addressDelivery = address;
-        this.updateCostDelivery(address.zipCode, this.productsQuantity);
+        this._updateCostDelivery(address.zipCode, this.productsQuantity);
       });
   }
 
-  private getCardPaymentOptions(): PaymentMethodOption[] {
+  private _getCardPaymentOptions(): PaymentMethodOption[] {
     return [
       {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${this._pathImagesPayment}/american-express.webp`},
       {title: EPaymentName.DINERS, urlImage: `${this._pathImagesPayment}/diners.webp`},
@@ -137,9 +137,9 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     ];
   }
 
-  private getPaymentMethods(): PaymentMethod[] {
-    const anotherOptions = this.getSecondaryPaymentOptions();
-    const cardOptions = this.getCardPaymentOptions();
+  private _getPaymentMethods(): PaymentMethod[] {
+    const anotherOptions = this._getSecondaryPaymentOptions();
+    const cardOptions = this._getCardPaymentOptions();
     return [
       {
         urlImageMethod: `${this._pathImagesPayment}/methods/pagseguro.webp`,
@@ -169,7 +169,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     ];
   }
 
-  private getSecondaryPaymentOptions(): PaymentMethodOption[] {
+  private _getSecondaryPaymentOptions(): PaymentMethodOption[] {
     return [
       {title: EPaymentName.BOLETO, urlImage: `${this._pathImagesPayment}/boleto.webp`},
       {title: EPaymentName.MERCADO_PAGO, urlImage: `${this._pathImagesPayment}/mercado-pago.webp`},
@@ -178,7 +178,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     ];
   }
 
-  private updateCostDelivery(zipCode: string, productsQuantity: [Product, number][]) {
+  private _updateCostDelivery(zipCode: string, productsQuantity: [Product, number][]) {
     this._shippingServ.calculateCostDays(
       zipCode,
       productsQuantity.map(prodQuantity => {

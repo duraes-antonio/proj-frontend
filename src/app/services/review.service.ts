@@ -10,11 +10,11 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class ReviewService {
-  private _routeApi = `${environment.apiUrl}/address`;
+  private readonly _routeApi = `${environment.apiUrl}/address`;
 
   constructor(
-    private _http: HttpClient,
-    private _router: Router
+    private readonly _http: HttpClient,
+    private readonly _router: Router
   ) {
   }
 

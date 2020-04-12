@@ -1,5 +1,5 @@
 'use strict';
 
 export class Cart {
-  public readonly productsId: string[] = [];
+  readonly productsId: string[] = [];
 }

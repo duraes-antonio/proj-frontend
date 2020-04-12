@@ -28,7 +28,7 @@ $margin-l-r: 24px;
 
   &__item {
     padding: 8px 15px;
-    @extend %color-text-sec--dark;;
+    @extend %color-text-sec--dark;
 
     &:not(:last-child) {
       border-bottom: 1px solid #ddd;

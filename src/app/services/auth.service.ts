@@ -23,8 +23,8 @@ export class AuthService {
   private _routeApi = `${environment.apiUrl.replace(/\/$/, '')}/auth`;
 
   constructor(
-    private _http: HttpClient,
-    private _router: Router
+    private readonly _http: HttpClient,
+    private readonly _router: Router
   ) {
   }
 
@@ -53,7 +53,7 @@ export class AuthService {
     if (!token) {
       return false;
     }
-    const data = AuthService.decodeToken(token);
+    const data = AuthService._decodeToken(token);
     return !!data && moment().isBefore(data.exp * 1000);
   }
 
@@ -61,12 +61,12 @@ export class AuthService {
     const token = AuthService.getTokenLocal();
 
     if (AuthService.isLoggedIn() && !AuthService.userLogged && token) {
-      AuthService.userLogged = AuthService.decodeToken(token) as User ?? null;
+      AuthService.userLogged = AuthService._decodeToken(token) as User ?? null;
       AuthService.userLoggedEmitter.emit(true);
     }
   }
 
-  private static decodeToken(jwt: string):
+  private static _decodeToken(jwt: string):
     { iat: number, exp: number, email: string, name: string, roles: ERole[] } | null {
     try {
       return jwt_decode(jwt);

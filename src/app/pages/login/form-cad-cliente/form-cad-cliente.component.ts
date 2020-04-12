@@ -16,8 +16,8 @@ import {UserService} from '../../../services/user.service';
 export class FormCadClienteComponent {
 
   constructor(
-    private _userServ: UserService,
-    private _router: Router
+    private readonly _userServ: UserService,
+    private readonly _router: Router
   ) {
   }
 

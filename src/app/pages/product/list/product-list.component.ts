@@ -16,17 +16,17 @@ export class ProductListComponent implements OnDestroy {
 
   filterText = '';
   prods: Product[] = [];
-  private params$: Subscription;
+  private readonly _params$: Subscription;
 
-  constructor(private route: ActivatedRoute) {
-    this.params$ = this.route.queryParams.subscribe((params: Params) => {
+  constructor(private readonly _route: ActivatedRoute) {
+    this._params$ = this._route.queryParams.subscribe((params: Params) => {
       this.filterText = params && params['text'] ? params['text'] : '';
       this.textSearch(new FilterProduct(1, 10, this.filterText));
     });
   }
 
   ngOnDestroy(): void {
-    this.params$.unsubscribe();
+    this._params$.unsubscribe();
   }
 
   textSearch(filter: FilterProduct) {

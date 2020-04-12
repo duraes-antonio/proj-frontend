@@ -16,7 +16,7 @@ export class Order {
   readonly dateDelivery?: Date;
 
   constructor(
-    id: number = 0, items: ItemOrder[], state: EStateOrder,
+    id = 0, items: ItemOrder[], state: EStateOrder,
     delivery: DeliveryOption, address: Address, date?: Date, dateDelivery?: Date
   ) {
     this.id = id;

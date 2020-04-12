@@ -12,7 +12,7 @@ export class ShippingService {
 
   private _endpointUrl = `${environment.apiUrl}/shipping`;
 
-  constructor(private _http: HttpClient) {
+  constructor(private readonly _http: HttpClient) {
   }
 
   /*TODO: Chamar serviço do backend quando estiver pronto*/

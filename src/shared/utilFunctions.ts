@@ -28,7 +28,7 @@ export function filterByText<T>(
 }
 
 export function randomFloat(
-  min: number = 0, max: number = Number.MAX_SAFE_INTEGER): number {
+  min = 0, max: number = Number.MAX_SAFE_INTEGER): number {
   return (Math.random() * (max - min)) + min;
 }
 
@@ -53,7 +53,7 @@ export function getObjectFromFormGroup<T>(fGroup: FormGroup): T {
 }
 
 export function randomInt(
-  min: number = 0, max: number = Number.MAX_SAFE_INTEGER): number {
+  min = 0, max: number = Number.MAX_SAFE_INTEGER): number {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 

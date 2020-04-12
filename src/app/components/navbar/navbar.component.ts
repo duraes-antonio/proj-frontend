@@ -24,13 +24,13 @@ export class NavbarComponent implements OnDestroy {
   cartProdsIds: number[] = [];
   userLogged = false;
   routes = routesFrontend;
-  private _cart$: Subscription;
-  private _userLogged$: Subscription;
+  private readonly _cart$: Subscription;
+  private readonly _userLogged$: Subscription;
 
   constructor(
-    private _store: Store<Cart>,
-    private _router: Router,
-    private _auth: AuthService
+    private readonly _store: Store<Cart>,
+    private readonly _router: Router,
+    private readonly _auth: AuthService
   ) {
     this._cart$ = this._store.subscribe((res: any) => {
       this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];

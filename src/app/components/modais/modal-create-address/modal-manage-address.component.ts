@@ -56,7 +56,7 @@ export class ModalManageAddressComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IModalManageAddressData,
-    private _addressServ: AddressService
+    private readonly _addressServ: AddressService
   ) {
   }
 

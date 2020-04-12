@@ -14,8 +14,8 @@ import {DataTests} from '../../shared/dataTests';
 export class ProductService {
 
   constructor(
-    private _http: HttpClient,
-    private _router: Router
+    private readonly _http: HttpClient,
+    private readonly _router: Router
   ) {
   }
 

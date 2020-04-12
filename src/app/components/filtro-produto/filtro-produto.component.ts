@@ -34,9 +34,9 @@ export class FiltroProdutoComponent {
 
   set produtos(produtos: Product[]) {
     this._produtos = produtos;
-    this.ratingsInit = this.prepareRatings(produtos);
-    this.categoriesInit = this.prepareCategory(produtos);
-    this.discountsInit = this.prepareDiscounts(produtos);
+    this.ratingsInit = this._prepareRatings(produtos);
+    this.categoriesInit = this._prepareCategory(produtos);
+    this.discountsInit = this._prepareDiscounts(produtos);
     this.freeDeliveryInit = produtos.some(p => p.freeDelivery);
   }
 
@@ -97,14 +97,14 @@ export class FiltroProdutoComponent {
     this.filterEmit.emit(this.filter);
   }
 
-  private prepareRatings(prods: Product[]): number[] {
+  private _prepareRatings(prods: Product[]): number[] {
     return [0, 1, 2, 3, 4, 5]
       .filter(num =>
         prods.some(p => Math.floor(p.avgReview) === num)
       );
   }
 
-  private prepareCategory(prods: Product[]): Set<Category> {
+  private _prepareCategory(prods: Product[]): Set<Category> {
     return new Set(
       prods
         .map(p => p.categories)
@@ -112,7 +112,7 @@ export class FiltroProdutoComponent {
     );
   }
 
-  private prepareDiscounts(prods: Product[]): number[][] {
+  private _prepareDiscounts(prods: Product[]): number[][] {
     return [[1, 10], [11, 25], [26, 40], [41, 60], [61, 80], [81, 99]]
       .filter(desc =>
         prods.some(p =>
