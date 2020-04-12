@@ -7,11 +7,13 @@ import {routesFrontend} from '../../../shared/constants/routesFrontend';
 import {take} from 'rxjs/operators';
 import {AddressService} from '../../services/address.service';
 import {utilDOM} from '../../../shared/util.dom';
-import {CheckoutModel} from '../../models/checkout.model';
 import {AuthService} from '../../services/auth.service';
 import {ShippingService} from '../../services/shipping.service';
-import {Observable} from 'rxjs';
-import {DeliveryOption} from '../../models/deliveryOption';
+import {ModalAddressComponent} from '../../components/modais/modal-address/modal-address.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Subscription} from 'rxjs';
+import {CartService} from '../../services/cart.service';
+import {ModalManageAddressComponent} from '../../components/modais/modal-create-address/modal-manage-address.component';
 
 @Component({
   selector: 'app-checkout',
@@ -20,55 +22,62 @@ import {DeliveryOption} from '../../models/deliveryOption';
 })
 export class CheckoutComponent implements AfterViewInit, OnDestroy {
 
-  private _pathImagesPayment = `${paths.assets}/payments`;
+  addressesUser: Address[] = [];
   readonly paymentMethods: PaymentMethod[] = this.getPaymentMethods();
   readonly routes = routesFrontend;
   addressDelivery?: Address;
   methodChosen?: PaymentMethod;
+  products: Product[] = [];
+  productsQuantity: [Product, number][] = [];
   productsPreview: Product[] = [];
   productsPreviewTitle = '';
   productQuantityHidden = 0;
+  private readonly _pathImagesPayment = `${paths.assets}/payments`;
   productsCost = 0;
   deliveryCost = 0;
+  private _modalAddressSelect$?: Subscription;
 
   constructor(
     private _addressServ: AddressService,
+    private _dialog: MatDialog,
     private _productServ: ProductService,
     private _shippingServ: ShippingService
   ) {
     if (AuthService.isLoggedIn()) {
-      this._addressServ.getMain()
+      this._addressServ.get()
         .pipe(take(1))
-        .subscribe((address?: Address) => this.addressDelivery = address);
+        .subscribe((addresses: Address[]) => {
+          if (!addresses.length) {
+            this.addressesUser = addresses;
+            this.addressDelivery = addresses[0];
+          }
+        });
     }
 
-    const checkout = this.getCheckoutData();
+    const order = CartService.getOrder();
 
     // Se no carrinho houver ids de produtos, então busque eles no backend
-    if (checkout?.productsIdQuantity) {
+    if (order?.productsIdQuantity) {
       this._productServ.get({
-        ids: checkout.productsIdQuantity.map(p => p.productId),
+        ids: order.productsIdQuantity.map(p => p.productId),
         currentPage: 1,
         perPage: 3
       }).pipe(take(1))
         .subscribe((prods: Product[]) => {
+          this.productsQuantity = order.productsIdQuantity
+            .map(prodQuantity => [
+              prods.find(p => p.id === prodQuantity.productId) as Product,
+              prodQuantity.quantity
+            ]);
           this.productsPreview = prods.slice(0, 3);
           this.productsPreviewTitle = this.productsPreview
             .map(p => p.title.split(' ').slice(0, 4).join(' '))
             .join(', ');
           this.productQuantityHidden = prods.length - 3;
-          const prodsQuantity: [Product, number][] = checkout.productsIdQuantity
-            .map(prodQuantity => [
-              prods.find(p => p.id === prodQuantity.productId) as Product,
-              prodQuantity.quantity
-            ]);
-          this.productsCost = ProductService.calculateCostFromArray(prodsQuantity);
+          this.productsCost = ProductService.calculateCostFromArray(this.productsQuantity);
 
           if (this.addressDelivery) {
-            this._shippingServ.calculateCostDays(
-              this.addressDelivery.zipCode, checkout?.productsIdQuantity
-            ).pipe(take(1))
-              .subscribe(deliveryOpt => this.deliveryCost = deliveryOpt.cost);
+            this.updateCostDelivery(this.addressDelivery.zipCode, this.productsQuantity);
           }
         });
     }
@@ -80,15 +89,40 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     utilDOM.setBodyBackgroundColor('unset');
+    this._modalAddressSelect$?.unsubscribe();
   }
 
   selectPayMethod(paymentMethod: PaymentMethod) {
     this.methodChosen = paymentMethod;
   }
 
-  private getCheckoutData(): CheckoutModel | undefined {
-    const checkout = localStorage.getItem('order');
-    return checkout ? JSON.parse(checkout) : undefined;
+  showModalSelectionAdress() {
+    let tempAddress: Address;
+    const modalAddr = this._dialog.open(
+      ModalAddressComponent,
+      ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.addressesUser})
+    );
+    this._modalAddressSelect$ = modalAddr.componentInstance.chosenAddress
+      .subscribe((addr: Address) => tempAddress = addr);
+    modalAddr.componentInstance.action
+      .pipe(take(1))
+      .subscribe(() => {
+        this.addressDelivery = tempAddress;
+        this.updateCostDelivery(tempAddress.zipCode, this.productsQuantity);
+      });
+  }
+
+  showModalAddAdress() {
+    const modalAddr = this._dialog.open(
+      ModalManageAddressComponent,
+      ModalManageAddressComponent.getConfig({address: this.addressDelivery})
+    );
+    modalAddr.componentInstance.action
+      .pipe(take(1))
+      .subscribe((address: Address) => {
+        this.addressDelivery = address;
+        this.updateCostDelivery(address.zipCode, this.productsQuantity);
+      });
   }
 
   private getCardPaymentOptions(): PaymentMethodOption[] {
@@ -100,15 +134,6 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       {title: EPaymentName.HIPERCARD, urlImage: `${this._pathImagesPayment}/hipercard.webp`},
       {title: EPaymentName.MASTERCARD, urlImage: `${this._pathImagesPayment}/mastercard.webp`},
       {title: EPaymentName.VISA, urlImage: `${this._pathImagesPayment}/visa.webp`},
-    ];
-  }
-
-  private getSecondaryPaymentOptions(): PaymentMethodOption[] {
-    return [
-      {title: EPaymentName.BOLETO, urlImage: `${this._pathImagesPayment}/boleto.webp`},
-      {title: EPaymentName.MERCADO_PAGO, urlImage: `${this._pathImagesPayment}/mercado-pago.webp`},
-      {title: EPaymentName.PAGSEGURO, urlImage: `${this._pathImagesPayment}/pagseguro.webp`},
-      {title: EPaymentName.PAYPAL, urlImage: `${this._pathImagesPayment}/paypal.webp`},
     ];
   }
 
@@ -142,6 +167,25 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
         title: 'PayPal'
       },
     ];
+  }
+
+  private getSecondaryPaymentOptions(): PaymentMethodOption[] {
+    return [
+      {title: EPaymentName.BOLETO, urlImage: `${this._pathImagesPayment}/boleto.webp`},
+      {title: EPaymentName.MERCADO_PAGO, urlImage: `${this._pathImagesPayment}/mercado-pago.webp`},
+      {title: EPaymentName.PAGSEGURO, urlImage: `${this._pathImagesPayment}/pagseguro.webp`},
+      {title: EPaymentName.PAYPAL, urlImage: `${this._pathImagesPayment}/paypal.webp`},
+    ];
+  }
+
+  private updateCostDelivery(zipCode: string, productsQuantity: [Product, number][]) {
+    this._shippingServ.calculateCostDays(
+      zipCode,
+      productsQuantity.map(prodQuantity => {
+        return {productId: prodQuantity[0].id, quantity: prodQuantity[1]};
+      })
+    ).pipe(take(1))
+      .subscribe(deliveryOpt => this.deliveryCost = deliveryOpt.cost);
   }
 }
 

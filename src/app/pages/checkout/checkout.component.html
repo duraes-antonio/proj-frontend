@@ -65,9 +65,14 @@
           <span class="address-fields__item"><span
             class="address-fields__item-title">Estado:</span> {{addressDelivery.state}}</span>
         </div>
-        <button class="btn-general" color="primary" mat-button>
-          Alterar endereço
-        </button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr">
+          <button (click)="showModalSelectionAdress()" class="btn-general" color="primary" mat-button>
+            Selecionar outro
+          </button>
+          <button (click)="showModalAddAdress()" class="btn-general" color="primary" mat-button>
+            Editar endereço
+          </button>
+        </div>
       </div>
 
       <!-- Alerta para criar endereço E botão p/ criar -->
@@ -82,7 +87,7 @@
             </span>
           </div>
         </div>
-        <button class="btn-general" color="primary" mat-button>
+        <button (click)="showModalAddAdress()" class="btn-general" color="primary" mat-button>
           Cadastrar endereço
         </button>
       </ng-template>
