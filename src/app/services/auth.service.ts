@@ -20,7 +20,7 @@ export class AuthService {
   static urlPrevius = '';
   static userLoggedEmitter = new EventEmitter<boolean>();
   static userLogged: User | null;
-  private _routeApi = `${environment.apiUrl}/auth`;
+  private _routeApi = `${environment.apiUrl.replace(/\/$/, '')}/auth`;
 
   constructor(
     private _http: HttpClient,

@@ -1,6 +1,27 @@
 'use strict';
 
+import {CheckoutOrder} from '../models/checkoutOrder';
+import {Product} from '../models/product';
+
 export class CartService {
+
+  static saveOrder(productsQuantity: [Product, number][], addressId?: string) {
+    if (productsQuantity.length) {
+      const checkoutObj: CheckoutOrder = {
+        addressId: addressId ?? undefined,
+        productsIdQuantity: productsQuantity
+          .map((pair: [Product, number]) => {
+            return {productId: pair[0].id, quantity: pair[1]};
+          })
+      };
+      localStorage.setItem('order', JSON.stringify(checkoutObj));
+    }
+  }
+
+  static getOrder(): CheckoutOrder | undefined {
+    const order = localStorage.getItem('order');
+    return order ? JSON.parse(order) : undefined;
+  }
 
   static addProducts(prodId: number): void {
     const cartFromStorage = window.localStorage.getItem('cart');
