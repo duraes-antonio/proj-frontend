@@ -1,13 +1,5 @@
 'use strict';
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnDestroy,
-  Output
-} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostListener, Input, OnDestroy, Output} from '@angular/core';
 import {widthMaxSmall} from '../../../../shared/constants/dom';
 
 @Component({
@@ -54,7 +46,7 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
         const internalHeight = this.header.offsetHeight
           + this.content.offsetHeight
           + this.footer.offsetHeight;
-        const footerMTop = this.modal.offsetHeight - internalHeight - 48;
+        const footerMTop = this.modal.offsetHeight - internalHeight - 75;
         this.footer.style.setProperty('--footer-margin-top', `${footerMTop}px`);
       } else {
         this.footer.style.setProperty('--footer-margin-top', `${10}px`);

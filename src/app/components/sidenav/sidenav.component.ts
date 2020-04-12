@@ -3,6 +3,7 @@ import {User} from '../../models/user';
 import {routesFrontend} from '../../../shared/constants/routesFrontend';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/auth.service';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidenav',
@@ -59,9 +60,11 @@ export class SidenavComponent {
   }
 
   logout() {
-    this.auth.logout().subscribe(() => {
-      this.close();
-    });
+    this.auth.logout()
+      .pipe(take(1))
+      .subscribe(() => {
+        this.close();
+      });
   }
 }
 

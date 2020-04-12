@@ -2,7 +2,7 @@
 
 export interface AddressAdd {
   readonly street: string;
-  readonly number: number;
+  readonly number?: number;
   readonly zipCode: string;
   readonly neighborhood: string;
   readonly city: string;
