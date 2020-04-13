@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {DeliveryOption} from '../models/deliveryOption';
+import {DeliveryOption} from '../models/delivery-option';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';

@@ -9,11 +9,11 @@ import {AddressService} from '../../services/address.service';
 import {utilDOM} from '../../../shared/util.dom';
 import {AuthService} from '../../services/auth.service';
 import {ShippingService} from '../../services/shipping.service';
-import {ModalAddressComponent} from '../../components/modais/modal-address/modal-address.component';
+import {ModalAddressComponent} from '../../components/dialogs/modal-address/modal-address.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
 import {CartService} from '../../services/cart.service';
-import {ModalManageAddressComponent} from '../../components/modais/modal-manage-address/modal-manage-address.component';
+import {ModalManageAddressComponent} from '../../components/dialogs/modal-manage-address/modal-manage-address.component';
 
 @Component({
   selector: 'app-checkout',

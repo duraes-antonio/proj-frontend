@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ListMarket} from '../../../models/componentes/listMarket';
+import {ListMarket} from '../../../models/componentes/list-market';
 
 @Component({
   selector: 'app-slider-market',

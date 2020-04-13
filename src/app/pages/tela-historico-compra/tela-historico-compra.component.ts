@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Order} from '../../models/order';
 import {fmtTimestamp} from '../../../shared/constants/formats';
 import {DataTests} from '../../../shared/dataTests';
-import {EStateOrder} from '../../enum/stateOrder';
+import {EStateOrder} from '../../enum/state-order';
 
 @Component({
   selector: 'app-tela-historico-compra',

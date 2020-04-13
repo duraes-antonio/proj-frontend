@@ -1,24 +1,23 @@
 'use strict';
 import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
 import {DataTests} from '../../../../shared/dataTests';
 import {Product} from '../../../models/product';
 import {Review} from '../../../models/review';
 import {Address} from '../../../models/address';
-import {DeliveryOption} from '../../../models/deliveryOption';
-import {Cart} from '../../../models/cart.model';
+import {DeliveryOption} from '../../../models/delivery-option';
+import {Cart} from '../../../models/cart';
 import {Add, Remove} from '../../../actions/cart.action';
 import {Product2Service} from '../../../services/product2.service';
-import {calcAverage} from '../../../../shared/utilFunctions';
-import {ModalAddressComponent} from '../../../components/modais/modal-address/modal-address.component';
-import {ModalShippingMatComponent} from '../../../components/modais/modal-shipping-mat/modal-shipping-mat.component';
-import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment-mat/modal-payment-mat.component';
+import {ModalAddressComponent} from '../../../components/dialogs/modal-address/modal-address.component';
+import {ModalShippingMatComponent} from '../../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
+import {ModalPaymentMatComponent} from '../../../components/dialogs/modal-payment-mat/modal-payment-mat.component';
 import {routesFrontend} from '../../../../shared/constants/routesFrontend';
 import {CartService} from '../../../services/cart.service';
-import {ModalManageReviewComponent} from '../../../components/modais/modal-manage-review/modal-manage-review.component';
+import {ModalManageReviewComponent} from '../../../components/dialogs/modal-manage-review/modal-manage-review.component';
 import {ReviewService} from '../../../services/review.service';
 import {AddressService} from '../../../services/address.service';
 import {ProductService} from '../../../services/product.service';
@@ -40,7 +39,7 @@ export class ProductDetailsComponent implements OnDestroy {
   seqProd = [...DataTests.listProducts][0];
   reviews: Review[] = [];
   reviewUser?: Review;
-  avgRating = 3.4;
+  avgRating = 0;
   addresses: Address[] = [];
   showButtonRate = true;
 
@@ -68,6 +67,7 @@ export class ProductDetailsComponent implements OnDestroy {
           _router.navigate([routesFrontend.notFound]);
         } else {
           this.product = prod;
+          this.avgRating = prod.avgReview;
           this.prodInCart = CartService.containsProduct(prod.id);
         }
         this._reviewServ.get({currentPage: 1, perPage: 10, productId})

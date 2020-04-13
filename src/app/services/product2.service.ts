@@ -1,6 +1,6 @@
 import {DataTests} from '../../shared/dataTests';
 import {Product} from '../models/product';
-import {FilterProduct} from '../models/filters/filterProductUser.model';
+import {FilterProduct} from '../models/filters/filter-product-user';
 import {Observable, of} from 'rxjs';
 
 export class Product2Service {

@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app.routing.module';
 import {ComponentesModule} from './components/componentes.module';
 import {registerLocaleData} from '@angular/common';
-import {ProdutoModule} from './pages/product/produto.module';
+import {ProductModule} from './pages/product/product.module';
 import {StoreModule} from '@ngrx/store';
 import {cartReducer} from './reducers/cart.reducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -31,7 +31,7 @@ registerLocaleData(localePt);
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ProdutoModule,
+    ProductModule,
     StoreModule.forRoot({
       cart: cartReducer
     })

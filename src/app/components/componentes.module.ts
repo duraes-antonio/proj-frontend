@@ -17,11 +17,11 @@ import {MatListModule} from '@angular/material/list';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
-import {FiltroProdutoComponent} from './filtro-produto/filtro-produto.component';
+import {FilterProductComponent} from './filter-product/filter-product.component';
 import {FooterComponent} from './footer/footer.component';
 import {InputNumberComponent} from './input/input-number/input-number.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
-import {ModalModule} from './modais/modal.module';
+import {ModalModule} from './dialogs/modal.module';
 import {NavbarComponent} from './navbar/navbar.component';
 import {PaginationComponent} from './pagination/pagination.component';
 import {RatingListComponent} from './rating-list/rating-list.component';
@@ -38,7 +38,7 @@ import {StarRatingModule} from './star-rating/star-rating.module';
     FooterComponent,
     SidenavComponent,
     ListaCartaoComponent,
-    FiltroProdutoComponent,
+    FilterProductComponent,
     PaginationComponent,
     RatingListComponent,
     InputNumberComponent,
@@ -49,7 +49,7 @@ import {StarRatingModule} from './star-rating/star-rating.module';
     SidenavComponent,
     ListaCartaoComponent,
     SearchBarComponent,
-    FiltroProdutoComponent,
+    FilterProductComponent,
     PaginationComponent,
     RatingListComponent,
     InputNumberComponent,

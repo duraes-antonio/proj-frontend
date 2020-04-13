@@ -1,6 +1,6 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {genSequence, randomInt} from '../../../../shared/utilFunctions';
+import {genSequence, randomInt} from '../../../../shared/util';
 // @ts-ignore
 import Glide from '@glidejs/glide';
 

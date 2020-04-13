@@ -1,5 +1,5 @@
 'use strict';
-import {TypeComponent} from '../enum/typeComponent';
+import {TypeComponent} from '../enum/type-component';
 
 export interface ISequence<T> {
   readonly id: number;

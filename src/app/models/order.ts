@@ -1,8 +1,8 @@
 'use strict';
 import {Address} from './address';
-import {ItemOrder} from './itemOrder';
-import {EStateOrder} from '../enum/stateOrder';
-import {DeliveryOption} from './deliveryOption';
+import {ItemOrder} from './item-order';
+import {EStateOrder} from '../enum/state-order';
+import {DeliveryOption} from './delivery-option';
 
 export class Order {
   readonly id: number;

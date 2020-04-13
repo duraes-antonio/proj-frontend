@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
-import {FilterProductBackend} from '../models/filters/filterProductUser.model';
+import {FilterProductBackend} from '../models/filters/filter-product-user';
 import {DataTests} from '../../shared/dataTests';
 
 @Injectable({

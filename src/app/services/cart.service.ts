@@ -1,6 +1,6 @@
 'use strict';
 
-import {CheckoutOrder} from '../models/checkoutOrder';
+import {CheckoutOrder} from '../models/checkout-order';
 import {Product} from '../models/product';
 
 export class CartService {

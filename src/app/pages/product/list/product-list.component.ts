@@ -2,13 +2,13 @@
 import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {FilterProduct} from '../../../models/filters/filterProductUser.model';
+import {FilterProduct} from '../../../models/filters/filter-product-user';
 import {Product2Service} from '../../../services/product2.service';
 import {take} from 'rxjs/operators';
 import {Product} from '../../../models/product';
 
 @Component({
-  selector: 'app-tela-lista-produto',
+  selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ListProduct} from '../../../models/componentes/listProduct';
+import {ListProduct} from '../../../models/componentes/list-product';
 import {routesFrontend} from '../../../../shared/constants/routesFrontend';
 
 @Component({

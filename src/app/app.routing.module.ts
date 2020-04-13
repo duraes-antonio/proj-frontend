@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {ProdutoRoutingModule} from './pages/product/produto-routing.module';
+import {ProductRoutingModule} from './pages/product/product-routing.module';
 import {AuthGuard} from './guards/auth.guard';
 import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
 import {routesFrontend} from '../shared/constants/routesFrontend';
@@ -21,8 +21,8 @@ const routes: Routes = [
   {
     path: 'carrinho',
     loadChildren: () =>
-      import('./pages/cart/tela-carrinho.module')
-        .then(m => m.TelaCarrinhoModule)
+      import('./pages/cart/cart.module')
+        .then(m => m.CartModule)
   },
   {
     path: 'historico-compra',
@@ -34,13 +34,13 @@ const routes: Routes = [
   {
     path: routesConst.home,
     loadChildren: () =>
-      import('./pages/tela-inicial/tela-inical.module')
-        .then(m => m.TelaInicalModule)
+      import('./pages/home/home.module')
+        .then(m => m.HomeModule)
   },
   {
     path: routesConst.login,
-    loadChildren: () => import('./pages/login/tela-login.module')
-      .then(m => m.TelaLoginModule)
+    loadChildren: () => import('./pages/login/login.module')
+      .then(m => m.LoginModule)
   },
   {
     path: '404',
@@ -64,7 +64,7 @@ const extraOptions: ExtraOptions = {
   imports: [
     RouterModule.forRoot(routes, extraOptions),
     CheckoutRoutingModule,
-    ProdutoRoutingModule
+    ProductRoutingModule
   ],
   exports: [RouterModule]
 })

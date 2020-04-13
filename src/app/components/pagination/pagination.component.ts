@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {genSequence} from '../../../shared/utilFunctions';
+import {genSequence} from '../../../shared/util';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({

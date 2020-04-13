@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {NotificationModel} from '../../models/notification';
-import {Cart} from '../../models/cart.model';
+import {Cart} from '../../models/cart';
 import {DataTests} from '../../../shared/dataTests';
 import {AuthService} from '../../services/auth.service';
 import {routesFrontend} from '../../../shared/constants/routesFrontend';

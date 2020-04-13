@@ -2,7 +2,7 @@
 import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
 import {masks} from '../input-masks/maskFunctions';
 import {validation} from './validationFunctions';
-import {fieldSize} from '../constants/fieldSize';
+import {userSizes} from '../constants/fieldSize';
 import {EErrorType} from './msgErrorFunctionsFront';
 
 export const validators = {
@@ -27,7 +27,7 @@ export const validators = {
 
       const email = control.value.toString().trim();
 
-      if (!validation.atMaxLen(email, fieldSize.emailMaxLen)) {
+      if (!validation.atMaxLen(email, userSizes.emailMaxLen)) {
         return {[EErrorType.MAX_LEN]: true};
       }
 

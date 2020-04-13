@@ -1,4 +1,4 @@
-export const fieldSize = {
+export const userSizes = {
   emailMaxLen: 128,
   nameMaxLen: 150,
   passwordMaxLen: 64,
@@ -53,12 +53,4 @@ export const reviewSizes = {
   ratingMax: 5,
   titleMin: 10,
   titleMax: 128,
-};
-
-export const userSizes = {
-  emailMax: 128,
-  nameMax: 128,
-  passwordMax: 128,
-  passwordMin: 8,
-  phoneMax: 16
 };

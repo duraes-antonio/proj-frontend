@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {EErrorType, getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 import {routesFrontend} from '../../../../shared/constants/routesFrontend';
 import {validators} from '../../../../shared/validations/validatorsCustom';
-import {fieldSize} from '../../../../shared/constants/fieldSize';
+import {userSizes} from '../../../../shared/constants/fieldSize';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -15,7 +15,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class FormLoginComponent {
 
-  readonly _sizes = fieldSize;
+  readonly _sizes = userSizes;
   readonly _controlEmail = new FormControl(null, validators.emailValidator());
   readonly _controlPass = new FormControl(
     null, validators.textValidator(this._sizes.passwordMaxLen, this._sizes.passwordMinLen));

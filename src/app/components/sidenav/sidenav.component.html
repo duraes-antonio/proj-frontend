@@ -1,6 +1,6 @@
 <mat-sidenav-container (backdropClick)="close()" [ngClass]="{'sidenav--show': opened}">
   <mat-sidenav #sidenav (keydown.escape)="close()" class="sidenav" disableClose>
-    <div class="info-user__section">
+    <div *ngIf="user" class="info-user__section">
 
       <!-- Área de imagem avatar, nome e email -->
       <div class="info-user__avatar">

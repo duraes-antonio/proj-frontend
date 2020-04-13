@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy} from '@angular/core';
-import {ListLink} from '../../models/componentes/listLink';
+import {ListLink} from '../../models/componentes/list-link';
 import {AuthService} from '../../services/auth.service';
 import {Subscription} from 'rxjs';
 import {ERole} from '../../enum/roles';

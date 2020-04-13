@@ -4,15 +4,15 @@ import {Product} from '../../../models/product';
 import {DataTests} from '../../../../shared/dataTests';
 import {Product2Service} from '../../../services/product2.service';
 import {MatDialog} from '@angular/material/dialog';
-import {ModalProductMatComponent} from '../../../components/modais/modal-product-mat/modal-product-mat.component';
+import {ModalProductMatComponent} from '../../../components/dialogs/modal-product-mat/modal-product-mat.component';
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
-import {EProductSort} from '../../../models/filters/filterProductUser.model';
+import {EProductSort} from '../../../models/filters/filter-product-user';
 import {ProductService} from '../../../services/product.service';
 import {take} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-tela-gerencia-produto',
+  selector: 'app-product-management',
   templateUrl: './product-management.component.html',
   styleUrls: ['./product-management.component.scss']
 })

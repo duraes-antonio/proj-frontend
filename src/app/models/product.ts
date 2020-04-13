@@ -26,9 +26,9 @@ export class Product implements ProductAdd {
   visible = false;
 
   constructor(
-    title: string, desc: string, priceSell: number, urlImg?: string,
-    percOff?: number, categories?: Category[], freeDelivery?: boolean,
-    id?: number, amountAvailable?: number, avgReview?: number
+      title: string, desc: string, priceSell: number, urlImg?: string,
+      percOff?: number, categories?: Category[], freeDelivery?: boolean,
+      id?: number, amountAvailable?: number, avgReview?: number
   ) {
     this.title = title;
     this.desc = desc;

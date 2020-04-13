@@ -3,19 +3,19 @@ import {Product} from '../app/models/product';
 import {Category} from '../app/models/category';
 import {Review} from '../app/models/review';
 import {Address} from '../app/models/address';
-import {DeliveryOption} from '../app/models/deliveryOption';
-import {randomBoolean, randomFloat, randomInt} from './utilFunctions';
+import {DeliveryOption} from '../app/models/delivery-option';
+import {randomBoolean, randomFloat, randomInt} from './util';
 import {User} from '../app/models/user';
 import {NotificationModel} from '../app/models/notification';
 import {Slide} from '../app/models/componentes/slide';
 import {Market} from '../app/models/market';
 import {Card} from '../app/models/card';
 import {Slider} from '../app/models/componentes/slider';
-import {ListProduct} from '../app/models/componentes/listProduct';
-import {ListMarket} from '../app/models/componentes/listMarket';
+import {ListProduct} from '../app/models/componentes/list-product';
+import {ListMarket} from '../app/models/componentes/list-market';
 import {Order} from '../app/models/order';
-import {EStateOrder} from '../app/enum/stateOrder';
-import {ItemOrder} from '../app/models/itemOrder';
+import {EStateOrder} from '../app/enum/state-order';
+import {ItemOrder} from '../app/models/item-order';
 import {ERole} from '../app/enum/roles';
 
 export class DataTests {

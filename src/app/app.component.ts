@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ListLink} from './models/componentes/listLink';
+import {ListLink} from './models/componentes/list-link';
 import {Link} from './models/componentes/link';
 import {User} from './models/user';
 import {DataTests} from '../shared/dataTests';

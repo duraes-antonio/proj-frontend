@@ -1,5 +1,5 @@
 'use strict';
-import {TypeNotification} from '../enum/typeNotification';
+import {TypeNotification} from '../enum/type-notification';
 
 export class NotificationModel {
   readonly id: number;

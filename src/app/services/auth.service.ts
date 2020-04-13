@@ -1,6 +1,6 @@
 'use strict';
 import {EventEmitter, Injectable} from '@angular/core';
-import {IUserLogin} from '../interfaces/userLogin';
+import {UserLogin} from '../interfaces/user-login';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user';
 import {environment} from '../../environments/environment';
@@ -79,7 +79,7 @@ export class AuthService {
     AuthService.userLoggedEmitter.emit(true);
   }
 
-  login(dataLogin: IUserLogin): Observable<LoginReturn> {
+  login(dataLogin: UserLogin): Observable<LoginReturn> {
     return this._http
       .post<LoginReturn>(`${this._routeApi}/authenticate`, dataLogin)
       .pipe(

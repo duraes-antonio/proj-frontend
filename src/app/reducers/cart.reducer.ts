@@ -1,7 +1,7 @@
 'use strict';
 import {CartActionType} from '../actions/cart.action';
-import {Cart} from '../models/cart.model';
-import {ActionModel} from '../models/action.model';
+import {Cart} from '../models/cart';
+import {ActionModel} from '../models/action';
 import {CartService} from '../services/cart.service';
 import {Action} from '@ngrx/store';
 

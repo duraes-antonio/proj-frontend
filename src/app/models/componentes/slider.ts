@@ -1,6 +1,6 @@
 'use strict';
 import {Slide} from './slide';
-import {TypeComponent} from '../../enum/typeComponent';
+import {TypeComponent} from '../../enum/type-component';
 import {ASequence} from '../../interfaces/sequence';
 
 export class Slider extends ASequence<Slide> {

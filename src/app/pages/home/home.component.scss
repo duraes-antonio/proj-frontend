@@ -1,0 +1,11 @@
+@import '../../../shared/styles/general';
+@import '../../../shared/styles/placeholders';
+
+.components {
+  @extend %flex-col;
+
+  .title-page-w-border {
+    text-align: center;
+    margin: 30px 0 18px;
+  }
+}
