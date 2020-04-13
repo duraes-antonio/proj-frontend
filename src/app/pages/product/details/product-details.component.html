@@ -147,7 +147,14 @@
 
   <!-- Avaliações -->
   <section class="product__section" id="reviews">
-    <span class="section-title">Avaliações</span>
+    <span class="section-title">
+      Avaliações
+      <button *ngIf="showButtonRate" class="btn-general" mat-raised-button>
+        <img alt=""
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Starball_Red.svg/1200px-Starball_Red.svg.png">
+        Avaliar
+      </button>
+    </span>
     <app-rating-list [ratings]="reviews"></app-rating-list>
     <!-- TODO: Tornar o componente de paginação responsivo -->
     <app-pagination [lengthPages]="14" [pageStart]="1"></app-pagination>

@@ -173,11 +173,11 @@
           </mat-menu>
         </div>
 
-        <span *ngIf="!item.visible" class="col s12 text-warning">
+        <div *ngIf="!item.visible" class="message-section message-section--blue">
           <i aria-hidden="true" class="fas fa-eye-slash"></i>
           Este produto não está visível para seus clientes.
           Para alterar, clique no menu (três pontos azuis) à direita.
-        </span>
+        </div>
       </div>
     </div>
 

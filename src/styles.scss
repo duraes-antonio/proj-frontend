@@ -1,3 +1,4 @@
+@import 'shared/styles/mixins';
 @import 'shared/styles/placeholders';
 @import 'shared/styles/scrollbar';
 @import 'shared/styles/variables';
@@ -30,8 +31,15 @@ a {
   }
 
   i {
-    margin-right: 8px;
     font-size: 20px;
+  }
+
+  img {
+    @include min-max-size(18px);
+  }
+
+  i, img {
+    margin-right: 8px;
   }
 
   &--full {

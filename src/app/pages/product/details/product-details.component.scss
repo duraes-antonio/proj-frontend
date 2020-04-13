@@ -36,24 +36,26 @@ $color-green: #00a650;
   }
 }
 
-.product__section {
-  //margin-bottom: 60px;
-}
-
-.product-info {
-  padding: 10px;
-
-  &__title {
-    @extend %color-text-prim;
-    font-weight: 500;
-    font-size: x-large;
-    line-height: 1.25;
+.product {
+  &__section {
+    padding: 0 2px;
   }
 
-  &__desc {
-    color: $color-sec--dark;
-    white-space: pre-wrap;
-    text-align: justify;
+  &-info {
+    padding: 10px;
+
+    &__title {
+      @extend %color-text-prim;
+      font-weight: 500;
+      font-size: x-large;
+      line-height: 1.25;
+    }
+
+    &__desc {
+      color: $color-sec--dark;
+      white-space: pre-wrap;
+      text-align: justify;
+    }
   }
 }
 
@@ -166,5 +168,23 @@ $color-green: #00a650;
 
   .smile-cry-icon {
     font-size: 30px;
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+
+  .btn-general {
+    margin-left: 20px;
+  }
+
+  @media (max-width: $width-max-small) {
+    justify-content: space-between;
+
+    .btn-general {
+      width: auto;
+      margin: 0;
+    }
   }
 }

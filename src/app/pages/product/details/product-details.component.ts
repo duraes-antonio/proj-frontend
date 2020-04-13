@@ -36,6 +36,7 @@ export class ProductDetailsComponent implements OnDestroy {
   avgRating: number = this._calcAvgRating(this.reviews, 2);
   addresses: Address[] = DataTests.addresses;
   deliveryOpts: DeliveryOption[] = DataTests.deliveryOptions;
+  showButtonRate = true;
 
   /*TODO: Remover após ter dados em um banco de dados*/
   private readonly _routeSub$: Subscription;
