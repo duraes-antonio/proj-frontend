@@ -13,7 +13,7 @@ import {ModalAddressComponent} from '../../components/modais/modal-address/modal
 import {MatDialog} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
 import {CartService} from '../../services/cart.service';
-import {ModalManageAddressComponent} from '../../components/modais/modal-create-address/modal-manage-address.component';
+import {ModalManageAddressComponent} from '../../components/modais/modal-manage-address/modal-manage-address.component';
 
 @Component({
   selector: 'app-checkout',
