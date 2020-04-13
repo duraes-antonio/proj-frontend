@@ -141,6 +141,12 @@
   }
 }
 
-.text-warning {
-  @extend %color-text-prim--light;
+.message-section--blue {
+  width: auto;
+  margin: 0 auto;
+
+  i {
+    color: white;
+    background-color: dodgerblue;
+  }
 }
