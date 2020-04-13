@@ -29,6 +29,7 @@ import {SearchBarComponent} from './search-bar/search-bar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {SliderModule} from './sliders/slider.module';
 import {StarRatingComponent} from './star-rating/star-rating.component';
+import {StarRatingModule} from './star-rating/star-rating.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     ListaCartaoComponent,
     FiltroProdutoComponent,
     PaginationComponent,
-    StarRatingComponent,
     RatingListComponent,
     InputNumberComponent,
   ],
@@ -51,7 +51,6 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     SearchBarComponent,
     FiltroProdutoComponent,
     PaginationComponent,
-    StarRatingComponent,
     RatingListComponent,
     InputNumberComponent,
   ],
@@ -74,7 +73,8 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     MatListModule,
     MatSidenavModule,
     ModalModule,
-    SliderModule
+    SliderModule,
+    StarRatingModule
   ],
   providers: [
     MatDialog,

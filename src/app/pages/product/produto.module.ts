@@ -19,6 +19,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {SliderModule} from '../../components/sliders/slider.module';
 import {MatMenuModule} from '@angular/material/menu';
+import {StarRatingModule} from '../../components/star-rating/star-rating.module';
 
 
 @NgModule({
@@ -27,25 +28,26 @@ import {MatMenuModule} from '@angular/material/menu';
     ProductDetailsComponent,
     ProductManagementComponent
   ],
-  imports: [
-    CommonModule,
-    ComponentesModule,
-    ProdutoRoutingModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatCheckboxModule,
-    MatTableModule,
-    MatSortModule,
-    SliderModule,
-    MatMenuModule
-  ],
+    imports: [
+        CommonModule,
+        ComponentesModule,
+        ProdutoRoutingModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+        MatTableModule,
+        MatSortModule,
+        SliderModule,
+        MatMenuModule,
+        StarRatingModule
+    ],
   exports: [
     ProductListComponent
   ],

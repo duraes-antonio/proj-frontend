@@ -16,6 +16,7 @@ import {ListMarket} from '../app/models/componentes/listMarket';
 import {Order} from '../app/models/order';
 import {EStateOrder} from '../app/enum/stateOrder';
 import {ItemOrder} from '../app/models/itemOrder';
+import {ERole} from '../app/enum/roles';
 
 export class DataTests {
   private static itemOrderId = 0;
@@ -189,25 +190,34 @@ export class DataTests {
   ];
   static readonly users: User[] = [
     // tslint:disable-next-line:max-line-length
-    new User(
-      'Maria da Silva',
-      'maria@gmail.com',
-      'https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117'),
-    new User(
-      'Kayba Santos',
-      'kayba@gmail.com',
-      'https://i.ytimg.com/vi/6Y9moYCgD2M/hqdefault.jpg'
-    ),
-    new User(
-      'Cleitin O Brabo',
-      'cleitin@gmail.com',
-      'https://vignette.wikia.nocookie.net/yugioh/images/c/c8/MaximillionPegasus.jpg/revision/latest?cb=20150530140609'
-    ),
-    new User(
-      'Cleidimarço dos Santos',
-      'cleidimarco@gmail.com',
-      'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg'
-    ),
+    {
+      name: 'Maria da Silva',
+      email: 'maria@gmail.com',
+      avatarUrl: 'https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117',
+      roles: [ERole.CUSTOMER],
+      id: '1515151'
+    },
+    {
+      name: 'Kayba Santos',
+      email: 'kayba@gmail.com',
+      avatarUrl: 'https://i.ytimg.com/vi/6Y9moYCgD2M/hqdefault.jpg',
+      roles: [ERole.CUSTOMER],
+      id: '5161615151'
+    },
+    {
+      name: 'Cleitin O Brabo',
+      email: 'cleitin@gmail.com',
+      avatarUrl: 'https://vignette.wikia.nocookie.net/yugioh/images/c/c8/MaximillionPegasus.jpg/revision/latest?cb=20150530140609',
+      roles: [ERole.CUSTOMER],
+      id: '32432423432'
+    },
+    {
+      name: 'Cleidimarço dos Santos',
+      email: 'cleidimarco@gmail.com',
+      avatarUrl: 'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg',
+      roles: [ERole.CUSTOMER],
+      id: '989859858998'
+    },
   ];
   static readonly itemsOrder: ItemOrder[] = [
     new ItemOrder(

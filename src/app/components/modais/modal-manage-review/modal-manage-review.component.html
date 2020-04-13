@@ -1,0 +1,39 @@
+<app-modal-mat (action)="saveReview()" (closed)="closed.emit()"
+               [actionDisabled]="reviewFormGroup.invalid"
+               [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
+               [modalDesc]="modalDesc" [modalTitle]="modalTitle">
+  <form [formGroup]="reviewFormGroup" class="address-form row">
+
+    <!-- Nota -->
+      <mat-label>Nota <span style="color: red">*</span></mat-label>
+      <app-star-rating [valueRating]="0" [maxStars]="5" ></app-star-rating>
+      <mat-hint>Digite somente os digítos. Ex: 29264699</mat-hint>
+      <mat-error *ngIf="reviewFormGroup.controls['rating'].invalid">
+        {{getMsg(reviewFormGroup.controls['rating'])}}
+      </mat-error>
+
+    <!-- Título -->
+    <mat-form-field class="col s12">
+      <mat-label>Título <span style="color: red">*</span></mat-label>
+      <input #title [maxLength]="sizes.titleMax" formControlName="title" matInput type="text">
+      <mat-hint align="start">Escreva uma frase que resuma sua avaliação</mat-hint>
+      <mat-hint align="end">{{title.value.length}} / {{sizes.titleMax}}</mat-hint>
+      <mat-error *ngIf="reviewFormGroup.controls['title'].invalid">
+        {{getMsg(reviewFormGroup.controls['title'])}}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Comentário -->
+    <mat-form-field class="col s12">
+      <mat-label>Comentário <span style="color: red">*</span></mat-label>
+      <textarea #autosize="cdkTextareaAutosize" #fieldDescription [maxLength]="sizes.commentMax"
+                cdkAutosizeMaxRows="15" cdkAutosizeMinRows="3" cdkTextareaAutosize
+                formControlName="comment" matInput>
+      </textarea>
+      <mat-hint align="end">{{fieldDescription.value.length}} / {{sizes.commentMax}}</mat-hint>
+      <mat-error *ngIf="reviewFormGroup.controls['comment'].invalid">
+        {{getMsg(reviewFormGroup.controls['comment'])}}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</app-modal-mat>

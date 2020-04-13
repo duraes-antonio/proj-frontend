@@ -1,23 +1,23 @@
-<div *ngFor="let rating of ratings">
+<div *ngFor="let review of reviews">
   <div class="rating">
     <div class="rating__user-info">
       <div class="rating__user-avatar">
-        <img [src]="rating.userAvatarUrl" alt="Imagem de {{rating.userName}}, cliente da loja"
+        <img [src]="review.userAvatarUrl" alt="Imagem de {{review.userName}}, cliente da loja"
              class="rating__user-avatar-img">
       </div>
-      <span class="rating__user-name">{{rating.userName}}</span>
+      <span class="rating__user-name">{{review.userName}}</span>
     </div>
 
     <div class="rating__comment">
       <div class="rating__date-stars">
         <app-star-rating [fontSize]="16" [maxStars]="5"
-                         [showNumRatings]="false" [valueRating]="rating.value"
+                         [showNumRatings]="false" [valueRating]="review.rating"
                          style="margin-bottom: 3px;">
         </app-star-rating>
-        <span class="rating__date">{{rating.date | date: fmtData}}</span>
+        <span class="rating__date">{{review.date | date: fmtData}}</span>
       </div>
-      <span class="rating__summary">{{rating.title}}</span>
-      <span class="rating__full-text">{{rating.comment}}</span>
+      <span class="rating__summary">{{review.title}}</span>
+      <span class="rating__full-text">{{review.comment}}</span>
     </div>
   </div>
   <mat-divider></mat-divider>

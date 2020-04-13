@@ -12,7 +12,7 @@ import {take} from 'rxjs/operators';
 })
 export class SidenavComponent {
 
-  @Input() user = new User('', '');
+  @Input() user?: User;
   @Output() closed = new EventEmitter();
   @ViewChild('sidenav') sidenav?: MatSidenav;
   opened = false;

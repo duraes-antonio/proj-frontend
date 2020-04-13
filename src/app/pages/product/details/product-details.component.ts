@@ -1,7 +1,7 @@
 'use strict';
 import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
 import {DataTests} from '../../../../shared/dataTests';
@@ -18,6 +18,12 @@ import {ModalShippingMatComponent} from '../../../components/modais/modal-shippi
 import {ModalPaymentMatComponent} from '../../../components/modais/modal-payment-mat/modal-payment-mat.component';
 import {routesFrontend} from '../../../../shared/constants/routesFrontend';
 import {CartService} from '../../../services/cart.service';
+import {ModalManageReviewComponent} from '../../../components/modais/modal-manage-review/modal-manage-review.component';
+import {ReviewService} from '../../../services/review.service';
+import {AddressService} from '../../../services/address.service';
+import {ProductService} from '../../../services/product.service';
+import {AuthService} from '../../../services/auth.service';
+import {ShippingService} from '../../../services/shipping.service';
 
 @Component({
   selector: 'app-product-details',
@@ -32,10 +38,10 @@ export class ProductDetailsComponent implements OnDestroy {
 
   /*TODO: Substituir por requisições*/
   seqProd = [...DataTests.listProducts][0];
-  reviews: Review[] = DataTests.reviews;
-  avgRating: number = this._calcAvgRating(this.reviews, 2);
-  addresses: Address[] = DataTests.addresses;
-  deliveryOpts: DeliveryOption[] = DataTests.deliveryOptions;
+  reviews: Review[] = [];
+  reviewUser?: Review;
+  avgRating = 3.4;
+  addresses: Address[] = [];
   showButtonRate = true;
 
   /*TODO: Remover após ter dados em um banco de dados*/
@@ -47,12 +53,16 @@ export class ProductDetailsComponent implements OnDestroy {
     private readonly _route: ActivatedRoute,
     private readonly _router: Router,
     private readonly _cartStore: Store<Cart>,
-    private readonly _dialog: MatDialog
+    private readonly _dialog: MatDialog,
+    private readonly _addressServ: AddressService,
+    private readonly _productServ: ProductService,
+    private readonly _reviewServ: ReviewService,
+    private readonly _shippingServ: ShippingService,
   ) {
     this._routeSub$ = _route.params.subscribe(
       params => {
-        const idProduto = +params['id'];
-        const prod = Product2Service.getById(idProduto);
+        const productId = params['id'];
+        const prod = Product2Service.getById(productId);
 
         if (!prod) {
           _router.navigate([routesFrontend.notFound]);
@@ -60,6 +70,16 @@ export class ProductDetailsComponent implements OnDestroy {
           this.product = prod;
           this.prodInCart = CartService.containsProduct(prod.id);
         }
+        this._reviewServ.get({currentPage: 1, perPage: 10, productId})
+          .subscribe((reviews: Review[]) => this.reviews = reviews);
+
+        if (AuthService.isLoggedIn()) {
+          this._reviewServ.getByUserProduct(productId, AuthService.userLogged?.id as string)
+            .subscribe((review: Review) => this.reviewUser = review);
+        }
+
+        this._addressServ.get()
+          .subscribe((addresses: Address[]) => this.addresses = addresses);
       });
     this._cart$ = _cartStore.subscribe(
       (res: any) => {
@@ -76,18 +96,21 @@ export class ProductDetailsComponent implements OnDestroy {
 
   showModalShipp(CEP: string) {
     /*TODO: Chamar serviço para calculo de frete*/
-    const dialogRef = this._dialog.open(
-      ModalShippingMatComponent,
-      ModalShippingMatComponent.getConfig({optionsDelivery: this.deliveryOpts})
-    );
-    dialogRef.componentInstance.action.subscribe(
-      (delivery: DeliveryOption) => {
-        this._updateChosenDelivery(delivery);
-      });
-    dialogRef.componentInstance.selectAddress.subscribe(
-      () => {
-        this._dialog.closeAll();
-        this.showModalAdress();
+    this._shippingServ.getDeliveryOptions(CEP, [{quantity: 1, productId: this.product.id}])
+      .subscribe((deliveryOpts: DeliveryOption[]) => {
+        const dialogRef = this._dialog.open(
+          ModalShippingMatComponent,
+          ModalShippingMatComponent.getConfig({optionsDelivery: deliveryOpts})
+        );
+        dialogRef.componentInstance.action.subscribe(
+          (delivery: DeliveryOption) => {
+            this._updateChosenDelivery(delivery);
+          });
+        dialogRef.componentInstance.selectAddress.subscribe(
+          () => {
+            this._dialog.closeAll();
+            this.showModalAdress();
+          });
       });
   }
 
@@ -97,6 +120,20 @@ export class ProductDetailsComponent implements OnDestroy {
       ModalAddressComponent.getConfig({
         showInputCEP: true,
         addresses: this.addresses
+      })
+    );
+    dialogRef.componentInstance.action.subscribe(
+      (cep: string) => {
+        this._dialog.closeAll();
+        this.showModalShipp(cep);
+      });
+  }
+
+  showModalReview() {
+    const dialogRef = this._dialog.open(
+      ModalManageReviewComponent,
+      ModalManageReviewComponent.getConfig({
+        review: this.reviewUser
       })
     );
     dialogRef.componentInstance.action.subscribe(
@@ -130,9 +167,5 @@ export class ProductDetailsComponent implements OnDestroy {
 
   private _updateChosenDelivery(delivery: DeliveryOption) {
     this.deliveryChosen = delivery;
-  }
-
-  private _calcAvgRating(ratings: Review[], qtdDecimals = 2): number {
-    return calcAverage(ratings, (aval: Review) => aval.value, qtdDecimals);
   }
 }

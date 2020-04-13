@@ -10,6 +10,6 @@ import {fmtTimestamp} from '../../../shared/constants/formats';
 })
 export class RatingListComponent {
 
-  @Input() ratings: Review[] = [];
+  @Input() reviews: Review[] = [];
   fmtData: string = fmtTimestamp;
 }

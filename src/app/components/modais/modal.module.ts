@@ -16,6 +16,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {ModalManageAddressComponent} from './modal-manage-address/modal-manage-address.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ModalManageReviewComponent } from './modal-manage-review/modal-manage-review.component';
+import {StarRatingModule} from '../star-rating/star-rating.module';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ModalProductMatComponent,
     ModalRecupSenhaComponent,
     ModalShippingMatComponent,
-    ModalManageAddressComponent
+    ModalManageAddressComponent,
+    ModalManageReviewComponent
   ],
   exports: [
     ModalMatComponent,
@@ -47,7 +50,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReactiveFormsModule,
     MatDialogModule,
     ScrollingModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    StarRatingModule,
   ],
   providers: [
     MatDialog

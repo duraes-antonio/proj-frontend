@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 import * as jwt_decode from 'jwt-decode';
 import * as moment from 'moment';
 import {take, tap} from 'rxjs/operators';
-import {ERole} from '../enum/roles';
 import {Router} from '@angular/router';
 import {routesFrontend} from '../../shared/constants/routesFrontend';
 
@@ -66,8 +65,7 @@ export class AuthService {
     }
   }
 
-  private static _decodeToken(jwt: string):
-    { iat: number, exp: number, email: string, name: string, roles: ERole[] } | null {
+  private static _decodeToken(jwt: string): TokenData | null {
     try {
       return jwt_decode(jwt);
     } catch (Error) {
@@ -114,7 +112,12 @@ export class AuthService {
   }
 }
 
-export class LoginReturn {
-  token = '';
-  user: User = new User('', '');
+export interface LoginReturn {
+  token: string;
+  user: User;
+}
+
+export interface TokenData extends User {
+  iat: number;
+  exp: number;
 }
