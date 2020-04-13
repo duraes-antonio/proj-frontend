@@ -23,7 +23,7 @@ import {InputNumberComponent} from './input/input-number/input-number.component'
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
 import {ModalModule} from './modais/modal.module';
 import {NavbarComponent} from './navbar/navbar.component';
-import {PaginacaoComponent} from './paginacao/paginacao.component';
+import {PaginationComponent} from './pagination/pagination.component';
 import {RatingListComponent} from './rating-list/rating-list.component';
 import {SearchBarComponent} from './search-bar/search-bar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
@@ -38,7 +38,7 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     SidenavComponent,
     ListaCartaoComponent,
     FiltroProdutoComponent,
-    PaginacaoComponent,
+    PaginationComponent,
     StarRatingComponent,
     RatingListComponent,
     InputNumberComponent,
@@ -50,7 +50,7 @@ import {StarRatingComponent} from './star-rating/star-rating.component';
     ListaCartaoComponent,
     SearchBarComponent,
     FiltroProdutoComponent,
-    PaginacaoComponent,
+    PaginationComponent,
     StarRatingComponent,
     RatingListComponent,
     InputNumberComponent,

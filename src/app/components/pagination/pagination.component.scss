@@ -1,0 +1,54 @@
+@import '../../../shared/styles/mixins';
+@import '../../../shared/styles/placeholders';
+@import '../../../shared/styles/variables';
+
+.main-container {
+  margin: 20px 0 50px;
+
+  .caption {
+    text-align: center;
+    font-size: .8rem;
+    margin-bottom: 10px;
+    color: $color-prim--light;
+  }
+
+  .numbers {
+    @extend %center-flex;
+    flex-wrap: wrap;
+
+    /*TODO: Estender comportamento do botão texto (sem fundo)*/
+    &__button {
+      @extend %center-flex;
+      @include circle(32px, #f3f3f3);
+      user-select: none;
+      padding: 2px;
+      margin-right: 7px;
+
+      color: $color-prim--light;
+      font-size: .9rem;
+      font-weight: 400;
+      border-radius: 50%;
+      transition: background-color 400ms;
+
+      &.selected {
+        color: $text-color-sec;
+        background: $color-sec--light;
+        font-weight: 500;
+      }
+
+      &.disabled {
+        color: #ccc;
+        pointer-events: none;
+      }
+
+      &:not(.selected):hover {
+        background: rgba($color-sec--light, .4);
+      }
+
+      @media (max-width: $width-max-small) {
+        @include circle(28px, #f3f3f3);
+        font-size: .85rem;
+      }
+    }
+  }
+}
