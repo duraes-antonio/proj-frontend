@@ -4,7 +4,7 @@ import {Category} from '../app/models/category';
 import {Review} from '../app/models/review';
 import {Address} from '../app/models/address';
 import {DeliveryOption} from '../app/models/delivery-option';
-import {randomBoolean, randomFloat, randomInt} from './util';
+import {randomBoolean, randomFloat, randomInt, util} from './util';
 import {User} from '../app/models/user';
 import {NotificationModel} from '../app/models/notification';
 import {Slide} from '../app/models/componentes/slide';
@@ -15,7 +15,6 @@ import {ListProduct} from '../app/models/componentes/list-product';
 import {ListMarket} from '../app/models/componentes/list-market';
 import {Order} from '../app/models/order';
 import {EStateOrder} from '../app/enum/state-order';
-import {ItemOrder} from '../app/models/item-order';
 import {ERole} from '../app/enum/roles';
 
 export class DataTests {
@@ -219,12 +218,6 @@ export class DataTests {
       id: '989859858998'
     },
   ];
-  static readonly itemsOrder: ItemOrder[] = [
-    new ItemOrder(
-      ++DataTests.itemOrderId, randomInt(1, 1000), randomFloat(0, 2000),
-      randomInt(1, DataTests.products.length)
-    ),
-  ];
   static readonly markets: Market[] = [
     new Market(
       ++DataTests.marketId,
@@ -274,9 +267,51 @@ export class DataTests {
       'https://produto.mercadolivre.com.br/')
   ];
   static readonly orders: Order[] = [
-    new Order(++DataTests.orderId, [], EStateOrder.DELIVERED, new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)), DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)], new Date(), new Date()),
-    new Order(++DataTests.orderId, [], EStateOrder.DELIVERED, new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)), DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)], new Date(), new Date()),
-    new Order(++DataTests.orderId, [], EStateOrder.DELIVERED, new DeliveryOption(randomFloat(1, 100), randomInt(1, 25)), DataTests.addresses[randomInt(0, DataTests.addresses.length - 1)], new Date(), new Date()),
+    {
+      id: (++DataTests.orderId).toString(),
+      items: [
+        {
+          id: '1',
+          amount: 2,
+          productId: DataTests.products[0].id,
+          unitPrice: DataTests.products[0].priceWithDiscount
+        }],
+      state: EStateOrder.DELIVERED,
+      costDelivery: util.randomFloat(0, 100),
+      dateDelivery: new Date(),
+      addressTargetId: DataTests.addresses[0].id,
+      date: new Date(2020, 4, 12),
+      daysForDelivery: util.randomInt(0, 100)
+    },
+    {
+      id: (++DataTests.orderId).toString(),
+      items: [
+        {
+          id: '2',
+          amount: 2,
+          productId: DataTests.products[1].id,
+          unitPrice: DataTests.products[1].priceWithDiscount
+        },
+        {
+          id: '2',
+          amount: 95,
+          productId: DataTests.products[5].id,
+          unitPrice: DataTests.products[5].priceWithDiscount
+        },
+        {
+          id: '3',
+          amount: 7,
+          productId: DataTests.products[3].id,
+          unitPrice: DataTests.products[3].priceWithDiscount
+        }
+      ],
+      state: EStateOrder.DELIVERED,
+      costDelivery: util.randomFloat(0, 100),
+      dateDelivery: new Date(),
+      addressTargetId: DataTests.addresses[1].id,
+      date: new Date(2020, 3, 2),
+      daysForDelivery: util.randomInt(0, 100)
+    },
   ];
   static readonly listProducts: ListProduct[] = [
     new ListProduct('Ofertas da semana :D', DataTests.products, 1),
