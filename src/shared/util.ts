@@ -61,12 +61,68 @@ export function randomBoolean(): boolean {
   return Math.random() >= 0.5;
 }
 
+export function clearEmptyFields(obj: any): any {
+  if (!(obj instanceof Object)) {
+    return obj;
+  }
+
+  const objClean: any = {};
+  const emptys = [null, undefined, ''];
+
+  Object.keys(obj).forEach(k => {
+    if (emptys.indexOf(obj[k]) < 0) {
+      if (obj[k] instanceof Array && obj[k].length) {
+        const arrayClean = obj[k][0] instanceof Object
+          ? (obj[k] as Array<any>)
+            .map(item => clearEmptyFields(item))
+            .filter(item => Object.keys(item).length > 0)
+          : [...obj[k]];
+
+        if (arrayClean.length) {
+          objClean[k] = arrayClean;
+        }
+      } else if (obj[k] instanceof Object) {
+        const subObjectClean = clearEmptyFields(obj[k]);
+
+        if (Object.keys(subObjectClean).length > 0) {
+          objClean[k] = subObjectClean;
+        }
+      } else {
+        objClean[k] = obj[k];
+      }
+    }
+  });
+  return objClean;
+}
+
+export function primitiveFieldsToString(obj: any): any {
+  const objTransformed: any = {};
+
+  if (!(obj instanceof Object || obj instanceof Array)) {
+    return obj.toString();
+  }
+
+  Object.keys(obj).forEach(key => {
+    if (obj[key] instanceof Array) {
+      objTransformed[key] = (obj[key] as Array<any>)
+        .map(item => primitiveFieldsToString(item));
+    } else if (obj[key] instanceof Object) {
+      objTransformed[key] = primitiveFieldsToString(obj[key]);
+    } else {
+      objTransformed[key] = obj[key].toString();
+    }
+  });
+  return objTransformed;
+}
+
 export const util = {
   calcAverage: calcAverage,
-  getObjectFromFormGroup: getObjectFromFormGroup,
-  getPatchFromFormGroup: extractPatchFromFormGroup,
+  clearEmptyFields: clearEmptyFields,
   filterByText: filterByText,
   genSequence: genSequence,
+  getObjectFromFormGroup: getObjectFromFormGroup,
+  getPatchFromFormGroup: extractPatchFromFormGroup,
+  primitiveFieldsToString: primitiveFieldsToString,
   randomFloat: randomFloat,
   randomInt: randomInt,
   randomBoolean: randomBoolean,

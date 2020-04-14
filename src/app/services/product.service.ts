@@ -7,6 +7,7 @@ import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
 import {FilterProductBackend} from '../models/filters/filter-product-user';
 import {DataTests} from '../../shared/dataTests';
+import {util} from '../../shared/util';
 
 @Injectable({
   providedIn: 'root'
@@ -27,60 +28,6 @@ export class ProductService {
       .reduce((prev, current) => prev + current);
   }
 
-  clearEmptyFields(obj: any): any {
-    if (!(obj instanceof Object)) {
-      return obj;
-    }
-
-    const objClean: any = {};
-    const emptys = [null, undefined, ''];
-
-    Object.keys(obj).forEach(k => {
-      if (emptys.indexOf(obj[k]) < 0) {
-        if (obj[k] instanceof Array && obj[k].length) {
-          const arrayClean = obj[k][0] instanceof Object
-            ? (obj[k] as Array<any>)
-              .map(item => this.clearEmptyFields(item))
-              .filter(item => Object.keys(item).length > 0)
-            : [...obj[k]];
-
-          if (arrayClean.length) {
-            objClean[k] = arrayClean;
-          }
-        } else if (obj[k] instanceof Object) {
-          const subObjectClean = this.clearEmptyFields(obj[k]);
-
-          if (Object.keys(subObjectClean).length > 0) {
-            objClean[k] = subObjectClean;
-          }
-        } else {
-          objClean[k] = obj[k];
-        }
-      }
-    });
-    return objClean;
-  }
-
-  primitiveFieldsToString(obj: any): any {
-    const objTransformed: any = {};
-
-    if (!(obj instanceof Object || obj instanceof Array)) {
-      return obj.toString();
-    }
-
-    Object.keys(obj).forEach(key => {
-      if (obj[key] instanceof Array) {
-        objTransformed[key] = (obj[key] as Array<any>)
-          .map(item => this.primitiveFieldsToString(item));
-      } else if (obj[key] instanceof Object) {
-        objTransformed[key] = this.primitiveFieldsToString(obj[key]);
-      } else {
-        objTransformed[key] = obj[key].toString();
-      }
-    });
-    return objTransformed;
-  }
-
   delete(id: string): Observable<Product> {
     return this._http.delete<Product>(
       `${this._routeApi}/${id}`,
@@ -92,7 +39,7 @@ export class ProductService {
   get(filter?: FilterProductBackend): Observable<Product[]> {
     const params = filter
       ? new HttpParams({
-        fromObject: this.primitiveFieldsToString(this.clearEmptyFields(filter))
+        fromObject: util.primitiveFieldsToString(util.clearEmptyFields(filter))
       })
       : {};
     return of(DataTests.products
