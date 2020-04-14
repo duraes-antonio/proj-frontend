@@ -11,7 +11,7 @@
     <div class="rating__comment">
       <div class="rating__date-stars">
         <app-star-rating [fontSize]="16" [maxStars]="5"
-                         [showNumRatings]="false" [valueRating]="review.rating"
+                         [showNumRatings]="false" [startValue]="review.rating"
                          style="margin-bottom: 3px;">
         </app-star-rating>
         <span class="rating__date">{{review.date | date: fmtData}}</span>

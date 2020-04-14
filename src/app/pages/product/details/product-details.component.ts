@@ -41,7 +41,7 @@ export class ProductDetailsComponent implements OnDestroy {
   reviewUser?: Review;
   avgRating = 0;
   addresses: Address[] = [];
-  showButtonRate = true;
+  showButtonRate = false;
 
   /*TODO: Remover após ter dados em um banco de dados*/
   private readonly _routeSub$: Subscription;
@@ -133,7 +133,8 @@ export class ProductDetailsComponent implements OnDestroy {
     const dialogRef = this._dialog.open(
       ModalManageReviewComponent,
       ModalManageReviewComponent.getConfig({
-        review: this.reviewUser
+        review: this.reviewUser,
+        product: this.product
       })
     );
     dialogRef.componentInstance.action.subscribe(

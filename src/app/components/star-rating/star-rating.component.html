@@ -1,9 +1,11 @@
-<div class="stars-section">
-  <div #stars class="stars" id="stars">
-    <i *ngFor="let dif of diffAvgIdxs"
-       [ngClass]="dif >= 1 ? 'star--active' : (dif > 0 && 'star--incomp')"
+<div class="stars-section stars-section--{{align}}">
+  <div #stars (mouseleave)="resetHoverEffect()" [ngClass]="{'stars--interactive': interactive}" class="stars"
+       id="stars">
+    <i (click)="selectValue(i+1)" (mouseenter)="currentHovered = i"
+       *ngFor="let dif of diffAvgIdxs; let i = index"
+       [ngClass]="applyActiveFullStarStyle(i) ? 'star--active' : (dif > 0 && 'star--incomp')"
        aria-hidden="true" class="fa fa-star star">
     </i>
   </div>
-  <span *ngIf="numRatings > 0 && showNumRatings" class="rating-counter">({{numRatings}})</span>
+  <span *ngIf="quantityReviews > 0 && showNumRatings" class="rating-counter">({{quantityReviews}})</span>
 </div>

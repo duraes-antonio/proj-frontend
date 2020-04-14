@@ -2,18 +2,25 @@
                [actionDisabled]="reviewFormGroup.invalid"
                [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
                [modalDesc]="modalDesc" [modalTitle]="modalTitle">
-  <form [formGroup]="reviewFormGroup" class="address-form row">
+  <div class="product">
+    <figure class="product__figure">
+      <img [alt]="data.product.title" [src]="data.product.urlImage" class="product__figure-img">
+      <figcaption>{{data.product.title}}</figcaption>
+    </figure>
+  </div>
+  <form [formGroup]="reviewFormGroup" class="review-form">
 
     <!-- Nota -->
+    <div class="review-form__field">
       <mat-label>Nota <span style="color: red">*</span></mat-label>
-      <app-star-rating [valueRating]="0" [maxStars]="5" ></app-star-rating>
-      <mat-hint>Digite somente os digítos. Ex: 29264699</mat-hint>
-      <mat-error *ngIf="reviewFormGroup.controls['rating'].invalid">
-        {{getMsg(reviewFormGroup.controls['rating'])}}
-      </mat-error>
+      <app-star-rating (valueSelected)="reviewFormGroup.controls['rating'].setValue($event)"
+                       [align]="'center'" [fontSize]="25"
+                       [interactive]="true" [maxStars]="5" [startValue]="1">
+      </app-star-rating>
+    </div>
 
     <!-- Título -->
-    <mat-form-field class="col s12">
+    <mat-form-field class="review-form__field">
       <mat-label>Título <span style="color: red">*</span></mat-label>
       <input #title [maxLength]="sizes.titleMax" formControlName="title" matInput type="text">
       <mat-hint align="start">Escreva uma frase que resuma sua avaliação</mat-hint>
@@ -24,13 +31,13 @@
     </mat-form-field>
 
     <!-- Comentário -->
-    <mat-form-field class="col s12">
+    <mat-form-field class="review-form__field">
       <mat-label>Comentário <span style="color: red">*</span></mat-label>
-      <textarea #autosize="cdkTextareaAutosize" #fieldDescription [maxLength]="sizes.commentMax"
-                cdkAutosizeMaxRows="15" cdkAutosizeMinRows="3" cdkTextareaAutosize
+      <textarea #autosize="cdkTextareaAutosize" #comment [maxLength]="sizes.commentMax"
+                cdkAutosizeMaxRows="15" cdkAutosizeMinRows="2" cdkTextareaAutosize
                 formControlName="comment" matInput>
       </textarea>
-      <mat-hint align="end">{{fieldDescription.value.length}} / {{sizes.commentMax}}</mat-hint>
+      <mat-hint align="end">{{comment.value.length}} / {{sizes.commentMax}}</mat-hint>
       <mat-error *ngIf="reviewFormGroup.controls['comment'].invalid">
         {{getMsg(reviewFormGroup.controls['comment'])}}
       </mat-error>

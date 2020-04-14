@@ -8,12 +8,13 @@ import {Observable, of} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {FilterReview} from '../models/filters/filter-review';
 import {DataTests} from '../../shared/dataTests';
+import {util} from '../../shared/util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
-  private readonly _routeApi = `${environment.apiUrl}/address`;
+  private readonly _routeApi = `${environment.apiUrl}/review`;
 
   constructor(
     private readonly _http: HttpClient,
@@ -31,9 +32,10 @@ export class ReviewService {
   /*TODO: Adicionar filtro*/
   get(filter: FilterReview): Observable<Review[]> {
     return of(DataTests.reviews);
+    const clearFilter = util.primitiveFieldsToString(util.clearEmptyFields(filter));
     return this._http.get<Review[]>(
       this._routeApi,
-      {headers: AuthService.getHeaders()}
+      {headers: AuthService.getHeaders(), params: clearFilter}
     ).pipe(take(1));
   }
 

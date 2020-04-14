@@ -1,0 +1,19 @@
+@import '../../../../shared/styles/mixins';
+
+.review-form {
+  display: grid;
+
+  &__field {
+    margin-bottom: 20px;
+  }
+}
+
+.product {
+  &__figure {
+    text-align: center;
+
+    &-img {
+      @include max-size(128px);
+    }
+  }
+}

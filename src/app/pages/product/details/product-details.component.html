@@ -18,7 +18,7 @@
       <!-- TODO: Trazer info do banco de dados   -->
       <a fragment="rating" routerLink=".">
         <app-star-rating [fontSize]="18" [maxStars]="5"
-                         [numRatings]="reviews.length" [valueRating]="avgRating"
+                         [quantityReviews]="reviews.length" [startValue]="avgRating"
                          title="A média das avaliações do produto é {{avgRating}}">
         </app-star-rating>
       </a>
