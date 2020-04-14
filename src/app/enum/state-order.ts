@@ -2,7 +2,9 @@
 
 export enum EStateOrder {
   CANCELED,
-  RETURNED,
+  CREATED,
+  DELIVERED,
+  DELIVERING,
   PREPARING,
-  DELIVERED
+  RETURNED
 }

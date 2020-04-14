@@ -1,15 +1,11 @@
 'use strict';
 
-export class ItemOrder {
-  readonly id: number;
+export interface ItemOrderAdd {
   readonly amount: number;
   readonly unitPrice: number;
-  readonly productId: number;
+  readonly productId: string;
+}
 
-  constructor(id: number, amount: number, unitPrice: number, productId: number) {
-    this.id = id;
-    this.amount = amount;
-    this.unitPrice = unitPrice;
-    this.productId = productId;
-  }
+export interface ItemOrder extends ItemOrderAdd {
+  readonly id: string;
 }
