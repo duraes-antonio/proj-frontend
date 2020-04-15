@@ -1,24 +1,26 @@
-<h5 class="titulo-componente">{{listaCartoes.title}}</h5>
+<ng-container *ngIf="listCard">
+  <h5 class="titulo-componente">{{listCard.title}}</h5>
 
-<div>
-  <div *ngFor="let cartao of listaCartoes.items" [ngClass]="
-     {'m12 l12 xl12': listaCartoes.lenght == 1,
-     'm6 l6 xl6': listaCartoes.lenght == 2,
-     'm4 l4 xl4': listaCartoes.lenght == 3}"
-       class="col s12">
+  <div>
+    <div *ngFor="let cartao of listCard.items" [ngClass]="
+     {'m12 l12 xl12': listCard.items.length == 1,
+     'm6 l6 xl6': listCard.items.length == 2,
+     'm4 l4 xl4': listCard.items.length == 3}"
+         class="col s12">
 
-    <!-- Área - Cartão individual -->
-    <div class="cartao">
-      <div [ngClass]="{'background-desfocado-col_100': listaCartoes.lenght == 1,
-         'background-desfocado-col_50': listaCartoes.lenght == 2,
-         'background-desfocado-col_33': listaCartoes.lenght == 3}"
-           [style.backgroundImage]="'url('+ cartao.urlImage +')'"
-           class="black-text background-desfocado">
-      </div>
+      <!-- Área - Cartão individual -->
+      <div class="cartao">
+        <div [ngClass]="{'background-desfocado-col_100': listCard.items.length == 1,
+         'background-desfocado-col_50': listCard.items.length == 2,
+         'background-desfocado-col_33': listCard.items.length == 3}"
+             [style.backgroundImage]="'url('+ cartao.urlImage +')'"
+             class="black-text background-desfocado">
+        </div>
 
-      <div class="black-text slide-imagem">
-        <img [alt]="cartao.desc" src="{{cartao.urlImage}}">
+        <div class="black-text slide-imagem">
+          <img [alt]="cartao.desc" src="{{cartao.urlImage}}">
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>

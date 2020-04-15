@@ -1,14 +1,9 @@
 'use strict';
+import {Sequence, SequenceAdd} from './sequence';
 import {Link} from './link';
-import {ERole} from '../../enum/roles';
-import {ASequence} from '../../interfaces/sequence';
-import {TypeComponent} from '../../enum/type-component';
 
-export class ListLink extends ASequence<Link> {
-  readonly readRole: ERole = ERole.UNKNOWN;
-  readonly type: TypeComponent = TypeComponent.LIST_LINK;
+export interface ListLinkAdd extends SequenceAdd<Link> {
+}
 
-  constructor(title: string, items: Link[], minRole = ERole.UNKNOWN, id = 0) {
-    super(TypeComponent.LIST_LINK, title, items, id);
-  }
+export interface ListLink extends Sequence<Link> {
 }

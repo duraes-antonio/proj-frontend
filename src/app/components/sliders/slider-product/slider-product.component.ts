@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ListProduct} from '../../../models/componentes/list-product';
 import {routesFrontend} from '../../../../shared/constants/routesFrontend';
+import {ERole} from '../../../enum/roles';
 
 @Component({
   selector: 'app-slider-product',
@@ -12,7 +13,11 @@ export class SliderProductComponent {
   readonly routes = routesFrontend;
   optionsGlide: any;
 
-  private _list: ListProduct = new ListProduct('', [], 0);
+  constructor() {
+    this._list = {id: '', title: '', items: [], readRole: ERole.UNKNOWN};
+  }
+
+  private _list: ListProduct;
 
   get list(): ListProduct {
     return this._list;

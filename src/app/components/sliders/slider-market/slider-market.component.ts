@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ListMarket} from '../../../models/componentes/list-market';
+import {ERole} from '../../../enum/roles';
 
 @Component({
   selector: 'app-slider-market',
@@ -10,7 +11,11 @@ export class SliderMarketComponent {
 
   optionsGlide: any;
 
-  private _list = new ListMarket('', []);
+  constructor() {
+    this._list = {id: '', title: '', items: [], readRole: ERole.UNKNOWN};
+  }
+
+  private _list: ListMarket;
 
   get list() {
     return this._list;

@@ -1,6 +1,7 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {Slider} from '../../../models/componentes/slider';
+import {ListSlide} from '../../../models/componentes/slider';
+import {ERole} from '../../../enum/roles';
 
 @Component({
   selector: 'app-slider-master',
@@ -9,7 +10,7 @@ import {Slider} from '../../../models/componentes/slider';
 })
 export class SliderMasterComponent implements AfterViewInit {
 
-  @Input() slider = new Slider(0, []);
+  @Input() slider?: ListSlide;
 
   readonly glideOptions = {
     animationDuration: 300,
@@ -32,7 +33,7 @@ export class SliderMasterComponent implements AfterViewInit {
     if (sliderElem && sliderElem.parentElement) {
       sliderElem.parentElement.style.setProperty(
         '--slides-lenght',
-        `${this.slider.lenght + 2}`
+        `${this.slider.items.length + 2}`
       );
     }
   }

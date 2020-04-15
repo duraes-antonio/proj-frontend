@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Slider} from '../../models/componentes/slider';
+import {ListSlide} from '../../models/componentes/slider';
 import {ListProduct} from '../../models/componentes/list-product';
 import {ListMarket} from '../../models/componentes/list-market';
 import {DataTests} from '../../../shared/dataTests';
@@ -12,7 +12,7 @@ import {DataTests} from '../../../shared/dataTests';
 export class HomeComponent {
 
   // TODO: Receber lista de components do banco
-  readonly sliders: Slider[] = [...DataTests.sliders];
+  readonly sliders: ListSlide[] = [...DataTests.sliders];
   // public readonly cartoes: ListCard[] = [new ListCard(1)];
   readonly listsProd: ListProduct[] = [...DataTests.listProducts];
   readonly listsMarket: ListMarket[] = [...DataTests.listMarkets];

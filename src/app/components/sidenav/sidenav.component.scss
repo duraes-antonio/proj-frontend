@@ -5,7 +5,7 @@
   min-width: 275px;
   max-width: 320px;
 
-  .info-user {
+  .user {
     &__avatar {
       @include min-max-size(65px);
       position: relative;
@@ -16,10 +16,14 @@
       border-radius: 50%;
       box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
 
-      .img-avatar {
+      &-image {
         display: inline;
         width: auto;
         height: 70px;
+      }
+
+      &-icon {
+        font-size: 68px;
       }
     }
 

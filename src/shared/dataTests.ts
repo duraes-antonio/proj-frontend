@@ -10,12 +10,14 @@ import {NotificationModel} from '../app/models/notification';
 import {Slide} from '../app/models/componentes/slide';
 import {Market} from '../app/models/market';
 import {Card} from '../app/models/card';
-import {Slider} from '../app/models/componentes/slider';
 import {ListProduct} from '../app/models/componentes/list-product';
 import {ListMarket} from '../app/models/componentes/list-market';
 import {Order} from '../app/models/order';
 import {EStateOrder} from '../app/enum/state-order';
 import {ERole} from '../app/enum/roles';
+import {ListSlide} from '../app/models/componentes/slider';
+import {ListLink} from '../app/models/componentes/list-link';
+import {routesFrontend} from './constants/routesFrontend';
 
 export class DataTests {
   private static itemOrderId = 0;
@@ -213,35 +215,39 @@ export class DataTests {
     }
   ];
   static readonly slides: Slide[] = [
-    new Slide(1, 1, 1,
-      'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
-      'www.google.com',
-      'Yu-Gi-Oh! Duel Links Promotional'
-    ),
-    new Slide(
-      2, 1, 2,
-      'https://vignette.wikia.nocookie.net/yugioh/images/e/ed/DOD-VideoGameEN.jpg/revision/latest?cb=20110710180208',
-      'www.google.com',
-      'Yu-Gi-Oh! The Dawn of Destiny'
-    ),
-    new Slide(
-      3, 1, 3,
-      '../../assets/slide-2.jpg',
-      'www.google.com'
-    ),
-    new Slide(
-      4, 1, 4,
-      '../../assets/slide-3.jpg',
-      'www.google.com'
-    ),
-    new Slide(
-      5, 1, 5,
-      '../../assets/slide-4.jpeg',
-      'www.google.com'
-    )
+    {
+      url: 'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
+      imageUrl: 'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
+      index: 1,
+      title: 'Yu-Gi-Oh! Duel Links Promotional'
+    },
+    {
+      url: 'https://vignette.wikia.nocookie.net/yugioh/images/e/ed/DOD-VideoGameEN.jpg/revision/latest?cb=20110710180208',
+      imageUrl: 'https://vignette.wikia.nocookie.net/yugioh/images/e/ed/DOD-VideoGameEN.jpg/revision/latest?cb=20110710180208',
+      index: 2,
+      title: 'Yu-Gi-Oh! The Dawn of Destiny'
+    },
+    {
+      url: '../../assets/slide-1.jpg',
+      imageUrl: '../../assets/slide-1.jpg',
+      index: 3,
+      title: 'Deck: Dragão Branco'
+    },
+    {
+      url: '../../assets/slide-2.jpg',
+      imageUrl: '../../assets/slide-2.jpg',
+      index: 4,
+      title: 'Promoção de férias!'
+    },
+    {
+      url: '../../assets/slide-3.jpg',
+      imageUrl: '../../assets/slide-3.jpg',
+      index: 5,
+      title: 'Deck Inicial: Decifrador de código'
+    },
   ];
-  static readonly sliders: Slider[] = [
-    new Slider(1, DataTests.slides, 'Melhores ofertas!')
+  static readonly sliders: ListSlide[] = [
+    {id: '1', readRole: ERole.UNKNOWN, items: DataTests.slides, title: 'Melhores ofertas!'}
   ];
   static readonly users: User[] = [
     // tslint:disable-next-line:max-line-length
@@ -375,10 +381,66 @@ export class DataTests {
     },
   ];
   static readonly listProducts: ListProduct[] = [
-    new ListProduct('Ofertas da semana :D', DataTests.products, 1),
+    {
+      title: 'Ofertas da semana :D',
+      items: DataTests.products,
+      id: '1',
+      readRole: ERole.UNKNOWN
+    }
   ];
   static readonly listMarkets: ListMarket[] = [
-    new ListMarket('Nossos parceiros <3', DataTests.markets, 1),
+    {
+      title: 'Nossos parceiros <3',
+      items: DataTests.markets,
+      id: '1',
+      readRole: ERole.UNKNOWN
+    },
+  ];
+  static readonly listLinks: ListLink[] = [
+    {
+      id: '1',
+      items: [
+        {text: 'Sobre', url: routesFrontend.about},
+        {text: 'Contato', url: routesFrontend.contact},
+        {text: 'Categorias', url: routesFrontend.categories},
+        {text: 'Promoções', url: routesFrontend.home},
+      ],
+      readRole: ERole.UNKNOWN,
+      title: 'Loja'
+    },
+    {
+      id: '2',
+      items: [
+        {text: 'Meu perfil', url: routesFrontend.userProfile},
+        {text: 'Minhas avaliações', url: routesFrontend.userReviews},
+        {text: 'Minhas compras', url: routesFrontend.userOrders},
+        {text: 'Minhas atividades', url: routesFrontend.userActivities},
+        {text: 'Gerenciar endereço', url: routesFrontend.userAddress},
+        {text: 'Carrinho', url: routesFrontend.cart},
+        {text: 'Segurança', url: routesFrontend.userSecurity},
+      ],
+      readRole: ERole.UNKNOWN,
+      title: 'Minha conta'
+    },
+    {
+      id: '3',
+      items: [
+        {text: 'Gerenciar avaliações', url: routesFrontend.reviewsManagement},
+        {text: 'Gerenciar pedidos', url: routesFrontend.ordersManagement},
+        {text: 'Gerenciar produtos', url: routesFrontend.productsManagement},
+        {text: 'Relatórios', url: routesFrontend.reports},
+      ],
+      readRole: ERole.ADMIN,
+      title: 'Área Administrativa'
+    },
+    {
+      id: '4',
+      items: DataTests.markets.map(market => {
+        return {url: market.url, text: market.name};
+      }),
+      readRole: ERole.UNKNOWN,
+      title: 'Parceiros'
+    },
   ];
 
   private static notificRandom(): NotificationModel {

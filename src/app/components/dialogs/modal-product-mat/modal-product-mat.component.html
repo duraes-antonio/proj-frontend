@@ -2,7 +2,7 @@
                [actionDisabled]="_formGroup.invalid" [btnAcceptTitle]="textModal.btnAction"
                [btnCancelTitle]="textModal.btnCancel" [modalTitle]="textModal.title">
   <div class="product__image">
-    <img *ngIf="product.urlMainImage; else withoutImage" [src]="product.urlMainImage" class="product__image-img">
+    <img *ngIf="product?.urlMainImage; else withoutImage" [src]="product.urlMainImage" class="product__image-img">
     <ng-template #withoutImage>
       <i aria-hidden="true" class="far fa-image"></i>
     </ng-template>
@@ -10,7 +10,7 @@
     <div style="display: flex; margin-top: 15px">
       <button class="btn-general" mat-stroked-button>
         <i aria-hidden="true" class="far fa-file-image"></i>
-        <span>{{!product.urlMainImage ? 'Adicionar' : 'Substituir'}} Imagem</span>
+        <span>{{!product?.urlMainImage ? 'Adicionar' : 'Substituir'}} Imagem</span>
       </button>
     </div>
   </div>

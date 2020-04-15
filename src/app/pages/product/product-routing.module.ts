@@ -7,7 +7,7 @@ import {routesFrontend} from '../../../shared/constants/routesFrontend';
 
 const produtoRoutes: Routes = [
   {
-    path: routesFrontend.productsManager,
+    path: routesFrontend.productsManagement,
     component: ProductManagementComponent
   },
   {

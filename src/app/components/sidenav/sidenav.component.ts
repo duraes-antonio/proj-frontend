@@ -24,7 +24,7 @@ export class SidenavComponent {
   ];
   readonly actionsAdmin: LinkAction[] = [
     new LinkAction('Gerenciar categorias', '', 'fas fa-tags'),
-    new LinkAction('Gerenciar produtos', routesFrontend.productsManager, 'fas fa-box-open'),
+    new LinkAction('Gerenciar produtos', routesFrontend.productsManagement, 'fas fa-box-open'),
     new LinkAction('Gerenciar dúvidas', '', 'fas fa-comments'),
     new LinkAction('Gerenciar usuários', '', 'fas fa-users-cog'),
     new LinkAction('Visualizar pedido', '', 'fas fa-file-signature'),

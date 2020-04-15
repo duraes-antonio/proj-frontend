@@ -1,11 +1,9 @@
 'use strict';
-import {TypeComponent} from '../../enum/type-component';
-import {Market} from '../market';
-import {ASequence} from '../../interfaces/sequence';
+import {Market, MarketAdd} from '../market';
+import {Sequence, SequenceAdd} from './sequence';
 
-export class ListMarket extends ASequence<Market> {
+export interface ListMarketAdd extends SequenceAdd<MarketAdd> {
+}
 
-  constructor(title: string, items: Market[], id = 0) {
-    super(TypeComponent.LIST_MARKET, title, items, id);
-  }
+export interface ListMarket extends Sequence<Market> {
 }

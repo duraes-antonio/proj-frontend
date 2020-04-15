@@ -1,6 +1,6 @@
 'use strict';
 import {EventEmitter, Injectable} from '@angular/core';
-import {UserLogin} from '../interfaces/user-login';
+import {UserLogin} from '../models/user-login';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user';
 import {environment} from '../../environments/environment';
@@ -18,7 +18,7 @@ export class AuthService {
 
   static urlPrevius = '';
   static userLoggedEmitter = new EventEmitter<boolean>();
-  static userLogged: User | null;
+  static userLogged?: User;
   private _routeApi = `${environment.apiUrl.replace(/\/$/, '')}/auth`;
 
   constructor(
@@ -104,7 +104,7 @@ export class AuthService {
         take(1),
         tap(() => {
           AuthService.remTokenLocal();
-          AuthService.userLogged = null;
+          AuthService.userLogged = undefined;
           AuthService.userLoggedEmitter.emit(false);
           this._router.navigate([routesFrontend.home]);
         })

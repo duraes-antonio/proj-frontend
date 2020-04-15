@@ -1,12 +1,6 @@
 'use strict';
-import {TypeComponent} from '../../enum/type-component';
-import {Card} from '../card';
-import {ASequence} from '../../interfaces/sequence';
+import {Card, CardAdd} from '../card';
+import {Sequence, SequenceAdd} from './sequence';
 
-export class ListCard extends ASequence<Card> {
-
-  // TODO: Solicitar ao backend a sequencia de id atual
-  constructor(title: string, items: Card[], id = 0) {
-    super(TypeComponent.LIST_CARD, title, items, id);
-  }
-}
+export interface ListCardAdd extends SequenceAdd<CardAdd> {}
+export interface ListCard extends Sequence<Card> {}

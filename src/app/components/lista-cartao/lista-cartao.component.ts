@@ -8,8 +8,5 @@ import {ListCard} from '../../models/componentes/list-card';
 })
 export class ListaCartaoComponent {
 
-  @Input() listaCartoes: ListCard = new ListCard('', [], 0);
-
-  constructor() {
-  }
+  @Input() listCard?: ListCard;
 }

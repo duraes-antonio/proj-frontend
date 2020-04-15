@@ -1,11 +1,9 @@
 'use strict';
-import {Slide} from './slide';
-import {TypeComponent} from '../../enum/type-component';
-import {ASequence} from '../../interfaces/sequence';
+import {Sequence, SequenceAdd} from './sequence';
+import {Slide, SlideAdd} from './slide';
 
-export class Slider extends ASequence<Slide> {
+export interface ListSlideAdd extends SequenceAdd<SlideAdd> {
+}
 
-  constructor(id: number, items: Slide[], title = '') {
-    super(TypeComponent.SLIDER, title, items, id);
-  }
+export interface ListSlide extends Sequence<Slide> {
 }

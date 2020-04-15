@@ -3,7 +3,7 @@
 </head>
 
 <!--<app-modal-recup-senha></app-modal-recup-senha>-->
-<app-sidenav (closed)="sidenavShow = false" [show]="sidenavShow" [user]="user">
+<app-sidenav (closed)="sidenavShow = false" [show]="sidenavShow" [user]="authServRef.userLogged">
   <app-navbar (sidenavShow)="sidenavShow = true"></app-navbar>
   <div id="body-content" class="body-content">
     <div class="area-utilizavel row" id="area-utilizavel">
@@ -12,5 +12,5 @@
       </div>
     </div>
   </div>
-  <app-footer [links]="listaLinks"></app-footer>
+  <app-footer [links]="listLinks"></app-footer>
 </app-sidenav>
