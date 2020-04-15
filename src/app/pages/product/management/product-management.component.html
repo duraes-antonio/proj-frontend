@@ -78,12 +78,12 @@
 
           <!-- Imagem principal do produto -->
           <div *ngIf="_window.screen.width > 480" class="col s3 m3 l2 xl1 product__cover">
-            <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
+            <img [alt]="item.title" [src]="item.urlMainImage" class="product__cover-img">
           </div>
 
           <div *ngIf="_window.screen.width < 481" class="col s12 product__cover-title">
             <div class="col s5 m3 l2 xl1 product__cover">
-              <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
+              <img [alt]="item.title" [src]="item.urlMainImage" class="product__cover-img">
             </div>
             <span class="product__title col s7 m12 l3 xl3">{{item.title}}</span>
           </div>

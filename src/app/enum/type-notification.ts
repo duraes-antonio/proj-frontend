@@ -1,5 +1,4 @@
 'use strict';
-
 export enum TypeNotification {
   PAYMENT_PENDENT,
   PAYMENT_CONFIRMED,

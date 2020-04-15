@@ -26,7 +26,7 @@ export function cartReducer(state = cart, action: Action): Cart {
 
     case CartActionType.CLEAR: {
       CartService.clear();
-      return new Cart();
+      return {productsId: []};
     }
 
     default:

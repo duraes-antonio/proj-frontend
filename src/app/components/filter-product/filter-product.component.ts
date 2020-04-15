@@ -22,7 +22,7 @@ export class FilterProductComponent {
   freeDelivery = false;
   priceMin = 0;
   priceMax = 150;
-  readonly categories: number[] = [];
+  readonly categories: string[] = [];
   readonly discounts: number[] = [];
   readonly ratings: number[] = [];
   private _produtos: Product[] = [];
@@ -41,7 +41,7 @@ export class FilterProductComponent {
   }
 
 
-  categoryChange(categId: number) {
+  categoryChange(categId: string) {
     const index = this.categories.findIndex(id => id === categId);
 
     if (index > -1) {

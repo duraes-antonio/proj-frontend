@@ -12,7 +12,7 @@
       <!-- Titulo do produto -->
       <span class="product__title">{{item.title}}</span>
 
-      <img [alt]="item.title" [src]="item.urlImage" class="product__cover-img">
+      <img [alt]="item.title" [src]="item.urlMainImage" class="product__cover-img">
 
       <!-- Área para preços de produtos em promoção -->
       <span *ngIf="item.percentOff > 0" class="product__price-orig">{{item.price | currency: 'BRL'}}</span>

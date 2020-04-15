@@ -1,7 +1,7 @@
 'use strict';
 import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {forkJoin, Observable, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
 import {DataTests} from '../../../../shared/dataTests';
@@ -11,7 +11,6 @@ import {Address} from '../../../models/address';
 import {DeliveryOption} from '../../../models/delivery-option';
 import {Cart} from '../../../models/cart';
 import {Add, Remove} from '../../../actions/cart.action';
-import {Product2Service} from '../../../services/product2.service';
 import {ModalAddressComponent} from '../../../components/dialogs/modal-address/modal-address.component';
 import {ModalShippingMatComponent} from '../../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
 import {ModalPaymentMatComponent} from '../../../components/dialogs/modal-payment-mat/modal-payment-mat.component';
@@ -23,6 +22,7 @@ import {AddressService} from '../../../services/address.service';
 import {ProductService} from '../../../services/product.service';
 import {AuthService} from '../../../services/auth.service';
 import {ShippingService} from '../../../services/shipping.service';
+import {OrderService} from '../../../services/order.service';
 
 @Component({
   selector: 'app-product-details',
@@ -31,7 +31,7 @@ import {ShippingService} from '../../../services/shipping.service';
 })
 export class ProductDetailsComponent implements OnDestroy {
 
-  product: Product = new Product('', '', 0);
+  product?: Product;
   deliveryChosen?: DeliveryOption;
   prodInCart = false;
 
@@ -54,6 +54,7 @@ export class ProductDetailsComponent implements OnDestroy {
     private readonly _cartStore: Store<Cart>,
     private readonly _dialog: MatDialog,
     private readonly _addressServ: AddressService,
+    private readonly _orderServ: OrderService,
     private readonly _productServ: ProductService,
     private readonly _reviewServ: ReviewService,
     private readonly _shippingServ: ShippingService,
@@ -61,25 +62,30 @@ export class ProductDetailsComponent implements OnDestroy {
     this._routeSub$ = _route.params.subscribe(
       params => {
         const productId = params['id'];
-        const prod = Product2Service.getById(productId);
-
-        if (!prod) {
-          _router.navigate([routesFrontend.notFound]);
-        } else {
-          this.product = prod;
-          this.avgRating = prod.avgReview;
-          this.prodInCart = CartService.containsProduct(prod.id);
-        }
-        this._reviewServ.get({currentPage: 1, perPage: 10, productId})
-          .subscribe((reviews: Review[]) => this.reviews = reviews);
+        const reviewsGet$ = _reviewServ.get({currentPage: 1, perPage: 10, productId});
+        const addressGet$ = _addressServ.get();
+        const productGet$ = _productServ.getById(productId);
+        const observables: Observable<any>[] = [productGet$, reviewsGet$, addressGet$];
 
         if (AuthService.isLoggedIn()) {
-          this._reviewServ.getByUserProduct(productId, AuthService.userLogged?.id as string)
-            .subscribe((review: Review) => this.reviewUser = review);
+          observables.push(_reviewServ.getByUserProduct(productId, AuthService.userLogged?.id as string));
+          observables.push(_orderServ.productPurchased(productId, AuthService.userLogged?.id as string));
         }
 
-        this._addressServ.get()
-          .subscribe((addresses: Address[]) => this.addresses = addresses);
+        forkJoin(observables)
+          .subscribe((res: any[]) => {
+            if (!res[0]) {
+              _router.navigate([routesFrontend.notFound]);
+            } else {
+              this.product = res[0];
+              this.avgRating = this.product?.avgReview ?? 0;
+              this.prodInCart = CartService.containsProduct(this.product?.id as string);
+            }
+            this.reviews = res[1];
+            this.addresses = res[2];
+            this.reviewUser = res[3];
+            this.showButtonRate = res[4];
+          });
       });
     this._cart$ = _cartStore.subscribe(
       (res: any) => {
@@ -96,7 +102,7 @@ export class ProductDetailsComponent implements OnDestroy {
 
   showModalShipp(CEP: string) {
     /*TODO: Chamar serviço para calculo de frete*/
-    this._shippingServ.getDeliveryOptions(CEP, [{quantity: 1, productId: this.product.id}])
+    this._shippingServ.getDeliveryOptions(CEP, [{quantity: 1, productId: this.product?.id as string}])
       .subscribe((deliveryOpts: DeliveryOption[]) => {
         const dialogRef = this._dialog.open(
           ModalShippingMatComponent,
@@ -134,7 +140,7 @@ export class ProductDetailsComponent implements OnDestroy {
       ModalManageReviewComponent,
       ModalManageReviewComponent.getConfig({
         review: this.reviewUser,
-        product: this.product
+        product: this.product as Product
       })
     );
     dialogRef.componentInstance.action.subscribe(
@@ -157,7 +163,7 @@ export class ProductDetailsComponent implements OnDestroy {
   }
 
   sliceText(text: string, numTerms: number) {
-    return text.split(' ').slice(0, 40).join(' ');
+    return text.split(' ').slice(0, numTerms).join(' ');
   }
 
   buy(product: Product) {

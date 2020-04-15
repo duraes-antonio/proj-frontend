@@ -1,6 +1,15 @@
 'use strict';
 import {TypeNotification} from '../enum/type-notification';
 
+export interface Notification {
+  readonly id: number;
+  readonly text: string;
+  readonly date: Date;
+  readonly type: TypeNotification;
+  readonly classIcon: string;
+  readonly url: string;
+}
+
 export class NotificationModel {
   readonly id: number;
   readonly text: string;

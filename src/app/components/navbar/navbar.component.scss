@@ -68,6 +68,7 @@
 
 /*Área de notificações*/
 .notific-section {
+  z-index: 1;
   overflow: auto;
   height: auto;
   max-height: 72vh;
@@ -149,6 +150,7 @@
 
 .icon-action--white {
   @include max-size(24px);
+  display: flex;
   color: white;
   font-size: 24px;
 

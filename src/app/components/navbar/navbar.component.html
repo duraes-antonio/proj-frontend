@@ -28,10 +28,10 @@
         <ng-container *ngIf="userLogged; else userUnknown">
 
           <!-- NOTIFICAÇÕES -->
-          <div *ngIf="userLogged">
+          <div>
 
             <!-- CONTADOR DE NOTIFICAÇÕES -->
-            <a (click)="toggleListNotif()" class="icon-action--white">
+            <a (click)="toggleListNotif()" id="notifications-trigger" class="icon-action--white" style="margin-right: 24px;">
               <i [matBadgeHidden]="!numActiveNotif" aria-hidden="true" class="fas fa-bell"
                  matBadge="{{numActiveNotif < 100 ? numActiveNotif : '+99'}}"
                  matBadgeColor="warn" style="margin-right: 20px">
@@ -39,7 +39,7 @@
             </a>
 
             <!-- LISTA DE NOTIFICAÇÕES -->
-            <div *ngIf="showNotifics" class="col s12 m6 l4 xl4 notific-section">
+            <div *ngIf="showNotifics" id="notifications" class="col s12 m6 l4 xl4 notific-section">
               <div class="notifics-header">
                 <span>Notificações</span>
                 <a (click)="markAllNotifAsRead()" class="notifics-header__icon" title="Marcar todas como lidas">
@@ -71,7 +71,7 @@
           </div>
 
           <!-- LOGOUT -->
-          <a (click)="logout()" *ngIf="userLogged" class="icon-action--white" title="Sair">
+          <a (click)="logout()" class="icon-action--white" title="Sair">
             <i aria-hidden="true" class="fas fa-sign-out-alt"></i>
           </a>
         </ng-container>

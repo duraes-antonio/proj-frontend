@@ -1,11 +1,8 @@
 'use strict';
-
-export class Category {
-  readonly id: number;
+export interface CategoryAdd {
   readonly name: string;
+}
 
-  constructor(name: string, id: number) {
-    this.name = name;
-    this.id = id;
-  }
+export interface Category extends CategoryAdd {
+  readonly id: string;
 }

@@ -1,5 +1,5 @@
 'use strict';
-import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, OnDestroy, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
@@ -17,7 +17,6 @@ import {routesFrontend} from '../../../shared/constants/routesFrontend';
 export class NavbarComponent implements OnDestroy {
 
   @Output() sidenavShow = new EventEmitter();
-
   showNotifics = false;
   notifics: NotificationModel[] = DataTests.notifications;
   numActiveNotif: number = this.notifics.filter(n => !n.read).length;
@@ -39,6 +38,30 @@ export class NavbarComponent implements OnDestroy {
     this._userLogged$ = AuthService.userLoggedEmitter.subscribe(
       (res: boolean) => this.userLogged = res
     );
+  }
+
+  @HostListener('document:keydown.esc', ['$event'])
+  onKeyEscHandler(event: KeyboardEvent) {
+    event.preventDefault();
+    if (this.showNotifics) {
+      this.showNotifics = false;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onKeyClickHandler(event: MouseEvent) {
+    event.preventDefault();
+    if (!this.showNotifics) {
+      return;
+    }
+    const trigger = document.getElementById('notifications-trigger');
+    if (trigger?.contains(event.target as HTMLElement)) {
+      return;
+    }
+    const notifications = document.getElementById('notifications');
+    if (!notifications?.contains(event.target as HTMLElement)) {
+      this.showNotifics = false;
+    }
   }
 
   ngOnDestroy(): void {

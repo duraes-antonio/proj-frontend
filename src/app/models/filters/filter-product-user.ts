@@ -2,7 +2,7 @@
 
 export class FilterProduct {
   readonly avaliacoes: number[] = [];
-  readonly categorias: number[] = [];
+  readonly categorias: string[] = [];
   readonly freteGratis?: boolean;
   readonly descMin: number = 0;
   readonly descMax: number = 100;
@@ -14,14 +14,14 @@ export class FilterProduct {
 
   constructor(
     pagAtual: number, qtdItens: number, texto?: string, avaliacoes?: number[],
-    categorias?: number[], descMin?: number, descMax?: number, freteGratis?: boolean,
+    categorias?: string[], descMin?: number, descMax?: number, freteGratis?: boolean,
     precoMin?: number, precoMax?: number) {
     this.paginaAtual = pagAtual ? pagAtual : this.paginaAtual;
     this.qtdItens = qtdItens;
     this.texto = texto ? texto : this.texto;
 
-    this.avaliacoes = avaliacoes ? avaliacoes : this.avaliacoes;
-    this.categorias = categorias ? categorias : this.categorias;
+    this.avaliacoes = avaliacoes ?? this.avaliacoes;
+    this.categorias = categorias ?? this.categorias;
     this.descMin = descMin ? descMin : this.descMin;
     this.descMax = descMax ? descMax : this.descMax;
     this.freteGratis = freteGratis;

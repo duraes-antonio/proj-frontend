@@ -16,7 +16,7 @@ import {masks} from '../../../../shared/input-masks/maskFunctions';
 })
 export class ModalProductMatComponent {
 
-  readonly product: Product = this.data.product ?? new Product('', '', 0);
+  readonly product?: Product = this.data.product;
   readonly textModal = {
     title: this.data.product ? this.data.product.title : 'Novo produto',
     btnAction: 'Salvar',
@@ -30,25 +30,25 @@ export class ModalProductMatComponent {
   readonly _controlCategory = new FormControl();
 
   readonly _controlTitle = new FormControl(
-    this.product.title, validators.textValidator(this._sizes.titleMax, 10)
+    this.product?.title, validators.textValidator(this._sizes.titleMax, 10)
   );
   readonly _controlDesc = new FormControl(
-    this.product.desc, validators.textValidator(this._sizes.descMax, 20)
+    this.product?.desc, validators.textValidator(this._sizes.descMax, 20)
   );
   readonly _controlCost = new FormControl(
-    +this.product.cost.toFixed(2),
+    this.product ? +this.product.cost.toFixed(2) : null,
     validators.numberValidator(this._sizes.costMin, this._sizes.costMax, false)
   );
   readonly _controlPrice = new FormControl(
-    +this.product.price.toFixed(2),
+    this.product ? +this.product.price.toFixed(2) : null,
     validators.numberValidator(this._sizes.priceMin, this._sizes.priceMax, true)
   );
   readonly _controlQuantity = new FormControl(
-    this.product.amountAvailable,
+    this.product?.amountAvailable,
     validators.numberValidator(this._sizes.amountAvailableMin, this._sizes.amountAvailableMax, true)
   );
   readonly _controlDiscount = new FormControl(
-    +this.product.percentOff.toFixed(2),
+    this.product ? +this.product.percentOff.toFixed(2) : null,
     validators.numberValidator(this._sizes.percentOffMin, this._sizes.percentOffMax, false)
   );
   readonly _controlHeight = new FormControl(
@@ -87,7 +87,7 @@ export class ModalProductMatComponent {
     const categCheckeds: Category[] = [];
     this.productCategs.forEach(
       c => {
-        if (this.product.categories.some(cp => c.id === cp.id)) {
+        if (this.product?.categories.some(cp => c.id === cp.id)) {
           categCheckeds.push(c);
         }
       }
@@ -103,9 +103,11 @@ export class ModalProductMatComponent {
     };
   }
 
-  emitProduct() {
-    this.product.categories = this._controlCategory.value;
-    this.action.emit(this.product);
+  emitProduct(product?: Product) {
+    if (product) {
+      const productUpdated = {...product, categories: this._controlCategory.value};
+      this.action.emit(productUpdated);
+    }
   }
 
   formatNum(target: any) {
