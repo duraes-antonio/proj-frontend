@@ -20,7 +20,7 @@ export class ProductService {
   ) {
   }
 
-  private _routeApi = `${environment.apiUrl}/address`;
+  private _routeApi = `${environment.apiUrl}/product`;
 
   static calculateCostFromArray(productQuantity: [Product, number][]): number {
     return productQuantity

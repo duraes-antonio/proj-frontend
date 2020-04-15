@@ -419,7 +419,7 @@ export class DataTests {
         {text: 'Carrinho', url: routesFrontend.cart},
         {text: 'Segurança', url: routesFrontend.userSecurity},
       ],
-      readRole: ERole.UNKNOWN,
+      readRole: ERole.CUSTOMER,
       title: 'Minha conta'
     },
     {

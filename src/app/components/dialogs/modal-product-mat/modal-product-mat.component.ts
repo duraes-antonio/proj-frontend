@@ -3,11 +3,11 @@ import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {Product} from '../../../models/product';
 import {Category} from '../../../models/category';
-import {DataTests} from '../../../../shared/dataTests';
 import {productSizes} from '../../../../shared/constants/fieldSize';
 import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 import {validators} from '../../../../shared/validations/validatorsCustom';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
+import {CategoryService} from '../../../services/category.service';
 
 @Component({
   selector: 'app-modal-product-mat',
@@ -24,7 +24,7 @@ export class ModalProductMatComponent {
   };
 
   /*TODO: Buscar categorias*/
-  productCategs: Category[] = DataTests.categories;
+  productCategs: Category[] = [];
   readonly _getMsg = getMsgFront;
   readonly _sizes = productSizes;
   readonly _controlCategory = new FormControl();
@@ -83,7 +83,10 @@ export class ModalProductMatComponent {
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter<Product>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IModalProductData) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: IModalProductData,
+    private readonly _categoryServ: CategoryService
+  ) {
     const categCheckeds: Category[] = [];
     this.productCategs.forEach(
       c => {

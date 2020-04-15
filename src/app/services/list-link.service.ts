@@ -1,56 +1,54 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {ListLink, ListLinkAdd} from '../models/componentes/list-link';
-import {Observable, pipe} from 'rxjs';
+import {ListLink} from '../models/componentes/list-link';
+import {Observable, of} from 'rxjs';
 import {AuthService} from './auth.service';
-import {take} from 'rxjs/operators';
+import {DataTests} from '../../shared/dataTests';
+import {httpService} from './generic-http.service';
+import {FilterBasic} from '../models/filters/filter-base';
+import {Product, ProductAdd} from '../models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListLinkService {
 
-  private readonly _endpointUrl = `${environment.apiUrl}/client`;
+  private readonly _endpointUrl = `${environment.apiUrl}/list-link`;
 
-  constructor(
-    private _http: HttpClient,
-  ) { }
+  constructor(private _http: HttpClient) {
+  }
 
   delete(id: string): Observable<void> {
-    return this._http.delete<void>(
-      `${this._endpointUrl}/list-link/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+    return httpService.delete(
+      this._endpointUrl, id, this._http, AuthService.getHeaders
+    );
   }
 
-  get(): Observable<ListLink[]> {
-    return this._http.get<ListLink[]>(
-      `${this._endpointUrl}/list-link`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  /*TODO: Subsituir dados mockados por consulta*/
+  get(filter: FilterBasic): Observable<ListLink[]> {
+    return httpService.get<ListLink>(
+      this._endpointUrl, this._http, AuthService.getHeaders, filter
+    );
   }
 
-  getById(id: string): Observable<ListLink> {
-    return this._http.get<ListLink>(
-      `${this._endpointUrl}/list-link/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  /*TODO: Subsituir dados mockados por consulta*/
+  getById(id: string): Observable<ListLink | undefined> {
+    return of(DataTests.listLinks.find(p => p.id === id));
+    return httpService.getById<ListLink>(
+      this._endpointUrl, id, this._http, AuthService.getHeaders
+    );
   }
 
-  patch(id: string, objPatch: object): Observable<ListLink> {
-    return this._http.patch<ListLink>(
-      `${this._endpointUrl}/list-link/${id}`,
-      objPatch,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  patch(obj: object, id: string): Observable<ListLink> {
+    return httpService.patch<ListLink>(
+      this._endpointUrl, id, this._http, AuthService.getHeaders, obj
+    );
   }
 
-  post(id: string, obj: ListLinkAdd): Observable<ListLink> {
-    return this._http.post<ListLink>(
-      `${this._endpointUrl}/list-link/${id}`,
-      obj,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  post(obj: ProductAdd): Observable<Product> {
+    return httpService.post<ProductAdd>(
+      this._endpointUrl, this._http, AuthService.getHeaders, obj
+    );
   }
 }
