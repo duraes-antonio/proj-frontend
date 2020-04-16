@@ -6,6 +6,7 @@ import {AuthService} from './auth.service';
 import {DataTests} from '../../shared/dataTests';
 import {httpService} from './generic-http.service';
 import {ListProduct, ListProductAdd} from '../models/componentes/list-product';
+import {take} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,20 +26,20 @@ export class ListProductService {
 
   /*TODO: Subsituir dados mockados por consulta*/
   get(): Observable<ListProduct[]> {
-    return of(DataTests.listProducts);
+    return of(DataTests.listProducts).pipe(take(1));
     return httpService.get<ListProduct>(this._endpointUrl, this._http, AuthService.getHeaders);
   }
 
   /*TODO: Subsituir dados mockados por consulta*/
   getById(id: string): Observable<ListProduct | undefined> {
-    return of(DataTests.listProducts.find(p => p.id === id));
+    return of(DataTests.listProducts.find(p => p.id === id)).pipe(take(1));
     return httpService.getById<ListProduct>(
       this._endpointUrl, id, this._http, AuthService.getHeaders
     );
   }
 
   getRelateds(productId: string): Observable<ListProduct> {
-    return of(DataTests.listProducts[0]);
+    return of(DataTests.listProducts[0]).pipe(take(1));
     return httpService.getById<ListProduct>(
       `${this._endpointUrl}/related`,
       productId,

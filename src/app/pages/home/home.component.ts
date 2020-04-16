@@ -2,7 +2,10 @@ import {Component} from '@angular/core';
 import {ListSlide} from '../../models/componentes/slider';
 import {ListProduct} from '../../models/componentes/list-product';
 import {ListMarket} from '../../models/componentes/list-market';
-import {DataTests} from '../../../shared/dataTests';
+import {ListProductService} from '../../services/list-product.service';
+import {ListSlideService} from '../../services/list-slide.service';
+import {Observable} from 'rxjs';
+import {ListMarketService} from '../../services/list-market.service';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +15,18 @@ import {DataTests} from '../../../shared/dataTests';
 export class HomeComponent {
 
   // TODO: Receber lista de components do banco
-  readonly sliders: ListSlide[] = [...DataTests.sliders];
+  readonly listsSlides$: Observable<ListSlide[]>;
   // public readonly cartoes: ListCard[] = [new ListCard(1)];
-  readonly listsProd: ListProduct[] = [...DataTests.listProducts];
-  readonly listsMarket: ListMarket[] = [...DataTests.listMarkets];
+  readonly listsProducts$: Observable<ListProduct[]>;
+  readonly listsMarkets$: Observable<ListMarket[]>;
+
+  constructor(
+    private readonly _listSlideServ: ListSlideService,
+    private readonly _listProductServ: ListProductService,
+    private readonly _listMarketServ: ListMarketService
+  ) {
+    this.listsMarkets$ = _listMarketServ.get();
+    this.listsProducts$ = _listProductServ.get();
+    this.listsSlides$ = _listSlideServ.get();
+  }
 }

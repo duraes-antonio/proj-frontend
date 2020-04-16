@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {ListLink} from '../models/componentes/list-link';
 import {Observable, of} from 'rxjs';
 import {AuthService} from './auth.service';
 import {DataTests} from '../../shared/dataTests';
 import {httpService} from './generic-http.service';
-import {Product, ProductAdd} from '../models/product';
+import {ListSlide, ListSlideAdd} from '../models/componentes/slider';
 import {take} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListLinkService {
+export class ListSlideService {
 
-  private readonly _endpointUrl = `${environment.apiUrl}/list-link`;
+  private readonly _endpointUrl = `${environment.apiUrl}/list-slide`;
 
   constructor(private _http: HttpClient) {
   }
@@ -26,27 +25,27 @@ export class ListLinkService {
   }
 
   /*TODO: Subsituir dados mockados por consulta*/
-  get(): Observable<ListLink[]> {
-    return of(DataTests.listLinks).pipe(take(1));
-    return httpService.get<ListLink>(this._endpointUrl, this._http, AuthService.getHeaders);
+  get(): Observable<ListSlide[]> {
+    return of(DataTests.sliders).pipe(take(1));
+    return httpService.get<ListSlide>(this._endpointUrl, this._http, AuthService.getHeaders);
   }
 
   /*TODO: Subsituir dados mockados por consulta*/
-  getById(id: string): Observable<ListLink | undefined> {
-    return of(DataTests.listLinks.find(p => p.id === id)).pipe(take(1));
-    return httpService.getById<ListLink>(
+  getById(id: string): Observable<ListSlide | undefined> {
+    return of(DataTests.sliders.find(p => p.id === id)).pipe(take(1));
+    return httpService.getById<ListSlide>(
       this._endpointUrl, id, this._http, AuthService.getHeaders
     );
   }
 
-  patch(obj: object, id: string): Observable<ListLink> {
-    return httpService.patch<ListLink>(
+  patch(obj: object, id: string): Observable<ListSlide> {
+    return httpService.patch<ListSlide>(
       this._endpointUrl, id, this._http, AuthService.getHeaders, obj
     );
   }
 
-  post(obj: ProductAdd): Observable<Product> {
-    return httpService.post<ProductAdd>(
+  post(obj: ListSlideAdd): Observable<ListSlide> {
+    return httpService.post<ListSlideAdd>(
       this._endpointUrl, this._http, AuthService.getHeaders, obj
     );
   }

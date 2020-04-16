@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {TelaHistoricoCompraComponent} from './tela-historico-compra.component';
+import {OrderListComponent} from './order-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TelaHistoricoCompraComponent
+    component: OrderListComponent
   }
 ];
 
@@ -13,5 +13,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TelaHistoricoCompraRoutingModule {
+export class OrderListRoutingModule {
 }

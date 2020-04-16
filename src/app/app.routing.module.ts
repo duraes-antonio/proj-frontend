@@ -28,8 +28,8 @@ const routes: Routes = [
     path: 'historico-compra',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/tela-historico-compra/tela-historico-compra.module')
-        .then(m => m.TelaHistoricoCompraModule)
+      import('./pages/tela-historico-compra/order-list.module')
+        .then(m => m.OrderListModule)
   },
   {
     path: routesConst.home,

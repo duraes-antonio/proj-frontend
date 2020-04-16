@@ -7,13 +7,14 @@ export interface OrderAdd {
   readonly date: Date;
   readonly state: EStateOrder;
 
-  readonly costDelivery: number;
   readonly daysForDelivery: number;
   readonly addressTargetId: string;
 }
 
 export interface Order extends OrderAdd {
   readonly id: string;
+  readonly costDelivery: number;
+  readonly costItems: number;
   readonly dateDelivery?: Date;
   readonly items: ItemOrder[];
 }

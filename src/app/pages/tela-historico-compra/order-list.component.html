@@ -1,24 +1,24 @@
 <h4 class="titulo-pagina" style="margin: 0 0 1em 0;">Histórico de Compras</h4>
 
-<div *ngIf="orders.length" id="area-lista-compra" style="display: flex">
+<div *ngIf="orders$" id="area-lista-compra" style="display: flex">
   <ul class="col s12 m10 l10 xl10 center-block">
-    <li *ngFor="let compra of orders" class="area-compra">
+    <li *ngFor="let order of orders$ | async" class="area-compra">
 
       <!-- Linha com a cor que indica status da compra -->
-      <div class="borda-compra-status {{eStateOrder[compra.state]}}"></div>
+      <div class="borda-compra-status {{states[order.state]}}"></div>
 
       <div class="box-compra">
 
         <!-- Área de status -->
         <div class="area-compra-estado">
-          <div class="texto-compra-status {{eStateOrder[compra.state]}}">
+          <div class="texto-compra-status {{states[order.state]}}">
             <strong>Estado: </strong>
-            <span>{{eStateOrder[compra.state]}}</span>
+            <span>{{states[order.state]}}</span>
           </div>
 
           <div class="texto-data-acao">
             <strong>Data da ação: </strong>
-            <span>{{compra.date | date: 'dd/MM/yyyy'}}</span>
+            <span>{{order.date | date: 'dd/MM/yyyy'}}</span>
           </div>
         </div>
 
@@ -26,17 +26,17 @@
         <div class="area-prod-icones">
 
           <!-- Área de cada produto -->
-          <div *ngFor="let prod of compra.products" [title]="prod.title"
+          <div *ngFor="let itemOrder of order.items" [title]="itemOrder.product?.title"
                class="area-prod-icone">
             <div class="prod-icone--circ">
-              <img [alt]="prod.title" [src]="prod.urlImage">
+              <img [alt]="itemOrder.product?.title" [src]="itemOrder.product?.urlMainImage">
             </div>
           </div>
 
           <!-- Contador para mais de 3 produtos -->
-          <div>
+          <div *ngIf="order.items.length > 3">
             <a class="contador-itens">
-              <span>+183 Produtos</span>
+              <span>+{{order.items.length - 3}} Produto(s)</span>
             </a>
           </div>
         </div>
@@ -45,32 +45,18 @@
         <div class="area-info-compra">
           <p>
             <strong>Data da compra: </strong>
-            <span>{{compra.date | date: fmtTimestamp}}</span>
+            <span>{{order.date | date: fmtTimestamp}}</span>
           </p>
           <p>
             <strong>Preço dos produtos: </strong>
-            <span>R${{compra.costItems}}</span>
+            <span>{{order.costItems | currency: 'BRL'}}</span>
           </p>
           <p>
             <strong>Custo de entrega: </strong>
-            <span>R${{compra.costDelivery}}</span>
+            <span>{{order.costDelivery | currency: 'BRL'}}</span>
           </p>
         </div>
       </div>
     </li>
   </ul>
-</div>
-
-<div *ngIf="orders.length < 8" style="display: flex">
-  <div class="box-sem-compra col s11 m10 l8 xl8 center-block">
-    <p>
-      Ainda não há compras para serem exibidas
-      <strong id="id-smile" style="display: block">:(</strong>
-    </p>
-    <!-- TODO: Atualizar link de promoções -->
-    <a (mouseenter)="aplicarSmileFeliz()" (mouseout)="aplicarSmileTriste()"
-       class="link-promocao" href="https://www.google.com">
-      Clique aqui e conheça nossos produtos!
-    </a>
-  </div>
 </div>

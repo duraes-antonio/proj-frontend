@@ -345,6 +345,7 @@ export class DataTests {
         }],
       state: EStateOrder.DELIVERED,
       costDelivery: util.randomFloat(0, 100),
+      costItems: util.randomFloat(0, 600),
       dateDelivery: new Date(),
       addressTargetId: DataTests.addresses[0].id,
       date: new Date(2020, 4, 12),
@@ -373,6 +374,7 @@ export class DataTests {
         }
       ],
       state: EStateOrder.DELIVERED,
+      costItems: util.randomFloat(0, 600),
       costDelivery: util.randomFloat(0, 100),
       dateDelivery: new Date(),
       addressTargetId: DataTests.addresses[1].id,
@@ -384,6 +386,7 @@ export class DataTests {
     {
       title: 'Ofertas da semana :D',
       items: DataTests.products,
+      itemsId: DataTests.products.map(p => p.id),
       id: '1',
       readRole: ERole.UNKNOWN
     }
