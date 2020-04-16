@@ -98,7 +98,6 @@ export class ModalManageAddressComponent implements OnInit {
   }
 
   saveAddress(): void {
-
     if (this.addressFormGroup.invalid) {
       return;
     }

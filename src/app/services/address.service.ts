@@ -15,7 +15,6 @@ export class AddressService {
 
   private _routeApi = `${environment.apiUrl.replace(/\/$/, '')}/address`;
 
-  /*TODO: Realizar requisições ao backend*/
   constructor(
     private readonly _http: HttpClient,
     private readonly _router: Router

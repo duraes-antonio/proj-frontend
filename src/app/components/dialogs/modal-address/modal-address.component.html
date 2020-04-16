@@ -16,18 +16,20 @@
     </div>
 
     <!-- Caso o usuário esteja logado e com algum enedereço registrado -->
-    <span class="title-adress-list">
-      Seus endereços
-    </span>
-    <mat-radio-group [(ngModel)]="addressChosenId" class="addresses">
-      <mat-radio-button (click)="selectAddress(addr.id, 'addresses__item--active')"
-                        *ngFor="let addr of data.addresses"
-                        [value]="addr.id" class="addresses__item">
-        <span class="addresses__item-content" id="{{addr.id}}">
-          <span style="font-weight: 500">{{addr.number}} - {{addr.street}} - {{addr.neighborhood}}</span>
-          CEP: {{addr.zipCode}} - {{addr.city}} - {{addr.state}}
-        </span>
-      </mat-radio-button>
-    </mat-radio-group>
+    <ng-container *ngIf="data.addresses?.length">
+      <span class="title-adress-list">
+        Seus endereços
+      </span>
+      <mat-radio-group [(ngModel)]="addressChosenId" class="addresses">
+        <mat-radio-button (click)="selectAddress(addr.id, 'addresses__item--active')"
+                          *ngFor="let addr of data.addresses"
+                          [value]="addr.id" class="addresses__item">
+          <span class="addresses__item-content" id="{{addr.id}}">
+            <span style="font-weight: 500">{{addr.number}} - {{addr.street}} - {{addr.neighborhood}}</span>
+            CEP: {{addr.zipCode}} - {{addr.city}} - {{addr.state}}
+          </span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </ng-container>
   </div>
 </app-modal-mat>

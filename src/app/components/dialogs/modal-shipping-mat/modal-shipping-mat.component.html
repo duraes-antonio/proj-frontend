@@ -19,7 +19,7 @@
 
     <!-- Opções de entrega -->
     <mat-radio-group [(ngModel)]="optSelected" class="delivery-options row">
-      <mat-radio-button (change)="selectOptDelivery(opt, i, 'delivery-options__item--active')"
+      <mat-radio-button (click)="selectOptDelivery(opt, i, 'delivery-options__item--active')"
                         *ngFor="let opt of data.optionsDelivery; let i = index"
                         [value]="opt" class="delivery-options__item" id="option-{{i}}">
         <div class="delivery-options__item--space">

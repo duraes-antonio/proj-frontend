@@ -7,7 +7,6 @@ import {routesFrontend} from '../../../shared/constants/routesFrontend';
 import {take} from 'rxjs/operators';
 import {AddressService} from '../../services/address.service';
 import {utilDOM} from '../../../shared/util.dom';
-import {AuthService} from '../../services/auth.service';
 import {ShippingService} from '../../services/shipping.service';
 import {ModalAddressComponent} from '../../components/dialogs/modal-address/modal-address.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -42,16 +41,13 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     private readonly _productServ: ProductService,
     private readonly _shippingServ: ShippingService
   ) {
-    if (AuthService.isLoggedIn()) {
-      this._addressServ.get()
-        .pipe(take(1))
-        .subscribe((addresses: Address[]) => {
-          if (addresses.length) {
-            this.addressesUser = addresses;
-            this.addressDelivery = addresses[0];
-          }
-        });
-    }
+    this._addressServ.get()
+      .subscribe((addresses: Address[]) => {
+        if (addresses.length) {
+          this.addressesUser = addresses;
+          this.addressDelivery = addresses[0];
+        }
+      });
 
     const order = CartService.getOrder();
 
@@ -97,27 +93,18 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     if (this.addressDelivery) {
       this.methodChosen = paymentMethod;
     } else {
-      this.showModalAddAdress();
+      this.showModalManageAddress();
     }
   }
 
   showModalSelectionAdress() {
-    let tempAddress: Address;
-    const modalAddr = this._dialog.open(
-      ModalAddressComponent,
-      ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.addressesUser})
-    );
-    this._modalAddressSelect$ = modalAddr.componentInstance.chosenAddress
-      .subscribe((addr: Address) => tempAddress = addr);
-    modalAddr.componentInstance.action
-      .pipe(take(1))
-      .subscribe(() => {
-        this.addressDelivery = tempAddress;
-        this._updateCostDelivery(tempAddress.zipCode, this.productsQuantity);
+    this._addressServ.get()
+      .subscribe((addresses: Address[]) => {
+        this._showModalSelectionAdress(addresses);
       });
   }
 
-  showModalAddAdress() {
+  showModalManageAddress() {
     const modalAddr = this._dialog.open(
       ModalManageAddressComponent,
       ModalManageAddressComponent.getConfig({address: this.addressDelivery})
@@ -127,6 +114,22 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       .subscribe((address: Address) => {
         this.addressDelivery = address;
         this._updateCostDelivery(address.zipCode, this.productsQuantity);
+      });
+  }
+
+  private _showModalSelectionAdress(addresses: Address[]) {
+    let tempAddress: Address;
+    const modalAddr = this._dialog.open(
+      ModalAddressComponent,
+      ModalAddressComponent.getConfig({showInputCEP: false, addresses})
+    );
+    this._modalAddressSelect$ = modalAddr.componentInstance.chosenAddress
+      .subscribe((addr: Address) => tempAddress = addr);
+    modalAddr.componentInstance.action
+      .pipe(take(1))
+      .subscribe(() => {
+        this.addressDelivery = tempAddress;
+        this._updateCostDelivery(tempAddress.zipCode, this.productsQuantity);
       });
   }
 
