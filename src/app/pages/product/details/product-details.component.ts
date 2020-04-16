@@ -65,14 +65,14 @@ export class ProductDetailsComponent implements OnDestroy {
       params => {
         const productId = params['id'];
         const reviewsGet$ = _reviewServ.get({currentPage: 1, perPage: 10, productId});
-        const addressGet$ = _addressServ.get();
         const productGet$ = _productServ.getById(productId);
         const prodRelatedList$ = _listProductServ.getRelateds(productId);
         const observables: Observable<any>[] = [
-          productGet$, reviewsGet$, addressGet$, prodRelatedList$
+          productGet$, reviewsGet$, prodRelatedList$
         ];
 
         if (AuthService.isLoggedIn()) {
+          observables.push(_addressServ.get());
           observables.push(_reviewServ.getByUserProduct(productId, AuthService.userLogged?.id as string));
           observables.push(_orderServ.productPurchased(productId, AuthService.userLogged?.id as string));
         }
@@ -87,8 +87,8 @@ export class ProductDetailsComponent implements OnDestroy {
               this.prodInCart = CartService.containsProduct(this.product?.id as string);
             }
             this.reviews = res[1];
-            this.addresses = res[2];
-            this.productsRelatedsList = res[3];
+            this.productsRelatedsList = res[2];
+            this.addresses = res[3];
             this.reviewUser = res[4];
             this.showButtonRate = res[5] ?? false;
           });

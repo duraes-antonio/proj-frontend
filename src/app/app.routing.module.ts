@@ -5,45 +5,44 @@ import {AuthGuard} from './guards/auth.guard';
 import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
 import {routesFrontend} from '../shared/constants/routesFrontend';
 
-const routesConst = routesFrontend;
 const routes: Routes = [
   {
     path: '',
-    redirectTo: routesConst.home,
+    redirectTo: routesFrontend.home,
     pathMatch: 'full'
   },
   {
-    path: 'contato',
+    path: routesFrontend.contact,
     loadChildren: () =>
       import('./pages/tela-contato/tela-contato.module')
         .then(m => m.TelaContatoModule)
   },
   {
-    path: 'carrinho',
+    path: routesFrontend.cart,
     loadChildren: () =>
       import('./pages/cart/cart.module')
         .then(m => m.CartModule)
   },
   {
-    path: 'historico-compra',
+    path: routesFrontend.userOrders,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/tela-historico-compra/order-list.module')
+      import('./pages/order-list/order-list.module')
         .then(m => m.OrderListModule)
   },
   {
-    path: routesConst.home,
+    path: routesFrontend.home,
     loadChildren: () =>
       import('./pages/home/home.module')
         .then(m => m.HomeModule)
   },
   {
-    path: routesConst.login,
+    path: routesFrontend.login,
     loadChildren: () => import('./pages/login/login.module')
       .then(m => m.LoginModule)
   },
   {
-    path: '404',
+    path: routesFrontend.notFound,
     loadChildren: () =>
       import('./pages/404/tela404.module')
         .then(m => m.Tela404Module)

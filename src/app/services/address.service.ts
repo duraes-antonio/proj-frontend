@@ -3,10 +3,10 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthService} from './auth.service';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Address, AddressAdd} from '../models/address';
-import {DataTests} from '../../shared/dataTests';
 import {map, take} from 'rxjs/operators';
+import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +22,13 @@ export class AddressService {
   ) {
   }
 
-  delete(id: string): Observable<Address> {
-    return this._http.delete<Address>(
-      `${this._routeApi}/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  delete(id: string): Observable<void> {
+    return httpService.delete(this._routeApi, id, this._http, AuthService.getHeaders);
   }
 
   get(): Observable<Address[]> {
-    return of(DataTests.addresses);
-    return this._http.get<Address[]>(
-      this._routeApi,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+    // return of(DataTests.addresses).pipe(take(1));
+    return httpService.get(this._routeApi, this._http, AuthService.getHeaders);
   }
 
   getFromViaCEP(CEP: string): Observable<AddressAdd> {
@@ -55,34 +49,21 @@ export class AddressService {
   }
 
   getById(id: string): Observable<Address | undefined> {
-    return this._http.get<Address>(
-      `${this._routeApi}/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
-  }
-
-  getMain(): Observable<Address | undefined> {
-    return of(DataTests.addresses[0]);
-    return this._http.get<Address>(
-      `${this._routeApi}/main`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+    return httpService.getById(this._routeApi, id, this._http, AuthService.getHeaders);
   }
 
   post(obj: AddressAdd): Observable<Address> {
-    return this._http.post<Address>(
-      this._routeApi,
-      {...obj, zipCode: obj.zipCode.replace('-', '')} as AddressAdd,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+    return httpService.post(
+      this._routeApi, this._http, AuthService.getHeaders,
+      {...obj, zipCode: obj.zipCode.replace('-', '')}
+    );
   }
 
-  patch(obj: any): Observable<Address> {
-    return this._http.patch<Address>(
-      this._routeApi,
-      {obj, zipCode: obj.zipCode ? obj.zipCode.replace('-', '') : undefined},
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  patch(id: string, obj: any): Observable<Address> {
+    return httpService.patch(
+      this._routeApi, id, this._http, AuthService.getHeaders,
+      {...obj, zipCode: obj.zipCode.replace('-', '')}
+    );
   }
 }
 

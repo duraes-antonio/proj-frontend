@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {User} from '../../models/user';
-import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {routesFrontend as routes} from '../../../shared/constants/routesFrontend';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/auth.service';
 import {take} from 'rxjs/operators';
@@ -17,21 +17,20 @@ export class SidenavComponent {
   @ViewChild('sidenav') sidenav?: MatSidenav;
   opened = false;
   readonly actionsPersonal: LinkAction[] = [
-    new LinkAction('Meu perfil', '', 'fas fa-user-cog'),
-    new LinkAction('Suas compras', '', 'fas fa-shopping-basket'),
-    new LinkAction('Histórico de atividades', '', 'fas fa-history'),
-    new LinkAction('Segurança', '', 'fas fa-shield-alt')
+    new LinkAction('Meu perfil', routes.userProfile, 'fas fa-user-cog'),
+    new LinkAction('Suas compras', routes.userOrders, 'fas fa-shopping-basket'),
+    new LinkAction('Histórico de atividades', routes.userActivities, 'fas fa-history'),
+    new LinkAction('Segurança', routes.userSecurity, 'fas fa-shield-alt')
   ];
   readonly actionsAdmin: LinkAction[] = [
-    new LinkAction('Gerenciar categorias', '', 'fas fa-tags'),
-    new LinkAction('Gerenciar produtos', routesFrontend.productsManagement, 'fas fa-box-open'),
-    new LinkAction('Gerenciar dúvidas', '', 'fas fa-comments'),
-    new LinkAction('Gerenciar usuários', '', 'fas fa-users-cog'),
-    new LinkAction('Visualizar pedido', '', 'fas fa-file-signature'),
-    new LinkAction('Visualizar relatórios', '', 'fas fa-chart-bar'),
-    new LinkAction('Personalizar loja', '', 'fas fa-pen-fancy')
+    new LinkAction('Gerenciar categorias', routes.categoriesManagement, 'fas fa-tags'),
+    new LinkAction('Gerenciar produtos', routes.productsManagement, 'fas fa-box-open'),
+    new LinkAction('Gerenciar usuários', routes.usersManagement, 'fas fa-users-cog'),
+    new LinkAction('Visualizar pedido', routes.ordersManagement, 'fas fa-file-signature'),
+    new LinkAction('Visualizar relatórios', routes.reports, 'fas fa-chart-bar'),
+    new LinkAction('Personalizar loja', routes.customize, 'fas fa-pen-fancy')
   ];
-  readonly actionLogout: LinkAction = new LinkAction('Sair', routesFrontend.home, 'fas fa-sign-out-alt');
+  readonly actionLogout: LinkAction = new LinkAction('Sair', routes.home, 'fas fa-sign-out-alt');
 
   constructor(private readonly _auth: AuthService) {
   }

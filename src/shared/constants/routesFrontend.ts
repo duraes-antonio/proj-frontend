@@ -1,5 +1,4 @@
 const manager = 'gerencia';
-const productsManager = `${manager}/produto`;
 const login = 'login';
 const productsView = 'produto';
 const user = 'usuario/:id';
@@ -9,7 +8,7 @@ export const routesFrontend = {
 
   productsView: productsView,
   productView: `${productsView}/:id`,
-  productsManagement: productsManager,
+  productsManagement: `${manager}/produto`,
   cart: 'carrinho',
   home: 'home',
   login: login,
@@ -18,18 +17,20 @@ export const routesFrontend = {
   checkout: 'finalizar-compra',
 
   // Rotas a implementar
-  ordersManagement: `${manager}/pedido`,
-  reviewsManagement: `${manager}/avaliacao`,
-  reports: 'relatorios',
-  forgotPass: 'redefinir-senha',
-  about: 'sobre',
-  contact: 'contato',
-  categories: 'categorias',
+  ordersManagement: `${manager}/pedido`, // NIVEL: 2-3
+  reviewsManagement: `${manager}/avaliacao`, // NIVEL: 3-4 [OPCIONAL]
+  usersManagement: `${manager}/usuario`, // NIVEL: 3-4
+  categoriesManagement: `${manager}/categorias`, // NIVEL: 2-4
 
-  userProfile: `${user}/perfil`,
-  userReviews: `${user}/avaliacoes`,
-  userOrders: `${user}/pedidos`,
-  userActivities: `${user}/atividades`,
-  userAddress: `${user}/enderecos`,
-  userSecurity: `${user}/seguranca`
+  about: 'sobre', // NIVEL: 1-2 [OPCIONAL]
+  contact: 'contato', // NIVEL: 1-2 [OPCIONAL]
+  reports: 'relatorios', // NIVEL: 3+
+  customize: 'personalizar', // NIVEL: 3-5
+  forgotPass: 'redefinir-senha', // NIVEL: 2-3 [OPCIONAL]
+
+  userProfile: `${user}/perfil`, // NIVEL: 3-5 [OPCIONAL]
+  userOrders: `${user}/pedidos`, // NIVEL: 2-4 [OPCIONAL - PARCIAL]
+  userActivities: `${user}/atividades`, // NIVEL: 2-3 [OPCIONAL]
+  userSecurity: `${user}/seguranca`, // NIVEL: 2-4 [OPCIONAL]
+  userReviews: `${user}/avaliacoes`, // NIVEL: 2-4 [OPCIONAL]
 };

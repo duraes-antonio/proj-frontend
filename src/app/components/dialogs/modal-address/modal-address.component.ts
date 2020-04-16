@@ -19,7 +19,7 @@ export class ModalAddressComponent {
 
   controlCep = new FormControl('', [validators.cepValidator()]);
   textHintCEP = 'Exemplo de CEP: 29161688';
-  addressChosenId = 0;
+  addressChosenId = '';
 
   readonly getMsg = getMsgFront;
   private readonly _text = {
@@ -48,15 +48,16 @@ export class ModalAddressComponent {
   }
 
   selectAddress(id: string, className: string) {
-    const items = document.getElementsByClassName(className);
+    this.addressChosenId = id;
 
+    const items = document.getElementsByClassName(className);
     /*Remova a classe que realça o endereço selecionado atualmente*/
     if (items.length) {
       items[0].classList.remove(className);
     }
 
     /*Adicione a classe ao novo endereço selecionado*/
-    const addressSelected = document.getElementById(id.toString());
+    const addressSelected = document.getElementById(id);
 
     if (addressSelected) {
       addressSelected.classList.add(className);
@@ -78,7 +79,7 @@ export class ModalAddressComponent {
   }
 
   clearRadioAdress(activeAddressClass: string) {
-    this.addressChosenId = 0;
+    this.addressChosenId = '';
     const activeRadios = document.getElementsByClassName(activeAddressClass);
 
     if (activeRadios.length > 0) {

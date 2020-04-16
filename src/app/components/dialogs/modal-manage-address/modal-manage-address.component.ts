@@ -105,11 +105,13 @@ export class ModalManageAddressComponent implements OnInit {
 
     // Se o endereço já existir, save-o; senão, crie-o
     if (this.data.address) {
-      this._addressServ.patch(util.getPatchFromFormGroup(this.data.address, this.addressFormGroup))
-        .subscribe((addressUpdated) => this.action.emit(addressUpdated));
+      this._addressServ.patch(
+        this.data.address.id,
+        util.getPatchFromFormGroup(this.data.address, this.addressFormGroup))
+        .subscribe((addressUpdated: Address) => this.action.emit(addressUpdated));
     } else {
-      const prom = this._addressServ.post(util.getObjectFromFormGroup(this.addressFormGroup))
-        .subscribe((newAddress) => this.action.emit(newAddress));
+      this._addressServ.post(util.getObjectFromFormGroup(this.addressFormGroup))
+        .subscribe((newAddress: Address) => this.action.emit(newAddress));
     }
   }
 

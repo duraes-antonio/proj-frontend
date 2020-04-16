@@ -1,6 +1,6 @@
 <app-modal-mat (action)="action.emit(data.showInputCEP ? controlCep.value : addressChosenId)"
                (closed)="closed.emit()"
-               [actionDisabled]="controlCep.invalid && addressChosenId < 1"
+               [actionDisabled]="controlCep.invalid && !addressChosenId"
                [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
                [modalDesc]="desc" [modalTitle]="title">
   <div style="display: grid">
@@ -20,7 +20,7 @@
       Seus endereços
     </span>
     <mat-radio-group [(ngModel)]="addressChosenId" class="addresses">
-      <mat-radio-button (change)="selectAddress(addr.id, 'addresses__item--active')"
+      <mat-radio-button (click)="selectAddress(addr.id, 'addresses__item--active')"
                         *ngFor="let addr of data.addresses"
                         [value]="addr.id" class="addresses__item">
         <span class="addresses__item-content" id="{{addr.id}}">

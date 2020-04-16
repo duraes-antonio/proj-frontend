@@ -340,6 +340,7 @@ export class DataTests {
         {
           id: '1',
           amount: 2,
+          product: DataTests.products[0],
           productId: DataTests.products[0].id,
           unitPrice: DataTests.products[0].priceWithDiscount
         }],
@@ -357,18 +358,21 @@ export class DataTests {
         {
           id: '2',
           amount: 2,
+          product: DataTests.products[1],
           productId: DataTests.products[1].id,
           unitPrice: DataTests.products[1].priceWithDiscount
         },
         {
           id: '2',
           amount: 95,
+          product: DataTests.products[5],
           productId: DataTests.products[5].id,
           unitPrice: DataTests.products[5].priceWithDiscount
         },
         {
           id: '3',
           amount: 7,
+          product: DataTests.products[3],
           productId: DataTests.products[3].id,
           unitPrice: DataTests.products[3].priceWithDiscount
         }
@@ -405,7 +409,7 @@ export class DataTests {
       items: [
         {text: 'Sobre', url: routesFrontend.about},
         {text: 'Contato', url: routesFrontend.contact},
-        {text: 'Categorias', url: routesFrontend.categories},
+        {text: 'Categorias', url: routesFrontend.categoriesManagement},
         {text: 'Promoções', url: routesFrontend.home},
       ],
       readRole: ERole.UNKNOWN,
@@ -418,7 +422,6 @@ export class DataTests {
         {text: 'Minhas avaliações', url: routesFrontend.userReviews},
         {text: 'Minhas compras', url: routesFrontend.userOrders},
         {text: 'Minhas atividades', url: routesFrontend.userActivities},
-        {text: 'Gerenciar endereço', url: routesFrontend.userAddress},
         {text: 'Carrinho', url: routesFrontend.cart},
         {text: 'Segurança', url: routesFrontend.userSecurity},
       ],
@@ -428,7 +431,8 @@ export class DataTests {
     {
       id: '3',
       items: [
-        {text: 'Gerenciar avaliações', url: routesFrontend.reviewsManagement},
+        {text: 'Gerenciar categorias', url: routesFrontend.categoriesManagement},
+        {text: 'Gerenciar usuários', url: routesFrontend.usersManagement},
         {text: 'Gerenciar pedidos', url: routesFrontend.ordersManagement},
         {text: 'Gerenciar produtos', url: routesFrontend.productsManagement},
         {text: 'Relatórios', url: routesFrontend.reports},
