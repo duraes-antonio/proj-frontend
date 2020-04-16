@@ -52,7 +52,6 @@ export class ProductService {
 
   /*TODO: Subsituir dados mockados por consulta*/
   getById(id: string): Observable<Product | undefined> {
-    debugger
     return of(DataTests.products.find(p => p.id === id));
     return this._http.get<Product>(
       `${this._routeApi}/${id}`,

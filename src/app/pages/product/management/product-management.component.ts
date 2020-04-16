@@ -1,15 +1,14 @@
 'use strict';
 import {Component} from '@angular/core';
-import {Product} from '../../../models/product';
-import {DataTests} from '../../../../shared/dataTests';
-import {Product2Service} from '../../../services/product2.service';
+import {Product, ProductAdd} from '../../../models/product';
 import {MatDialog} from '@angular/material/dialog';
 import {ModalProductMatComponent} from '../../../components/dialogs/modal-product-mat/modal-product-mat.component';
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
 import {EProductSort} from '../../../models/filters/filter-product-user';
 import {ProductService} from '../../../services/product.service';
-import {take} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {CategoryService} from '../../../services/category.service';
 
 @Component({
   selector: 'app-product-management',
@@ -27,52 +26,50 @@ export class ProductManagementComponent {
     {key: EProductSort.PRICE_HIGH, name: 'Maior preço'},
     {key: EProductSort.PRICE_LOW, name: 'Menor preço'}
   ];
-  products: Product[] = DataTests.products;
-  categories: Category[] = DataTests.categories;
+  products$: Observable<Product[]> = this._productServ.get();
+  categories$: Observable<Category[]> = this._categoryServ.get();
   productChosen?: Product;
   textSearch = '';
   _window = window;
 
   constructor(
     private readonly _dialog: MatDialog,
+    private readonly _categoryServ: CategoryService,
     private readonly _productServ: ProductService
   ) {
   }
 
+  // TODO: Remover requisição após adicionar lógica de salvar dentro do modal
   createProduct() {
     const config = ModalProductMatComponent.getConfig({});
     const dialogRef = this._dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
-      (prod: Product) => {
-        /*TODO: Persistir no banco*/
-        this.products.push({...prod, id: Math.random().toString()});
+      (prod: ProductAdd) => {
+        this._productServ.post(prod);
+        this.products$ = this._productServ.get();
       }
     );
   }
 
+  // TODO: Remover requisição após adicionar lógica de salvar dentro do modal
   selectProduct(id: string) {
-    this._productServ.getById(id)
-      .pipe(take(1))
-      .subscribe(p => this.productChosen = p);
+    this._productServ.getById(id).subscribe(p => this.productChosen = p);
     const config = ModalProductMatComponent.getConfig({product: this.productChosen});
     const dialogRef = this._dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
-      (prod: Product) => {
-        /*TODO: Salvar produto*/
-        const idxProd = this.products.findIndex(p => p.id === prod.id);
-
-        if (idxProd > -1) {
-          this.products[idxProd] = prod;
-        }
+      (prodUpdated: Product) => {
+        this._productServ.patch(prodUpdated);
+        this.products$ = this._productServ.get();
       }
     );
   }
 
-  saveProduct(product: Product) {
-    Product2Service.put(product);
-  }
-
+  // TODO: FInalizar método
   searchProduct() {
 
+  }
+
+  productTrackBy(index: number, item: Product): string {
+    return item.id;
   }
 }

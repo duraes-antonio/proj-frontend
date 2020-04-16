@@ -19,7 +19,7 @@
       <a fragment="rating" routerLink=".">
         <app-star-rating [fontSize]="18" [maxStars]="5"
                          [quantityReviews]="reviews.length" [startValue]="avgRating"
-                         title="A média das avaliações do produto é {{avgRating}}">
+                         title="A média das avaliações do produto é {{avgRating | number: '1.0-2'}}">
         </app-star-rating>
       </a>
 
@@ -160,4 +160,4 @@
     <app-pagination [lengthPages]="14" [pageStart]="1"></app-pagination>
   </section>
 </div>
-<app-slider-product [list]="seqProd"></app-slider-product>
+<app-slider-product *ngIf="productsRelatedsList" [list]="productsRelatedsList"></app-slider-product>

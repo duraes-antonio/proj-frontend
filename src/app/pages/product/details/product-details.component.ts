@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {forkJoin, Observable, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
-import {DataTests} from '../../../../shared/dataTests';
 import {Product} from '../../../models/product';
 import {Review} from '../../../models/review';
 import {Address} from '../../../models/address';
@@ -23,6 +22,8 @@ import {ProductService} from '../../../services/product.service';
 import {AuthService} from '../../../services/auth.service';
 import {ShippingService} from '../../../services/shipping.service';
 import {OrderService} from '../../../services/order.service';
+import {ListProduct} from '../../../models/componentes/list-product';
+import {ListProductService} from '../../../services/list-product.service';
 
 @Component({
   selector: 'app-product-details',
@@ -36,7 +37,7 @@ export class ProductDetailsComponent implements OnDestroy {
   prodInCart = false;
 
   /*TODO: Substituir por requisições*/
-  seqProd = [...DataTests.listProducts][0];
+  productsRelatedsList?: ListProduct;
   reviews: Review[] = [];
   reviewUser?: Review;
   avgRating = 0;
@@ -54,6 +55,7 @@ export class ProductDetailsComponent implements OnDestroy {
     private readonly _cartStore: Store<Cart>,
     private readonly _dialog: MatDialog,
     private readonly _addressServ: AddressService,
+    private readonly _listProductServ: ListProductService,
     private readonly _orderServ: OrderService,
     private readonly _productServ: ProductService,
     private readonly _reviewServ: ReviewService,
@@ -65,7 +67,10 @@ export class ProductDetailsComponent implements OnDestroy {
         const reviewsGet$ = _reviewServ.get({currentPage: 1, perPage: 10, productId});
         const addressGet$ = _addressServ.get();
         const productGet$ = _productServ.getById(productId);
-        const observables: Observable<any>[] = [productGet$, reviewsGet$, addressGet$];
+        const prodRelatedList$ = _listProductServ.getRelateds(productId);
+        const observables: Observable<any>[] = [
+          productGet$, reviewsGet$, addressGet$, prodRelatedList$
+        ];
 
         if (AuthService.isLoggedIn()) {
           observables.push(_reviewServ.getByUserProduct(productId, AuthService.userLogged?.id as string));
@@ -83,8 +88,9 @@ export class ProductDetailsComponent implements OnDestroy {
             }
             this.reviews = res[1];
             this.addresses = res[2];
-            this.reviewUser = res[3];
-            this.showButtonRate = res[4];
+            this.productsRelatedsList = res[3];
+            this.reviewUser = res[4];
+            this.showButtonRate = res[5] ?? false;
           });
       });
     this._cart$ = _cartStore.subscribe(

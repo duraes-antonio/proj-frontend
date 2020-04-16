@@ -88,14 +88,16 @@ export class ModalProductMatComponent {
     private readonly _categoryServ: CategoryService
   ) {
     const categCheckeds: Category[] = [];
-    this.productCategs.forEach(
-      c => {
-        if (this.product?.categories.some(cp => c.id === cp.id)) {
-          categCheckeds.push(c);
-        }
-      }
-    );
-    this._controlCategory.setValue(categCheckeds);
+    _categoryServ.get()
+      .subscribe((categories: Category[]) => {
+        categories.forEach(
+          c => {
+            if (this.product?.categories.some(cp => c.id === cp.id)) {
+              categCheckeds.push(c);
+            }
+          });
+        this._controlCategory.setValue(categCheckeds);
+      });
   }
 
   static getConfig(data: IModalProductData): MatDialogConfig {

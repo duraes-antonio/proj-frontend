@@ -39,7 +39,6 @@ export class FooterComponent implements OnDestroy {
   }
 
   allowRead(readRole: ERole): boolean {
-    debugger
     return ERole.UNKNOWN === readRole
       || this._userRoles.includes(ERole.ADMIN)
       || this._userRoles.includes(readRole);

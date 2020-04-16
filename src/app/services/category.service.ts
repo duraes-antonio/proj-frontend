@@ -30,7 +30,8 @@ export class CategoryService {
   }
 
   /*TODO: Subsituir dados mockados por consulta*/
-  get(filter: FilterBasic): Observable<Category[]> {
+  get(filter?: FilterBasic): Observable<Category[]> {
+    return of(DataTests.categories);
     return httpService.get<Category>(
       this._routeApi, this._http, AuthService.getHeaders, filter
     );

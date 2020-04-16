@@ -1,4 +1,4 @@
-import {Observable, pipe} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {FilterBasic} from '../models/filters/filter-base';
 import {util} from '../../shared/util';
@@ -15,11 +15,13 @@ function _delete(
 
 function _get<T>(
   route: string, http: HttpClient, fnGetHttpHeaders: () => HttpHeaders,
-  filter: FilterBasic
+  filter?: FilterBasic
 ): Observable<T[]> {
-  const params = new HttpParams({
-    fromObject: util.primitiveFieldsToString(util.clearEmptyFields(filter))
-  });
+  const params = filter
+    ? new HttpParams({
+      fromObject: util.primitiveFieldsToString(util.clearEmptyFields(filter))
+    })
+    : {};
   return http.get<T[]>(route, {headers: fnGetHttpHeaders(), params})
     .pipe(take(1));
 }

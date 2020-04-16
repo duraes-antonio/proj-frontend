@@ -9,4 +9,5 @@ export interface SequenceAdd<T> {
 
 export interface Sequence<T> extends SequenceAdd<T> {
   readonly id: string;
+  readonly itemsId?: string[];
 }
