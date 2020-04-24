@@ -1,11 +1,14 @@
 'use strict';
-import {FilterBasic} from './filter-base';
+import {FilterBasic} from './filter-basic';
+
+export enum EReviewSort {
+  OLDEST,
+  NEWEST,
+  RATING_HIGH,
+  RATING_LOW
+}
 
 export interface FilterReview extends FilterBasic {
-  currentPage: number;
-  perPage: number;
-  productId: string;
-  userId?: string;
-  dateEnd?: Date;
-  dateStart?: Date;
+  sortBy: EReviewSort;
 }
+

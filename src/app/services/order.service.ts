@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {FilterBasic} from '../models/filters/filter-base';
 import {Order, OrderAdd} from '../models/order';
 import {DataTests} from '../../shared/dataTests';
 import {util} from '../../shared/util';
 import {AuthService} from './auth.service';
 import {take} from 'rxjs/operators';
+import {FilterBasic} from '../models/filters/filter-basic';
 
 @Injectable({
   providedIn: 'root'

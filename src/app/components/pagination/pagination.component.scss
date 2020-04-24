@@ -16,7 +16,6 @@
     @extend %center-flex;
     flex-wrap: wrap;
 
-    /*TODO: Estender comportamento do botão texto (sem fundo)*/
     &__button {
       @extend %center-flex;
       @include circle(32px, #f3f3f3);

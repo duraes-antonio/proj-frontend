@@ -3,7 +3,6 @@ import {Product} from '../app/models/product';
 import {Category} from '../app/models/category';
 import {Review} from '../app/models/review';
 import {Address} from '../app/models/address';
-import {DeliveryOption} from '../app/models/delivery-option';
 import {randomBoolean, randomFloat, randomInt, util} from './util';
 import {User} from '../app/models/user';
 import {NotificationModel} from '../app/models/notification';
@@ -18,6 +17,7 @@ import {ERole} from '../app/enum/roles';
 import {ListSlide} from '../app/models/componentes/slider';
 import {ListLink} from '../app/models/componentes/list-link';
 import {routesFrontend} from './constants/routesFrontend';
+import {DeliveryOption, DeliveryOptionType} from '../app/models/shipping/delivery';
 
 export class DataTests {
   private static itemOrderId = 0;
@@ -91,9 +91,9 @@ export class DataTests {
     {name: 'Vestuário', id: '5'},
   ];
   static readonly deliveryOptions: DeliveryOption[] = [
-    {cost: 14.25, timeDays: 12},
-    {cost: DataTests.obterPrecoRandom(), timeDays: 14},
-    {cost: DataTests.obterPrecoRandom(), timeDays: 5}
+    {cost: 14.25, timeDays: 12, typeService: DeliveryOptionType.SEDEX},
+    {cost: DataTests.obterPrecoRandom(), timeDays: 14, typeService: DeliveryOptionType.SEDEX},
+    {cost: DataTests.obterPrecoRandom(), timeDays: 5, typeService: DeliveryOptionType.PAC}
   ];
   static readonly notifications: NotificationModel[] = Array
     .from({length: 20}, () => DataTests.notificRandom());
@@ -219,35 +219,46 @@ export class DataTests {
       url: 'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
       imageUrl: 'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
       index: 1,
+      id: '1',
       title: 'Yu-Gi-Oh! Duel Links Promotional'
     },
     {
       url: 'https://vignette.wikia.nocookie.net/yugioh/images/e/ed/DOD-VideoGameEN.jpg/revision/latest?cb=20110710180208',
       imageUrl: 'https://vignette.wikia.nocookie.net/yugioh/images/e/ed/DOD-VideoGameEN.jpg/revision/latest?cb=20110710180208',
       index: 2,
+      id: '2',
       title: 'Yu-Gi-Oh! The Dawn of Destiny'
     },
     {
       url: '../../assets/slide-1.jpg',
       imageUrl: '../../assets/slide-1.jpg',
       index: 3,
+      id: '3',
       title: 'Deck: Dragão Branco'
     },
     {
       url: '../../assets/slide-2.jpg',
       imageUrl: '../../assets/slide-2.jpg',
       index: 4,
+      id: '4',
       title: 'Promoção de férias!'
     },
     {
       url: '../../assets/slide-3.jpg',
       imageUrl: '../../assets/slide-3.jpg',
       index: 5,
+      id: '5',
       title: 'Deck Inicial: Decifrador de código'
     },
   ];
   static readonly sliders: ListSlide[] = [
-    {id: '1', readRole: ERole.UNKNOWN, items: DataTests.slides, title: 'Melhores ofertas!'}
+    {
+      id: '1',
+      itemsId: DataTests.slides.map(s => s.id),
+      readRole: ERole.UNKNOWN,
+      items: DataTests.slides,
+      title: 'Melhores ofertas!'
+    }
   ];
   static readonly users: User[] = [
     // tslint:disable-next-line:max-line-length
@@ -284,51 +295,51 @@ export class DataTests {
     {
       id: (++DataTests.marketId).toString(),
       // tslint:disable-next-line:max-line-length
-      imageUrl: 'https://lh3.googleusercontent.com/proxy/5TB3D7TYj3KrVOepF7uk5SUG-ms92nYPZkV07qQrL8jFl-8bWBc-IWHXw6l_abtvbVjMq9NPCVOGNQBK_640SNm1jg7YUvbjE35Zn3zhWCHHtcLwn5B7Ma6GaKg7gcBzAnTMKspU0kJVgkqHilzJSNNUfxSX7ZP7tHkDJqU',
-      logoImgUrl: 'https://paladinsgames.com.br/uploads/configloja_favico/20181019190653_favicon.png',
+      backgroundUrl: 'https://lh3.googleusercontent.com/proxy/5TB3D7TYj3KrVOepF7uk5SUG-ms92nYPZkV07qQrL8jFl-8bWBc-IWHXw6l_abtvbVjMq9NPCVOGNQBK_640SNm1jg7YUvbjE35Zn3zhWCHHtcLwn5B7Ma6GaKg7gcBzAnTMKspU0kJVgkqHilzJSNNUfxSX7ZP7tHkDJqU',
+      avatarUrl: 'https://paladinsgames.com.br/uploads/configloja_favico/20181019190653_favicon.png',
       name: 'Paladins Games',
       url: 'https://paladinsgames.com.br/home'
     },
     {
       id: (++DataTests.marketId).toString(),
-      imageUrl: 'https://i.redd.it/417kp9m2z0oz.png',
-      logoImgUrl: 'https://www.domaingames.com.br/images/logo_footer.png',
+      backgroundUrl: 'https://i.redd.it/417kp9m2z0oz.png',
+      avatarUrl: 'https://www.domaingames.com.br/images/logo_footer.png',
       name: 'Domain Games',
       url: 'https://www.domaingames.com.br/'
     },
     {
       id: (++DataTests.marketId).toString(),
-      imageUrl: 'https://i.imgur.com/4O9Qe0g.png',
-      logoImgUrl: 'https://www.lojalotusgames.com.br/img/lotusgames2.png',
+      backgroundUrl: 'https://i.imgur.com/4O9Qe0g.png',
+      avatarUrl: 'https://www.lojalotusgames.com.br/img/lotusgames2.png',
       name: 'Lotus Games',
       url: 'https://www.lojalotusgames.com.br/'
     },
     {
       id: (++DataTests.marketId).toString(),
-      imageUrl: 'https://cdn11.bigcommerce.com/s-0kvv9/product_images/theme_images/onward.jpg?t=1581542509',
+      backgroundUrl: 'https://cdn11.bigcommerce.com/s-0kvv9/product_images/theme_images/onward.jpg?t=1581542509',
       // tslint:disable-next-line:max-line-length
-      logoImgUrl: 'https://cdn11.bigcommerce.com/s-0kvv9/stencil/5d84e5d0-2ff3-0138-06f9-0242ac110009/e/ccff5d00-2bfa-0138-bad2-0242ac11000c/img/logo.png',
+      avatarUrl: 'https://cdn11.bigcommerce.com/s-0kvv9/stencil/5d84e5d0-2ff3-0138-06f9-0242ac110009/e/ccff5d00-2bfa-0138-bad2-0242ac11000c/img/logo.png',
       name: 'Toywiz',
       url: 'https://toywiz.com'
     },
     {
       id: (++DataTests.marketId).toString(),
-      imageUrl: 'https://www.duelshop.com.br/modules/themeconfigurator/img/134e7d9b06d4ef28d6e1039392666084859d0619_pkmsm3m.jpg',
-      logoImgUrl: 'https://www.duelshop.com.br/themes/default-bootstrap/img/logo.png',
+      backgroundUrl: 'https://www.duelshop.com.br/modules/themeconfigurator/img/134e7d9b06d4ef28d6e1039392666084859d0619_pkmsm3m.jpg',
+      avatarUrl: 'https://www.duelshop.com.br/themes/default-bootstrap/img/logo.png',
       name: 'Duel Shop',
       url: 'https://www.duelshop.com.br/'
     },
     {
       id: (++DataTests.marketId).toString(),
-      imageUrl: 'https://www.lmcorp.com.br/arquivos/up/ecom/home/g/159647_1564141850.png',
-      logoImgUrl: 'https://www.lmcorp.com.br/arquivos/ecom/159647/images/head_logo_p.png',
+      backgroundUrl: 'https://www.lmcorp.com.br/arquivos/up/ecom/home/g/159647_1564141850.png',
+      avatarUrl: 'https://www.lmcorp.com.br/arquivos/ecom/159647/images/head_logo_p.png',
       name: 'World Card Games',
       url: 'https://www.worldcardgames.com.br/'
     },
     {
       id: (++DataTests.marketId).toString(),
-      imageUrl: 'https://www.animenew.com.br/wp-content/uploads/2013/12/Yu-Gi-Oh-Arc-V.jpg',
-      logoImgUrl: 'https://http2.mlstatic.com/ui/navigation/4.5.0/mercadolibre/logo-pt__large_plus.png',
+      backgroundUrl: 'https://www.animenew.com.br/wp-content/uploads/2013/12/Yu-Gi-Oh-Arc-V.jpg',
+      avatarUrl: 'https://http2.mlstatic.com/ui/navigation/4.5.0/mercadolibre/logo-pt__large_plus.png',
       name: 'Mercado Livre',
       url: 'https://produto.mercadolivre.com.br/'
     }
@@ -339,7 +350,7 @@ export class DataTests {
       items: [
         {
           id: '1',
-          amount: 2,
+          quantity: 2,
           product: DataTests.products[0],
           productId: DataTests.products[0].id,
           unitPrice: DataTests.products[0].priceWithDiscount
@@ -357,21 +368,21 @@ export class DataTests {
       items: [
         {
           id: '2',
-          amount: 2,
+          quantity: 2,
           product: DataTests.products[1],
           productId: DataTests.products[1].id,
           unitPrice: DataTests.products[1].priceWithDiscount
         },
         {
           id: '2',
-          amount: 95,
+          quantity: 95,
           product: DataTests.products[5],
           productId: DataTests.products[5].id,
           unitPrice: DataTests.products[5].priceWithDiscount
         },
         {
           id: '3',
-          amount: 7,
+          quantity: 7,
           product: DataTests.products[3],
           productId: DataTests.products[3].id,
           unitPrice: DataTests.products[3].priceWithDiscount
@@ -400,12 +411,14 @@ export class DataTests {
       title: 'Nossos parceiros <3',
       items: DataTests.markets,
       id: '1',
+      itemsId: DataTests.markets.map(m => m.id),
       readRole: ERole.UNKNOWN
     },
   ];
   static readonly listLinks: ListLink[] = [
     {
       id: '1',
+      itemsId: ['11', '12', '13', '14'],
       items: [
         {text: 'Sobre', url: routesFrontend.about},
         {text: 'Contato', url: routesFrontend.contact},
@@ -417,6 +430,7 @@ export class DataTests {
     },
     {
       id: '2',
+      itemsId: ['1', '2', '3', '4', '5', '6'],
       items: [
         {text: 'Meu perfil', url: routesFrontend.userProfile},
         {text: 'Minhas avaliações', url: routesFrontend.userReviews},
@@ -430,6 +444,7 @@ export class DataTests {
     },
     {
       id: '3',
+      itemsId: DataTests.categories.map(c => c.id),
       items: [
         {text: 'Gerenciar categorias', url: routesFrontend.categoriesManagement},
         {text: 'Gerenciar usuários', url: routesFrontend.usersManagement},
@@ -442,6 +457,7 @@ export class DataTests {
     },
     {
       id: '4',
+      itemsId: DataTests.markets.map(m => m.id),
       items: DataTests.markets.map(market => {
         return {url: market.url, text: market.name};
       }),

@@ -5,12 +5,12 @@
 
       <!-- LOGO DA LOJA -->
       <a [href]="item.url" class="market__logo" title="Logo da loja {{item.name}}">
-        <img [src]="item.logoImgUrl" alt="Logo da loja {{item.name}}}"
+        <img [src]="item.avatarUrl" alt="Logo da loja {{item.name}}}"
              class="market__logo-img">
       </a>
 
       <!-- BACKGROUND DA LOJA -->
-      <div [style.backgroundImage]="'url('+ item.imageUrl +')'"
+      <div [style.backgroundImage]="'url('+ item.backgroundUrl +')'"
            [title]="item.name" class="market__back">
       </div>
 

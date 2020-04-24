@@ -14,7 +14,6 @@ import {ListMarketService} from '../../services/list-market.service';
 })
 export class HomeComponent {
 
-  // TODO: Receber lista de components do banco
   readonly listsSlides$: Observable<ListSlide[]>;
   // public readonly cartoes: ListCard[] = [new ListCard(1)];
   readonly listsProducts$: Observable<ListProduct[]>;

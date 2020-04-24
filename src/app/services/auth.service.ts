@@ -1,6 +1,5 @@
 'use strict';
 import {EventEmitter, Injectable} from '@angular/core';
-import {UserLogin} from '../models/user-login';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user';
 import {environment} from '../../environments/environment';
@@ -65,18 +64,18 @@ export class AuthService {
     }
   }
 
+  static saveCredentials(data: LoginReturn) {
+    AuthService.saveToken(data.token);
+    AuthService.userLogged = data.user;
+    AuthService.userLoggedEmitter.emit(true);
+  }
+
   private static _decodeToken(jwt: string): TokenData | null {
     try {
       return jwt_decode(jwt);
     } catch (Error) {
       return null;
     }
-  }
-
-  static saveCredentials(data: LoginReturn) {
-    AuthService.saveToken(data.token);
-    AuthService.userLogged = data.user;
-    AuthService.userLoggedEmitter.emit(true);
   }
 
   login(dataLogin: UserLogin): Observable<LoginReturn> {
@@ -120,4 +119,9 @@ export interface LoginReturn {
 export interface TokenData extends User {
   iat: number;
   exp: number;
+}
+
+export interface UserLogin {
+  email: string;
+  password: string;
 }

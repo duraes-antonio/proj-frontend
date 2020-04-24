@@ -5,9 +5,9 @@ import {Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
-import {FilterProductBackend} from '../models/filters/filter-product-user';
 import {DataTests} from '../../shared/dataTests';
 import {util} from '../../shared/util';
+import {FilterProduct} from '../models/filters/filter-product';
 
 @Injectable({
   providedIn: 'root'
@@ -35,16 +35,12 @@ export class ProductService {
     );
   }
 
-  /*TODO: Subsituir dados mockados por consulta*/
-  get(filter?: FilterProductBackend): Observable<Product[]> {
+  get(filter?: FilterProduct): Observable<Product[]> {
     const params = filter
       ? new HttpParams({
         fromObject: util.primitiveFieldsToString(util.clearEmptyFields(filter))
       })
       : {};
-    return of(DataTests.products
-      .filter(p => !filter || filter?.ids?.includes(p.id))
-    );
     return this._http.get<Product[]>(
       this._routeApi, {headers: AuthService.getHeaders(), params}
     );

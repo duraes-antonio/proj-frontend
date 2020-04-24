@@ -5,10 +5,10 @@ import {MatDialog} from '@angular/material/dialog';
 import {ModalProductMatComponent} from '../../../components/dialogs/modal-product-mat/modal-product-mat.component';
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
-import {EProductSort} from '../../../models/filters/filter-product-user';
 import {ProductService} from '../../../services/product.service';
 import {Observable} from 'rxjs';
 import {CategoryService} from '../../../services/category.service';
+import {EProductSort} from '../../../enum/product-sort';
 
 @Component({
   selector: 'app-product-management',

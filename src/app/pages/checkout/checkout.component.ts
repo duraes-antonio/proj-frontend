@@ -187,13 +187,14 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
   }
 
   private _updateCostDelivery(zipCode: string, productsQuantity: [Product, number][]) {
+    // TDOO: Ver caso de escolha de opção de frete
     this._shippingServ.calculateCostDays(
       zipCode,
       productsQuantity.map(prodQuantity => {
         return {productId: prodQuantity[0].id, quantity: prodQuantity[1]};
       })
     ).pipe(take(1))
-      .subscribe(deliveryOpt => this.deliveryCost = deliveryOpt.cost);
+      .subscribe(deliveryOpt => this.deliveryCost = deliveryOpt[1].cost);
   }
 }
 

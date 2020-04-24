@@ -3,7 +3,7 @@
 import {Product} from './product';
 
 export interface ItemOrderAdd {
-  readonly amount: number;
+  readonly quantity: number;
   readonly unitPrice: number;
   readonly productId: string;
 }

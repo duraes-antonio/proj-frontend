@@ -1,7 +1,7 @@
 'use strict';
 export interface MarketAdd {
-  readonly imageUrl: string;
-  readonly logoImgUrl: string;
+  readonly backgroundUrl: string;
+  readonly avatarUrl: string;
   readonly name: string;
   readonly url: string;
 }

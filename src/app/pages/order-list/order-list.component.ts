@@ -4,7 +4,6 @@ import {fmtTimestamp} from '../../../shared/constants/formats';
 import {EStateOrder} from '../../enum/state-order';
 import {OrderService} from '../../services/order.service';
 import {Observable} from 'rxjs';
-import {FilterBasic} from '../../models/filters/filter-base';
 
 @Component({
   selector: 'app-order-list',
@@ -20,7 +19,7 @@ export class OrderListComponent {
   constructor(
     private readonly _orderServ: OrderService
   ) {
-    this.orders$ = _orderServ.get({perPage: 10, currentPage: 1} as FilterBasic);
+    this.orders$ = _orderServ.get({perPage: 10, currentPage: 1});
   }
 
   // TODO: Recriar tela p/ quando não houver compras ou impedir acesso

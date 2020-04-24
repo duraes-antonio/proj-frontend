@@ -1,7 +1,7 @@
 'use strict';
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
-import {DeliveryOption} from '../../../models/delivery-option';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
+import {DeliveryOption} from '../../../models/shipping/delivery';
 
 @Component({
   selector: 'app-modal-shipping-mat',

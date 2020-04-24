@@ -5,10 +5,11 @@
   <ul class="filter__content">
 
     <!-- CATEGORIAS -->
-    <li id="id-filtro-categorias">
+    <li *ngIf="categoriesInit?.size" id="id-filtro-categorias">
       <div class="filter__section-header">Categorias</div>
       <div class="filter__section-body">
-        <mat-checkbox (change)="categoryChange(categ.id)" *ngFor="let categ of categoriesInit">
+        <mat-checkbox (change)="categoryChange(categ.id)"
+                      *ngFor="let categ of categoriesInit">
           {{categ.name}}
         </mat-checkbox>
       </div>
@@ -23,7 +24,7 @@
     </li>
 
     <!-- DESCONTOS -->
-    <li *ngIf="discountsInit.length > 0" id="id-filtro-desconto">
+    <li *ngIf="discountsInit?.length" id="id-filtro-desconto">
       <div class="filter__section-header">Desconto</div>
       <div class="filter__section-body">
         <mat-checkbox (change)="discountChange(0)">Até {{discountsInit[0][1]}}%</mat-checkbox>
@@ -58,7 +59,7 @@
     </li>
 
     <!-- AVALIÇÃO (ESTRELAS) -->
-    <li *ngIf="ratingsInit.length > 0" id="id-filtro-avaliacao">
+    <li *ngIf="ratingsInit?.length" id="id-filtro-avaliacao">
       <div class="filter__section-header">Avaliação</div>
       <div class="filter__section-body">
         <div *ngFor="let rating of ratingsInit; let i = index" class="stars">

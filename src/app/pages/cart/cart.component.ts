@@ -1,6 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Product} from '../../models/product';
-import {Product2Service} from '../../services/product2.service';
 import {Store} from '@ngrx/store';
 import {Cart} from '../../models/cart';
 import {Subscription} from 'rxjs';
@@ -12,10 +11,10 @@ import {AddressService} from '../../services/address.service';
 import {take} from 'rxjs/operators';
 import {routesFrontend} from '../../../shared/constants/routesFrontend';
 import {ShippingService} from '../../services/shipping.service';
-import {DeliveryOption} from '../../models/delivery-option';
 import {AuthService} from '../../services/auth.service';
 import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
+import {DeliveryOption} from '../../models/shipping/delivery';
 
 @Component({
   selector: 'app-cart',
@@ -38,6 +37,7 @@ export class CartComponent implements OnDestroy {
     private readonly _cartStore: Store<Cart>,
     private readonly _addressServ: AddressService,
     private readonly _dialog: MatDialog,
+    private readonly _productServ: ProductService,
     private readonly _shippingServ: ShippingService
   ) {
     // Inscreva-se p/ receber atualizações do carrinho
@@ -48,9 +48,13 @@ export class CartComponent implements OnDestroy {
         /*Se no carrinho houver ids de produtos, então busque eles no banco
         * e atualize os custos do carrinho*/
         if (ids && ids.length) {
-          this.productsChosen = Product2Service.getAll(ids);
-          this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
-          this._updateCost();
+          this._productServ.get(
+            {perPage: 100, ids, currentPage: 1}
+          ).subscribe((products: Product[]) => {
+            this.productsChosen = products;
+            this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
+            this._updateCost();
+          });
         }
       });
 
@@ -113,7 +117,6 @@ export class CartComponent implements OnDestroy {
     }
   }
 
-  // TODO: Substituir por cálculo real
   private _calculateCostShipping(cep: string, mapProdQuantity: Map<Product, number>) {
     const prodIdQuantity = Array.from(mapProdQuantity)
       .map((pairIdQuantity: [Product, number]) => {
@@ -121,8 +124,8 @@ export class CartComponent implements OnDestroy {
       });
     this._shippingServ.calculateCostDays(cep, prodIdQuantity)
       .pipe(take(1))
-      .subscribe((deliveryOpt: DeliveryOption) => {
-        this.totalCostShipping = deliveryOpt.cost;
+      .subscribe((deliveryOpt: DeliveryOption[]) => {
+        this.totalCostShipping = deliveryOpt[0].cost;
       });
   }
 

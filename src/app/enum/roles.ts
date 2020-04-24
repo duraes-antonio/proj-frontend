@@ -1,7 +1,7 @@
 'use strict';
 
 export enum ERole {
-  UNKNOWN,
-  CUSTOMER,
-  ADMIN
+  ADMIN = 'admin',
+  CUSTOMER = 'customer',
+  UNKNOWN = 'unknown'
 }

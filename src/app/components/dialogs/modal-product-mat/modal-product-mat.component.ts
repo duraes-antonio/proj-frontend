@@ -23,7 +23,6 @@ export class ModalProductMatComponent {
     btnCancel: 'Descartar',
   };
 
-  /*TODO: Buscar categorias*/
   productCategs: Category[] = [];
   readonly _getMsg = getMsgFront;
   readonly _sizes = productSizes;

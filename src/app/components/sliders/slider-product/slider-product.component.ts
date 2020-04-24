@@ -14,7 +14,13 @@ export class SliderProductComponent {
   optionsGlide: any;
 
   constructor() {
-    this._list = {id: '', title: '', items: [], readRole: ERole.UNKNOWN};
+    this._list = {
+      id: '',
+      title: '',
+      items: [],
+      itemsId: [],
+      readRole: ERole.UNKNOWN
+    };
   }
 
   private _list: ListProduct;

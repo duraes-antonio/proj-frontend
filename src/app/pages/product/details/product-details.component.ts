@@ -7,7 +7,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {Product} from '../../../models/product';
 import {Review} from '../../../models/review';
 import {Address} from '../../../models/address';
-import {DeliveryOption} from '../../../models/delivery-option';
 import {Cart} from '../../../models/cart';
 import {Add, Remove} from '../../../actions/cart.action';
 import {ModalAddressComponent} from '../../../components/dialogs/modal-address/modal-address.component';
@@ -24,6 +23,8 @@ import {ShippingService} from '../../../services/shipping.service';
 import {OrderService} from '../../../services/order.service';
 import {ListProduct} from '../../../models/componentes/list-product';
 import {ListProductService} from '../../../services/list-product.service';
+import {DeliveryOption} from '../../../models/shipping/delivery';
+import {EReviewSort} from '../../../models/filters/filter-review';
 
 @Component({
   selector: 'app-product-details',
@@ -44,7 +45,6 @@ export class ProductDetailsComponent implements OnDestroy {
   addresses: Address[] = [];
   showButtonRate = false;
 
-  /*TODO: Remover após ter dados em um banco de dados*/
   private readonly _routeSub$: Subscription;
   private readonly _cart$: Subscription;
   private _cartProdIds: string[] = [];
@@ -64,7 +64,11 @@ export class ProductDetailsComponent implements OnDestroy {
     this._routeSub$ = _route.params.subscribe(
       params => {
         const productId = params['id'];
-        const reviewsGet$ = _reviewServ.get({currentPage: 1, perPage: 10, productId});
+        const reviewsGet$ = _reviewServ.get({
+          currentPage: 1,
+          perPage: 10,
+          sortBy: EReviewSort.NEWEST
+        });
         const productGet$ = _productServ.getById(productId);
         const prodRelatedList$ = _listProductServ.getRelateds(productId);
         const observables: Observable<any>[] = [
@@ -107,8 +111,7 @@ export class ProductDetailsComponent implements OnDestroy {
   }
 
   showModalShipp(CEP: string) {
-    /*TODO: Chamar serviço para calculo de frete*/
-    this._shippingServ.getDeliveryOptions(CEP, [{quantity: 1, productId: this.product?.id as string}])
+    this._shippingServ.calculateCostDays(CEP, [{quantity: 1, productId: this.product?.id as string}])
       .subscribe((deliveryOpts: DeliveryOption[]) => {
         const dialogRef = this._dialog.open(
           ModalShippingMatComponent,

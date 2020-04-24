@@ -1,5 +1,4 @@
 'use strict';
-
 export interface AddressAdd {
   readonly street: string;
   readonly number?: number;
@@ -9,7 +8,6 @@ export interface AddressAdd {
   readonly state: string;
 }
 
-/*TODO: Converter para interface após utilizar serviço*/
 export interface Address extends AddressAdd {
   readonly id: string;
   readonly userId: string;

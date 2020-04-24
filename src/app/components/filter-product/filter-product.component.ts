@@ -2,7 +2,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from '../../models/product';
 import {Category} from '../../models/category';
-import {FilterProduct} from '../../models/filters/filter-product-user';
+import {FilterProduct} from '../../models/filters/filter-product';
 
 @Component({
   selector: 'app-filter-product',
@@ -17,7 +17,10 @@ export class FilterProductComponent {
   ratingsInit: number[] = [];
   discountsInit: number[][] = [];
   freeDeliveryInit?: boolean;
-  filter = new FilterProduct(1, 10);
+  filter: FilterProduct = {
+    currentPage: 1,
+    perPage: 15
+  };
 
   freeDelivery = false;
   priceMin = 0;
@@ -25,15 +28,15 @@ export class FilterProductComponent {
   readonly categories: string[] = [];
   readonly discounts: number[] = [];
   readonly ratings: number[] = [];
-  private _produtos: Product[] = [];
+  private _products: Product[] = [];
 
   @Input()
-  get produtos(): Product[] {
-    return this._produtos;
+  get products(): Product[] {
+    return this._products;
   }
 
-  set produtos(produtos: Product[]) {
-    this._produtos = produtos;
+  set products(produtos: Product[]) {
+    this._products = produtos;
     this.ratingsInit = this._prepareRatings(produtos);
     this.categoriesInit = this._prepareCategory(produtos);
     this.discountsInit = this._prepareDiscounts(produtos);
@@ -49,7 +52,7 @@ export class FilterProductComponent {
     } else {
       this.categories.push(categId);
     }
-    this.filter = {...this.filter, categorias: this.categories};
+    this.filter = {...this.filter, categoriesId: this.categories};
     this.filterEmit.emit(this.filter);
   }
 
@@ -63,11 +66,7 @@ export class FilterProductComponent {
     }
 
     if (this.discounts && this.discounts.length) {
-      this.filter = {
-        ...this.filter,
-        descMin: this.discountsInit[Math.min(...this.discounts)][0],
-        descMax: this.discountsInit[Math.max(...this.discounts)][1],
-      };
+      this.filter = {...this.filter, discounts: this.discountsInit};
     }
 
     this.filterEmit.emit(this.filter);
@@ -75,7 +74,7 @@ export class FilterProductComponent {
 
   freeDeliveryChange() {
     this.freeDelivery = !this.freeDelivery;
-    this.filter = {...this.filter, freteGratis: this.freeDelivery};
+    this.filter = {...this.filter, freeDelivery: this.freeDelivery};
     this.filterEmit.emit(this.filter);
   }
 
@@ -88,12 +87,12 @@ export class FilterProductComponent {
       this.ratings.push(value);
     }
 
-    this.filter = {...this.filter, avaliacoes: [...this.ratings]};
+    this.filter = {...this.filter, avgReview: [...this.ratings]};
     this.filterEmit.emit(this.filter);
   }
 
   priceChange() {
-    this.filter = {...this.filter, precoMax: this.priceMax, precoMin: this.priceMin};
+    this.filter = {...this.filter, priceMax: this.priceMax, priceMin: this.priceMin};
     this.filterEmit.emit(this.filter);
   }
 
@@ -107,7 +106,7 @@ export class FilterProductComponent {
   private _prepareCategory(prods: Product[]): Set<Category> {
     return new Set(
       prods
-        .map(p => p.categories)
+        .map(p => p.categories ?? [])
         .reduce((a, b) => a.concat(b), [])
     );
   }

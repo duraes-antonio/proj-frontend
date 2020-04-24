@@ -1,8 +1,8 @@
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {FilterBasic} from '../models/filters/filter-base';
 import {util} from '../../shared/util';
 import {take} from 'rxjs/operators';
+import {FilterBasic} from '../models/filters/filter-basic';
 
 function _delete(
   route: string, id: string, http: HttpClient, fnGetHttpHeaders: () => HttpHeaders

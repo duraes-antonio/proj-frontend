@@ -8,7 +8,7 @@ export interface UserAdd {
   readonly roles: ERole[];
 }
 
-// TODO: Trabalhar com endereço, redes sociais, permissões/role
+// TODO: Trabalhar com redes sociais
 export interface User extends UserAdd {
   readonly id: string;
 }
