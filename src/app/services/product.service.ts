@@ -94,7 +94,7 @@ export class ProductService {
   post(obj: ProductAdd): Observable<Product> {
     return this._http.post<Product>(
       this._routeApi,
-      obj,
+      {...obj, visible: false},
       {headers: AuthService.getHeaders()}
     ).pipe(take(1));
   }
