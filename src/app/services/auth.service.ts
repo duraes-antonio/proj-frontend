@@ -8,7 +8,7 @@ import * as jwt_decode from 'jwt-decode';
 import * as moment from 'moment';
 import {take, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {routesFrontend} from '../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../shared/constants/routes-frontend';
 
 @Injectable({
   providedIn: 'root'

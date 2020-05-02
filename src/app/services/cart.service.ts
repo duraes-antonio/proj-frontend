@@ -8,10 +8,14 @@ export class CartService {
   static saveOrder(productsQuantity: [Product, number][], addressId?: string) {
     if (productsQuantity.length) {
       const checkoutObj: CheckoutOrder = {
-        addressId: addressId ?? undefined,
-        productsIdQuantity: productsQuantity
+        addressTargetId: addressId ?? undefined,
+        items: productsQuantity
           .map((pair: [Product, number]) => {
-            return {productId: pair[0].id, quantity: pair[1]};
+            return {
+              productId: pair[0].id,
+              quantity: pair[1],
+              unitPrice: pair[0].priceWithDiscount
+            };
           })
       };
       localStorage.setItem('order', JSON.stringify(checkoutObj));

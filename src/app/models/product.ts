@@ -2,7 +2,7 @@
 import {Category} from './category';
 
 export interface ProductAdd {
-  readonly amountAvailable: number;
+  readonly quantity: number;
   readonly categoriesId: string[];
   readonly desc: string;
   readonly freeDelivery: boolean;

@@ -1,24 +1,40 @@
 'use strict';
-import {Component, EventEmitter, Inject, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
-import {DeliveryOption} from '../../../models/shipping/delivery';
+import {DeliveryOption, ItemShipping} from '../../../models/shipping/delivery';
+import {util} from '../../../../shared/util';
+import {AddressAdd} from '../../../models/address';
+import {AddressService} from '../../../services/address.service';
+import {Observable} from 'rxjs';
+import {ShippingService} from '../../../services/shipping.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-modal-shipping-mat',
   templateUrl: './modal-shipping-mat.component.html',
   styleUrls: ['./modal-shipping-mat.component.scss']
 })
 export class ModalShippingMatComponent {
-  modalTitle = 'Como deseja receber seus produtos?';
-  confirmTitle = 'Selecionar';
-  cancelTitle = 'Cancelar';
+  readonly modalTitle = 'Como deseja receber seus produtos?';
+  readonly confirmTitle = 'Selecionar';
+  readonly cancelTitle = 'Cancelar';
+  readonly util = util;
+  readonly optionsDelivery$: Observable<DeliveryOption[]>;
   optSelected?: DeliveryOption;
+  address?: AddressAdd;
 
   @Output() closed = new EventEmitter();
   @Output() action = new EventEmitter();
   @Output() selectAddress = new EventEmitter();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IModalShippingData) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: IModalShippingData,
+    private readonly _addressServ: AddressService,
+    private readonly _shippingServ: ShippingService,
+  ) {
+    this.optionsDelivery$ = _shippingServ.calculateCostDays(data.zipcode, data.items);
+    _addressServ.getFromViaCEP(data.zipcode)
+      .subscribe((a: AddressAdd) => this.address = a);
   }
 
   static getConfig(data: IModalShippingData): MatDialogConfig {
@@ -49,5 +65,6 @@ export class ModalShippingMatComponent {
 }
 
 export interface IModalShippingData {
-  optionsDelivery: DeliveryOption[];
+  zipcode: string;
+  items: ItemShipping[];
 }

@@ -27,8 +27,7 @@ export function filterByText<T>(
   }
 }
 
-export function randomFloat(
-  min = 0, max: number = Number.MAX_SAFE_INTEGER): number {
+export function randomFloat(min = 0, max: number = Number.MAX_SAFE_INTEGER): number {
   return (Math.random() * (max - min)) + min;
 }
 
@@ -52,8 +51,7 @@ export function getObjectFromFormGroup<T>(fGroup: FormGroup): T {
   return object;
 }
 
-export function randomInt(
-  min = 0, max: number = Number.MAX_SAFE_INTEGER): number {
+export function randomInt(min = 0, max: number = Number.MAX_SAFE_INTEGER): number {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -115,10 +113,17 @@ export function primitiveFieldsToString(obj: any): any {
   return objTransformed;
 }
 
+export function formatDateDelivery(daysToIncrement: number): Date {
+  const futureDate = new Date();
+  futureDate.setDate(futureDate.getDate() + daysToIncrement);
+  return futureDate;
+}
+
 export const util = {
   calcAverage: calcAverage,
   clearEmptyFields: clearEmptyFields,
   filterByText: filterByText,
+  formatDateDelivery,
   genSequence: genSequence,
   getObjectFromFormGroup: getObjectFromFormGroup,
   getPatchFromFormGroup: extractPatchFromFormGroup,

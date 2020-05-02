@@ -28,6 +28,32 @@ const validation = {
   validCEP(cep: string): boolean {
     return validation.hasValue(cep) && validation.exactlytLen(cep, 8);
   },
+  /*Adaptado de: https://github.com/tiagoporto/gerador-validador-cpf/blob/master/src/js/CPF.ts*/
+  validCPFFormat(value: string): boolean {
+    return !(!validation.hasValue(value) || value.length !== 11 || !/\d{11}/.test(value));
+  },
+  validCPFValue(value: string): boolean {
+    /** Calcula o primeiro ou o segundo dígito verificador de um CPF
+     * @param cpfSliced 9 primeiros dígitos (p/ calcular o primeiro dígito verificador)
+     * ou 9 primeiros dígitos concatenado com o primeiro dígito verificador para calcular
+     * o segundo.
+     * @return Dígito verificador, primeiro ou segundo, dependendo da cadeia de entrada
+     */
+    const calcDigitChecker = (cpfSliced: string): number => {
+      const startRegressionNumber = cpfSliced.length + 1;
+      const sum = Array(cpfSliced.length)
+        .fill(0)
+        .map((_, index) => +cpfSliced[index] * (startRegressionNumber - index))
+        .reduce((prevDigit: number, currDigit: number) => prevDigit + currDigit);
+      const restSumPerChecker2 = sum % 11;
+      return restSumPerChecker2 < 2 ? 0 : 11 - restSumPerChecker2;
+    };
+
+    const firstNine = value.substring(0, 9);
+    const firstChecker = calcDigitChecker(firstNine);
+    const secondChecker = calcDigitChecker(`${firstNine}${firstChecker}`);
+    return value.substring(9, 11) === `${firstChecker}${secondChecker}`;
+  },
   validEmail(email: string): boolean {
     return this.hasValue(email) && regexEmail.test(email);
   },

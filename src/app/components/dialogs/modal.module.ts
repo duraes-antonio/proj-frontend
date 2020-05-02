@@ -16,8 +16,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {ModalManageAddressComponent} from './modal-manage-address/modal-manage-address.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { ModalManageReviewComponent } from './modal-manage-review/modal-manage-review.component';
+import {ModalManageReviewComponent} from './modal-manage-review/modal-manage-review.component';
 import {StarRatingModule} from '../star-rating/star-rating.module';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {StarRatingModule} from '../star-rating/star-rating.module';
     ScrollingModule,
     MatAutocompleteModule,
     StarRatingModule,
+    MatCheckboxModule,
   ],
   providers: [
     MatDialog

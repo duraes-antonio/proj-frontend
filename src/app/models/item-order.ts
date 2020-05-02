@@ -1,11 +1,10 @@
 'use strict';
 
 import {Product} from './product';
+import {ItemShipping} from './shipping/delivery';
 
-export interface ItemOrderAdd {
-  readonly quantity: number;
+export interface ItemOrderAdd extends ItemShipping {
   readonly unitPrice: number;
-  readonly productId: string;
 }
 
 export interface ItemOrder extends ItemOrderAdd {

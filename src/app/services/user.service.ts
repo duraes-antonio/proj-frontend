@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {AuthService, LoginReturn} from './auth.service';
 import {take, tap} from 'rxjs/operators';
+import {UserAdd} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
   constructor(private readonly _http: HttpClient) {
   }
 
-  post(obj: { email: string, name: string, password: string }): Observable<LoginReturn> {
+  post(obj: UserAdd): Observable<LoginReturn> {
     return this._http
       .post<LoginReturn>(
         this._endpoint,

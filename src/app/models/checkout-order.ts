@@ -1,5 +1,9 @@
 'use strict';
+import {ItemOrderAdd} from './item-order';
+import {DeliveryOptionType} from './shipping/delivery';
+
 export interface CheckoutOrder {
-  addressId?: string;
-  productsIdQuantity: { productId: string; quantity: number }[];
+  addressTargetId?: string;
+  optionDeliveryType?: DeliveryOptionType;
+  items: ItemOrderAdd[];
 }

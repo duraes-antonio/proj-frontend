@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ListProduct} from '../../../models/componentes/list-product';
-import {routesFrontend} from '../../../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../../../shared/constants/routes-frontend';
 import {ERole} from '../../../enum/roles';
 
 @Component({

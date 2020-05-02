@@ -4,7 +4,6 @@
       <div class="col s12 m3 l2 xl2 product__img-block">
         <img [alt]="prod.title" [src]="prod.urlMainImage" class="product__img">
       </div>
-
       <div class="col s12 m9 l10 xl10 text-section">
         <!-- Título e desconto -->
         <div class="col s12 m12 l8 xl8 product-list__item-title-desc">
@@ -12,10 +11,10 @@
 
           <!-- Quantidade, frete grátis e desconto -->
           <div class="product__info col">
-            <span [ngClass]="{'text-red': prod.amountAvailable < 10}"
+            <span [ngClass]="{'text-red': prod.quantity < 10}"
                   class="product__attr col xs7 s5 m4 l3 xl3">
               <i aria-hidden="true" class="fas fa-cubes product__attr-icon"></i>
-              {{prod.amountAvailable}} disponíveis
+              {{prod.quantity}} disponíveis
             </span>
             <span *ngIf="prod.freeDelivery" class="product__attr col xs5 s4 m3 l3 xl2">
               <i aria-hidden="true" class="fas fa-truck product__attr-icon" style="font-size: 14px"></i>
@@ -39,7 +38,7 @@
             </span>
           </span>
           <app-input-number (outValue)="changeAmount(prod, $event)"
-                            [maxValue]="prod.amountAvailable" [minValue]="1">
+                            [maxValue]="prod.quantity" [minValue]="1">
           </app-input-number>
         </div>
 
@@ -78,7 +77,7 @@
         <!-- Endereço -->
         <div class="cart-cost__price">
           <span class="cart-cost__price-title">Entrega em:</span>
-          <a (click)="showModalAdress()" class="cart-cost__price-value">{{currentAddress.zipCode}},
+          <a (click)="showModalAddress()" class="cart-cost__price-value">{{currentAddress.zipCode}},
             {{currentAddress.number}}, {{currentAddress.neighborhood}}
             <i aria-hidden="true" class="fa fa-cog" style="margin-left: 5px"></i>
           </a>

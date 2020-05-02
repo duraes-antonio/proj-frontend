@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../../shared/constants/routes-frontend';
 
 @Component({
   selector: 'app-page404',

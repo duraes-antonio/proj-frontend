@@ -2,7 +2,7 @@
 import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
 import {masks} from '../input-masks/maskFunctions';
 import {validation} from './validationFunctions';
-import {userSizes} from '../constants/fieldSize';
+import {userSizes} from '../constants/field-size';
 import {EErrorType} from './msgErrorFunctionsFront';
 
 export const validators = {
@@ -14,6 +14,20 @@ export const validators = {
         return {[EErrorType.REQUIRED]: true};
       } else if (!validation.validCEP(cep.replace('-', ''))) {
         return {[EErrorType.FORMAT]: true};
+      }
+      return null;
+    };
+  },
+  cpfValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value ? control.value.replace(/[^\d]/g, '') : '';
+
+      if (!validation.hasValue(value)) {
+        return {[EErrorType.REQUIRED]: true};
+      } else if (!validation.validCPFFormat(value)) {
+        return {[EErrorType.FORMAT]: true};
+      } else if (!validation.validCPFValue(value)) {
+        return {[EErrorType.CUSTOM]: 'Ops. Um ou mais dígitos estão incorretos, confira e corrija-os.'};
       }
       return null;
     };

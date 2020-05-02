@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {User} from '../../models/user';
-import {routesFrontend as routes} from '../../../shared/constants/routesFrontend';
+import {routesFrontend as routes} from '../../../shared/constants/routes-frontend';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/auth.service';
 import {take} from 'rxjs/operators';

@@ -1,4 +1,4 @@
-<div class="main-container">
+<div *ngIf="totalItems > perPage" class="main-container">
   <div class="caption">Total de {{lengthPages}} página(s)</div>
   <div class="numbers">
     <a (click)="selectPage(pageStart - 1)" *ngIf="lengthPages > 1"

@@ -121,7 +121,7 @@
             <div [ngClass]="{'s6': _window.screen.width < 481}"
                  class="col s4 m3 l2 xl2 product__prop">
               <span class="product__prop--title">Disponíveis</span>
-              <span>{{item.amountAvailable}} un</span>
+              <span>{{item.quantity}} UN</span>
             </div>
 
             <!-- Frete grátis -->
@@ -149,27 +149,24 @@
                 <span>Editar</span>
               </button>
 
-              <button class="button-icon" mat-menu-item>
+              <button (click)="deleteProduct(item.id)" class="button-icon" mat-menu-item>
                 <mat-icon>
                   <i aria-hidden="true" class="fas fa-trash-alt icon-menu"></i>
                 </mat-icon>
                 <span>Excluir</span>
               </button>
 
-              <button *ngIf="item.visible; else productInvisible" class="button-icon" mat-menu-item>
+              <button (click)="toggleVisibility(item.id, !item.visible)"
+                      class="button-icon" mat-menu-item>
                 <mat-icon>
                   <i aria-hidden="true" class="fas fa-eye-slash"></i>
                 </mat-icon>
-                <span>Esconder</span>
-              </button>
-              <ng-template #productInvisible>
-                <button class="button-icon" mat-menu-item>
-                  <mat-icon>
-                    <i aria-hidden="true" class="fas fa-eye"></i>
-                  </mat-icon>
+                <span *ngIf="item.visible; else productInvisible">Esconder</span>
+                <ng-template #productInvisible>
                   <span>Tornar Visível</span>
-                </button>
-              </ng-template>
+                </ng-template>
+              </button>
+
             </ng-template>
           </mat-menu>
         </div>
@@ -182,6 +179,7 @@
       </div>
     </div>
 
-    <app-pagination [lengthPages]="32" style="width: 100%;"></app-pagination>
+    <app-pagination [perPage]="filter.perPage" [totalItems]="countProductReturned" style="width: 100%;">
+    </app-pagination>
   </div>
 </div>

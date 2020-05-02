@@ -7,7 +7,7 @@ import {NotificationModel} from '../../models/notification';
 import {Cart} from '../../models/cart';
 import {DataTests} from '../../../shared/dataTests';
 import {AuthService} from '../../services/auth.service';
-import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../../shared/constants/routes-frontend';
 
 @Component({
   selector: 'app-navbar',

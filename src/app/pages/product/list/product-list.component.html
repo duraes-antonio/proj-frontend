@@ -19,7 +19,11 @@
         <!-- Titulo do produto -->
         <span class="product__title">{{item.title}}</span>
 
-        <img [alt]="item.title" [src]="item.urlMainImage" class="product__cover-img">
+        <img *ngIf="item.urlMainImage; else withoutImage" [alt]="item.title" [src]="item.urlMainImage"
+             class="product__cover-img">
+        <ng-template #withoutImage>
+          <i aria-hidden="true" class="far fa-image"></i>
+        </ng-template>
 
         <!-- Área para preços de produtos em promoção -->
         <span *ngIf="item.percentOff > 0" class="product__price-orig">{{item.price | currency: 'BRL'}}</span>

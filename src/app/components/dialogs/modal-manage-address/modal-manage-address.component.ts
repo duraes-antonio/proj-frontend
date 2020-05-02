@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import {validators} from '../../../../shared/validations/validatorsCustom';
 import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
-import {addressSizes} from '../../../../shared/constants/fieldSize';
+import {addressSizes} from '../../../../shared/constants/field-size';
 import {Observable} from 'rxjs';
 import {map, startWith, take} from 'rxjs/operators';
 import {util} from '../../../../shared/util';

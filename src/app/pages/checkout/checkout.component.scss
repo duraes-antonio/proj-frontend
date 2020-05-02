@@ -142,14 +142,9 @@ $width-max-small: 768px;
         display: grid;
         justify-items: center;
 
-        &--active {
-          border-color: $link-color;
-          box-shadow: 2px 3px 7px rgba($link-color, .1);
-        }
-
-        .card-flags {
+        .options-flags {
           @extend %flex-wrap;
-          margin: 5px 0 15px;
+          margin-top: 5px;
 
           &__item {
             max-width: 28px;

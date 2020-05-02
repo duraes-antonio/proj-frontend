@@ -26,7 +26,6 @@ export class AddressService {
   }
 
   get(): Observable<Address[]> {
-    // return of(DataTests.addresses).pipe(take(1));
     return httpService.get(this._routeApi, this._http, AuthService.getHeaders);
   }
 
@@ -59,10 +58,10 @@ export class AddressService {
   }
 
   patch(id: string, obj: any): Observable<Address> {
-    return httpService.patch(
-      this._routeApi, id, this._http, AuthService.getHeaders,
-      {...obj, zipCode: obj.zipCode.replace('-', '')}
-    );
+    const cloneObj = obj?.zipCode
+      ? {...obj, zipCode: obj.zipCode?.replace('-', '')}
+      : obj;
+    return httpService.patch(this._routeApi, id, this._http, AuthService.getHeaders, cloneObj);
   }
 }
 

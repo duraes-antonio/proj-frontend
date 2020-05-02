@@ -12,7 +12,7 @@ import {Add, Remove} from '../../../actions/cart.action';
 import {ModalAddressComponent} from '../../../components/dialogs/modal-address/modal-address.component';
 import {ModalShippingMatComponent} from '../../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
 import {ModalPaymentMatComponent} from '../../../components/dialogs/modal-payment-mat/modal-payment-mat.component';
-import {routesFrontend} from '../../../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../../../shared/constants/routes-frontend';
 import {CartService} from '../../../services/cart.service';
 import {ModalManageReviewComponent} from '../../../components/dialogs/modal-manage-review/modal-manage-review.component';
 import {ReviewService} from '../../../services/review.service';
@@ -25,6 +25,7 @@ import {ListProduct} from '../../../models/componentes/list-product';
 import {ListProductService} from '../../../services/list-product.service';
 import {DeliveryOption} from '../../../models/shipping/delivery';
 import {EReviewSort} from '../../../models/filters/filter-review';
+import {util} from '../../../../shared/util';
 
 @Component({
   selector: 'app-product-details',
@@ -44,7 +45,7 @@ export class ProductDetailsComponent implements OnDestroy {
   avgRating = 0;
   addresses: Address[] = [];
   showButtonRate = false;
-
+  readonly util = util;
   private readonly _routeSub$: Subscription;
   private readonly _cart$: Subscription;
   private _cartProdIds: string[] = [];
@@ -110,26 +111,28 @@ export class ProductDetailsComponent implements OnDestroy {
     this._cart$.unsubscribe();
   }
 
-  showModalShipp(CEP: string) {
-    this._shippingServ.calculateCostDays(CEP, [{quantity: 1, productId: this.product?.id as string}])
-      .subscribe((deliveryOpts: DeliveryOption[]) => {
-        const dialogRef = this._dialog.open(
-          ModalShippingMatComponent,
-          ModalShippingMatComponent.getConfig({optionsDelivery: deliveryOpts})
-        );
-        dialogRef.componentInstance.action.subscribe(
-          (delivery: DeliveryOption) => {
-            this._updateChosenDelivery(delivery);
-          });
-        dialogRef.componentInstance.selectAddress.subscribe(
-          () => {
-            this._dialog.closeAll();
-            this.showModalAdress();
-          });
+  showModalShipp(zipcode: string) {
+    const dialogRef = this._dialog.open(
+      ModalShippingMatComponent,
+      ModalShippingMatComponent.getConfig({
+        zipcode,
+        items: [
+          {quantity: 1, productId: this.product?.id as string}
+        ]
+      })
+    );
+    dialogRef.componentInstance.action.subscribe(
+      (delivery: DeliveryOption) => {
+        this._updateChosenDelivery(delivery);
+      });
+    dialogRef.componentInstance.selectAddress.subscribe(
+      () => {
+        this._dialog.closeAll();
+        this.showModalAddress();
       });
   }
 
-  showModalAdress() {
+  showModalAddress() {
     const dialogRef = this._dialog.open(
       ModalAddressComponent,
       ModalAddressComponent.getConfig({
@@ -138,9 +141,9 @@ export class ProductDetailsComponent implements OnDestroy {
       })
     );
     dialogRef.componentInstance.action.subscribe(
-      (cep: string) => {
+      (zipcode: string) => {
         this._dialog.closeAll();
-        this.showModalShipp(cep);
+        this.showModalShipp(zipcode);
       });
   }
 

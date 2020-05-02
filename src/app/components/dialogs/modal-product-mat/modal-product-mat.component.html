@@ -69,7 +69,7 @@
       <!-- Porcentagem de desconto -->
       <mat-form-field class="col s6">
         <mat-label>Desconto</mat-label>
-        <input [max]="_sizes.percentOffMax" [min]="_sizes.percentOffMin" formControlName="discount" matInput
+        <input [max]="_sizes.percentOffMax" [min]="_sizes.percentOffMin" formControlName="percentOff" matInput
                step="0.5" type="number">
         <span matSuffix>%</span>
         <mat-hint align="start">Exemplo: 80 (para 80% de desconto)</mat-hint>
@@ -127,5 +127,10 @@
       </mat-form-field>
 
     </form>
+
+    <!-- Frete grátis -->
+    <mat-checkbox (click)="freeDelivery = !freeDelivery" [(ngModel)]="freeDelivery" class="col s6">Frete grátis
+    </mat-checkbox>
+
   </div>
 </app-modal-mat>

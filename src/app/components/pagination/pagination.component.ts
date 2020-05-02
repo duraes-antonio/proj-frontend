@@ -10,6 +10,9 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 export class PaginationComponent {
 
   @Input() pageStart = 1;
+  @Input() perPage = 10;
+  @Input() totalItems = 10;
+
   indexPages: number[] = [];
   @Output() pageSelected = new EventEmitter<number>();
   private _lenPages = 1;

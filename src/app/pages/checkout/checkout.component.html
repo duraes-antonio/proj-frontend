@@ -7,23 +7,44 @@
       Meios de pagamento
     </h2>
     <div class="payment-methods">
-      <a (click)="selectPayMethod(payMethod)" *ngFor="let payMethod of paymentMethods"
-         [ngClass]="{'payment-methods__item--active': payMethod === methodChosen}"
-         class="payment-methods__item">
+      <div *ngFor="let payMethod of paymentMethods" class="payment-methods__item">
+
+        <!-- Logomarca do Gateway de pagamento -->
         <img [alt]="payMethod.title" [src]="payMethod.urlImageMethod" class="payment-method__img">
         <span class="text--justify">
-          Este meio permite o pagamento (único ou parcelado) com cartão das seguintes bandeiras:
+          O {{payMethod.title}} permite os seguintes meios de pagamento:
         </span>
-        <div class="card-flags">
-          <img *ngFor="let opt of payMethod.cardOptions" [alt]="opt.title"
-               [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+
+        <!-- Bandeiras de pagamentos permitidos -->
+        <div class="options-flags">
+          <img *ngFor="let opt of payMethod.options" [alt]="opt.title"
+               [src]="opt.urlImage" [title]="opt.title" class="options-flags__item">
         </div>
-        <span class="text--justify">Outros meios permitidos:</span>
-        <div class="card-flags">
-          <img *ngFor="let opt of payMethod.anothersOptions" [alt]="opt.title"
-               [src]="opt.urlImage" [title]="opt.title" class="card-flags__item">
+
+        <mat-divider style="margin: 15px 0; width: 100%"></mat-divider>
+
+        <!-- Botão Mercado Pago -->
+        <div *ngIf="payMethod.title.toLowerCase() === 'mercado pago'">
+          <a class="blue-ar-m-ov-none" id="button-mp" mp-mode="dftl"
+             name="MP-payButton" style="margin: 0">
+            Comprar
+          </a>
         </div>
-      </a>
+
+        <!-- Botão PagSeguro -->
+        <ng-container *ngIf="payMethod.title.toLowerCase() === 'pagseguro'">
+          <input (click)="paymentHandler(addressDelivery, payWithPagSeguro)"
+                 alt="Pague com PagSeguro - é rápido, grátis e seguro!"
+                 name="submit"
+                 src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/184x42-comprar-azul-assina.gif"
+                 type="image"/>
+        </ng-container>
+
+        <!-- Botões Paypal -->
+        <ng-container *ngIf="payMethod.title.toLowerCase() === 'paypal'">
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </ng-container>
+      </div>
     </div>
   </div>
 
@@ -66,7 +87,7 @@
             class="address-fields__item-title">Estado:</span> {{addressDelivery.state}}</span>
         </div>
         <div class="address-btns">
-          <button (click)="showModalSelectionAdress()" class="btn-general" color="primary" mat-button>
+          <button (click)="showModalSelectionAddress()" class="btn-general" color="primary" mat-button>
             Selecionar outro
           </button>
           <button (click)="showModalManageAddress()" class="btn-general" color="primary" mat-button>
@@ -102,18 +123,13 @@
         Resumo do pedido
       </h2>
       <div class="products-resume-imgs">
-        <div *ngFor="let productPrev of productsPreview"
+        <div *ngFor="let productPrev of productsPreview; trackBy: productTracking"
              [title]="productPrev.title" class="products-resume-imgs__img-block">
           <img [alt]="productPrev.title" [src]="productPrev.urlMainImage"
                [title]="productPrev.title" class="img-block__img">
         </div>
       </div>
-      <a [routerLink]="'/' + routes.cart" class="products-resume__title">
-        {{productsPreviewTitle}}
-        <span *ngIf="productQuantityHidden > 0" class="text--bold">
-          e mais {{productQuantityHidden}} item(s)
-        </span>
-      </a>
+      <a [routerLink]="'/' + routes.cart" class="products-resume__title" id="resume-products"></a>
       <div class="costs">
         <div class="costs__item">
           <span class="costs__item-title">Produtos:</span>

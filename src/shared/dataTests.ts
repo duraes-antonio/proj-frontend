@@ -16,7 +16,7 @@ import {EStateOrder} from '../app/enum/state-order';
 import {ERole} from '../app/enum/roles';
 import {ListSlide} from '../app/models/componentes/slider';
 import {ListLink} from '../app/models/componentes/list-link';
-import {routesFrontend} from './constants/routesFrontend';
+import {routesFrontend} from './constants/routes-frontend';
 import {DeliveryOption, DeliveryOptionType} from '../app/models/shipping/delivery';
 
 export class DataTests {
@@ -267,28 +267,40 @@ export class DataTests {
       email: 'maria@gmail.com',
       avatarUrl: 'https://vignette.wikia.nocookie.net/yugioh/images/0/08/T%C3%A9a_Gardner.png/revision/latest?cb=20140520004117',
       roles: [ERole.CUSTOMER],
-      id: '1515151'
+      id: '1515151',
+      codeArea: 21,
+      phone: '998227512',
+      cpf: '00372313752',
     },
     {
       name: 'Kayba Santos',
       email: 'kayba@gmail.com',
       avatarUrl: 'https://i.ytimg.com/vi/6Y9moYCgD2M/hqdefault.jpg',
       roles: [ERole.CUSTOMER],
-      id: '5161615151'
+      id: '5161615151',
+      codeArea: 11,
+      phone: '998227513',
+      cpf: '11624226027',
     },
     {
       name: 'Cleitin O Brabo',
       email: 'cleitin@gmail.com',
       avatarUrl: 'https://vignette.wikia.nocookie.net/yugioh/images/c/c8/MaximillionPegasus.jpg/revision/latest?cb=20150530140609',
       roles: [ERole.CUSTOMER],
-      id: '32432423432'
+      id: '32432423432',
+      codeArea: 21,
+      phone: '32285937',
+      cpf: '66555160055',
     },
     {
       name: 'Cleidimarço dos Santos',
       email: 'cleidimarco@gmail.com',
       avatarUrl: 'https://2.bp.blogspot.com/-I4F7oVUi73Y/VUf5-PpZWOI/AAAAAAAAcxM/M8IrYmYpvgM/s1600/Bakura%2BYu-Gi-Oh.jpg',
       roles: [ERole.CUSTOMER],
-      id: '989859858998'
+      id: '989859858998',
+      codeArea: 27,
+      phone: '32287536',
+      cpf: '52863683012',
     },
   ];
   static readonly markets: Market[] = [
@@ -346,7 +358,9 @@ export class DataTests {
   ];
   static readonly orders: Order[] = [
     {
+      userId: '1',
       id: (++DataTests.orderId).toString(),
+      optionDeliveryType: DeliveryOptionType.SEDEX,
       items: [
         {
           id: '1',
@@ -364,6 +378,8 @@ export class DataTests {
       daysForDelivery: util.randomInt(0, 100)
     },
     {
+      userId: '2',
+      optionDeliveryType: DeliveryOptionType.PAC,
       id: (++DataTests.orderId).toString(),
       items: [
         {
@@ -490,7 +506,7 @@ export class DataTests {
       categories: [DataTests.categories[randomInt(0, DataTests.categories.length - 1)]],
       freeDelivery: randomBoolean(),
       id: (++DataTests.productId).toString(),
-      amountAvailable: randomInt(0, 10000),
+      quantity: randomInt(0, 10000),
       avgReview: randomFloat(0, 5),
       priceWithDiscount: price * ((100 - discount) / 100),
       visible: true,

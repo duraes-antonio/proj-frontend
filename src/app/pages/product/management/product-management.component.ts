@@ -6,9 +6,11 @@ import {ModalProductMatComponent} from '../../../components/dialogs/modal-produc
 import {FormControl} from '@angular/forms';
 import {Category} from '../../../models/category';
 import {ProductService} from '../../../services/product.service';
-import {Observable} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {CategoryService} from '../../../services/category.service';
 import {EProductSort} from '../../../enum/product-sort';
+import {take} from 'rxjs/operators';
+import {FilterProduct} from '../../../models/filters/filter-product';
 
 @Component({
   selector: 'app-product-management',
@@ -26,10 +28,11 @@ export class ProductManagementComponent {
     {key: EProductSort.PRICE_HIGH, name: 'Maior preço'},
     {key: EProductSort.PRICE_LOW, name: 'Menor preço'}
   ];
+  readonly filter: FilterProduct = {perPage: 15, currentPage: 1};
   products$: Observable<Product[]> = this._productServ.get();
   categories$: Observable<Category[]> = this._categoryServ.get();
-  productChosen?: Product;
   textSearch = '';
+  countProductReturned = 0;
   _window = window;
 
   constructor(
@@ -37,6 +40,8 @@ export class ProductManagementComponent {
     private readonly _categoryServ: CategoryService,
     private readonly _productServ: ProductService
   ) {
+    this._productServ.getCount(this.filter)
+      .subscribe((count: number) => this.countProductReturned = count);
   }
 
   // TODO: Remover requisição após adicionar lógica de salvar dentro do modal
@@ -45,23 +50,29 @@ export class ProductManagementComponent {
     const dialogRef = this._dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
       (prod: ProductAdd) => {
-        this._productServ.post(prod);
+        const productPost$ = this._productServ.post(prod);
         this.products$ = this._productServ.get();
+        forkJoin([productPost$, this.products$])
+          .pipe(take(1))
+          .subscribe();
       }
     );
   }
 
   // TODO: Remover requisição após adicionar lógica de salvar dentro do modal
   selectProduct(id: string) {
-    this._productServ.getById(id).subscribe(p => this.productChosen = p);
-    const config = ModalProductMatComponent.getConfig({product: this.productChosen});
-    const dialogRef = this._dialog.open(ModalProductMatComponent, config);
-    dialogRef.componentInstance.action.subscribe(
-      (prodUpdated: Product) => {
-        this._productServ.patch(prodUpdated);
-        this.products$ = this._productServ.get();
-      }
-    );
+    this._productServ.getById(id).subscribe(p => {
+      const config = ModalProductMatComponent.getConfig({product: p});
+      const dialogRef = this._dialog.open(ModalProductMatComponent, config);
+      dialogRef.componentInstance.action
+        .pipe(take(1))
+        .subscribe(
+          (prodUpdated: Product) => {
+            this._productServ.patch(id, prodUpdated)
+              .subscribe(() => this.products$ = this._productServ.get());
+          }
+        );
+    });
   }
 
   // TODO: FInalizar método
@@ -71,5 +82,18 @@ export class ProductManagementComponent {
 
   productTrackBy(index: number, item: Product): string {
     return item.id;
+  }
+
+  deleteProduct(id: string) {
+    this._productServ.delete(id).subscribe(() => {
+      this.products$ = this._productServ.get();
+    });
+  }
+
+  toggleVisibility(id: string, visible: boolean) {
+    this._productServ.toggleVisibility(id, visible)
+      .subscribe(() => {
+        this.products$ = this._productServ.get();
+      });
   }
 }

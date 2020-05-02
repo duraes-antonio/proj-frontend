@@ -16,6 +16,13 @@
   </mat-form-field>
 
   <mat-form-field class="col">
+    <mat-label>CPF</mat-label>
+    <input (input)="formatCPF($event)" [formControl]="_controlCPF" matInput type="text">
+    <mat-hint align="start">Ex: 370.352.300-09 (Adicione apenas os dígitos)</mat-hint>
+    <mat-error *ngIf="_controlCPF.invalid">{{_getMsg(_controlCPF, '370.352.300-09')}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="col">
     <mat-label>Telefone</mat-label>
     <input (input)="formatPhone($event)" [formControl]="_controlPhone" [maxLength]="_sizes.phoneMaxLen" matInput
            type="tel">

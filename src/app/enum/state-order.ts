@@ -1,10 +1,10 @@
 'use strict';
 
 export enum EStateOrder {
-  CANCELED,
-  CREATED,
-  DELIVERED,
-  DELIVERING,
-  PREPARING,
-  RETURNED
+  CANCELED = 'canceled',
+  CREATED = 'created',
+  DELIVERED = 'delivered',
+  DELIVERING = 'delivering',
+  PREPARING = 'preparing',
+  RETURNED = 'returned'
 }

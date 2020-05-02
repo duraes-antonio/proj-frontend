@@ -4,11 +4,14 @@
 
   <div style="display: flex; flex-flow: column">
     <!-- Dados do Endereço selecionado -->
-    <div class="current-address">
+    <div *ngIf="address" class="current-address">
       <i aria-hidden="true" class="fa fa-map-marker-alt address-icon"
          style="margin-right: 15px;"></i>
       <span class="address-info">
-        Endereço: <span style="font-weight: 500">Serra, Jardim Carapina, 29161-699</span>
+        Endereço:
+        <span style="font-weight: 500">
+          {{address.city}} - {{address.state}}, {{address.neighborhood}}, {{address.zipCode}}
+        </span>
       </span>
       <a (click)="selectAddress.emit()">
         <i aria-hidden="true" class="fa fa-arrow-right change-address-icon"></i>
@@ -20,17 +23,16 @@
     <!-- Opções de entrega -->
     <mat-radio-group [(ngModel)]="optSelected" class="delivery-options row">
       <mat-radio-button (click)="selectOptDelivery(opt, i, 'delivery-options__item--active')"
-                        *ngFor="let opt of data.optionsDelivery; let i = index"
+                        *ngFor="let opt of optionsDelivery$ | async; let i = index"
                         [value]="opt" class="delivery-options__item" id="option-{{i}}">
         <div class="delivery-options__item--space">
-            <span class="delivery-options__item-content col s7 m8 l10 xl10">
-              <!-- TODO: Calcular datas com base no retorno da API dos correios-->
-              <span style="font-weight: 500">Normal</span>
-              <span>A previsão para entrega é entre os dias 9 e 30 de janeiro</span>
-            </span>
+          <span class="delivery-options__item-content col s7 m8 l10 xl10">
+            <span style="font-weight: 500">{{opt.typeService}}</span>
+            <span>Entrega prevista para {{util.formatDateDelivery(opt.timeDays) | date:'longDate':'br'}}</span>
+          </span>
           <span class="delivery-options__item-cost col s5 m4 l2 xl2">
               {{opt.cost | currency: 'BRL' }}
-            </span>
+          </span>
         </div>
       </mat-radio-button>
     </mat-radio-group>

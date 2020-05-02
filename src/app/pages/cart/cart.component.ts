@@ -9,12 +9,13 @@ import {MatDialog} from '@angular/material/dialog';
 import {ModalAddressComponent} from '../../components/dialogs/modal-address/modal-address.component';
 import {AddressService} from '../../services/address.service';
 import {take} from 'rxjs/operators';
-import {routesFrontend} from '../../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../../shared/constants/routes-frontend';
 import {ShippingService} from '../../services/shipping.service';
 import {AuthService} from '../../services/auth.service';
 import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
 import {DeliveryOption} from '../../models/shipping/delivery';
+import {ModalShippingMatComponent} from '../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
 
 @Component({
   selector: 'app-cart',
@@ -81,19 +82,47 @@ export class CartComponent implements OnDestroy {
     }
   }
 
-  showModalAdress() {
+  showModalAddress() {
     let tempAddress: Address;
     const modalAddr = this._dialog.open(
       ModalAddressComponent,
-      ModalAddressComponent.getConfig({showInputCEP: false, addresses: this.userAddresses})
+      ModalAddressComponent.getConfig({
+        showInputCEP: false,
+        addresses: this.userAddresses
+      })
     );
     this._modalSelect$ = modalAddr.componentInstance.chosenAddress
       .subscribe((addr: Address) => tempAddress = addr);
+
     modalAddr.componentInstance.action
       .pipe(take(1))
       .subscribe(() => {
         this.currentAddress = tempAddress;
-        this._calculateCostShipping(this.currentAddress.zipCode, this.prodAmount);
+        this._dialog.closeAll();
+        this.showModalShipp(tempAddress.zipCode, this.prodAmount);
+      });
+  }
+
+  showModalShipp(zipcode: string, productQuantity: Map<Product, number>) {
+    const dialogRef = this._dialog.open(
+      ModalShippingMatComponent,
+      ModalShippingMatComponent.getConfig({
+        zipcode,
+        items: Array.from(productQuantity)
+          .map((prodQuantity: [Product, number]) => {
+            return {productId: prodQuantity[0].id, quantity: prodQuantity[1]};
+          })
+      })
+    );
+    dialogRef.componentInstance.action
+      .subscribe((d: DeliveryOption) => {
+        this.totalCostShipping = d.cost;
+        this.saveOrder();
+      });
+    dialogRef.componentInstance.selectAddress.subscribe(
+      () => {
+        this._dialog.closeAll();
+        this.showModalAddress();
       });
   }
 
@@ -123,7 +152,6 @@ export class CartComponent implements OnDestroy {
         return {productId: pairIdQuantity[0].id, quantity: pairIdQuantity[1]};
       });
     this._shippingServ.calculateCostDays(cep, prodIdQuantity)
-      .pipe(take(1))
       .subscribe((deliveryOpt: DeliveryOption[]) => {
         this.totalCostShipping = deliveryOpt[0].cost;
       });

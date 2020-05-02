@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {EErrorType, getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
-import {routesFrontend} from '../../../../shared/constants/routesFrontend';
+import {routesFrontend} from '../../../../shared/constants/routes-frontend';
 import {validators} from '../../../../shared/validations/validatorsCustom';
-import {userSizes} from '../../../../shared/constants/fieldSize';
+import {userSizes} from '../../../../shared/constants/field-size';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';

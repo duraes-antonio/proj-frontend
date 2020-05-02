@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {Review, ReviewAdd} from '../../../models/review';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
-import {reviewSizes} from '../../../../shared/constants/fieldSize';
+import {reviewSizes} from '../../../../shared/constants/field-size';
 import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReviewService} from '../../../services/review.service';

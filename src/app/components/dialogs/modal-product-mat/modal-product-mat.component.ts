@@ -3,11 +3,12 @@ import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {Product} from '../../../models/product';
 import {Category} from '../../../models/category';
-import {productSizes} from '../../../../shared/constants/fieldSize';
+import {productSizes} from '../../../../shared/constants/field-size';
 import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 import {validators} from '../../../../shared/validations/validatorsCustom';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
 import {CategoryService} from '../../../services/category.service';
+import {getObjectFromFormGroup} from '../../../../shared/util';
 
 @Component({
   selector: 'app-modal-product-mat',
@@ -24,6 +25,7 @@ export class ModalProductMatComponent {
   };
 
   productCategs: Category[] = [];
+  freeDelivery = false;
   readonly _getMsg = getMsgFront;
   readonly _sizes = productSizes;
   readonly _controlCategory = new FormControl();
@@ -43,7 +45,7 @@ export class ModalProductMatComponent {
     validators.numberValidator(this._sizes.priceMin, this._sizes.priceMax, true)
   );
   readonly _controlQuantity = new FormControl(
-    this.product?.amountAvailable,
+    this.product?.quantity,
     validators.numberValidator(this._sizes.amountAvailableMin, this._sizes.amountAvailableMax, true)
   );
   readonly _controlDiscount = new FormControl(
@@ -51,19 +53,19 @@ export class ModalProductMatComponent {
     validators.numberValidator(this._sizes.percentOffMin, this._sizes.percentOffMax, false)
   );
   readonly _controlHeight = new FormControl(
-    null,
+    this.product?.height,
     validators.numberValidator(this._sizes.heightMin, this._sizes.heightMax, true)
   );
   readonly _controlWidth = new FormControl(
-    null,
+    this.product?.width,
     validators.numberValidator(this._sizes.widthMin, this._sizes.widthMax, true)
   );
   readonly _controlLength = new FormControl(
-    null,
+    this.product?.length,
     validators.numberValidator(this._sizes.lengthMin, this._sizes.lengthMax, true)
   );
   readonly _controlWeight = new FormControl(
-    null,
+    this.product?.weight,
     validators.numberValidator(this._sizes.weightMin, this._sizes.weightMax, true)
   );
   readonly _formGroup = new FormBuilder().group({
@@ -72,7 +74,7 @@ export class ModalProductMatComponent {
     cost: this._controlCost,
     price: this._controlPrice,
     quantity: this._controlQuantity,
-    discount: this._controlDiscount,
+    percentOff: this._controlDiscount,
     height: this._controlHeight,
     width: this._controlWidth,
     length: this._controlLength,
@@ -108,8 +110,14 @@ export class ModalProductMatComponent {
   }
 
   emitProduct(product?: Product) {
-    if (product) {
-      const productUpdated = {...product, categories: this._controlCategory.value};
+    const productChanged = getObjectFromFormGroup(this._formGroup) as Product;
+
+    if (productChanged) {
+      const productUpdated = {
+        ...productChanged,
+        freeDelivery: this.freeDelivery,
+        categoriesId: this._controlCategory.value
+      };
       this.action.emit(productUpdated);
     }
   }

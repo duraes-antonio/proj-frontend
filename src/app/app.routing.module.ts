@@ -3,7 +3,7 @@ import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {ProductRoutingModule} from './pages/product/product-routing.module';
 import {AuthGuard} from './guards/auth.guard';
 import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
-import {routesFrontend} from '../shared/constants/routesFrontend';
+import {routesFrontend} from '../shared/constants/routes-frontend';
 
 const routes: Routes = [
   {

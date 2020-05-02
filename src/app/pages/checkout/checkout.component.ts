@@ -1,18 +1,30 @@
 import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+import {take} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+
 import {paths} from '../../../shared/constants/paths';
+import {paymentConfig} from '../../../shared/config/payments';
+import {routesFrontend} from '../../../shared/constants/routes-frontend';
+import {utilDOM} from '../../../shared/util.dom';
 import {Product} from '../../models/product';
 import {ProductService} from '../../services/product.service';
 import {Address} from '../../models/address';
-import {routesFrontend} from '../../../shared/constants/routesFrontend';
-import {take} from 'rxjs/operators';
 import {AddressService} from '../../services/address.service';
-import {utilDOM} from '../../../shared/util.dom';
 import {ShippingService} from '../../services/shipping.service';
 import {ModalAddressComponent} from '../../components/dialogs/modal-address/modal-address.component';
-import {MatDialog} from '@angular/material/dialog';
-import {Subscription} from 'rxjs';
 import {CartService} from '../../services/cart.service';
 import {ModalManageAddressComponent} from '../../components/dialogs/modal-manage-address/modal-manage-address.component';
+import {IPayPalConfig} from 'ngx-paypal';
+import {getPaymentMethods, PaymentMethod} from '../../../shared/constants/payment-methods';
+import {PaymentService} from '../../services/payment.service';
+import {OrderAdd} from '../../models/order';
+import {CheckoutOrder} from '../../models/checkout-order';
+import {ItemOrderAdd} from '../../models/item-order';
+import {DeliveryOptionType} from '../../models/shipping/delivery';
+import {OrderService} from '../../services/order.service';
+
+declare let PagSeguroLightbox: any;
 
 @Component({
   selector: 'app-checkout',
@@ -20,66 +32,78 @@ import {ModalManageAddressComponent} from '../../components/dialogs/modal-manage
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements AfterViewInit, OnDestroy {
-
-  addressesUser: Address[] = [];
-  readonly paymentMethods: PaymentMethod[] = this._getPaymentMethods(`${paths.assets}/payments`);
+  readonly paymentMethods: PaymentMethod[] = getPaymentMethods(`${paths.assets}/payments`);
   readonly routes = routesFrontend;
+  readonly payPalConfig: IPayPalConfig = paymentConfig.getPaypalConfig({
+    onApprove: (data, actions) => this.payWithPaypal(data),
+    onClientAuthorization: (re) => this.payWithPaypal(re)
+  });
+  addressesUser: Address[] = [];
   addressDelivery?: Address;
-  methodChosen?: PaymentMethod;
-  products: Product[] = [];
-  productsQuantity: [Product, number][] = [];
+
+  checkout: CheckoutOrder;
   productsPreview: Product[] = [];
-  productsPreviewTitle = '';
-  productQuantityHidden = 0;
+
   productsCost = 0;
   deliveryCost = 0;
   private _modalAddressSelect$?: Subscription;
+  private _mercadoPagoTransationId = '';
 
   constructor(
     private readonly _addressServ: AddressService,
     private readonly _dialog: MatDialog,
+    private readonly _orderServ: OrderService,
+    private readonly _paymentServ: PaymentService,
     private readonly _productServ: ProductService,
     private readonly _shippingServ: ShippingService
   ) {
-    this._addressServ.get()
-      .subscribe((addresses: Address[]) => {
-        if (addresses.length) {
-          this.addressesUser = addresses;
-          this.addressDelivery = addresses[0];
-        }
-      });
+    this.checkout = CartService.getOrder() as CheckoutOrder;
 
-    const order = CartService.getOrder();
-
-    // Se no carrinho houver ids de produtos, então busque eles no backend
-    if (order?.productsIdQuantity) {
-      this._productServ.get({
-        ids: order.productsIdQuantity.map(p => p.productId),
-        currentPage: 1,
-        perPage: 3
-      }).pipe(take(1))
-        .subscribe((prods: Product[]) => {
-          this.productsQuantity = order.productsIdQuantity
-            .map(prodQuantity => [
-              prods.find(p => p.id === prodQuantity.productId) as Product,
-              prodQuantity.quantity
-            ]);
-          this.productsPreview = prods.slice(0, 3);
-          this.productsPreviewTitle = this.productsPreview
-            .map(p => p.title.split(' ').slice(0, 4).join(' '))
-            .join(', ');
-          this.productQuantityHidden = prods.length - 3;
-          this.productsCost = ProductService.calculateCostFromArray(this.productsQuantity);
-
-          if (this.addressDelivery) {
-            this._updateCostDelivery(this.addressDelivery.zipCode, this.productsQuantity);
+    if (this.checkout.addressTargetId) {
+      this._addressServ.getById(this.checkout.addressTargetId)
+        .subscribe((a?: Address) => this.addressDelivery = a);
+    } else {
+      this._addressServ.get()
+        .subscribe((addresses: Address[]) => {
+          if (addresses.length) {
+            this.addressesUser = addresses;
+            this.addressDelivery = addresses[0];
+            this.checkout.addressTargetId = this.addressDelivery.id;
           }
         });
     }
+
+    // Se no carrinho houver ids de produtos, então busque eles no backend
+    if (this.checkout.items) {
+      this._productServ.get({
+        ids: this.checkout.items.map(p => p.productId),
+        currentPage: 1,
+        perPage: Number.MAX_SAFE_INTEGER
+      }).subscribe((prods: Product[]) => {
+        this.productsPreview = prods.slice(0, 3);
+        this.productsCost = this.checkout.items
+          .map(item => item.unitPrice * item.quantity)
+          .reduce((prevPrice, currPrice) => prevPrice + currPrice);
+        this._injectTitleResumeProducts(prods);
+
+        if (this.addressDelivery) {
+          this._updateCostDelivery(this.addressDelivery.zipCode, this.checkout.items);
+        }
+      });
+    }
+  }
+
+  productTracking(p: Product): string {
+    return p.id;
   }
 
   ngAfterViewInit(): void {
     utilDOM.setBodyBackgroundColor('#eee');
+    const elem = document.getElementById('button-mp');
+
+    if (elem) {
+      this._payWithMercadoPago(this._paymentServ);
+    }
   }
 
   ngOnDestroy(): void {
@@ -89,18 +113,10 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  selectPayMethod(paymentMethod: PaymentMethod) {
-    if (this.addressDelivery) {
-      this.methodChosen = paymentMethod;
-    } else {
-      this.showModalManageAddress();
-    }
-  }
-
-  showModalSelectionAdress() {
+  showModalSelectionAddress() {
     this._addressServ.get()
       .subscribe((addresses: Address[]) => {
-        this._showModalSelectionAdress(addresses);
+        this._showModalSelectionAddress(addresses);
       });
   }
 
@@ -113,11 +129,82 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       .pipe(take(1))
       .subscribe((address: Address) => {
         this.addressDelivery = address;
-        this._updateCostDelivery(address.zipCode, this.productsQuantity);
+        this.checkout.addressTargetId = address.id;
+        this._updateCostDelivery(address.zipCode, this.checkout?.items);
       });
   }
 
-  private _showModalSelectionAdress(addresses: Address[]) {
+  payWithPagSeguro(paymentServ: PaymentService, order: OrderAdd) {
+    paymentServ.payWithPagSeguro(order)
+      .subscribe((idTransaction: string) =>
+        PagSeguroLightbox(
+          idTransaction,
+          {
+            success: () => console.log('finalizado'),
+            abort: () => console.log('cancelado')
+          }
+        )
+      );
+  }
+
+  payWithPaypal(data?: any) {
+    console.log('Pagamento aprovado!!!', data);
+    this._saveOrder(this.checkout as OrderAdd);
+  }
+
+  paymentHandler(
+    address: Address, fnPayment: (payServ: PaymentService, order: OrderAdd) => void
+  ): void {
+    if (address) {
+      this.checkout.optionDeliveryType = DeliveryOptionType.SEDEX;
+      fnPayment(this._paymentServ, this.checkout as OrderAdd);
+    } else {
+      this.showModalManageAddress();
+    }
+  }
+
+  private _injectTitleResumeProducts(products: Product[]) {
+    const elemAnchor = document.getElementById('resume-products') as HTMLAnchorElement;
+
+    if (elemAnchor) {
+      const title = products
+        .slice(0, 3)
+        .map(p => p.title
+          .split(' ')
+          .slice(0, 4)
+          .join(' ')
+        ).join(', ');
+      const quantityProductHidden = products.length - 3;
+      const textProductHidden = quantityProductHidden > 0
+        ? `e mais ${quantityProductHidden} item(s)`
+        : '';
+      elemAnchor.innerHTML = `
+        ${title}
+        <span *ngIf="productQuantityHidden > 0" class="text--bold">
+          ${textProductHidden}
+        </span>
+      `;
+    }
+  }
+
+  private _payWithMercadoPago(paymentServ: PaymentService) {
+    if (this._mercadoPagoTransationId.length) {
+      return;
+    }
+    paymentServ.payWithMercadoPago()
+      .subscribe((idTransaction: string) => {
+        this._mercadoPagoTransationId = idTransaction;
+        (document.getElementById('button-mp') as HTMLAnchorElement).href = `
+      https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${idTransaction}`;
+      });
+  }
+
+  // TODO: Finalizar função
+  private _saveOrder(order: OrderAdd) {
+    this._orderServ.post(order).subscribe(() => console.log('Pedido salvo!!!'));
+  }
+
+  private _showModalSelectionAddress(addresses: Address[]) {
     let tempAddress: Address;
     const modalAddr = this._dialog.open(
       ModalAddressComponent,
@@ -129,97 +216,15 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       .pipe(take(1))
       .subscribe(() => {
         this.addressDelivery = tempAddress;
-        this._updateCostDelivery(tempAddress.zipCode, this.productsQuantity);
+        this.checkout.addressTargetId = tempAddress.id;
+        this._updateCostDelivery(tempAddress.zipCode, this.checkout.items);
       });
   }
 
-  private _getCardPaymentOptions(pathDirPaymentsImages: string): PaymentMethodOption[] {
-    return [
-      {title: EPaymentName.AMERICAN_EXPRESS, urlImage: `${pathDirPaymentsImages}/american-express.webp`},
-      {title: EPaymentName.DINERS, urlImage: `${pathDirPaymentsImages}/diners.webp`},
-      {title: EPaymentName.ELO, urlImage: `${pathDirPaymentsImages}/elo.webp`},
-      {title: EPaymentName.HIPER, urlImage: `${pathDirPaymentsImages}/hiper.webp`},
-      {title: EPaymentName.HIPERCARD, urlImage: `${pathDirPaymentsImages}/hipercard.webp`},
-      {title: EPaymentName.MASTERCARD, urlImage: `${pathDirPaymentsImages}/mastercard.webp`},
-      {title: EPaymentName.VISA, urlImage: `${pathDirPaymentsImages}/visa.webp`},
-    ];
-  }
-
-  private _getPaymentMethods(pathDirPaymentsImages: string): PaymentMethod[] {
-    const anotherOptions = this._getSecondaryPaymentOptions(pathDirPaymentsImages);
-    const cardOptions = this._getCardPaymentOptions(pathDirPaymentsImages);
-    return [
-      {
-        urlImageMethod: `${pathDirPaymentsImages}/methods/pagseguro.webp`,
-        anothersOptions: anotherOptions
-          .filter(opt => opt.title !== EPaymentName.MERCADO_PAGO
-            && opt.title !== EPaymentName.PAYPAL
-          ),
-        cardOptions: cardOptions,
-        title: 'PagSeguro'
-      },
-      {
-        urlImageMethod: `${pathDirPaymentsImages}/methods/mercado-pago.webp`,
-        anothersOptions: anotherOptions
-          .filter(opt => opt.title !== EPaymentName.PAGSEGURO
-            && opt.title !== EPaymentName.PAYPAL
-          ),
-        cardOptions: cardOptions.filter(opt => opt.title !== EPaymentName.HIPER),
-        title: 'Mercado pago'
-      },
-      {
-        urlImageMethod: `${pathDirPaymentsImages}/methods/paypal.webp`,
-        anothersOptions: anotherOptions
-          .filter(opt => opt.title === EPaymentName.PAYPAL),
-        cardOptions: cardOptions.filter(opt => opt.title !== EPaymentName.DINERS),
-        title: 'PayPal'
-      },
-    ];
-  }
-
-  private _getSecondaryPaymentOptions(pathDirPaymentsImages: string): PaymentMethodOption[] {
-    return [
-      {title: EPaymentName.BOLETO, urlImage: `${pathDirPaymentsImages}/boleto.webp`},
-      {title: EPaymentName.MERCADO_PAGO, urlImage: `${pathDirPaymentsImages}/mercado-pago.webp`},
-      {title: EPaymentName.PAGSEGURO, urlImage: `${pathDirPaymentsImages}/pagseguro.webp`},
-      {title: EPaymentName.PAYPAL, urlImage: `${pathDirPaymentsImages}/paypal.webp`},
-    ];
-  }
-
-  private _updateCostDelivery(zipCode: string, productsQuantity: [Product, number][]) {
-    // TDOO: Ver caso de escolha de opção de frete
-    this._shippingServ.calculateCostDays(
-      zipCode,
-      productsQuantity.map(prodQuantity => {
-        return {productId: prodQuantity[0].id, quantity: prodQuantity[1]};
-      })
-    ).pipe(take(1))
+  private _updateCostDelivery(zipCode: string, items: ItemOrderAdd[]) {
+    // TODO: Ver caso de escolha de opção de frete
+    this._shippingServ.calculateCostDays(zipCode, items)
       .subscribe(deliveryOpt => this.deliveryCost = deliveryOpt[1].cost);
   }
 }
 
-interface PaymentMethodOption {
-  readonly title: string;
-  readonly urlImage: string;
-}
-
-interface PaymentMethod {
-  readonly anothersOptions: PaymentMethodOption[];
-  readonly cardOptions: PaymentMethodOption[];
-  readonly title: string;
-  readonly urlImageMethod: string;
-}
-
-enum EPaymentName {
-  AMERICAN_EXPRESS = 'American Express',
-  BOLETO = 'Boleto',
-  DINERS = 'Diners',
-  ELO = 'Elo',
-  HIPER = 'Hiper',
-  HIPERCARD = 'Hipercard',
-  MASTERCARD = 'Mastercard',
-  MERCADO_PAGO = 'Créditos no Mercado Pago',
-  PAGSEGURO = 'Créditos no PagSeguro',
-  PAYPAL = 'Créditos no Paypal',
-  VISA = 'Visa',
-}

@@ -16,6 +16,10 @@ $color-green: #00a650;
     padding: 0 15px;
   }
 
+  .row {
+    margin: auto 0;
+  }
+
   @media (max-width: $width-max-small) {
     padding: 20px 0;
   }
@@ -24,6 +28,11 @@ $color-green: #00a650;
 .img-section {
   padding: 10px;
   text-align: center;
+
+  .fa-image {
+    font-size: 225px;
+    color: lightgrey;
+  }
 
   .main-img {
     @include max-size(300px);
