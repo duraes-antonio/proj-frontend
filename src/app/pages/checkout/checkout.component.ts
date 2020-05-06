@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {take} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 
 import {paths} from '../../../shared/constants/paths';
-import {paymentConfig} from '../../../shared/config/payments';
 import {routesFrontend} from '../../../shared/constants/routes-frontend';
 import {utilDOM} from '../../../shared/util.dom';
 import {Product} from '../../models/product';
@@ -15,16 +14,17 @@ import {ShippingService} from '../../services/shipping.service';
 import {ModalAddressComponent} from '../../components/dialogs/modal-address/modal-address.component';
 import {CartService} from '../../services/cart.service';
 import {ModalManageAddressComponent} from '../../components/dialogs/modal-manage-address/modal-manage-address.component';
-import {IPayPalConfig} from 'ngx-paypal';
 import {getPaymentMethods, PaymentMethod} from '../../../shared/constants/payment-methods';
 import {PaymentService} from '../../services/payment.service';
 import {OrderAdd} from '../../models/order';
 import {CheckoutOrder} from '../../models/checkout-order';
-import {ItemOrderAdd} from '../../models/item-order';
-import {DeliveryOptionType} from '../../models/shipping/delivery';
+import {DeliveryOption, DeliveryOptionType} from '../../models/shipping/delivery';
+import {ModalShippingMatComponent} from '../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
 import {OrderService} from '../../services/order.service';
+import {ItemOrderAdd} from '../../models/item-order';
 
 declare let PagSeguroLightbox: any;
+declare let paypal: any;
 
 @Component({
   selector: 'app-checkout',
@@ -32,33 +32,30 @@ declare let PagSeguroLightbox: any;
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements AfterViewInit, OnDestroy {
+
+  @ViewChild('paypal') paypalElement!: ElementRef;
   readonly paymentMethods: PaymentMethod[] = getPaymentMethods(`${paths.assets}/payments`);
   readonly routes = routesFrontend;
-  readonly payPalConfig: IPayPalConfig = paymentConfig.getPaypalConfig({
-    onApprove: (data, actions) => this.payWithPaypal(data),
-    onClientAuthorization: (re) => this.payWithPaypal(re)
-  });
   addressesUser: Address[] = [];
   addressDelivery?: Address;
-
   checkout: CheckoutOrder;
   productsPreview: Product[] = [];
-
   productsCost = 0;
   deliveryCost = 0;
   private _modalAddressSelect$?: Subscription;
-  private _mercadoPagoTransationId = '';
 
   constructor(
     private readonly _addressServ: AddressService,
     private readonly _dialog: MatDialog,
-    private readonly _orderServ: OrderService,
     private readonly _paymentServ: PaymentService,
     private readonly _productServ: ProductService,
     private readonly _shippingServ: ShippingService
   ) {
     this.checkout = CartService.getOrder() as CheckoutOrder;
 
+    if (!this.checkout.optionDeliveryType) {
+      this.checkout.optionDeliveryType = DeliveryOptionType.PAC;
+    }
     if (this.checkout.addressTargetId) {
       this._addressServ.getById(this.checkout.addressTargetId)
         .subscribe((a?: Address) => this.addressDelivery = a);
@@ -81,13 +78,11 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
         perPage: Number.MAX_SAFE_INTEGER
       }).subscribe((prods: Product[]) => {
         this.productsPreview = prods.slice(0, 3);
-        this.productsCost = this.checkout.items
-          .map(item => item.unitPrice * item.quantity)
-          .reduce((prevPrice, currPrice) => prevPrice + currPrice);
+        this.productsCost = OrderService.calculateCostItems(this.checkout.items);
         this._injectTitleResumeProducts(prods);
 
         if (this.addressDelivery) {
-          this._updateCostDelivery(this.addressDelivery.zipCode, this.checkout.items);
+          this._updateCostDelivery(this.addressDelivery.zipCode, DeliveryOptionType.PAC, this.checkout.items);
         }
       });
     }
@@ -97,27 +92,22 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     return p.id;
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     utilDOM.setBodyBackgroundColor('#eee');
-    const elem = document.getElementById('button-mp');
-
-    if (elem) {
-      this._payWithMercadoPago(this._paymentServ);
-    }
+    this._paymentServ.initScriptPaypal(
+      paypal, this.checkout as OrderAdd,
+      (order: OrderAdd) => this.payWithPaypal(this._paymentServ, order),
+      () => !!this.addressDelivery,
+      this.paypalElement.nativeElement,
+      () => this.showModalManageAddress()
+    );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     utilDOM.setBodyBackgroundColor('unset');
     if (this._modalAddressSelect$) {
       this._modalAddressSelect$.unsubscribe();
     }
-  }
-
-  showModalSelectionAddress() {
-    this._addressServ.get()
-      .subscribe((addresses: Address[]) => {
-        this._showModalSelectionAddress(addresses);
-      });
   }
 
   showModalManageAddress() {
@@ -128,39 +118,67 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     modalAddr.componentInstance.action
       .pipe(take(1))
       .subscribe((address: Address) => {
+        modalAddr.close();
         this.addressDelivery = address;
         this.checkout.addressTargetId = address.id;
-        this._updateCostDelivery(address.zipCode, this.checkout?.items);
+        this.showModalShipping(address.zipCode);
       });
   }
 
-  payWithPagSeguro(paymentServ: PaymentService, order: OrderAdd) {
-    paymentServ.payWithPagSeguro(order)
-      .subscribe((idTransaction: string) =>
-        PagSeguroLightbox(
-          idTransaction,
-          {
-            success: () => console.log('finalizado'),
-            abort: () => console.log('cancelado')
-          }
-        )
-      );
+  showModalSelectionAddress() {
+    this._addressServ.get()
+      .pipe(take(1))
+      .subscribe((addresses: Address[]) => {
+        this._showModalSelectionAddress(
+          addresses, this._dialog, (address: Address) => {
+            this._dialog.closeAll();
+            this.addressDelivery = address;
+            this.checkout.addressTargetId = address.id;
+            this.showModalShipping(address.zipCode);
+          });
+      });
   }
 
-  payWithPaypal(data?: any) {
-    console.log('Pagamento aprovado!!!', data);
-    this._saveOrder(this.checkout as OrderAdd);
+  showModalShipping(zipCode: string) {
+    this._showModalShipping(
+      zipCode, this.checkout.items, this._dialog,
+      () => {
+        this._dialog.closeAll();
+        this.showModalSelectionAddress();
+      },
+      (opt: DeliveryOption) => {
+        this.deliveryCost = opt.cost;
+        this.checkout.optionDeliveryType = opt.typeService;
+      }
+    );
   }
 
-  paymentHandler(
-    address: Address, fnPayment: (payServ: PaymentService, order: OrderAdd) => void
-  ): void {
-    if (address) {
-      this.checkout.optionDeliveryType = DeliveryOptionType.SEDEX;
-      fnPayment(this._paymentServ, this.checkout as OrderAdd);
+  // TODO: Limpar carrinho, storage e redirecionar
+  payWithPagSeguro() {
+    if (this.addressDelivery) {
+      this._paymentServ.payWithPagSeguro(this.checkout as OrderAdd)
+        .subscribe((idTransaction: string) =>
+          PagSeguroLightbox(
+            idTransaction,
+            {
+              success: () => console.log('finalizado'),
+              abort: () => console.log('cancelado')
+            }
+          )
+        );
     } else {
       this.showModalManageAddress();
     }
+  }
+
+  // TODO: Limpar carrinho, storage e redirecionar
+  payWithPaypal(paymentServ: PaymentService, order: OrderAdd): Promise<string> {
+    return paymentServ.payWithPaypal(order).toPromise();
+  }
+
+  // TODO: Finalizar implementação
+  private _finishOrder() {
+
   }
 
   private _injectTitleResumeProducts(products: Product[]) {
@@ -187,44 +205,45 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private _payWithMercadoPago(paymentServ: PaymentService) {
-    if (this._mercadoPagoTransationId.length) {
-      return;
-    }
-    paymentServ.payWithMercadoPago()
-      .subscribe((idTransaction: string) => {
-        this._mercadoPagoTransationId = idTransaction;
-        (document.getElementById('button-mp') as HTMLAnchorElement).href = `
-      https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${idTransaction}`;
-      });
-  }
-
-  // TODO: Finalizar função
-  private _saveOrder(order: OrderAdd) {
-    this._orderServ.post(order).subscribe(() => console.log('Pedido salvo!!!'));
-  }
-
-  private _showModalSelectionAddress(addresses: Address[]) {
+  private _showModalSelectionAddress(
+    addresses: Address[], dialog: MatDialog, onChosenAddress: (address: Address) => any
+  ) {
     let tempAddress: Address;
-    const modalAddr = this._dialog.open(
+    const modalAddr = dialog.open(
       ModalAddressComponent,
       ModalAddressComponent.getConfig({showInputCEP: false, addresses})
     );
-    this._modalAddressSelect$ = modalAddr.componentInstance.chosenAddress
+    modalAddr.componentInstance.chosenAddress
+      .pipe(take(1))
       .subscribe((addr: Address) => tempAddress = addr);
     modalAddr.componentInstance.action
       .pipe(take(1))
-      .subscribe(() => {
-        this.addressDelivery = tempAddress;
-        this.checkout.addressTargetId = tempAddress.id;
-        this._updateCostDelivery(tempAddress.zipCode, this.checkout.items);
-      });
+      .subscribe(() => onChosenAddress(tempAddress));
   }
 
-  private _updateCostDelivery(zipCode: string, items: ItemOrderAdd[]) {
-    // TODO: Ver caso de escolha de opção de frete
+  private _showModalShipping(
+    zipcode: string, items: ItemOrderAdd[], dialog: MatDialog,
+    fnSelectAddress: () => any, fnDeliveryOpt: (opt: DeliveryOption) => any
+  ) {
+    const dialogRef = dialog.open(
+      ModalShippingMatComponent,
+      ModalShippingMatComponent.getConfig({zipcode, items})
+    );
+    dialogRef.componentInstance.action
+      .pipe(take(1))
+      .subscribe((delivery: DeliveryOption) => fnDeliveryOpt(delivery));
+    dialogRef.componentInstance.selectAddress
+      .pipe(take(1))
+      .subscribe(() => fnSelectAddress());
+  }
+
+  private _updateCostDelivery(
+    zipCode: string, typeShipping: DeliveryOptionType, items: ItemOrderAdd[]
+  ) {
     this._shippingServ.calculateCostDays(zipCode, items)
-      .subscribe(deliveryOpt => this.deliveryCost = deliveryOpt[1].cost);
+      .subscribe(deliveryOpts => this.deliveryCost = (deliveryOpts
+        .find(opt => opt.typeService === typeShipping) as DeliveryOption)
+        .cost
+      );
   }
 }
-

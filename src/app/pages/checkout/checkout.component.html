@@ -23,17 +23,9 @@
 
         <mat-divider style="margin: 15px 0; width: 100%"></mat-divider>
 
-        <!-- Botão Mercado Pago -->
-        <div *ngIf="payMethod.title.toLowerCase() === 'mercado pago'">
-          <a class="blue-ar-m-ov-none" id="button-mp" mp-mode="dftl"
-             name="MP-payButton" style="margin: 0">
-            Comprar
-          </a>
-        </div>
-
         <!-- Botão PagSeguro -->
         <ng-container *ngIf="payMethod.title.toLowerCase() === 'pagseguro'">
-          <input (click)="paymentHandler(addressDelivery, payWithPagSeguro)"
+          <input (click)="payWithPagSeguro()"
                  alt="Pague com PagSeguro - é rápido, grátis e seguro!"
                  name="submit"
                  src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/184x42-comprar-azul-assina.gif"
@@ -42,7 +34,7 @@
 
         <!-- Botões Paypal -->
         <ng-container *ngIf="payMethod.title.toLowerCase() === 'paypal'">
-          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+          <div #paypal></div>
         </ng-container>
       </div>
     </div>
@@ -135,11 +127,12 @@
           <span class="costs__item-title">Produtos:</span>
           <span class="costs__item-value">{{productsCost | currency: 'BRL'}}</span>
         </div>
-        <div class="costs__item">
+        <div class="costs__item" style="align-items: flex-start">
           <span class="costs__item-title">Entrega:</span>
-          <span *ngIf="deliveryCost > 0; else addressUnknown" class="costs__item-value">
-            {{deliveryCost | currency: 'BRL'}}
-          </span>
+          <div *ngIf="deliveryCost > 0; else addressUnknown" style="display: grid">
+            <span class="costs__item-value">{{deliveryCost | currency: 'BRL'}}</span>
+            <a (click)="showModalShipping(addressDelivery.zipCode)">Outras opções</a>
+          </div>
           <ng-template #addressUnknown>
             <span class="costs__item-value">???</span>
           </ng-template>

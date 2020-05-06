@@ -1,35 +1,13 @@
-import {IClientAuthorizeCallbackData, ICreateOrderRequest, IOnClickCallbackActions, IPayPalConfig} from 'ngx-paypal';
+import {IClientAuthorizeCallbackData, IOnClickCallbackActions, IPayPalConfig} from 'ngx-paypal';
+import {OrderAdd} from '../../app/models/order';
 
 // TODO: Passar os items de pedido como parametro
+// TODO: Mover clientId p/ heroku
 export const getPaypalConfig = (callbacks: PaypalCallbacks): IPayPalConfig => {
   return {
     currency: 'BRL',
     clientId: 'AXg0OUZI4L1NOOWjPyQM-WRBA-gmkNJU4dn0ZZKDbgZ08UF-DaqIQbv0afTG5NrrEW15GmAx94nXuqeo',
-    createOrderOnClient: (data) => <ICreateOrderRequest>{
-      intent: 'CAPTURE',
-      purchase_units: [{
-        amount: {
-          currency_code: 'BRL',
-          value: '9.99',
-          breakdown: {
-            item_total: {
-              currency_code: 'BRL',
-              value: '9.99'
-            }
-          }
-        },
-        items: [
-          {
-            name: 'Enterprise Subscription',
-            quantity: '1',
-            category: 'DIGITAL_GOODS',
-            unit_amount: {
-              currency_code: 'BRL',
-              value: '9.99',
-            },
-          }]
-      }]
-    },
+    createOrderOnServer: callbacks.createOrderOnServer,
     advanced: {
       commit: 'true'
     },
@@ -39,16 +17,12 @@ export const getPaypalConfig = (callbacks: PaypalCallbacks): IPayPalConfig => {
       label: 'paypal',
       layout: 'vertical'
     },
-    onApprove: (data, actions) => {
-      callbacks.onApprove(data, actions);
-      console.log(data);
-    },
-    onClientAuthorization: (data) => callbacks.onClientAuthorization(data),
+    onApprove: callbacks.onApprove,
+    onClientAuthorization: callbacks?.onClientAuthorization,
     onCancel: callbacks?.onCancel,
     onError: callbacks?.onError,
-    onClick: (data, actions) => {
-      console.log('onClick', data, actions);
-    },
+    onClick: callbacks?.onClick,
+
   };
 };
 
@@ -57,8 +31,9 @@ export const paymentConfig = {
 };
 
 export interface PaypalCallbacks {
+  readonly createOrderOnServer: (data: OrderAdd) => Promise<string>;
   readonly onApprove: (data: any, actions: IOnClickCallbackActions) => any;
-  readonly onClientAuthorization: (actions: IClientAuthorizeCallbackData) => any;
+  readonly onClientAuthorization?: (actions: IClientAuthorizeCallbackData) => any;
   readonly onCancel?: (data: any, actions: IOnClickCallbackActions) => any;
   readonly onError?: (err: Error) => any;
   readonly onClick?: (data: any, actions: IOnClickCallbackActions) => any;

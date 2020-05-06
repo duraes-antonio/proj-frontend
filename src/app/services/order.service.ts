@@ -8,6 +8,7 @@ import {util} from '../../shared/util';
 import {AuthService} from './auth.service';
 import {take} from 'rxjs/operators';
 import {FilterBasic} from '../models/filters/filter-basic';
+import {ItemOrderAdd} from '../models/item-order';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,12 @@ export class OrderService {
   constructor(
     private readonly _http: HttpClient,
   ) {
+  }
+
+  static calculateCostItems(items: ItemOrderAdd[]): number {
+    return items
+      .map(item => item.unitPrice * item.quantity)
+      .reduce((prevPrice, currPrice) => prevPrice + currPrice);
   }
 
   /*TODO: Adicionar filtro*/

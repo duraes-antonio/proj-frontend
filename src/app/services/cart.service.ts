@@ -23,7 +23,7 @@ export class CartService {
   }
 
   static getOrder(): CheckoutOrder | undefined {
-    const order = localStorage.getItem('order');
+    const order = window.localStorage.getItem('order');
     return order ? JSON.parse(order) : undefined;
   }
 

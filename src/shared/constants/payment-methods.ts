@@ -17,7 +17,6 @@ export enum EPaymentName {
   HIPER = 'Hiper',
   HIPERCARD = 'Hipercard',
   MASTERCARD = 'Mastercard',
-  MERCADO_PAGO = 'Créditos no Mercado Pago',
   PAGSEGURO = 'Créditos no PagSeguro',
   PAYPAL = 'Créditos no Paypal',
   VISA = 'Visa',
@@ -38,7 +37,6 @@ const getCardPaymentOptions = (pathDirPaymentsImages: string): PaymentMethodOpti
 const getSecondaryPaymentOptions = (pathDirPaymentsImages: string): PaymentMethodOption[] => {
   return [
     {title: EPaymentName.BOLETO, urlImage: `${pathDirPaymentsImages}/boleto.webp`},
-    {title: EPaymentName.MERCADO_PAGO, urlImage: `${pathDirPaymentsImages}/mercado-pago.webp`},
     {title: EPaymentName.PAGSEGURO, urlImage: `${pathDirPaymentsImages}/pagseguro.webp`},
     {title: EPaymentName.PAYPAL, urlImage: `${pathDirPaymentsImages}/paypal.webp`},
   ];
@@ -53,22 +51,9 @@ export const getPaymentMethods = (pathDirPaymentsImages: string): PaymentMethod[
       options: [
         ...cardOptions,
         ...anotherOptions
-          .filter(opt => opt.title !== EPaymentName.MERCADO_PAGO
-            && opt.title !== EPaymentName.PAYPAL
-          )
+          .filter(opt => opt.title !== EPaymentName.PAYPAL)
       ],
       title: 'PagSeguro'
-    },
-    {
-      urlImageMethod: `${pathDirPaymentsImages}/methods/mercado-pago.webp`,
-      options: [
-        ...cardOptions.filter(opt => opt.title !== EPaymentName.HIPER),
-        ...anotherOptions
-          .filter(opt => opt.title !== EPaymentName.PAGSEGURO
-            && opt.title !== EPaymentName.PAYPAL
-          )
-      ],
-      title: 'Mercado pago'
     },
     {
       urlImageMethod: `${pathDirPaymentsImages}/methods/paypal.webp`,

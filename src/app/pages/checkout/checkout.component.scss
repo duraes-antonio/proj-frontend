@@ -128,8 +128,8 @@ $width-max-small: 768px;
   }
 
   .payment-section {
+    @extend %flex-col;
     padding: $padding-box $padding-box $padding-box 0;
-    display: grid;
 
     .payment-methods {
       display: grid;

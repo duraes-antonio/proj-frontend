@@ -24,7 +24,7 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
   private _modal?: HTMLElement;
 
   ngOnDestroy(): void {
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'initial';
   }
 
   ngAfterViewInit(): void {

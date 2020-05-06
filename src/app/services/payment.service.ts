@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Order, OrderAdd} from '../models/order';
+import {ElementRef, Injectable} from '@angular/core';
+import {OrderAdd} from '../models/order';
 import {HttpClient} from '@angular/common/http';
 import {httpService} from './generic-http.service';
 import {Observable} from 'rxjs';
@@ -17,29 +17,51 @@ export class PaymentService {
   constructor(private readonly _http: HttpClient) {
   }
 
-  payWithPaypal(order: Order) {
-    /*TODO:
-       - Adicionar items a uma cesta;
-       - Calcular preço de cada item;
-       - Calcular preço de entrega de cada item;
-       - Total (custo de entrega + custo de itens)
-       */
+  initScriptPaypal(
+    paypalObj: any, order: OrderAdd, fnCreateOrder: (order: OrderAdd) => Promise<string>,
+    fnCheckOnClick: () => boolean, elRefDiv: ElementRef, fnCheckFail?: () => any,
+    fnCheckSuccess?: () => any,
+  ) {
+    /* Documentação com métodos e atributos:
+     https://developer.paypal.com/docs/checkout/integration-features/validation/#asynchronous-validation
+     */
+    paypalObj
+      .Buttons({
+        onClick: (data: any, actions: any) => {
+          if (fnCheckOnClick()) {
+            if (fnCheckSuccess) {
+              fnCheckSuccess();
+            }
+            return actions.resolve();
+          } else {
+            if (fnCheckFail) {
+              fnCheckFail();
+            }
+            return actions.reject();
+          }
+        },
+        createOrder: async (data: any, actions: any) => {
+          const res = await fnCreateOrder(order);
+          console.log(res);
+          return res;
+        },
+        onApprove: async (data: any, actions: any) => {
+          const transaction = await actions.order.capture();
+          console.log(transaction);
+        },
+        onError: (err: Error) => {
+          console.log(err);
+        }
+      })
+      .render(elRefDiv);
+  }
+
+  payWithPaypal(order: OrderAdd): Observable<string> {
     return httpService.post(
       `${this._endpoint}/paypal`,
       this._http,
       AuthService.getHeaders,
       order
-    ).pipe(
-      map((res: { data: string }) => res.data),
-    );
-  }
-
-  payWithMercadoPago(): Observable<string> {
-    return httpService.post(
-      `${this._endpoint}/mercado-pago`,
-      this._http,
-      AuthService.getHeaders,
-      {}
     ).pipe(
       map((res: { data: string }) => res.data),
     );
