@@ -4,7 +4,6 @@ import {CheckoutComponent} from './checkout.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
-import {NgxPayPalModule} from 'ngx-paypal';
 
 
 @NgModule({
@@ -15,7 +14,6 @@ import {NgxPayPalModule} from 'ngx-paypal';
     CommonModule,
     MatDividerModule,
     MatButtonModule,
-    NgxPayPalModule,
     RouterModule
   ]
 })

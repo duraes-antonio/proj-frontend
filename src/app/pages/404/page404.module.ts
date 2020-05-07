@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Page404Component} from './page404.component';
-import {Tela404RoutingModule} from './tela404-routing.module';
+import {Page404RoutingModule} from './page404-routing.module';
 
 
 @NgModule({
@@ -13,8 +13,8 @@ import {Tela404RoutingModule} from './tela404-routing.module';
   ],
   imports: [
     CommonModule,
-    Tela404RoutingModule
+    Page404RoutingModule
   ]
 })
-export class Tela404Module {
+export class Page404Module {
 }

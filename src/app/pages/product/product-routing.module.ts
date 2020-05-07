@@ -4,19 +4,21 @@ import {ProductListComponent} from './list/product-list.component';
 import {ProductDetailsComponent} from './details/product-details.component';
 import {ProductManagementComponent} from './management/product-management.component';
 import {routesFrontend} from '../../../shared/constants/routes-frontend';
+import {AdminGuard} from '../../guards/admin.guard';
 
 const produtoRoutes: Routes = [
   {
-    path: routesFrontend.productsManagement,
-    component: ProductManagementComponent
+    component: ProductManagementComponent,
+    canActivate: [AdminGuard],
+    path: routesFrontend.productsManagement
   },
   {
-    path: routesFrontend.productsView,
-    component: ProductListComponent
+    component: ProductListComponent,
+    path: routesFrontend.productsView
   },
   {
-    path: routesFrontend.productView,
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+    path: routesFrontend.productView
   }
 ];
 

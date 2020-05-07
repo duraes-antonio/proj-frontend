@@ -4,11 +4,11 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Review, ReviewAdd} from '../models/review';
 import {AuthService} from './auth.service';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {FilterReview} from '../models/filters/filter-review';
-import {DataTests} from '../../shared/dataTests';
 import {util} from '../../shared/util';
+import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,6 @@ export class ReviewService {
 
   /*TODO: Adicionar filtro*/
   get(filter: FilterReview): Observable<Review[]> {
-    return of(DataTests.reviews);
     const clearFilter = util.primitiveFieldsToString(util.clearEmptyFields(filter));
     return this._http.get<Review[]>(
       this._routeApi,
@@ -40,10 +39,10 @@ export class ReviewService {
   }
 
   getByUserProduct(productId: string, userId: string): Observable<Review> {
-    return this._http.get<Review>(
-      this._routeApi,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+    return httpService.getSingle(
+      `${this._routeApi}/user/${userId}/product/${productId}`,
+      this._http, AuthService.getHeaders
+    );
   }
 
   post(obj: ReviewAdd): Observable<Review> {

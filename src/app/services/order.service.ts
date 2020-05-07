@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Order, OrderAdd} from '../models/order';
-import {DataTests} from '../../shared/dataTests';
 import {util} from '../../shared/util';
 import {AuthService} from './auth.service';
-import {take} from 'rxjs/operators';
 import {FilterBasic} from '../models/filters/filter-basic';
 import {ItemOrderAdd} from '../models/item-order';
+import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +16,7 @@ export class OrderService {
 
   private readonly _routeApi = `${environment.apiUrl}/order`;
 
-  constructor(
-    private readonly _http: HttpClient,
-  ) {
+  constructor(private readonly _http: HttpClient) {
   }
 
   static calculateCostItems(items: ItemOrderAdd[]): number {
@@ -28,33 +25,24 @@ export class OrderService {
       .reduce((prevPrice, currPrice) => prevPrice + currPrice);
   }
 
-  /*TODO: Adicionar filtro*/
   get(filter: FilterBasic): Observable<Order[]> {
-    return of(DataTests.orders);
-    const clearFilter = util.primitiveFieldsToString(util.clearEmptyFields(filter));
-    return this._http.get<Order[]>(
-      this._routeApi,
-      {headers: AuthService.getHeaders(), params: clearFilter}
-    ).pipe(take(1));
-  }
-
-  /*TODO: Adicionar filtro*/
-  productPurchased(productId: string, userId: string): Observable<boolean> {
-    return of(true);
-    const params = new HttpParams()
-      .set('productId', productId)
-      .set('userId', userId);
-    return this._http.get<boolean>(
-      `${this._routeApi}/purchased`,
-      {headers: AuthService.getHeaders(), params: params}
-    ).pipe(take(1));
+    const filterClear = util.clearEmptyFields(filter);
+    const params = new HttpParams().set('filter', JSON.stringify(filterClear));
+    return httpService.get<Order>(this._routeApi, this._http, AuthService.getHeaders, params);
   }
 
   post(obj: OrderAdd): Observable<Order> {
-    return this._http.post<Order>(
-      this._routeApi,
-      obj,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+    return httpService.post<OrderAdd>(
+      this._routeApi, this._http, AuthService.getHeaders, obj
+    );
+  }
+
+  productPurchased(productId: string, userId: string): Observable<boolean> {
+    return httpService.getSingle<boolean>(
+      `${this._routeApi}/purchased`, this._http, AuthService.getHeaders,
+      new HttpParams()
+        .set('productId', productId)
+        .set('userId', userId)
+    );
   }
 }

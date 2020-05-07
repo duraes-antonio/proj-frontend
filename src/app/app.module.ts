@@ -15,6 +15,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CheckoutModule} from './pages/checkout/checkout.module';
+import {ForbiddenModule} from './pages/forbidden/forbidden.module';
 
 registerLocaleData(localePt);
 
@@ -28,6 +29,7 @@ registerLocaleData(localePt);
     AppRoutingModule,
     CheckoutModule,
     ComponentesModule,
+    ForbiddenModule,
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,

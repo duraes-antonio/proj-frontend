@@ -159,7 +159,7 @@
       <button (click)="showModalReview()" *ngIf="showButtonRate" class="btn-general" mat-raised-button>
         <img alt="Estrela apresentada na franquia Yu-Gi-Oh. Representa a ação de avaliar este produto."
              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Starball_Red.svg/1200px-Starball_Red.svg.png">
-        Avaliar
+        {{reviewUser ? 'Editar' : 'Avaliar'}}
       </button>
     </span>
     <app-rating-list [reviews]="reviews"></app-rating-list>

@@ -26,7 +26,7 @@ export class CartComponent implements OnDestroy {
 
   totalCostProducts = 0;
   totalCostShipping = 0;
-  productsChosen: Product[] = [];
+  productsChosen!: Product[];
   userAddresses: Address[] = [];
   currentAddress?: Address;
   prodAmount = new Map<Product, number>();
@@ -51,11 +51,14 @@ export class CartComponent implements OnDestroy {
         if (ids && ids.length) {
           this._productServ.get(
             {perPage: 100, ids, currentPage: 1}
-          ).subscribe((products: Product[]) => {
-            this.productsChosen = products;
-            this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
-            this._updateCost();
-          });
+          ).subscribe(
+            (products: Product[]) => {
+              this.productsChosen = products;
+              this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
+              this._updateCost();
+            });
+        } else {
+          this.productsChosen = [];
         }
       });
 

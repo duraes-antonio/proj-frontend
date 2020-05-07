@@ -41,7 +41,7 @@ export class StarRatingComponent {
 
   @Input()
   set startValue(value: number) {
-    this._startValue = value;
+    this._startValue = value ?? 1;
     this._updateValues();
   }
 

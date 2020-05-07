@@ -95,7 +95,7 @@ export class ProductDetailsComponent implements OnDestroy {
             this.productsRelatedsList = res[2];
             this.addresses = res[3];
             this.reviewUser = res[4];
-            this.showButtonRate = res[5] ?? false;
+            this.showButtonRate = res[5];
           });
       });
     this._cart$ = _cartStore.subscribe(

@@ -1,11 +1,13 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {User} from '../../models/user';
 import {routesFrontend as routes} from '../../../shared/constants/routes-frontend';
 import {MatSidenav} from '@angular/material/sidenav';
 import {AuthService} from '../../services/auth.service';
 import {take} from 'rxjs/operators';
+import {ERole} from '../../enum/roles';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
@@ -64,6 +66,11 @@ export class SidenavComponent {
       .subscribe(() => {
         this.close();
       });
+  }
+
+  userAdmin(user?: User): boolean {
+    console.log('ADMIN');
+    return !!user && user?.roles.includes(ERole.ADMIN);
   }
 }
 

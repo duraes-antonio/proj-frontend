@@ -4,6 +4,7 @@ const productsView = 'produto';
 const user = 'usuario/:id';
 
 export const routesFrontend = {
+  forbidden: '403',
   notFound: '404',
 
   productsView: productsView,

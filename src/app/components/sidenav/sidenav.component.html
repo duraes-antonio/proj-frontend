@@ -27,15 +27,17 @@
       </a>
     </mat-nav-list>
 
-    <mat-divider></mat-divider>
 
     <!-- AÇÕES ADMINISTRATIVAS -->
-    <mat-nav-list>
-      <a *ngFor="let action of actionsAdmin" [routerLink]="action.url" class="actions__item" mat-list-item>
-        <i aria-hidden="true" class="{{action.iconClass}} actions__item-icon"></i>
-        {{action.title}}
-      </a>
-    </mat-nav-list>
+    <ng-container *ngIf="userAdmin(user)">
+      <mat-divider></mat-divider>
+      <mat-nav-list>
+        <a *ngFor="let action of actionsAdmin" [routerLink]="action.url" class="actions__item" mat-list-item>
+          <i aria-hidden="true" class="{{action.iconClass}} actions__item-icon"></i>
+          {{action.title}}
+        </a>
+      </mat-nav-list>
+    </ng-container>
 
     <mat-divider></mat-divider>
 

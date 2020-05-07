@@ -40,8 +40,12 @@ export class ProductService {
   }
 
   get(filter?: FilterProduct): Observable<Product[]> {
-    const filterStringParsed = util.clearEmptyFields(filter);
-    const params = new HttpParams().set('filter', JSON.stringify(filterStringParsed));
+    let params = new HttpParams();
+
+    if (filter) {
+      const filterStringParsed = util.clearEmptyFields(filter);
+      params = new HttpParams().set('filter', JSON.stringify(filterStringParsed));
+    }
     return this._http.get<Product[]>(
       this._routeApi,
       {headers: AuthService.getHeaders(), params}

@@ -4,6 +4,8 @@ import {ProductRoutingModule} from './pages/product/product-routing.module';
 import {AuthGuard} from './guards/auth.guard';
 import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
 import {routesFrontend} from '../shared/constants/routes-frontend';
+import {Page404Component} from './pages/404/page404.component';
+import {ForbiddenRoutingModule} from './pages/forbidden/forbidden-routing.module';
 
 const routes: Routes = [
   {
@@ -44,13 +46,12 @@ const routes: Routes = [
   {
     path: routesFrontend.notFound,
     loadChildren: () =>
-      import('./pages/404/tela404.module')
-        .then(m => m.Tela404Module)
+      import('./pages/404/page404.module')
+        .then(m => m.Page404Module)
   },
   {
     path: '**',
-    redirectTo: '404',
-    pathMatch: 'full'
+    component: Page404Component,
   }
 ];
 
@@ -63,6 +64,7 @@ const extraOptions: ExtraOptions = {
   imports: [
     RouterModule.forRoot(routes, extraOptions),
     CheckoutRoutingModule,
+    ForbiddenRoutingModule,
     ProductRoutingModule
   ],
   exports: [RouterModule]
