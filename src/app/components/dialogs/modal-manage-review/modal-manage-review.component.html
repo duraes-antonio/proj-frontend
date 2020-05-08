@@ -14,8 +14,8 @@
     <div class="review-form__field">
       <mat-label>Nota <span style="color: red">*</span></mat-label>
       <app-star-rating (valueSelected)="reviewFormGroup.controls['rating'].setValue($event)"
-                       [align]="'center'" [fontSize]="25"
-                       [interactive]="true" [maxStars]="5" [startValue]="data.review?.rating">
+                       [align]="'center'" [fontSize]="25" [interactive]="true" [maxStars]="5"
+                       [startValue]="reviewFormGroup.controls['rating'].value">
       </app-star-rating>
     </div>
 

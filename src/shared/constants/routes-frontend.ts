@@ -1,7 +1,7 @@
 const manager = 'gerencia';
 const login = 'login';
 const productsView = 'produto';
-const user = 'usuario/:id';
+const user = 'usuario/:userId';
 
 export const routesFrontend = {
   forbidden: '403',

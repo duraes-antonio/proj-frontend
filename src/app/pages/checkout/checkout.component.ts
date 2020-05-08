@@ -99,7 +99,8 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
       (order: OrderAdd) => this.payWithPaypal(this._paymentServ, order),
       () => !!this.addressDelivery,
       this.paypalElement.nativeElement,
-      () => this.showModalManageAddress()
+      () => this.showModalManageAddress(),
+      undefined, this._finishOrder
     );
   }
 
@@ -154,6 +155,7 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
   }
 
   // TODO: Limpar carrinho, storage e redirecionar
+  // Exibir mensagem de erro
   payWithPagSeguro() {
     if (this.addressDelivery) {
       this._paymentServ.payWithPagSeguro(this.checkout as OrderAdd)
@@ -161,8 +163,8 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
           PagSeguroLightbox(
             idTransaction,
             {
-              success: () => console.log('finalizado'),
-              abort: () => console.log('cancelado')
+              success: () => this._finishOrder(),
+              abort: () => console.log('err')
             }
           )
         );
@@ -178,7 +180,8 @@ export class CheckoutComponent implements AfterViewInit, OnDestroy {
 
   // TODO: Finalizar implementação
   private _finishOrder() {
-
+    CartService.clear();
+    CartService.removeOrder();
   }
 
   private _injectTitleResumeProducts(products: Product[]) {

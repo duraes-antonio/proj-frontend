@@ -1,0 +1,33 @@
+@import '../../../../shared/styles/placeholders';
+
+.page-container {
+  @extend %center-horiz-flex;
+  margin: 40px 0;
+
+  .page {
+    color: dimgray;
+    text-align: center;
+    font-weight: 300;
+    display: grid;
+    line-height: 1.25;
+
+    &__title {
+      font-weight: 500;
+      font-size: 2.5rem;
+    }
+
+    &__subtitle {
+      font-size: 2rem;
+    }
+
+    &__desc {
+      color: hotpink;
+      font-size: 1.4rem;
+
+      &-icon {
+        display: block;
+        font-size: 2.5rem;
+      }
+    }
+  }
+}

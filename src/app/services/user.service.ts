@@ -3,8 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {AuthService, LoginReturn} from './auth.service';
-import {take, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {UserAdd} from '../models/user';
+import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,8 @@ export class UserService {
   constructor(private readonly _http: HttpClient) {
   }
 
-  post(obj: UserAdd): Observable<LoginReturn> {
-    return this._http
-      .post<LoginReturn>(
-        this._endpoint,
-        obj,
-        {headers: AuthService.getHeaders()}
-      ).pipe(
-        take(1),
-        tap((data: LoginReturn) => AuthService.saveCredentials(data))
-      );
+  post(user: UserAdd): Observable<LoginReturn> {
+    return httpService.post(this._endpoint, this._http, AuthService.getHeaders, user)
+      .pipe(tap((data: LoginReturn) => AuthService.saveCredentials(data)));
   }
 }

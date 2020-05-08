@@ -13,7 +13,7 @@ import {httpService} from './generic-http.service';
 })
 export class AddressService {
 
-  private _routeApi = `${environment.apiUrl.replace(/\/$/, '')}/address`;
+  private readonly _endpoint = `${environment.apiUrl.replace(/\/$/, '')}/address`;
 
   constructor(
     private readonly _http: HttpClient,
@@ -22,11 +22,11 @@ export class AddressService {
   }
 
   delete(id: string): Observable<void> {
-    return httpService.delete(this._routeApi, id, this._http, AuthService.getHeaders);
+    return httpService.delete(this._endpoint, id, this._http, AuthService.getHeaders);
   }
 
   get(): Observable<Address[]> {
-    return httpService.get(this._routeApi, this._http, AuthService.getHeaders);
+    return httpService.get(this._endpoint, this._http, AuthService.getHeaders);
   }
 
   getFromViaCEP(CEP: string): Observable<AddressAdd> {
@@ -47,12 +47,12 @@ export class AddressService {
   }
 
   getById(id: string): Observable<Address | undefined> {
-    return httpService.getById(this._routeApi, id, this._http, AuthService.getHeaders);
+    return httpService.getById(this._endpoint, id, this._http, AuthService.getHeaders);
   }
 
   post(obj: AddressAdd): Observable<Address> {
     return httpService.post(
-      this._routeApi, this._http, AuthService.getHeaders,
+      this._endpoint, this._http, AuthService.getHeaders,
       {...obj, zipCode: obj.zipCode.replace('-', '')}
     );
   }
@@ -61,7 +61,7 @@ export class AddressService {
     const cloneObj = obj?.zipCode
       ? {...obj, zipCode: obj.zipCode?.replace('-', '')}
       : obj;
-    return httpService.patch(this._routeApi, id, this._http, AuthService.getHeaders, cloneObj);
+    return httpService.patch(this._endpoint, id, this._http, AuthService.getHeaders, cloneObj);
   }
 }
 

@@ -21,9 +21,7 @@ function _get<T>(
   if (params) {
     parsedParams = params instanceof HttpParams
       ? params
-      : new HttpParams({
-        fromObject: util.primitiveFieldsToString(util.clearEmptyFields(params))
-      });
+      : new HttpParams().set('filter', JSON.stringify(util.clearEmptyFields(params)));
   }
   return http.get<T | T[]>(route, {headers: fnGetHttpHeaders(), params: parsedParams})
     .pipe(take(1));

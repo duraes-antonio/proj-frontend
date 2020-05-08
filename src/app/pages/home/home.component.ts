@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {ListSlide} from '../../models/componentes/slider';
 import {ListProduct} from '../../models/componentes/list-product';
 import {ListMarket} from '../../models/componentes/list-market';
-import {ListProductService} from '../../services/list-product.service';
-import {ListSlideService} from '../../services/list-slide.service';
+import {ListProductService} from '../../services/lists/list-product.service';
+import {ListSlideService} from '../../services/lists/list-slide.service';
 import {Observable} from 'rxjs';
-import {ListMarketService} from '../../services/list-market.service';
+import {ListMarketService} from '../../services/lists/list-market.service';
 
 @Component({
   selector: 'app-home',

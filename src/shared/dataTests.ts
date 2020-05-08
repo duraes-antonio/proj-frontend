@@ -7,7 +7,7 @@ import {randomBoolean, randomFloat, randomInt, util} from './util';
 import {User} from '../app/models/user';
 import {NotificationModel} from '../app/models/notification';
 import {Slide} from '../app/models/componentes/slide';
-import {Market} from '../app/models/market';
+import {Market} from '../app/models/componentes/market';
 import {Card} from '../app/models/card';
 import {ListProduct} from '../app/models/componentes/list-product';
 import {ListMarket} from '../app/models/componentes/list-market';

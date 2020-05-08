@@ -20,7 +20,7 @@ export class PaymentService {
   initScriptPaypal(
     paypalObj: any, order: OrderAdd, fnCreateOrder: (order: OrderAdd) => Promise<string>,
     fnCheckOnClick: () => boolean, elRefDiv: ElementRef, fnCheckFail?: () => any,
-    fnCheckSuccess?: () => any,
+    fnCheckSuccess?: () => any, fnAfterOnApprove?: () => any
   ) {
     /* Documentação com métodos e atributos:
      https://developer.paypal.com/docs/checkout/integration-features/validation/#asynchronous-validation
@@ -41,14 +41,15 @@ export class PaymentService {
           }
         },
         createOrder: async (data: any, actions: any) => {
-          const res = await fnCreateOrder(order);
-          console.log(res);
-          return res;
+          return await fnCreateOrder(order);
         },
         onApprove: async (data: any, actions: any) => {
-          const transaction = await actions.order.capture();
-          console.log(transaction);
+          await actions.order.capture();
+          if (fnAfterOnApprove) {
+            fnAfterOnApprove();
+          }
         },
+        // TODO: Ver forma de exibir o erro
         onError: (err: Error) => {
           console.log(err);
         }
@@ -57,24 +58,12 @@ export class PaymentService {
   }
 
   payWithPaypal(order: OrderAdd): Observable<string> {
-    return httpService.post(
-      `${this._endpoint}/paypal`,
-      this._http,
-      AuthService.getHeaders,
-      order
-    ).pipe(
-      map((res: { data: string }) => res.data),
-    );
+    return httpService.post(`${this._endpoint}/paypal`, this._http, AuthService.getHeaders, order)
+      .pipe(map((res: { data: string }) => res.data));
   }
 
   payWithPagSeguro(order: OrderAdd): Observable<string> {
-    return httpService.post(
-      `${this._endpoint}/pag-seguro`,
-      this._http,
-      AuthService.getHeaders,
-      order
-    ).pipe(
-      map((res: { data: string }) => res.data),
-    );
+    return httpService.post(`${this._endpoint}/pag-seguro`, this._http, AuthService.getHeaders, order)
+      .pipe(map((res: { data: string }) => res.data));
   }
 }

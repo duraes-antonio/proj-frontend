@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
-import {util} from '../../shared/util';
 import {FilterProduct} from '../models/filters/filter-product';
-import {map, take} from 'rxjs/operators';
+import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private _routeApi = `${environment.apiUrl}/product`;
+  private _endpoint = `${environment.apiUrl}/product`;
 
   constructor(
     private readonly _http: HttpClient,
@@ -32,80 +31,34 @@ export class ProductService {
     return price * (100 - percentOff) / 100;
   }
 
-  delete(id: string): Observable<Product> {
-    return this._http.delete<Product>(
-      `${this._routeApi}/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  delete(id: string): Observable<void> {
+    return httpService.delete(this._endpoint, id, this._http, AuthService.getHeaders);
   }
 
   get(filter?: FilterProduct): Observable<Product[]> {
-    let params = new HttpParams();
-
-    if (filter) {
-      const filterStringParsed = util.clearEmptyFields(filter);
-      params = new HttpParams().set('filter', JSON.stringify(filterStringParsed));
-    }
-    return this._http.get<Product[]>(
-      this._routeApi,
-      {headers: AuthService.getHeaders(), params}
-    ).pipe(
-      map((products: Product[]) => products
-        .map(p => {
-          return {...p, priceWithDiscount: ProductService.calcRealPrice(p.price, p.percentOff)};
-        })
-      ),
-      take(1)
-    );
+    return httpService.get(this._endpoint, this._http, AuthService.getHeaders, filter);
   }
 
   getCount(filter?: FilterProduct): Observable<number> {
-    const filterStringParsed = JSON.stringify(util.clearEmptyFields(filter));
-    const params = filter
-      ? new HttpParams({fromString: filterStringParsed})
-      : {};
-    return this._http.get<{ data: number }>(
-      `${this._routeApi}/count`,
-      {headers: AuthService.getHeaders(), params}
-    ).pipe(
-      map((res: { data: number }) => res.data),
-      take(1)
-    );
+    return httpService.getSingle(`${this._endpoint}/count`, this._http, AuthService.getHeaders, filter);
   }
 
   getById(id: string): Observable<Product | undefined> {
-    return this._http.get<Product>(
-      `${this._routeApi}/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(
-      map((p: Product) => {
-        return {...p, priceWithDiscount: ProductService.calcRealPrice(p.price, p.percentOff)};
-      }),
-      take(1)
+    return httpService.getById(this._endpoint, id, this._http, AuthService.getHeaders);
+  }
+
+  patch(productId: string, productPatch: object): Observable<Product> {
+    return httpService.patch(this._endpoint, productId, this._http, AuthService.getHeaders, productPatch);
+  }
+
+  post(product: ProductAdd): Observable<Product> {
+    return httpService.post(
+      this._endpoint, this._http, AuthService.getHeaders,
+      {...product, visible: false}
     );
   }
 
-  patch(id: string, obj: object): Observable<Product> {
-    return this._http.patch<Product>(
-      `${this._routeApi}/${id}`,
-      {...obj, urlMainImage: 'https://images-na.ssl-images-amazon.com/images/I/717MHGTzgbL._SY606_.jpg'},
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
-  }
-
-  post(obj: ProductAdd): Observable<Product> {
-    return this._http.post<Product>(
-      this._routeApi,
-      {...obj, visible: false},
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
-  }
-
-  toggleVisibility(id: string, visible: boolean): Observable<void> {
-    return this._http.patch<void>(
-      `${this._routeApi}/${id}`,
-      {visible},
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  toggleVisibility(productId: string, visible: boolean): Observable<void> {
+    return httpService.patch(this._endpoint, productId, this._http, AuthService.getHeaders, {visible});
   }
 }

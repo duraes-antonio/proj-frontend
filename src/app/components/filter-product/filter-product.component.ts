@@ -39,7 +39,7 @@ export class FilterProductComponent {
     this._products = produtos;
     this.ratingsInit = this._prepareRatings(produtos);
     this.categoriesInit = this._prepareCategory(produtos);
-    this.discountsInit = this._prepareDiscounts(produtos);
+    this.discountsInit = this._prepareDiscounts(produtos).sort();
     this.freeDeliveryInit = produtos.some(p => p.freeDelivery);
   }
 

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ListLink} from './models/componentes/list-link';
 import {AuthService} from './services/auth.service';
-import {ListLinkService} from './services/list-link.service';
+import {ListLinkService} from './services/lists/list-link.service';
 
 @Component({
   selector: 'app-root',

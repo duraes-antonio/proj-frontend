@@ -20,7 +20,7 @@
 
     <!-- AÇÕES PESSOAIS -->
     <mat-nav-list>
-      <a *ngFor="let action of actionsPersonal" [routerLink]="action.url.replace(':id', user.id)"
+      <a *ngFor="let action of actionsPersonal" [routerLink]="action.url.replace(':userId', user.id)"
          class="actions__item" mat-list-item>
         <i aria-hidden="true" class="{{action.iconClass}} actions__item-icon"></i>
         {{action.title}}

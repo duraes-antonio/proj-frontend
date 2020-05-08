@@ -27,14 +27,18 @@
     <li *ngIf="discountsInit?.length" id="id-filtro-desconto">
       <div class="filter__section-header">Desconto</div>
       <div class="filter__section-body">
-        <mat-checkbox (change)="discountChange(0)">Até {{discountsInit[0][1]}}%</mat-checkbox>
-        <mat-checkbox (change)="discountChange(i + 1)"
-                      *ngFor="let precoMinMax of discountsInit.slice(1, discountsInit.length - 1); let i = index">
-          De {{precoMinMax[0]}}% até {{precoMinMax[1]}}%
+        <mat-checkbox (change)="discountChange(0)">Até {{discountsInit[0][1]}}%
         </mat-checkbox>
-        <mat-checkbox (change)="discountChange(discountsInit.length - 1)">
-          Mais de {{discountsInit[discountsInit.length - 1][0] - 1}}%
-        </mat-checkbox>
+        <ng-container *ngIf="discountsInit.length > 1">
+          <mat-checkbox (change)="discountChange(i )"
+                        *ngFor="let precoMinMax of discountsInit.slice(1, discountsInit.length - 1); let i = index">
+            De {{precoMinMax[0]}}% até {{precoMinMax[1]}}%
+          </mat-checkbox>
+          <mat-checkbox (change)="discountChange(discountsInit.length - 1)"
+                        *ngIf="discountsInit.length >= 3">
+            Mais de {{discountsInit[discountsInit.length - 1][0] - 1}}%
+          </mat-checkbox>
+        </ng-container>
       </div>
     </li>
 

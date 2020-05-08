@@ -3,7 +3,6 @@ import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Order, OrderAdd} from '../models/order';
-import {util} from '../../shared/util';
 import {AuthService} from './auth.service';
 import {FilterBasic} from '../models/filters/filter-basic';
 import {ItemOrderAdd} from '../models/item-order';
@@ -26,15 +25,11 @@ export class OrderService {
   }
 
   get(filter: FilterBasic): Observable<Order[]> {
-    const filterClear = util.clearEmptyFields(filter);
-    const params = new HttpParams().set('filter', JSON.stringify(filterClear));
-    return httpService.get<Order>(this._routeApi, this._http, AuthService.getHeaders, params);
+    return httpService.get<Order>(this._routeApi, this._http, AuthService.getHeaders, filter);
   }
 
   post(obj: OrderAdd): Observable<Order> {
-    return httpService.post<OrderAdd>(
-      this._routeApi, this._http, AuthService.getHeaders, obj
-    );
+    return httpService.post(this._routeApi, this._http, AuthService.getHeaders, obj);
   }
 
   productPurchased(productId: string, userId: string): Observable<boolean> {

@@ -62,12 +62,9 @@ export class ModalManageReviewComponent {
 
     // Se o endereço já existir, save-o; senão, crie-o
     if (this.data.review) {
-      const review: ReviewAdd = {
-        ...util.getPatchFromFormGroup(this.data.review, this.reviewFormGroup),
-        productId: this.data.product.id
-      };
-      this._reviewServ.patch(review)
-          .subscribe((reviewUpdated) => this.action.emit(reviewUpdated));
+      const reviewPatch: object = util.getPatchFromFormGroup(this.data.review, this.reviewFormGroup);
+      this._reviewServ.patch(this.data.review.id, reviewPatch)
+        .subscribe((reviewUpdated) => this.action.emit(reviewUpdated));
     } else {
       const review: ReviewAdd = {
         ...util.getObjectFromFormGroup(this.reviewFormGroup),

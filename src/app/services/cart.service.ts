@@ -27,7 +27,11 @@ export class CartService {
     return order ? JSON.parse(order) : undefined;
   }
 
-  static addProducts(prodId: number): void {
+  static removeOrder() {
+    window.localStorage.removeItem('order');
+  }
+
+  static addProducts(prodId: number) {
     const cartFromStorage = window.localStorage.getItem('cart');
 
     /*Se não houver a variável de carrinho no localstore, crie-a*/
@@ -50,7 +54,7 @@ export class CartService {
 
   static containsProduct(productId: string): boolean {
     const prods = window.localStorage.getItem('cart');
-    return !prods || (JSON.parse(prods) as string[]).indexOf(productId) > -1;
+    return !!prods && (JSON.parse(prods) as string[]).indexOf(productId) > -1;
   }
 
   static removeProduct(id: string) {

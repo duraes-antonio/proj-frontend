@@ -22,7 +22,7 @@ import {AuthService} from '../../../services/auth.service';
 import {ShippingService} from '../../../services/shipping.service';
 import {OrderService} from '../../../services/order.service';
 import {ListProduct} from '../../../models/componentes/list-product';
-import {ListProductService} from '../../../services/list-product.service';
+import {ListProductService} from '../../../services/lists/list-product.service';
 import {DeliveryOption} from '../../../models/shipping/delivery';
 import {EReviewSort} from '../../../models/filters/filter-review';
 import {util} from '../../../../shared/util';
@@ -100,6 +100,7 @@ export class ProductDetailsComponent implements OnDestroy {
       });
     this._cart$ = _cartStore.subscribe(
       (res: any) => {
+        console.log(res);
         const currentProdId = this.product ? this.product.id : '';
         this._cartProdIds = (res.cart as Cart).productsId;
         this.prodInCart = CartService.containsProduct(currentProdId);
@@ -155,11 +156,7 @@ export class ProductDetailsComponent implements OnDestroy {
         product: this.product as Product
       })
     );
-    dialogRef.componentInstance.action.subscribe(
-      (cep: string) => {
-        this._dialog.closeAll();
-        this.showModalShipp(cep);
-      });
+    dialogRef.componentInstance.action.subscribe(() => dialogRef.close());
   }
 
   showModalPayments() {

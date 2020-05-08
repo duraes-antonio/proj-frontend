@@ -4,28 +4,25 @@ import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {DeliveryOption, ItemShipping} from '../models/shipping/delivery';
-import {take} from 'rxjs/operators';
+import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShippingService {
 
-  private _endpointUrl = `${environment.apiUrl}/shipping`;
+  private _endpoint = `${environment.apiUrl}/shipping`;
 
   constructor(private readonly _http: HttpClient) {
   }
 
   calculateCostDays(zipcodeTarget: string, items: ItemShipping[]): Observable<DeliveryOption[]> {
-    return this._http.get<DeliveryOption[]>(
-      this._endpointUrl,
-      {
-        headers: AuthService.getHeaders(),
-        params: new HttpParams()
-          .set('zipcodeOrigin', '29161699')
-          .set('zipcodeTarget', zipcodeTarget)
-          .set('itemsOrder', JSON.stringify(items))
-      }
-    ).pipe(take(1));
+    return httpService.get(
+      this._endpoint, this._http, AuthService.getHeaders,
+      new HttpParams()
+        .set('zipcodeOrigin', '29161699')
+        .set('zipcodeTarget', zipcodeTarget)
+        .set('itemsOrder', JSON.stringify(items))
+    );
   }
 }

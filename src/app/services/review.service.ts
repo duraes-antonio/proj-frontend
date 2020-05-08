@@ -5,16 +5,14 @@ import {Router} from '@angular/router';
 import {Review, ReviewAdd} from '../models/review';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
-import {take} from 'rxjs/operators';
 import {FilterReview} from '../models/filters/filter-review';
-import {util} from '../../shared/util';
 import {httpService} from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
-  private readonly _routeApi = `${environment.apiUrl}/review`;
+  private readonly _endpoint = `${environment.apiUrl}/review`;
 
   constructor(
     private readonly _http: HttpClient,
@@ -22,43 +20,29 @@ export class ReviewService {
   ) {
   }
 
-  delete(id: string): Observable<Review> {
-    return this._http.delete<Review>(
-      `${this._routeApi}/${id}`,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  delete(id: string): Observable<void> {
+    return httpService.delete(this._endpoint, id, this._http, AuthService.getHeaders);
   }
 
-  /*TODO: Adicionar filtro*/
   get(filter: FilterReview): Observable<Review[]> {
-    const clearFilter = util.primitiveFieldsToString(util.clearEmptyFields(filter));
-    return this._http.get<Review[]>(
-      this._routeApi,
-      {headers: AuthService.getHeaders(), params: clearFilter}
-    ).pipe(take(1));
+    return httpService.get(this._endpoint, this._http, AuthService.getHeaders, filter);
   }
 
   getByUserProduct(productId: string, userId: string): Observable<Review> {
     return httpService.getSingle(
-      `${this._routeApi}/user/${userId}/product/${productId}`,
+      `${this._endpoint}/user/${userId}/product/${productId}`,
       this._http, AuthService.getHeaders
     );
   }
 
-  post(obj: ReviewAdd): Observable<Review> {
-    return this._http.post<Review>(
-      this._routeApi,
-      obj,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  post(review: ReviewAdd): Observable<Review> {
+    return httpService.post(this._endpoint, this._http, AuthService.getHeaders, review);
   }
 
-  patch(obj: object): Observable<Review> {
-    return this._http.patch<Review>(
-      this._routeApi,
-      obj,
-      {headers: AuthService.getHeaders()}
-    ).pipe(take(1));
+  patch(reviewId: string, reviewPatch: object): Observable<Review> {
+    return httpService.patch(
+      this._endpoint, reviewId, this._http, AuthService.getHeaders, reviewPatch
+    );
   }
 }
 

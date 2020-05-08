@@ -6,6 +6,7 @@ import {CheckoutRoutingModule} from './pages/checkout/checkout-routing.module';
 import {routesFrontend} from '../shared/constants/routes-frontend';
 import {Page404Component} from './pages/404/page404.component';
 import {ForbiddenRoutingModule} from './pages/forbidden/forbidden-routing.module';
+import {OwnerGuard} from './guards/owner.guard';
 
 const routes: Routes = [
   {
@@ -27,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: routesFrontend.userOrders,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, OwnerGuard],
     loadChildren: () =>
       import('./pages/order-list/order-list.module')
         .then(m => m.OrderListModule)
