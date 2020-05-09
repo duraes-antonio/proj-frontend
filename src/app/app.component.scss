@@ -1,21 +1,15 @@
 @import '../shared/styles/placeholders';
 
 .body-content {
-  @extend %center-flex;
+  @extend %center-horiz-flex;
+  align-items: flex-start;
 }
 
-.area-utilizavel {
+.body-inner {
   width: calc(100% - 40px);
   max-width: 100%;
   margin: 0 20px;
   overflow: hidden;
-
-  .area-componente {
-    display: flex;
-    overflow: hidden;
-    max-width: 100%;
-    width: 100% !important;
-  }
 }
 
 * {
