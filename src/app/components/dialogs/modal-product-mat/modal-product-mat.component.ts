@@ -91,6 +91,7 @@ export class ModalProductMatComponent {
     const categCheckeds: Category[] = [];
     _categoryServ.get()
       .subscribe((categories: Category[]) => {
+        this.productCategs = categories;
         categories.forEach(
           c => {
             if (this.product?.categories.some(cp => c.id === cp.id)) {

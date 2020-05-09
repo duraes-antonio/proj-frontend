@@ -1,9 +1,11 @@
 'use strict';
-
 import {CheckoutOrder} from '../models/checkout-order';
 import {Product} from '../models/product';
+import {BehaviorSubject} from 'rxjs';
 
 export class CartService {
+  private static readonly _productIds = new BehaviorSubject<string[]>(CartService._getFromStorage());
+  static readonly productIds$ = CartService._productIds.asObservable();
 
   static saveOrder(productsQuantity: [Product, number][], addressId?: string) {
     if (productsQuantity.length) {
@@ -31,46 +33,40 @@ export class CartService {
     window.localStorage.removeItem('order');
   }
 
-  static addProducts(prodId: number) {
-    const cartFromStorage = window.localStorage.getItem('cart');
 
-    /*Se não houver a variável de carrinho no localstore, crie-a*/
-    if (!cartFromStorage) {
-      window.localStorage.setItem('cart', JSON.stringify([prodId]));
-    } else {
-      /*Se houver, verifique se o produto está contido nela*/
-      const cartJsonStr: number[] = JSON.parse(cartFromStorage);
-
-      if (!cartJsonStr.some(pId => pId === prodId)) {
-        window.localStorage.setItem('cart', JSON.stringify([...cartJsonStr, prodId]));
-      }
+  static addProducts(prodId: string) {
+    const prods = CartService.getProducts();
+    if (!prods.some(productId => productId === prodId)) {
+      const newProductIds = [...prods, prodId];
+      window.localStorage.setItem('cart', JSON.stringify(newProductIds));
+      CartService._productIds.next(newProductIds);
     }
   }
 
   static getProducts(): string[] {
-    const cartFromStorage = window.localStorage.getItem('cart');
-    return !cartFromStorage ? [] : JSON.parse(cartFromStorage);
+    return CartService._productIds.getValue();
   }
 
   static containsProduct(productId: string): boolean {
-    const prods = window.localStorage.getItem('cart');
-    return !!prods && (JSON.parse(prods) as string[]).indexOf(productId) > -1;
+    return CartService.getProducts().indexOf(productId) > -1;
   }
 
   static removeProduct(id: string) {
-    const prods = window.localStorage.getItem('cart');
-
-    if (prods) {
-      window.localStorage.setItem(
-        'cart',
-        JSON.stringify(
-          (JSON.parse(prods) as string[]).filter(pId => pId !== id)
-        )
-      );
+    const prods = CartService.getProducts();
+    if (prods.length) {
+      const newProductIds = prods.filter(pId => pId !== id);
+      window.localStorage.setItem('cart', JSON.stringify(newProductIds));
+      CartService._productIds.next(newProductIds);
     }
   }
 
   static clear() {
     window.localStorage.removeItem('cart');
+    CartService._productIds.next([]);
+  }
+
+  private static _getFromStorage(): string[] {
+    const cartFromStorage = window.localStorage.getItem('cart');
+    return !cartFromStorage ? [] : JSON.parse(cartFromStorage);
   }
 }

@@ -84,11 +84,11 @@ export class DataTests {
     {id: '3', urlImage: '../../assets/card-3.jpeg', title: '', urlAction: ''},
   ];
   static readonly categories: Category[] = [
-    {name: 'Acessórios', id: '1'},
-    {name: 'Cards', id: '2'},
-    {name: 'Colecionáveis', id: '3'},
-    {name: 'Pacote de Cards', id: '4'},
-    {name: 'Vestuário', id: '5'},
+    {title: 'Acessórios', id: '1'},
+    {title: 'Cards', id: '2'},
+    {title: 'Colecionáveis', id: '3'},
+    {title: 'Pacote de Cards', id: '4'},
+    {title: 'Vestuário', id: '5'},
   ];
   static readonly deliveryOptions: DeliveryOption[] = [
     {cost: 14.25, timeDays: 12, typeService: DeliveryOptionType.SEDEX},
@@ -436,10 +436,10 @@ export class DataTests {
       id: '1',
       itemsId: ['11', '12', '13', '14'],
       items: [
-        {text: 'Sobre', url: routesFrontend.about},
-        {text: 'Contato', url: routesFrontend.contact},
-        {text: 'Categorias', url: routesFrontend.categoriesManagement},
-        {text: 'Promoções', url: routesFrontend.home},
+        {title: 'Sobre', url: routesFrontend.about},
+        {title: 'Contato', url: routesFrontend.contact},
+        {title: 'Categorias', url: routesFrontend.categoriesManagement},
+        {title: 'Promoções', url: routesFrontend.home},
       ],
       readRole: ERole.UNKNOWN,
       title: 'Loja'
@@ -448,12 +448,12 @@ export class DataTests {
       id: '2',
       itemsId: ['1', '2', '3', '4', '5', '6'],
       items: [
-        {text: 'Meu perfil', url: routesFrontend.userProfile},
-        {text: 'Minhas avaliações', url: routesFrontend.userReviews},
-        {text: 'Minhas compras', url: routesFrontend.userOrders},
-        {text: 'Minhas atividades', url: routesFrontend.userActivities},
-        {text: 'Carrinho', url: routesFrontend.cart},
-        {text: 'Segurança', url: routesFrontend.userSecurity},
+        {title: 'Meu perfil', url: routesFrontend.userProfile},
+        {title: 'Minhas avaliações', url: routesFrontend.userReviews},
+        {title: 'Minhas compras', url: routesFrontend.userOrders},
+        {title: 'Minhas atividades', url: routesFrontend.userActivities},
+        {title: 'Carrinho', url: routesFrontend.cart},
+        {title: 'Segurança', url: routesFrontend.userSecurity},
       ],
       readRole: ERole.CUSTOMER,
       title: 'Minha conta'
@@ -462,11 +462,11 @@ export class DataTests {
       id: '3',
       itemsId: DataTests.categories.map(c => c.id),
       items: [
-        {text: 'Gerenciar categorias', url: routesFrontend.categoriesManagement},
-        {text: 'Gerenciar usuários', url: routesFrontend.usersManagement},
-        {text: 'Gerenciar pedidos', url: routesFrontend.ordersManagement},
-        {text: 'Gerenciar produtos', url: routesFrontend.productsManagement},
-        {text: 'Relatórios', url: routesFrontend.reports},
+        {title: 'Gerenciar categorias', url: routesFrontend.categoriesManagement},
+        {title: 'Gerenciar usuários', url: routesFrontend.usersManagement},
+        {title: 'Gerenciar pedidos', url: routesFrontend.ordersManagement},
+        {title: 'Gerenciar produtos', url: routesFrontend.productsManagement},
+        {title: 'Relatórios', url: routesFrontend.reports},
       ],
       readRole: ERole.ADMIN,
       title: 'Área Administrativa'
@@ -475,7 +475,7 @@ export class DataTests {
       id: '4',
       itemsId: DataTests.markets.map(m => m.id),
       items: DataTests.markets.map(market => {
-        return {url: market.url, text: market.name};
+        return {url: market.url, title: market.name};
       }),
       readRole: ERole.UNKNOWN,
       title: 'Parceiros'

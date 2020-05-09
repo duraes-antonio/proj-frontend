@@ -1,10 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Product} from '../../models/product';
-import {Store} from '@ngrx/store';
-import {Cart} from '../../models/cart';
 import {Subscription} from 'rxjs';
 import {Address} from '../../models/address';
-import {Remove} from '../../actions/cart.action';
 import {MatDialog} from '@angular/material/dialog';
 import {ModalAddressComponent} from '../../components/dialogs/modal-address/modal-address.component';
 import {AddressService} from '../../services/address.service';
@@ -16,6 +13,7 @@ import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
 import {DeliveryOption} from '../../models/shipping/delivery';
 import {ModalShippingMatComponent} from '../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-cart',
@@ -26,7 +24,7 @@ export class CartComponent implements OnDestroy {
 
   totalCostProducts = 0;
   totalCostShipping = 0;
-  productsChosen!: Product[];
+  productsChosen: Product[] = [];
   userAddresses: Address[] = [];
   currentAddress?: Address;
   prodAmount = new Map<Product, number>();
@@ -35,32 +33,33 @@ export class CartComponent implements OnDestroy {
   private _modalSelect$?: Subscription;
 
   constructor(
-    private readonly _cartStore: Store<Cart>,
     private readonly _addressServ: AddressService,
     private readonly _dialog: MatDialog,
     private readonly _productServ: ProductService,
-    private readonly _shippingServ: ShippingService
+    private readonly _shippingServ: ShippingService,
+    private readonly _spinner: NgxSpinnerService
   ) {
     // Inscreva-se p/ receber atualizações do carrinho
-    this._cart$ = this._cartStore.subscribe(
-      (res: any) => {
-        const ids = (res.cart as Cart).productsId;
+    this._cart$ = CartService.productIds$
+      .subscribe(
+        (productsId: string[]) => {
 
-        /*Se no carrinho houver ids de produtos, então busque eles no banco
-        * e atualize os custos do carrinho*/
-        if (ids && ids.length) {
-          this._productServ.get(
-            {perPage: 100, ids, currentPage: 1}
-          ).subscribe(
-            (products: Product[]) => {
-              this.productsChosen = products;
-              this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
-              this._updateCost();
-            });
-        } else {
-          this.productsChosen = [];
-        }
-      });
+          /*Se no carrinho houver ids de produtos, então busque eles no banco
+          * e atualize os custos do carrinho*/
+          if (productsId.length) {
+            _spinner.show();
+            this._productServ.get({perPage: 100, ids: productsId, currentPage: 1})
+              .subscribe(
+                (products: Product[]) => {
+                  _spinner.hide(undefined, 250);
+                  this.productsChosen = products;
+                  this.productsChosen.forEach(p => this.prodAmount.set(p, 1));
+                  this._updateCost();
+                });
+          } else {
+            this.productsChosen = [];
+          }
+        });
 
     // Se o usuário estiver logado, obtenha seus endereços e definar um p/ entrega
     if (AuthService.isLoggedIn()) {
@@ -130,7 +129,7 @@ export class CartComponent implements OnDestroy {
   }
 
   removeFromCart(product: Product) {
-    this._cartStore.dispatch(Remove(product.id));
+    CartService.removeProduct(product.id);
     this.prodAmount.delete(product);
     this._updateCost();
   }

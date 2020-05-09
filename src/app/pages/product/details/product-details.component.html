@@ -21,7 +21,6 @@
       <h5 class="product-info__title">{{product.title}}</h5>
 
       <!-- Média das avaliações -->
-      <!-- TODO: Trazer info do banco de dados   -->
       <a fragment="rating" routerLink=".">
         <app-star-rating [fontSize]="18" [maxStars]="5"
                          [quantityReviews]="reviews.length" [startValue]="avgRating"

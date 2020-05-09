@@ -2,13 +2,10 @@
 import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {forkJoin, Observable, Subscription} from 'rxjs';
-import {Store} from '@ngrx/store';
 import {MatDialog} from '@angular/material/dialog';
 import {Product} from '../../../models/product';
 import {Review} from '../../../models/review';
 import {Address} from '../../../models/address';
-import {Cart} from '../../../models/cart';
-import {Add, Remove} from '../../../actions/cart.action';
 import {ModalAddressComponent} from '../../../components/dialogs/modal-address/modal-address.component';
 import {ModalShippingMatComponent} from '../../../components/dialogs/modal-shipping-mat/modal-shipping-mat.component';
 import {ModalPaymentMatComponent} from '../../../components/dialogs/modal-payment-mat/modal-payment-mat.component';
@@ -38,7 +35,6 @@ export class ProductDetailsComponent implements OnDestroy {
   deliveryChosen?: DeliveryOption;
   prodInCart = false;
 
-  /*TODO: Substituir por requisições*/
   productsRelatedsList?: ListProduct;
   reviews: Review[] = [];
   reviewUser?: Review;
@@ -53,7 +49,6 @@ export class ProductDetailsComponent implements OnDestroy {
   constructor(
     private readonly _route: ActivatedRoute,
     private readonly _router: Router,
-    private readonly _cartStore: Store<Cart>,
     private readonly _dialog: MatDialog,
     private readonly _addressServ: AddressService,
     private readonly _listProductServ: ListProductService,
@@ -98,11 +93,10 @@ export class ProductDetailsComponent implements OnDestroy {
             this.showButtonRate = res[5];
           });
       });
-    this._cart$ = _cartStore.subscribe(
-      (res: any) => {
-        console.log(res);
+    this._cart$ = CartService.productIds$.subscribe(
+      (ids: string[]) => {
         const currentProdId = this.product ? this.product.id : '';
-        this._cartProdIds = (res.cart as Cart).productsId;
+        this._cartProdIds = ids;
         this.prodInCart = CartService.containsProduct(currentProdId);
       });
   }
@@ -164,11 +158,11 @@ export class ProductDetailsComponent implements OnDestroy {
   }
 
   addToCart(id: string) {
-    this._cartStore.dispatch(Add(id));
+    CartService.addProducts(id);
   }
 
   remFromCart(id: string) {
-    this._cartStore.dispatch(Remove(id));
+    CartService.removeProduct(id);
   }
 
   sliceText(text: string, numTerms: number) {

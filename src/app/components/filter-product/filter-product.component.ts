@@ -2,7 +2,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from '../../models/product';
 import {Category} from '../../models/category';
-import {FilterProduct} from '../../models/filters/filter-product';
+import {FilterForSearch, FilterProduct} from '../../models/filters/filter-product';
 
 @Component({
   selector: 'app-filter-product',
@@ -13,7 +13,7 @@ export class FilterProductComponent {
 
   @Output() filterEmit = new EventEmitter<FilterProduct>();
 
-  categoriesInit = new Set<Category>();
+  categoriesInit: Category[] = [];
   ratingsInit: number[] = [];
   discountsInit: number[][] = [];
   freeDeliveryInit?: boolean;
@@ -28,19 +28,22 @@ export class FilterProductComponent {
   readonly categories: string[] = [];
   readonly discounts: number[] = [];
   readonly ratings: number[] = [];
-  private _products: Product[] = [];
+  private _filterSearch!: FilterForSearch;
 
   @Input()
-  get products(): Product[] {
-    return this._products;
+  get filterSearch(): FilterForSearch {
+    return this._filterSearch;
   }
 
-  set products(produtos: Product[]) {
-    this._products = produtos;
-    this.ratingsInit = this._prepareRatings(produtos);
-    this.categoriesInit = this._prepareCategory(produtos);
-    this.discountsInit = this._prepareDiscounts(produtos).sort();
-    this.freeDeliveryInit = produtos.some(p => p.freeDelivery);
+  set filterSearch(filter: FilterForSearch) {
+    console.log(filter);
+    this._filterSearch = filter;
+    this.ratingsInit = filter.avgReview;
+    this.priceMin = filter.priceMin;
+    this.priceMax = filter.priceMax;
+    this.categoriesInit = filter.categories;
+    this.discountsInit = filter.discounts.sort();
+    this.freeDeliveryInit = filter.freeDelivery;
   }
 
 

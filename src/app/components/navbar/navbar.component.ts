@@ -1,13 +1,12 @@
 'use strict';
 import {Component, EventEmitter, HostListener, OnDestroy, Output} from '@angular/core';
 import {Router} from '@angular/router';
-import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {NotificationModel} from '../../models/notification';
-import {Cart} from '../../models/cart';
 import {DataTests} from '../../../shared/dataTests';
 import {AuthService} from '../../services/auth.service';
 import {routesFrontend} from '../../../shared/constants/routes-frontend';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,20 +19,18 @@ export class NavbarComponent implements OnDestroy {
   showNotifics = false;
   notifics: NotificationModel[] = DataTests.notifications;
   numActiveNotif: number = this.notifics.filter(n => !n.read).length;
-  cartProdsIds: number[] = [];
+  cartProdsIds: string[] = [];
   userLogged = false;
   routes = routesFrontend;
   private readonly _cart$: Subscription;
   private readonly _userLogged$: Subscription;
 
   constructor(
-    private readonly _store: Store<Cart>,
     private readonly _router: Router,
     private readonly _auth: AuthService
   ) {
-    this._cart$ = this._store.subscribe((res: any) => {
-      this.cartProdsIds = res.cart.productsId ? res.cart.productsId : [];
-    });
+    this._cart$ = CartService.productIds$
+      .subscribe((ids: string[]) => this.cartProdsIds = ids);
     this.userLogged = !!AuthService.userLogged;
     this._userLogged$ = AuthService.userLoggedEmitter.subscribe(
       (res: boolean) => this.userLogged = res

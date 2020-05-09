@@ -15,11 +15,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatTableModule} from '@angular/material/table';
-import {MatSortModule} from '@angular/material/sort';
 import {SliderModule} from '../../components/sliders/slider.module';
 import {MatMenuModule} from '@angular/material/menu';
 import {StarRatingModule} from '../../components/star-rating/star-rating.module';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 @NgModule({
@@ -29,24 +28,23 @@ import {StarRatingModule} from '../../components/star-rating/star-rating.module'
     ProductManagementComponent
   ],
     imports: [
-        CommonModule,
-        ComponentesModule,
-        ProductRoutingModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        FormsModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        MatCheckboxModule,
-        MatTableModule,
-        MatSortModule,
-        SliderModule,
-        MatMenuModule,
-        StarRatingModule
+      CommonModule,
+      ComponentesModule,
+      ProductRoutingModule,
+      MatDialogModule,
+      MatButtonModule,
+      MatIconModule,
+      MatFormFieldModule,
+      FormsModule,
+      MatInputModule,
+      MatDatepickerModule,
+      MatSelectModule,
+      ReactiveFormsModule,
+      MatCheckboxModule,
+      SliderModule,
+      MatMenuModule,
+      StarRatingModule,
+      NgxSpinnerModule
     ],
   exports: [
     ProductListComponent

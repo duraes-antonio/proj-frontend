@@ -1031,16 +1031,6 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@ngrx/schematics@^8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-8.6.0.tgz#5387c0abc438768e4cb56c0b617082e0db2f00d7"
-  integrity sha512-d28FVsLWFJYxpMFnqzWvdbFSSPNlLUIezd0c4zlyf4CyNS/C8aw6Lio9xjOJHhgZuHvFuO9GwRrYV/GaS6wC7A==
-
-"@ngrx/store@^8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-8.6.0.tgz#8540c5bd40b33fc2f443e7e86f47c0d801b8f413"
-  integrity sha512-K4cvCEa+5hw9qrETQWO+Cha3YbVCAT8yaIKJr/N35KntTL9mQMjoL+51JWLZfBwPV0e19CFgJIyrBnVUTxwr2A==
-
 "@ngtools/webpack@9.0.1":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-9.0.1.tgz#36fff5b269959b37eee4c23c8c22bd7686aa4860"
@@ -5605,6 +5595,11 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+ngx-spinner@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-9.0.2.tgz#18123741cec4f7a29fa63d8d9cb769e58f4b8b85"
+  integrity sha512-Yoed+9389GMxHhyPavBA7S3JY5XF38hIhW+qcJuPcxwOJHkhnr6hZFtuSlp1oXMp3HySQPEskWks1joMtmztMA==
 
 nice-try@^1.0.4:
   version "1.0.5"

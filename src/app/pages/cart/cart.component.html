@@ -1,4 +1,9 @@
-<div *ngIf="productsChosen?.length; else cartEmpty" class="cart-container">
+<ngx-spinner [fullScreen]="true"
+             bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
+  <p style="color: white"> Aguarde... </p>
+</ngx-spinner>
+
+<div *ngIf="productsChosen.length; else cartEmpty" class="cart-container">
   <div class="product-list row">
     <div *ngFor="let prod of productsChosen" class="product-list__item col s12 m12 l12 xl12">
       <div class="col s12 m3 l2 xl2 product__img-block">
@@ -11,32 +16,32 @@
 
           <!-- Quantidade, frete grátis e desconto -->
           <div class="product__info col">
-            <span [ngClass]="{'text-red': prod.quantity < 10}"
-                  class="product__attr col xs7 s5 m4 l3 xl3">
-              <i aria-hidden="true" class="fas fa-cubes product__attr-icon"></i>
-              {{prod.quantity}} disponíveis
-            </span>
+              <span [ngClass]="{'text-red': prod.quantity < 10}"
+                    class="product__attr col xs7 s5 m4 l3 xl3">
+                <i aria-hidden="true" class="fas fa-cubes product__attr-icon"></i>
+                {{prod.quantity}} disponíveis
+              </span>
             <span *ngIf="prod.freeDelivery" class="product__attr col xs5 s4 m3 l3 xl2">
-              <i aria-hidden="true" class="fas fa-truck product__attr-icon" style="font-size: 14px"></i>
-              frete grátis
-            </span>
+                <i aria-hidden="true" class="fas fa-truck product__attr-icon" style="font-size: 14px"></i>
+                frete grátis
+              </span>
             <span *ngIf="prod.percentOff > 0" class="product__attr col xs4 s3 m3 l3 xl2">
-              <i aria-hidden="true" class="fas fa-dollar-sign product__attr-icon"></i>
+                <i aria-hidden="true" class="fas fa-dollar-sign product__attr-icon"></i>
               {{prod.percentOff | number: '1.0-2'}}% off
-            </span>
+              </span>
           </div>
         </div>
 
         <!-- Preço e contador de unidades -->
         <div class="col s12 m12 l4 xl4 section_price_counter">
-          <span class="product__price">
-            {{prod.priceWithDiscount * prodAmount.get(prod) | currency: 'BRL'}}
-            <span [hidden]="prodAmount.get(prod) < 2" class="product__price-amount">
-              {{prod.priceWithDiscount | currency: 'BRL'}}
-              <i aria-hidden="true" class="fa fa-times"></i>
-              {{prodAmount.get(prod)}}
+            <span class="product__price">
+              {{prod.priceWithDiscount * prodAmount.get(prod) | currency: 'BRL'}}
+              <span [hidden]="prodAmount.get(prod) < 2" class="product__price-amount">
+                {{prod.priceWithDiscount | currency: 'BRL'}}
+                <i aria-hidden="true" class="fa fa-times"></i>
+                {{prodAmount.get(prod)}}
+              </span>
             </span>
-          </span>
           <app-input-number (outValue)="changeAmount(prod, $event)"
                             [maxValue]="prod.quantity" [minValue]="1">
           </app-input-number>
@@ -90,8 +95,8 @@
         <span class="cart-cost__price-value">{{totalCostShipping + totalCostProducts | currency: 'BRL'}}</span>
       </div>
     </div>
-    <a (click)="saveOrder()" [routerLink]="['/' + routes.checkout]"
-       [disabled]="prodAmount.size < 1" class="btn-general" color="primary" mat-raised-button>
+    <a (click)="saveOrder()" [disabled]="prodAmount.size < 1"
+       [routerLink]="['/' + routes.checkout]" class="btn-general" color="primary" mat-raised-button>
       Finalizar compra
     </a>
   </div>

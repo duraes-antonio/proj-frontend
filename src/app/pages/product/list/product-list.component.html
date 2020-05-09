@@ -1,36 +1,49 @@
 <div class="row" style="display: flex; margin-bottom: 0">
 
-  <!-- Filtros à esquerda da página -->
-  <app-filter-product (filterEmit)="filterSearch($event)" [products]="prods"
-                      class="col m4 l3 xl2"></app-filter-product>
+  <ngx-spinner [fullScreen]="true" bdColor="rgba(0,0,0,0.5)" color="#fff" size="default" type="ball-clip-rotate">
+    <p style="color: white"> Aguarde... </p>
+  </ngx-spinner>
 
-  <!-- Área dos produtos -->
-  <div style="display: grid; width: 100%">
-    <div class="products">
-      <a *ngFor="let item of prods" [routerLink]="[item.id]"
-         class="col s6s m6s l3s xl3s product">
+  <ng-container *ngIf="filterFilled?.result.length; else noProductResults">
+    <!-- Filtros à esquerda da página -->
+    <app-filter-product (filterEmit)="filterSearch($event)" [filterSearch]="filterFilled"
+                        class="col m4 l3 xl2">
+    </app-filter-product>
 
-        <!-- Etiqueta de desconto -->
-        <span *ngIf="item.percentOff > 0" class="product__label-promo">
+    <!-- Área dos produtos -->
+    <div style="display: grid; width: 100%">
+      <div class="products">
+        <a *ngFor="let item of filterFilled.result" [routerLink]="[item.id]"
+           class="col s6s m6s l3s xl3s product">
+
+          <!-- Etiqueta de desconto -->
+          <span *ngIf="item.percentOff > 0" class="product__label-promo">
           {{item.percentOff | number: '1.0-2'}}%
           <i aria-hidden="true" class="fas fa-arrow-down"></i>
         </span>
 
-        <!-- Titulo do produto -->
-        <span class="product__title">{{item.title}}</span>
+          <!-- Titulo do produto -->
+          <span class="product__title">{{item.title}}</span>
 
-        <img *ngIf="item.urlMainImage; else withoutImage" [alt]="item.title" [src]="item.urlMainImage"
-             class="product__cover-img">
-        <ng-template #withoutImage>
-          <i aria-hidden="true" class="far fa-image"></i>
-        </ng-template>
+          <img *ngIf="item.urlMainImage; else withoutImage" [alt]="item.title" [src]="item.urlMainImage"
+               class="product__cover-img">
+          <ng-template #withoutImage>
+            <i aria-hidden="true" class="far fa-image"></i>
+          </ng-template>
 
-        <!-- Área para preços de produtos em promoção -->
-        <span *ngIf="item.percentOff > 0" class="product__price-orig">{{item.price | currency: 'BRL'}}</span>
-        <span class="product__price">{{item.priceWithDiscount | currency: 'BRL'}}</span>
-      </a>
+          <!-- Área para preços de produtos em promoção -->
+          <span *ngIf="item.percentOff > 0" class="product__price-orig">{{item.price | currency: 'BRL'}}</span>
+          <span class="product__price">{{item.priceWithDiscount | currency: 'BRL'}}</span>
+        </a>
+      </div>
+
+      <app-pagination [lengthPages]="32" style="width: 100%;"></app-pagination>
     </div>
+  </ng-container>
 
-    <app-pagination [lengthPages]="32" style="width: 100%;"></app-pagination>
-  </div>
+  <ng-template #noProductResults>
+    <div>
+      <h1 style="color: red">NÃO FORAM ENCONTRADOS RESULTADOS!</h1>
+    </div>
+  </ng-template>
 </div>

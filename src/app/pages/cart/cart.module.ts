@@ -5,6 +5,7 @@ import {CartRoutingModule} from './cart-routing.module';
 import {ComponentesModule} from '../../components/componentes.module';
 import {MatButtonModule} from '@angular/material/button';
 import {CartEmptyComponent} from './cart-empty/cart-empty.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {CartEmptyComponent} from './cart-empty/cart-empty.component';
     CommonModule,
     CartRoutingModule,
     ComponentesModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxSpinnerModule
   ]
 })
 export class CartModule {

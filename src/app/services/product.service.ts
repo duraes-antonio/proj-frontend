@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
-import {FilterProduct} from '../models/filters/filter-product';
+import {FilterForSearch, FilterProduct} from '../models/filters/filter-product';
 import {httpService} from './generic-http.service';
 
 @Injectable({
@@ -37,6 +37,10 @@ export class ProductService {
 
   get(filter?: FilterProduct): Observable<Product[]> {
     return httpService.get(this._endpoint, this._http, AuthService.getHeaders, filter);
+  }
+
+  getForSearch(filter?: FilterProduct): Observable<FilterForSearch> {
+    return httpService.getSingle(`${this._endpoint}/search`, this._http, AuthService.getHeaders, filter);
   }
 
   getCount(filter?: FilterProduct): Observable<number> {

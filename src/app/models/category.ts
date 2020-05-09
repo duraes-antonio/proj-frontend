@@ -1,6 +1,6 @@
 'use strict';
 export interface CategoryAdd {
-  readonly name: string;
+  readonly title: string;
 }
 
 export interface Category extends CategoryAdd {
