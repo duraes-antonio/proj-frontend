@@ -9,6 +9,6 @@ export enum EReviewSort {
 }
 
 export interface FilterReview extends FilterBasic {
+  productId?: string;
   sortBy: EReviewSort;
 }
-

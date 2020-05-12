@@ -9,19 +9,9 @@ $_padding-top-bottom: 15px;
   overflow: hidden;
   background: white;
 
-  &__title {
-    padding: $_padding-top-bottom 0 $_padding-top-bottom;
-    display: block;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: medium;
-    font-weight: 500;
-    @extend %color-text-prim--light;
-  }
-
   &__content {
     margin: 0;
-    padding: 0 10px;
+    padding: 0 10px 0 14px;
     line-height: 2;
 
     li {
@@ -42,7 +32,7 @@ $_padding-top-bottom: 15px;
 
   &__section-body {
     @extend %color-text-sec--dark;
-    padding: 0.25em 0.75em 1.25em;
+    padding: 0.25em 0.75em 1.25em 0;
     display: grid;
   }
 

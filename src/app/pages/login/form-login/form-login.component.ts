@@ -21,6 +21,7 @@ export class FormLoginComponent {
     null, validators.textValidator(this._sizes.passwordMaxLen, this._sizes.passwordMinLen));
   readonly _getMsg = getMsgFront;
   readonly _routes = routesFrontend;
+  requesting = false;
 
   constructor(
     private readonly _auth: AuthService,
@@ -33,12 +34,15 @@ export class FormLoginComponent {
       AuthService.urlPrevius = routesFrontend.home;
     }
 
+    this.requesting = true;
     this._auth.login({
       email: this._controlEmail.value,
       password: this._controlPass.value
     }).subscribe(
-      () => {},
+      () => {
+      },
       (err: HttpErrorResponse) => {
+        this.requesting = false;
         if (err.status === 403) {
           this._controlPass.setErrors({[EErrorType.CUSTOM]: err.error.message});
         } else {

@@ -38,6 +38,13 @@ export class ListProductService {
     );
   }
 
+  getMostPurchased(): Observable<ListProduct> {
+    return of(DataTests.listProducts[0]).pipe(take(1));
+    /*    return httpService.getById(
+          `${this._endpoint}/related`, productId, this._http, AuthService.getHeaders
+        );*/
+  }
+
   patch(listPatch: object, id: string): Observable<ListProduct> {
     return httpService.patch(this._endpoint, id, this._http, AuthService.getHeaders, listPatch);
   }

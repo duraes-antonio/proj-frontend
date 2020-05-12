@@ -1,0 +1,29 @@
+@import '../../../../shared/styles/placeholders';
+
+.component-container {
+  @extend %center-horiz-flex;
+  margin: 15px 0;
+
+  .component {
+    color: #444;
+    text-align: center;
+    font-weight: 300;
+    display: grid;
+    line-height: 1.25;
+
+    &__title {
+      font-weight: 500;
+      font-size: 1.8rem;
+    }
+
+    &__subtitle {
+      font-size: 1.5rem;
+    }
+
+    &__desc-icon {
+      color: orange;
+      display: block;
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,45 +1,40 @@
-<!-- TODO: Realizar binding com as rotas -->
-<div class="filter">
-  <span class="filter__title">Filtros</span>
-  <mat-divider></mat-divider>
+<div *ngIf="filterResponse" class="filter">
   <ul class="filter__content">
 
     <!-- CATEGORIAS -->
-    <li *ngIf="categoriesInit?.length" id="id-filtro-categorias">
+    <li *ngIf="filterResponse.categories.length" id="id-filtro-categorias">
       <div class="filter__section-header">Categorias</div>
       <div class="filter__section-body">
         <mat-checkbox (click)="categoryChange(categ.id)"
-                      *ngFor="let categ of categoriesInit">
+                      (change)="categoryChange(categ.id)"
+                      *ngFor="let categ of filterResponse.categories;"
+                      [checked]="categoriesInclude.get(categ.id)">
           {{categ.title}}
         </mat-checkbox>
       </div>
     </li>
 
     <!-- FRETE GRÁTIS -->
-    <li *ngIf="freeDeliveryInit" id="id-filtro-frete">
+    <li *ngIf="filterResponse.freeDelivery" id="id-filtro-frete">
       <div class="filter__section-header">Frete</div>
       <div class="filter__section-body">
-        <mat-checkbox (click)="freeDeliveryChange()" [(ngModel)]="freeDelivery" id="id-check-frete">Grátis
+        <mat-checkbox (change)="freeDeliveryChange()" (click)="freeDeliveryChange()"
+                      [checked]="freeDelivery" id="id-check-frete">
+          Grátis
         </mat-checkbox>
       </div>
     </li>
 
     <!-- DESCONTOS -->
-    <li *ngIf="discountsInit?.length" id="id-filtro-desconto">
+    <li *ngIf="filterResponse.discounts.length" id="id-filtro-desconto">
       <div class="filter__section-header">Desconto</div>
       <div class="filter__section-body">
-        <mat-checkbox (click)="discountChange(0)">Até {{discountsInit[0][1]}}%
+        <mat-checkbox (change)="discountChange(pairMinMax[0] + pairMinMax[1])"
+                      (click)="discountChange(pairMinMax[0] + pairMinMax[1])"
+                      *ngFor="let pairMinMax of filterResponse.discounts;"
+                      [checked]="discountsInclude.get(pairMinMax[0] + pairMinMax[1])">
+          De {{pairMinMax[0]}}% até {{pairMinMax[1]}}%
         </mat-checkbox>
-        <ng-container *ngIf="discountsInit.length > 1">
-          <mat-checkbox (click)="discountChange(i )"
-                        *ngFor="let precoMinMax of discountsInit.slice(1, discountsInit.length - 1); let i = index">
-            De {{precoMinMax[0]}}% até {{precoMinMax[1]}}%
-          </mat-checkbox>
-          <mat-checkbox (click)="discountChange(discountsInit.length - 1)"
-                        *ngIf="discountsInit.length >= 3">
-            Mais de {{discountsInit[discountsInit.length - 1][0] - 1}}%
-          </mat-checkbox>
-        </ng-container>
       </div>
     </li>
 
@@ -49,14 +44,14 @@
       <div class="filter__section-body filter__section-price">
         <mat-form-field appearance="outline">
           <mat-label>Mínimo</mat-label>
-          <input (keydown.enter)="priceChange()" [(ngModel)]="priceMin" matInput min="0"
-                 placeholder="Exemplo: 2.5" type="number">
+          <input (keydown.enter)="priceChange()" [(ngModel)]="priceMin"
+                 matInput min="0" placeholder="Exemplo: 2.5" type="number">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Máximo</mat-label>
-          <input (keydown.enter)="priceChange()" [(ngModel)]="priceMax" matInput min="0"
-                 placeholder="Exemplo: 50.75" type="number">
+          <input (keydown.enter)="priceChange()" [(ngModel)]="priceMax"
+                 matInput min="0" placeholder="Exemplo: 50.75" type="number">
         </mat-form-field>
 
         <button (click)="priceChange()" color="primary" mat-flat-button>BUSCAR</button>
@@ -64,11 +59,13 @@
     </li>
 
     <!-- AVALIÇÃO (ESTRELAS) -->
-    <li *ngIf="ratingsInit?.length" id="id-filtro-avaliacao">
+    <li *ngIf="filterResponse.avgReview.length" id="id-filtro-avaliacao">
       <div class="filter__section-header">Avaliação</div>
       <div class="filter__section-body">
-        <div *ngFor="let rating of ratingsInit; let i = index" class="stars">
-          <mat-checkbox (change)="ratingChange(i)">
+        <div *ngFor="let rating of filterResponse.avgReview" class="stars">
+          <mat-checkbox (change)="ratingChange(rating)"
+                        (click)="ratingChange(rating)"
+                        [checked]="ratingsInclude.get(rating)">
             <span style="margin-left: 10px">
               <i *ngFor="let i of [1, 2, 3, 4, 5]" [ngClass]="{'star--active': i <= rating}"
                  class="fas fa-star star"></i>

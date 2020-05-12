@@ -7,7 +7,7 @@ import {Category} from '../category';
 export interface FilterProduct extends FilterBasic {
   avgReview?: number[];
   categoriesId?: string[];
-  discounts?: number[][];
+  discounts?: [number, number][];
   freeDelivery?: boolean;
   ids?: string[];
   priceMax?: number;
@@ -16,24 +16,15 @@ export interface FilterProduct extends FilterBasic {
   sortBy?: EProductSort;
 }
 
-export interface FilterForSearch extends FilterBasic {
-  categories: Category[];
+export interface FilterProductResponse extends FilterBasic {
   avgReview: number[];
+  categories: Category[];
   categoriesId: string[];
-  discounts: number[][];
+  discounts: [number, number][];
   freeDelivery: boolean;
   priceMax: number;
   priceMin: number;
   text?: string;
   sortBy?: EProductSort;
   result: Product[];
-}
-
-export interface FilterProduct extends FilterBasic {
-  avgReview?: number[];
-  categoriesId?: string[];
-  discounts?: number[][];
-  freeDelivery?: boolean;
-  priceMax?: number;
-  priceMin?: number;
 }

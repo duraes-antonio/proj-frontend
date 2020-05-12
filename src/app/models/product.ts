@@ -20,7 +20,7 @@ export interface ProductAdd {
 
 export interface Product extends ProductAdd {
   readonly id: string;
-  readonly urlImage?: string;
+  readonly urlMainImage?: string;
   readonly priceWithDiscount: number;
   readonly categories: Category[];
   readonly avgReview: number;

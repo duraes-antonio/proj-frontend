@@ -64,9 +64,8 @@ export function clearEmptyFields(obj: any): any {
     return obj;
   }
 
-  const objClean: any = {};
+  const objClean: any = obj instanceof Array ? [] : {};
   const emptys = [null, undefined, ''];
-
   Object.keys(obj).forEach(k => {
     if (emptys.indexOf(obj[k]) < 0) {
       if (obj[k] instanceof Array && obj[k].length) {

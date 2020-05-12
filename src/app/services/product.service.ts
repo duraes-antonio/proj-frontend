@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {Product, ProductAdd} from '../models/product';
-import {FilterForSearch, FilterProduct} from '../models/filters/filter-product';
+import {FilterProduct, FilterProductResponse} from '../models/filters/filter-product';
 import {httpService} from './generic-http.service';
 
 @Injectable({
@@ -27,10 +27,6 @@ export class ProductService {
       .reduce((prev, current) => prev + current);
   }
 
-  private static calcRealPrice(price: number, percentOff: number) {
-    return price * (100 - percentOff) / 100;
-  }
-
   delete(id: string): Observable<void> {
     return httpService.delete(this._endpoint, id, this._http, AuthService.getHeaders);
   }
@@ -39,7 +35,7 @@ export class ProductService {
     return httpService.get(this._endpoint, this._http, AuthService.getHeaders, filter);
   }
 
-  getForSearch(filter?: FilterProduct): Observable<FilterForSearch> {
+  getForSearch(filter?: FilterProduct): Observable<FilterProductResponse> {
     return httpService.getSingle(`${this._endpoint}/search`, this._http, AuthService.getHeaders, filter);
   }
 
@@ -64,5 +60,23 @@ export class ProductService {
 
   toggleVisibility(productId: string, visible: boolean): Observable<void> {
     return httpService.patch(this._endpoint, productId, this._http, AuthService.getHeaders, {visible});
+  }
+
+  uploadTempImage(image: File): Observable<HttpEvent<{ data: string }>> {
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    return this._http.post<{ data: string }>(
+      `${this._endpoint}/image-temp`,
+      formData,
+      {
+        headers: AuthService.getHeaders().delete('Content-Type'),
+        observe: 'events',
+        reportProgress: true
+      }
+    );
+    /*.pipe(
+    map((res) => res.data),
+    take(1)
+  );*/
   }
 }

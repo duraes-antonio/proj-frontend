@@ -19,6 +19,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ModalManageReviewComponent} from './modal-manage-review/modal-manage-review.component';
 import {StarRatingModule} from '../star-rating/star-rating.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatAutocompleteModule,
     StarRatingModule,
     MatCheckboxModule,
+    MatProgressBarModule,
   ],
   providers: [
     MatDialog

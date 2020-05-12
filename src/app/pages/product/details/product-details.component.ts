@@ -63,6 +63,7 @@ export class ProductDetailsComponent implements OnDestroy {
         const reviewsGet$ = _reviewServ.get({
           currentPage: 1,
           perPage: 10,
+          productId,
           sortBy: EReviewSort.NEWEST
         });
         const productGet$ = _productServ.getById(productId);

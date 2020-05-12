@@ -2,13 +2,21 @@
                [actionDisabled]="_formGroup.invalid" [btnAcceptTitle]="textModal.btnAction"
                [btnCancelTitle]="textModal.btnCancel" [modalTitle]="textModal.title">
   <div class="product__image">
-    <img *ngIf="product?.urlMainImage; else withoutImage" [src]="product.urlMainImage" class="product__image-img">
+    <img *ngIf="urlImageTemp; else withoutImage" [src]="urlImageTemp"
+         class="product__image-img">
     <ng-template #withoutImage>
       <i aria-hidden="true" class="far fa-image"></i>
     </ng-template>
 
-    <div style="display: flex; margin-top: 15px">
-      <button class="btn-general" mat-stroked-button>
+    <input #inputFile (change)="handleFileInput($event)" (click)="$event.stopPropagation()" [hidden]="true"
+           accept="image/gif, image/png, image/jpeg" type="file">
+
+    <div style="display: grid; justify-items: center;">
+      <mat-progress-bar *ngIf="uploadingImage" [value]="percentUpload"
+                        mode="determinate" style="min-width: 256px; margin-top: 10px">
+      </mat-progress-bar>
+      <button (click)="inputFile.click()" class="btn-general" mat-stroked-button
+              style="margin-top: 15px; width: min-content">
         <i aria-hidden="true" class="far fa-file-image"></i>
         <span>{{!product?.urlMainImage ? 'Adicionar' : 'Substituir'}} Imagem</span>
       </button>

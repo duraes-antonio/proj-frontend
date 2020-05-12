@@ -18,9 +18,10 @@
     <a [routerLink]="'/' + _routes.forgotPass">Esqueceu sua senha?</a>
   </div>
 
-  <button (click)="signIn()" [disabled]="_controlEmail.invalid || _controlPass.invalid"
+  <button (click)="signIn()" [class.spinner]="requesting"
+          [disabled]="_controlEmail.invalid || _controlPass.invalid || requesting"
           class="btn-general" color="primary" mat-raised-button>
-    Entrar
+    {{requesting ? '.' : 'Entrar'}}
   </button>
 
   <mat-divider></mat-divider>

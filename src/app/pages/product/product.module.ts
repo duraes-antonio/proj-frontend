@@ -19,13 +19,15 @@ import {SliderModule} from '../../components/sliders/slider.module';
 import {MatMenuModule} from '@angular/material/menu';
 import {StarRatingModule} from '../../components/star-rating/star-rating.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {ReviewsEmptyComponent} from './reviews-empty/reviews-empty.component';
 
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailsComponent,
-    ProductManagementComponent
+    ProductManagementComponent,
+    ReviewsEmptyComponent
   ],
     imports: [
       CommonModule,

@@ -25,6 +25,7 @@
     "@angular/router": "~9.0.0",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@glidejs/glide": "^3.4.1",
+    "cloudinary": "^1.21.0",
     "core-js": "^2.5.4",
     "express": "^4.17.1",
     "jwt-decode": "^2.2.0",

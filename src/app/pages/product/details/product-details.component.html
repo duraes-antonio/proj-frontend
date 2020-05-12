@@ -161,7 +161,11 @@
         {{reviewUser ? 'Editar' : 'Avaliar'}}
       </button>
     </span>
-    <app-rating-list [reviews]="reviews"></app-rating-list>
+    <app-rating-list *ngIf="reviews.length; else reviewsEmpty" [reviews]="reviews"></app-rating-list>
+    <ng-template #reviewsEmpty>
+      <app-reviews-empty></app-reviews-empty>
+    </ng-template>
+    <!-- TODO: Receber retorno do componente abaixo e fazer requisição -->
     <app-pagination [lengthPages]="14" [pageStart]="1"></app-pagination>
   </section>
 </div>

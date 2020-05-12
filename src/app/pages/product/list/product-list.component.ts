@@ -3,8 +3,9 @@ import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Product} from '../../../models/product';
-import {FilterForSearch, FilterProduct} from '../../../models/filters/filter-product';
+import {FilterProduct, FilterProductResponse} from '../../../models/filters/filter-product';
 import {ProductService} from '../../../services/product.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-product-list',
@@ -13,11 +14,12 @@ import {ProductService} from '../../../services/product.service';
 })
 export class ProductListComponent implements OnDestroy {
   prods: Product[] = [];
-  filterFilled?: FilterForSearch;
+  filterFilled?: FilterProductResponse;
   private readonly _params$: Subscription;
   private readonly _filter: FilterProduct;
 
   constructor(
+    private readonly _loadingServ: NgxSpinnerService,
     private readonly _productServ: ProductService,
     private readonly _route: ActivatedRoute
   ) {
@@ -37,12 +39,20 @@ export class ProductListComponent implements OnDestroy {
   }
 
   textSearch(filter: FilterProduct) {
+    this._loadingServ.show();
     this._productServ.getForSearch(filter)
-      .subscribe(filterReturn => this.filterFilled = filterReturn);
+      .subscribe(filterReturn => {
+        this.filterFilled = filterReturn;
+        this._loadingServ.hide(undefined, 250);
+      });
   }
 
   filterSearch(filter: FilterProduct) {
+    this._loadingServ.show();
     this._productServ.getForSearch(filter)
-      .subscribe(filterReturn => this.filterFilled = filterReturn);
+      .subscribe(filterReturn => {
+        this.filterFilled = filterReturn;
+        this._loadingServ.hide(undefined, 250);
+      });
   }
 }

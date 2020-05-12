@@ -1,12 +1,12 @@
 <div class="row" style="display: flex; margin-bottom: 0">
 
-  <ngx-spinner [fullScreen]="true" bdColor="rgba(0,0,0,0.5)" color="#fff" size="default" type="ball-clip-rotate">
+  <ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
     <p style="color: white"> Aguarde... </p>
   </ngx-spinner>
 
   <ng-container *ngIf="filterFilled?.result.length; else noProductResults">
     <!-- Filtros à esquerda da página -->
-    <app-filter-product (filterEmit)="filterSearch($event)" [filterSearch]="filterFilled"
+    <app-filter-product (filterEmit)="filterSearch($event)" [filterResponse]="filterFilled"
                         class="col m4 l3 xl2">
     </app-filter-product>
 

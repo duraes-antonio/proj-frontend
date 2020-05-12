@@ -8,7 +8,9 @@ import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront
 import {validators} from '../../../../shared/validations/validatorsCustom';
 import {masks} from '../../../../shared/input-masks/maskFunctions';
 import {CategoryService} from '../../../services/category.service';
-import {getObjectFromFormGroup} from '../../../../shared/util';
+import {extractPatchFromFormGroup, getObjectFromFormGroup} from '../../../../shared/util';
+import {ProductService} from '../../../services/product.service';
+import {HttpEventType} from '@angular/common/http';
 
 @Component({
   selector: 'app-modal-product-mat',
@@ -26,6 +28,9 @@ export class ModalProductMatComponent {
 
   productCategs: Category[] = [];
   freeDelivery = false;
+  percentUpload = 0;
+  uploadingImage = false;
+  urlImageTemp?: string = this.product?.urlMainImage;
   readonly _getMsg = getMsgFront;
   readonly _sizes = productSizes;
   readonly _controlCategory = new FormControl();
@@ -86,7 +91,8 @@ export class ModalProductMatComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IModalProductData,
-    private readonly _categoryServ: CategoryService
+    private readonly _categoryServ: CategoryService,
+    private readonly _productServ: ProductService
   ) {
     const categCheckeds: Category[] = [];
     _categoryServ.get()
@@ -111,14 +117,21 @@ export class ModalProductMatComponent {
   }
 
   emitProduct(product?: Product) {
-    const productChanged = getObjectFromFormGroup(this._formGroup) as Product;
+    let productChanged;
+
+    if (product) {
+      productChanged = extractPatchFromFormGroup(product ?? {}, this._formGroup);
+    } else {
+      productChanged = getObjectFromFormGroup(this._formGroup);
+    }
 
     if (productChanged) {
       const productUpdated = {
         ...productChanged,
+        categoriesId: this._controlCategory.value,
         freeDelivery: this.freeDelivery,
-        categoriesId: this._controlCategory.value
-      };
+        urlMainImage: this.urlImageTemp
+      } as Product;
       this.action.emit(productUpdated);
     }
   }
@@ -126,6 +139,25 @@ export class ModalProductMatComponent {
   formatNum(target: any) {
     if (target.value) {
       target.value = masks.numberUnsigned(target.value);
+    }
+  }
+
+  handleFileInput(event: Event) {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files?.length) {
+      this.uploadingImage = true;
+      this._productServ.uploadTempImage(files[0])
+        .subscribe(
+          (eventHttp) => {
+            if (eventHttp.type === HttpEventType.UploadProgress) {
+              this.percentUpload = eventHttp.loaded / files[0].size * 100;
+            } else if (eventHttp.type === HttpEventType.Response) {
+              this.urlImageTemp = eventHttp?.body?.data;
+              this.uploadingImage = false;
+              this.percentUpload = 0;
+            }
+          });
     }
   }
 }

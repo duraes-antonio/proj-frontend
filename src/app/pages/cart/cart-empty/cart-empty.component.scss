@@ -1,3 +1,4 @@
+@import '../../../../shared/styles/general';
 @import '../../../../shared/styles/placeholders';
 
 .page-container {
@@ -21,7 +22,7 @@
     }
 
     &__desc {
-      color: hotpink;
+      color: dodgerblue;
       font-size: 1.4rem;
 
       &-icon {
@@ -30,4 +31,10 @@
       }
     }
   }
+}
+
+.title-page-w-border {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 35px;
 }

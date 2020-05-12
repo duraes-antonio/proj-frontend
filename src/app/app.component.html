@@ -1,7 +1,6 @@
 <head>
   <title>Teste</title>
 </head>
-
 <app-sidenav (closed)="sidenavShow = false" [show]="sidenavShow" [user]="authServRef.userLogged">
   <app-navbar (sidenavShow)="sidenavShow = true"></app-navbar>
   <div [id]="pseudoBodyId" class="body-content">
