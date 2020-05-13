@@ -142,7 +142,7 @@
           </button>
           <mat-menu #menu="matMenu">
             <ng-template matMenuContent>
-              <button class="button-icon" mat-menu-item>
+              <button (click)="selectProduct(item.id)" class="button-icon" mat-menu-item>
                 <mat-icon class="icon-menu">
                   <i aria-hidden="true" class="fas fa-pencil-alt"></i>
                 </mat-icon>
