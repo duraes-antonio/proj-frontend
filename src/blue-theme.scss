@@ -78,3 +78,8 @@ $blue-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
 .mat-form-field-subscript-wrapper {
   font-size: 12px;
 }
+
+.mat-checkbox-label {
+  word-break: break-word;
+  white-space: normal;
+}
