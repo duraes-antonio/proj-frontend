@@ -1,0 +1,25 @@
+@import '../../../../shared/styles/placeholders';
+
+
+.component {
+  @extend %grid-horiz-vert;
+  margin: 25px 0 15px;
+  color: #444;
+  text-align: center;
+  font-weight: 300;
+  line-height: 1.25;
+
+  &__title {
+    font-weight: 500;
+    font-size: 2.25rem;
+  }
+
+  &__subtitle {
+    font-size: 1.75rem;
+  }
+
+  &__desc-icon {
+    display: block;
+    font-size: 3rem;
+  }
+}

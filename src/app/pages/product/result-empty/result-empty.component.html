@@ -1,0 +1,10 @@
+<div class="component">
+  <p class="component__title">Ops!</p>
+  <p class="component__subtitle">Não foram encontrados produtos para sua busca.</p>
+  <i aria-hidden="true" class="far fa-grin-beam-sweat component__desc-icon" style="margin-top: 15px"></i>
+  <button [routerLink]="'/' + routes.productsView" class="btn-general btn-general--full" mat-stroked-button
+          style="width: min-content; margin-top: 25px">
+    <i aria-hidden="true" class="fa fa-search"></i>
+    Ver todos produtos
+  </button>
+</div>

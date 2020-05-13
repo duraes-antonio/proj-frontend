@@ -20,6 +20,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {StarRatingModule} from '../../components/star-rating/star-rating.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ReviewsEmptyComponent} from './reviews-empty/reviews-empty.component';
+import {ResultEmptyComponent} from './result-empty/result-empty.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {ReviewsEmptyComponent} from './reviews-empty/reviews-empty.component';
     ProductListComponent,
     ProductDetailsComponent,
     ProductManagementComponent,
-    ReviewsEmptyComponent
+    ReviewsEmptyComponent,
+    ResultEmptyComponent
   ],
     imports: [
       CommonModule,
