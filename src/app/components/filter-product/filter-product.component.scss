@@ -34,6 +34,7 @@ $_padding-top-bottom: 15px;
     @extend %color-text-sec--dark;
     padding: 0.25em 0.75em 1.25em 0;
     display: grid;
+    max-width: 230px;
   }
 
   &__section-price {

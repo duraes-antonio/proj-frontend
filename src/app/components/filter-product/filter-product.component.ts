@@ -39,8 +39,8 @@ export class FilterProductComponent {
     filter.avgReview.forEach((ratingValue: number) =>
       this.ratingsInclude.set(ratingValue, this.ratingsInclude.get(ratingValue) ?? false)
     );
-    this.priceMin = filter.priceMin;
-    this.priceMax = filter.priceMax;
+    this.priceMin = +(filter.priceMin.toFixed(2));
+    this.priceMax = +(filter.priceMax.toFixed(2));
   }
 
   categoryChange(categId: string) {
