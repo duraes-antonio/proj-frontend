@@ -2,8 +2,9 @@
 @import '../../../../shared/styles/placeholders';
 
 .products {
-  display: block;
+  display: grid;
   padding: 20px 10px 0;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 .product {

@@ -1,20 +1,19 @@
-<div class="row" style="display: flex; margin-bottom: 0">
+<div style="display: flex; margin-bottom: 0">
 
   <ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
     <p style="color: white"> Aguarde... </p>
   </ngx-spinner>
 
-  <ng-container *ngIf="filterFilled?.result.length; else noProductResults">
-    <!-- Filtros à esquerda da página -->
-    <app-filter-product (filterEmit)="filterSearch($event)" [filterResponse]="filterFilled"
-                        class="col m4 l3 xl2">
-    </app-filter-product>
+  <!-- Filtros à esquerda da página -->
+  <app-filter-product (filterEmit)="filterSearch($event)" *ngIf="filterFilled?.result.length"
+                      [filterResponse]="filterFilled">
+  </app-filter-product>
 
-    <!-- Área dos produtos -->
+  <!-- Área dos produtos -->
+  <ng-container *ngIf="filterFilled?.result.length; else noProductResults">
     <div style="display: grid; width: 100%">
       <div class="products">
-        <a *ngFor="let item of filterFilled.result" [routerLink]="[item.id]"
-           class="col s6s m6s l3s xl3s product">
+        <a *ngFor="let item of filterFilled.result" [routerLink]="[item.id]" class="product">
 
           <!-- Etiqueta de desconto -->
           <span *ngIf="item.percentOff > 0" class="product__label-promo">
@@ -42,8 +41,8 @@
   </ng-container>
 
   <ng-template #noProductResults>
-    <div>
-      <h1 style="color: red">NÃO FORAM ENCONTRADOS RESULTADOS!</h1>
+    <div style="width: 100%">
+      <app-result-empty></app-result-empty>
     </div>
   </ng-template>
 </div>
