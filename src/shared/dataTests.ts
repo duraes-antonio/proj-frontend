@@ -84,11 +84,11 @@ export class DataTests {
     {id: '3', urlImage: '../../assets/card-3.jpeg', title: '', urlAction: ''},
   ];
   static readonly categories: Category[] = [
-    {title: 'Acessórios', id: '1'},
-    {title: 'Cards', id: '2'},
-    {title: 'Colecionáveis', id: '3'},
-    {title: 'Pacote de Cards', id: '4'},
-    {title: 'Vestuário', id: '5'},
+    {title: 'Acessórios', id: '1', createdAt: new Date()},
+    {title: 'Cards', id: '2', createdAt: new Date()},
+    {title: 'Colecionáveis', id: '3', createdAt: new Date()},
+    {title: 'Pacote de Cards', id: '4', createdAt: new Date()},
+    {title: 'Vestuário', id: '5', createdAt: new Date()},
   ];
   static readonly deliveryOptions: DeliveryOption[] = [
     {cost: 14.25, timeDays: 12, typeService: DeliveryOptionType.SEDEX},
