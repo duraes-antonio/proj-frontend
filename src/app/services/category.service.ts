@@ -5,8 +5,9 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {httpService} from './generic-http.service';
-import {Category, CategoryAdd} from '../models/category';
+import {Category, CategoryAdd, CategoryFilterFilled} from '../models/category';
 import {FilterBasic} from '../models/filters/filter-basic';
+import {FilterCategory} from '../models/filters/filter-category';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,11 @@ export class CategoryService {
     return httpService.getById(this._routeApi, id, this._http, AuthService.getHeaders);
   }
 
-  patch(categoryPatch: object, id: string): Observable<Category> {
+  getForSearch(filter?: FilterCategory): Observable<CategoryFilterFilled> {
+    return httpService.getSingle(`${this._routeApi}/search`, this._http, AuthService.getHeaders, filter);
+  }
+
+  patch(id: string, categoryPatch: object): Observable<Category> {
     return httpService.patch(this._routeApi, id, this._http, AuthService.getHeaders, categoryPatch);
   }
 

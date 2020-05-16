@@ -1,6 +1,5 @@
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {util} from '../../shared/util';
 import {take} from 'rxjs/operators';
 import {FilterBasic} from '../models/filters/filter-basic';
 
@@ -21,7 +20,7 @@ function _get<T>(
   if (params) {
     parsedParams = params instanceof HttpParams
       ? params
-      : new HttpParams().set('filter', JSON.stringify(util.clearEmptyFields(params)));
+      : new HttpParams().set('filter', JSON.stringify(params));
   }
   return http.get<T | T[]>(route, {headers: fnGetHttpHeaders(), params: parsedParams})
     .pipe(take(1));
