@@ -1,0 +1,28 @@
+<app-modal-mat (action)="saveCategory()" (closed)="closed.emit()"
+               [actionDisabled]="titleControl.invalid"
+               [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
+               [modalTitle]="modalTitle">
+  <div class="icon__section">
+    <i aria-hidden="true" class="fa fa-tags"></i>
+  </div>
+  <div class="message-section message-section--blue">
+    <i aria-hidden="true" class="fas fa-exclamation"></i>
+    <div class="message-section__text-block">
+      <span class="message-section__title">Dica:</span>
+      <span>
+        Escolha um titulo breve e sucinto para facilitar a busca de seus produtos pelos
+        seus clientes e público alvo. Não se preocupe, a categoria poderá ser editada
+        após ser criada.
+      </span>
+    </div>
+  </div>
+
+  <!-- Título -->
+  <mat-form-field style="width: 100%">
+    <mat-label>Título <span style="color: red">*</span></mat-label>
+    <input #title [formControl]="titleControl" [maxLength]="sizes.titleMax" matInput type="text">
+    <!--<mat-hint align="start">Escreva um título curto que descreva</mat-hint>-->
+    <mat-hint align="end">{{title.value.length}} / {{sizes.titleMax}}</mat-hint>
+    <mat-error *ngIf="titleControl.invalid">{{getMsg(titleControl)}}</mat-error>
+  </mat-form-field>
+</app-modal-mat>

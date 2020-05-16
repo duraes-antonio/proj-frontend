@@ -1,0 +1,164 @@
+<!-- TODO: Trabalhar com form controls ao invés de variáveis comuns e NGMODEL -->
+<ng-template #loading>
+  <ngx-spinner [fullScreen]="true"
+               bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
+    <p style="color: white"> Aguarde... </p>
+  </ngx-spinner>
+</ng-template>
+
+<div style="padding: 30px 10px">
+
+  <!-- TÍTULO DA PÁGINA -->
+  <div class="page__header">
+    <div class="title-page-w-border">
+      <span>Gerenciar categorias</span>
+    </div>
+  </div>
+
+  <!-- Filtros e botões do topo -->
+  <div style="margin-bottom: 15px">
+    <form [formGroup]="formGroup" class="header-actions row" id="header-actions">
+
+      <!-- Título -->
+      <mat-form-field class="col s12 m6 l3 xl3">
+        <mat-label>Título</mat-label>
+        <input [maxLength]="sizes.titleMax" formControlName="text" matInput type="text">
+      </mat-form-field>
+
+      <!-- Data de início de cadastro -->
+      <mat-form-field class="col s12 m6 l3 xl3">
+        <mat-label>Início do cadastro</mat-label>
+        <input (dateChange)="searchCategories()"
+               (input)="maskDate($event, formGroup.controls['dateStart'])"
+               [matDatepicker]="picker1" formControlName="dateStart" matInput type="text">
+        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="formGroup.controls['dateStart'].invalid">
+          {{_getMsgFront(formGroup.controls['dateStart'], '25/06/2019')}}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Data final de cadastro -->
+      <mat-form-field class="col s12 m6 l3 xl3">
+        <mat-label>Fim do cadastro</mat-label>
+        <input (dateChange)="searchCategories()"
+               (input)="maskDate($event, formGroup.controls['dateEnd'])"
+               [matDatepicker]="picker2" formControlName="dateEnd" matInput>
+        <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="formGroup.controls['dateEnd'].invalid">
+          {{_getMsgFront(formGroup.controls['dateEnd'], '10/02/2020')}}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Ordenação -->
+      <div class="sort_pagination col s12 m6 l3 xl3">
+        <mat-form-field class="col s12">
+          <mat-label>Ordenar por</mat-label>
+          <mat-select [(value)]="sortBy">
+            <mat-option (click)="searchCategories()" *ngFor="let opt of optsSort" [value]="opt.key">
+              {{opt.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <div class="row">
+
+      <!-- Botão de criar categoria -->
+      <button (click)="createOrEdit()" class="btn-general" color="primary" mat-raised-button>
+        <mat-icon>add</mat-icon>
+        Nova categoria
+      </button>
+    </div>
+  </div>
+
+  <!-- Categorias -->
+  <div *ngIf="filterResult; else loading" style="width: 100%">
+    <div class="categories">
+      <!-- TODO: Substituir por filterResult.result -->
+      <div *ngFor="let item of filterResult.result" class="row category">
+
+        <!-- Imagem e dados do produto -->
+        <div class="col s12 category__data">
+
+          <!-- Dados textuais -->
+          <a (click)="createOrEdit(item)" class="col s11 m11 l11 xl11 category__props">
+
+            <!-- Titulo da categoria -->
+            <div class="col s12 m12 l4 xl3 category__prop">
+              <span class="category__prop--title">Título</span>
+              <span>{{item.title}}</span>
+            </div>
+
+            <!-- Produtos associados -->
+            <div class="col s12 m8 l5 xl6 category__prop">
+              <span class="category__prop--title">Produtos associados</span>
+              <div *ngIf="item.productsQuantity; else noProduct" class="category__products-preview">
+                <ng-container *ngFor="let index of [0, 1, 2]">
+                  <div *ngIf="item.productPreview[index]; else noProductPreview"
+                       [title]="item.productPreview[index].title" class="category__product-preview">
+                    <img *ngIf="item.productPreview[index]; else noProductImage"
+                         [alt]="item.productPreview[index].title"
+                         [src]="item.productPreview[index].urlImage" class="category__product-preview-img">
+                    <ng-template #noProductImage>
+                      <i aria-hidden="true" class="far fa-image"></i>
+                    </ng-template>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="item.productsQuantity > 3; else noProductPreview">
+                  <div class="category__product-preview">+{{item.productsQuantity - 3}}</div>
+                </ng-container>
+                <ng-template #noProductPreview>
+                  <div class="category__product-preview category__product-preview--empty"></div>
+                </ng-template>
+              </div>
+              <ng-template #noProduct>
+                <span class="text--fill-grey">Ainda não há produtos associados!</span>
+              </ng-template>
+            </div>
+
+            <!-- Data de cadastro -->
+            <div class="col s12 m4 l3 xl3 category__prop">
+              <span class="category__prop--title">Data de cadastro</span>
+              <span>{{item.createdAt | date: fmtTimestamp}}</span>
+            </div>
+          </a>
+
+          <!-- Menu contextual -->
+          <div class="col s1 m1 l1 xl1">
+            <button [matMenuTriggerFor]="menu" aria-label="Menu de opções para produto"
+                    color="primary" mat-icon-button
+                    title="Menu de opções para produto">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <ng-template matMenuContent>
+                <button (click)="createOrEdit(item)" class="button-icon" mat-menu-item>
+                  <mat-icon class="icon-menu">
+                    <i aria-hidden="true" class="fas fa-pencil-alt"></i>
+                  </mat-icon>
+                  <span>Editar</span>
+                </button>
+
+                <button (click)="delete(item.id)" class="button-icon" mat-menu-item>
+                  <mat-icon>
+                    <i aria-hidden="true" class="fas fa-trash-alt icon-menu"></i>
+                  </mat-icon>
+                  <span>Excluir</span>
+                </button>
+              </ng-template>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  TODO: Substituir com count do filterResponse  -->
+    <app-pagination (pageSelected)="changePageSearch($event)" [perPage]="filter.perPage"
+                    [totalItems]="filterResult.count" style="width: 100%;">
+    </app-pagination>
+  </div>
+</div>

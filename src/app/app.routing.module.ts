@@ -7,6 +7,7 @@ import {routesFrontend} from '../shared/constants/routes-frontend';
 import {Page404Component} from './pages/404/page404.component';
 import {ForbiddenRoutingModule} from './pages/forbidden/forbidden-routing.module';
 import {OwnerGuard} from './guards/owner.guard';
+import {CategoryRoutingModule} from './pages/category/category-routing.module';
 
 const routes: Routes = [
   {
@@ -64,6 +65,7 @@ const extraOptions: ExtraOptions = {
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, extraOptions),
+    CategoryRoutingModule,
     CheckoutRoutingModule,
     ForbiddenRoutingModule,
     ProductRoutingModule

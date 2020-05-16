@@ -1,0 +1,125 @@
+@import '../../../../shared/styles/general';
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+%_text-grey-box {
+  background-color: #e8e8e8;
+  border-radius: 4px;
+  padding: 5px 15px;
+  width: fit-content;
+}
+
+.page__header {
+  color: $color-prim;
+  @extend %center-flex;
+
+  .title-page-w-border {
+    margin-bottom: 30px;
+  }
+
+  .title-page {
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    font-size: x-large;
+
+    &--2nd-line {
+      font-size: xx-large;
+    }
+
+    &-icon {
+      font-size: 48px;
+    }
+  }
+}
+
+.header-actions {
+  @extend %flex-wrap;
+  margin: 15px 0 0;
+
+  .mat-form-field {
+    @extend %color-text-prim;
+    padding: 0 5px;
+  }
+}
+
+.categories {
+  display: block;
+}
+
+.category {
+  @extend %base_model_block;
+
+  &__data {
+    @extend %center-vert-flex;
+    flex-wrap: wrap;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &__props {
+    @extend %center-vert-flex;
+    @extend %color-text-prim--light;
+    flex-flow: wrap;
+
+    .category__prop {
+      @extend %flex-col;
+      align-items: center;
+      //  border: 1px solid red;
+      text-align: center;
+      margin-top: 5px;
+      padding: 5px;
+
+      &--title {
+        @extend %color-text-prim;
+        font-weight: 500;
+      }
+
+      .text--fill-grey {
+        @extend %_text-grey-box;
+      }
+
+      @media (max-width: 720px) {
+        font-size: .8rem;
+      }
+
+      @media (max-width: $width-max-medium) {
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  &__products-preview {
+    @extend %center-horiz-flex;
+    margin-top: 5px;
+  }
+
+  &__product-preview {
+    $_size-circle: 45px;
+    @include circle($_size-circle, white);
+    @extend %center-flex;
+    margin: 0 4px;
+    border: 2px solid #ccc;
+
+    &-img {
+      @include max-size($_size-circle);
+    }
+
+    &--empty {
+      background-color: #f3f3f3;
+    }
+  }
+}
+
+.button-icon {
+  @extend %center-vert-flex;
+
+  mat-icon {
+    @extend %center-flex;
+    font-size: 18px;
+  }
+}

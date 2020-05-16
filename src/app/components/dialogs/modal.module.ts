@@ -20,6 +20,7 @@ import {ModalManageReviewComponent} from './modal-manage-review/modal-manage-rev
 import {StarRatingModule} from '../star-rating/star-rating.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {ModalManageCategoryComponent} from './modal-manage-category/modal-manage-category.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     ModalRecupSenhaComponent,
     ModalShippingMatComponent,
     ModalManageAddressComponent,
-    ModalManageReviewComponent
+    ModalManageReviewComponent,
+    ModalManageCategoryComponent
   ],
   exports: [
     ModalMatComponent,

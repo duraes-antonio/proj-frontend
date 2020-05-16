@@ -17,7 +17,7 @@ export const addressSizes = {
 };
 
 export const categorySizes = {
-  titleMax: 128
+  titleMax: 64
 };
 
 export const productSizes = {
