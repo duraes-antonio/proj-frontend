@@ -53,4 +53,16 @@ export class ModalMatComponent implements OnDestroy, AfterViewInit {
       }
     }
   }
+
+  clickButtonAction(idButton: string, disableClick = false) {
+    if (disableClick) {
+      return;
+    }
+
+    const button: HTMLElement | null = document.getElementById(idButton);
+
+    if (button) {
+      button.click();
+    }
+  }
 }

@@ -4,7 +4,8 @@
   </h1>
   <p *ngIf="modalDesc" id="modal-desc">{{modalDesc}}</p>
 
-  <div class="modal__content" id="modal-content" mat-dialog-content>
+  <div (keydown.enter)="clickButtonAction('action-button', actionDisabled)" class="modal__content" id="modal-content"
+       mat-dialog-content>
     <ng-content></ng-content>
   </div>
 
@@ -13,7 +14,8 @@
       {{btnCancelTitle}}
     </button>
     <button (click)="action.emit()" *ngIf="btnAcceptTitle"
-            [disabled]="actionDisabled" class="actions__button" mat-button mat-dialog-close>
+            [disabled]="actionDisabled" class="actions__button" id="action-button"
+            mat-button mat-dialog-close>
       {{btnAcceptTitle}}
     </button>
   </div>
