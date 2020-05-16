@@ -10,31 +10,52 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 export class PaginationComponent {
 
   @Input() pageStart = 1;
-  @Input() perPage = 10;
-  @Input() totalItems = 10;
-
-  indexPages: number[] = [];
   @Output() pageSelected = new EventEmitter<number>();
+  indexPages: number[] = [];
   private _lenPages = 1;
-  private _mobile = false;
 
   constructor(private _breakpointObserver: BreakpointObserver) {
     _breakpointObserver.observe([Breakpoints.XSmall])
       .subscribe(result => {
         this._mobile = result.matches;
-        this.lengthPages = this.lengthPages;
+        this.lengthPages = this.perPage / this.totalItems;
         this.selectPage(this.pageStart);
       });
   }
+
+  private _perPage = 10;
+  private _mobile = false;
+
+  @Input()
+  get perPage(): number {
+    return this._perPage;
+  }
+
+  set perPage(quantity: number) {
+    this._perPage = quantity;
+    this.lengthPages = Math.ceil(this.totalItems / quantity);
+  }
+
+  private _totalItems = 10;
 
   @Input()
   get lengthPages(): number {
     return this._lenPages;
   }
 
+  @Input()
+  get totalItems(): number {
+    return this._totalItems;
+  }
+
+  set totalItems(quantity: number) {
+    this._totalItems = quantity;
+    this.lengthPages = Math.ceil(this.totalItems / this.perPage);
+  }
+
   set lengthPages(length: number) {
     this._lenPages = length;
-    const lengthItems = length > 10 && !this._mobile ? 10 : 5;
+    const lengthItems = length > 10 && !this._mobile ? 10 : Math.min(length, 5);
     this.indexPages = this.getIndexesSequence(
       this.pageStart,
       length,
@@ -72,7 +93,6 @@ export class PaginationComponent {
     if (target <= this.indexPages[0] || target >= this.indexPages[this.indexPages.length - 1]) {
       this.indexPages = this.getIndexesSequence(target, this.lengthPages, this.indexPages, genSequence);
     }
-
     this.pageStart = target;
     this.pageSelected.emit(target);
   }
