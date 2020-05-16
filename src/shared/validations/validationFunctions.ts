@@ -1,3 +1,4 @@
+import * as _moment from 'moment';
 /* tslint:disable-next-line:max-line-length
  * Expressão baseada no regex usado na API do Angular Form Validators:
  * https://github.com/angular/angular/blob/e0ad9ecda0b8a541b405d2ab35335b90ceb21fd1/packages/forms/src/validators.ts#L254
@@ -53,6 +54,12 @@ const validation = {
     const firstChecker = calcDigitChecker(firstNine);
     const secondChecker = calcDigitChecker(`${firstNine}${firstChecker}`);
     return value.substring(9, 11) === `${firstChecker}${secondChecker}`;
+  },
+  validDate(value: string): boolean {
+    if (!validation.hasValue(value)) {
+      return false;
+    }
+    return validation.hasValue(value) && _moment(value).isValid();
   },
   validEmail(email: string): boolean {
     return this.hasValue(email) && regexEmail.test(email);

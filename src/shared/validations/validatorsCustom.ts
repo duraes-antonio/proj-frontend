@@ -32,6 +32,18 @@ export const validators = {
       return null;
     };
   },
+  dateValidator(required = true): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.errors?.matDatepickerParse) {
+        return null;
+      } else if (!validation.hasValue(control.value)) {
+        return required ? {[EErrorType.REQUIRED]: true} : null;
+      } else if (!validation.validDate(control.value)) {
+        return {[EErrorType.FORMAT]: true};
+      }
+      return null;
+    };
+  },
   emailValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
 

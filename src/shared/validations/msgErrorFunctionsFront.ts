@@ -46,9 +46,10 @@ export function getMsgFront(control: AbstractControl, example?: string): string 
     throw new Error('Não há erros para serem analisados!');
   }
 
-  const error = Object.keys(control.errors)[0];
+  const errorsEnum = Object.keys(EErrorType);
+  const error = Object.keys(control.errors).find(k => errorsEnum.some(e => e === k.toUpperCase()));
 
-  if (error === EErrorType.FORMAT) {
+  if (!error || error === EErrorType.FORMAT) {
     if (!example) {
       throw new Error('É necessário passar um exemplo de dado como parâmetro');
     }
