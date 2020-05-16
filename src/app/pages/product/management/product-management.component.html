@@ -1,4 +1,11 @@
 <!-- TODO: Trabalhar com form controls ao invés de variáveis comuns e NGMODEL -->
+<ng-template #loading>
+  <ngx-spinner [fullScreen]="true"
+               bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
+    <p style="color: white"> Aguarde... </p>
+  </ngx-spinner>
+</ng-template>
+
 <div style="padding: 30px 10px">
   <!-- TÍTULO DA PÁGINA -->
   <div class="page__header">
@@ -9,49 +16,55 @@
 
   <!-- FILTROS E BOTÕES -->
   <div style="margin-bottom: 15px">
-    <div class="header-actions row" id="header-actions">
+    <form [formGroup]="formGroup" class="header-actions row" id="header-actions">
 
       <!-- Título -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Título</mat-label>
-        <input [(ngModel)]="textSearch" matInput
-               maxlength="100" type="text">
+        <input [maxLength]="sizes.titleMax" formControlName="text" matInput type="text">
       </mat-form-field>
 
       <!-- Data de início de cadastro -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Início do cadastro</mat-label>
-        <input [matDatepicker]="picker1" matInput>
+        <input (dateChange)="searchProduct(formGroup.value)"
+               (input)="maskDate($event, formGroup.controls['dateStart'])"
+               [matDatepicker]="picker1" formControlName="dateStart" matInput type="text">
         <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="formGroup.controls['dateStart'].invalid">
+          {{_getMsgFront(formGroup.controls['dateStart'], '25/06/2019')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Data final de cadastro -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Fim do cadastro</mat-label>
-        <input [matDatepicker]="picker2" matInput>
+        <input (dateChange)="searchProduct(formGroup.value)"
+               (input)="maskDate($event, formGroup.controls['dateEnd'])"
+               [matDatepicker]="picker2" formControlName="dateEnd" matInput>
         <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="formGroup.controls['dateEnd'].invalid">
+          {{_getMsgFront(formGroup.controls['dateEnd'], '10/02/2020')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Categorias -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Categorias</mat-label>
-        <mat-select [formControl]="controlCategories" multiple>
-          <mat-option *ngFor="let categ of categories$ | async" [value]="categ.id">{{categ.title}}</mat-option>
+        <mat-select (selectionChange)="searchProduct(formGroup.value)"
+                    formControlName="categories" multiple>
+          <mat-option *ngFor="let categ of categories$ | async" [value]="categ.id">
+            {{categ.title}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
+    </form>
 
     <div class="search-actions row">
       <div class="search_new-prod col s12 m8 l9 xl10">
-        <button (click)="searchProduct()" class="btn-general"
-                color="primary" mat-raised-button>
-          <mat-icon>search</mat-icon>
-          Buscar
-        </button>
-        <button (click)="createProduct()" class="btn-general"
-                color="primary" mat-stroked-button>
+        <button (click)="createProduct()" class="btn-general" color="primary" mat-raised-button>
           <mat-icon>add</mat-icon>
           Novo produto
         </button>
@@ -61,7 +74,10 @@
         <mat-form-field class="col s12">
           <mat-label>Ordenar por</mat-label>
           <mat-select>
-            <mat-option *ngFor="let opt of optsSort" [value]="opt.key">{{opt.name}}</mat-option>
+            <mat-option (click)="searchProduct(formGroup.value, opt.key)"
+                        *ngFor="let opt of optsSort" [value]="opt.key">
+              {{opt.name}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -69,9 +85,9 @@
   </div>
 
   <!-- PRODUTOS -->
-  <div style="width: 100%">
+  <div *ngIf="!requesting && filterResult; else loading" style="width: 100%">
     <div class="products">
-      <div *ngFor="let item of products$ | async; trackBy: productTrackBy"
+      <div *ngFor="let item of filterResult.result; trackBy: productTrackBy"
            class="row product">
 
         <!-- Imagem e dados do produto -->

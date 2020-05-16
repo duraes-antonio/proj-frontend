@@ -3,23 +3,28 @@ import {Component} from '@angular/core';
 import {Product, ProductAdd} from '../../../models/product';
 import {MatDialog} from '@angular/material/dialog';
 import {ModalProductMatComponent} from '../../../components/dialogs/modal-product-mat/modal-product-mat.component';
-import {FormControl} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
 import {Category} from '../../../models/category';
 import {ProductService} from '../../../services/product.service';
 import {forkJoin, Observable} from 'rxjs';
 import {CategoryService} from '../../../services/category.service';
 import {EProductSort} from '../../../enum/product-sort';
-import {take} from 'rxjs/operators';
-import {FilterProduct} from '../../../models/filters/filter-product';
+import {debounceTime, distinctUntilChanged, switchMap, take} from 'rxjs/operators';
+import {FilterProduct, FilterProductResponse} from '../../../models/filters/filter-product';
+import {productSizes} from '../../../../shared/constants/field-size';
+import {validators} from '../../../../shared/validations/validatorsCustom';
+import {masks} from '../../../../shared/input-masks/maskFunctions';
+import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
+import * as _moment from 'moment';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-product-management',
   templateUrl: './product-management.component.html',
-  styleUrls: ['./product-management.component.scss']
+  styleUrls: ['./product-management.component.scss'],
 })
 export class ProductManagementComponent {
 
-  readonly controlCategories = new FormControl();
   readonly optsSort: { key: EProductSort, name: string }[] = [
     {key: EProductSort.AVERAGE_REVIEW, name: 'Maior avaliação'},
     {key: EProductSort.DISCOUNTS, name: 'Maior desconto'},
@@ -29,19 +34,49 @@ export class ProductManagementComponent {
     {key: EProductSort.PRICE_LOW, name: 'Menor preço'}
   ];
   readonly filter: FilterProduct = {perPage: 15, currentPage: 1};
+  readonly sizes = productSizes;
+  readonly formGroup = new FormGroup({
+    categories: new FormControl([]),
+    dateStart: new FormControl(null, validators.dateValidator(false)),
+    dateEnd: new FormControl(null, validators.dateValidator(false)),
+    text: new FormControl(''),
+  });
+  filterResult?: FilterProductResponse;
   products$: Observable<Product[]> = this._productServ.get();
-  categories$: Observable<Category[]> = this._categoryServ.get();
-  textSearch = '';
+  categories$: Observable<Category[]>;
   countProductReturned = 0;
   _window = window;
+  _getMsgFront = getMsgFront;
+  requesting = true;
 
   constructor(
     private readonly _dialog: MatDialog,
     private readonly _categoryServ: CategoryService,
+    private readonly _loadingServ: NgxSpinnerService,
     private readonly _productServ: ProductService
   ) {
-    this._productServ.getCount(this.filter)
-      .subscribe((count: number) => this.countProductReturned = count);
+    _loadingServ.show();
+    this.categories$ = this._categoryServ.get();
+    this._productServ.getForSearch(this.filter)
+      .subscribe(response => {
+        this.filterResult = response;
+        this.requesting = false;
+      });
+    this.formGroup.controls['text'].valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+        switchMap(text => {
+          this.requesting = true;
+          return this._productServ.getForSearch(
+            this._updateFilter(this.filter, {...this.formGroup.value, text})
+          );
+        })
+      )
+      .subscribe(searchResult => {
+        this.filterResult = searchResult;
+        this.requesting = false;
+      });
   }
 
   // TODO: Remover requisição após adicionar lógica de salvar dentro do modal
@@ -75,9 +110,33 @@ export class ProductManagementComponent {
     });
   }
 
-  // TODO: FInalizar método
-  searchProduct() {
+  searchProduct(form: FormSearchProduct, sort?: EProductSort) {
+    if (this.formGroup.valid) {
+      this._productServ.getForSearch(
+        this._updateFilter({...this.filter, sortBy: sort}, this.formGroup.value)
+      ).subscribe(filterResponse => this.filterResult = filterResponse);
+    }
+  }
 
+  maskDate(event: Event, control: AbstractControl) {
+    const target = event.target as HTMLInputElement;
+    const cursorStart = target.selectionStart ?? 0;
+    const cursorEnd = target.selectionEnd ?? 0;
+    target.value = masks.date(target.value);
+
+    if ((event as InputEvent).inputType.includes('delete')) {
+      target.setSelectionRange(cursorStart, cursorEnd);
+    } else {
+      if (target.value[target.value.length - 2] === '/') {
+        target.setSelectionRange(cursorStart + 1, cursorEnd + 1);
+      } else {
+        target.setSelectionRange(cursorStart, cursorEnd);
+      }
+    }
+
+    if (target.value.length === 10) {
+      control.setValue(_moment(target.value, 'DD/MM/YYYY', 'pt'));
+    }
   }
 
   productTrackBy(index: number, item: Product): string {
@@ -85,15 +144,29 @@ export class ProductManagementComponent {
   }
 
   deleteProduct(id: string) {
-    this._productServ.delete(id).subscribe(() => {
-      this.products$ = this._productServ.get();
-    });
+    this._productServ.delete(id)
+      .subscribe(() => this.products$ = this._productServ.get());
   }
 
   toggleVisibility(id: string, visible: boolean) {
     this._productServ.toggleVisibility(id, visible)
-      .subscribe(() => {
-        this.products$ = this._productServ.get();
-      });
+      .subscribe(() => this.products$ = this._productServ.get());
   }
+
+  private _updateFilter(filterCurr: FilterProduct, formValues: FormSearchProduct): FilterProduct {
+    return {
+      ...filterCurr,
+      categoriesId: formValues.categories,
+      dateEnd: formValues.dateEnd?.toDate(),
+      dateStart: formValues.dateStart?.toDate(),
+      text: formValues.text
+    };
+  }
+}
+
+interface FormSearchProduct {
+  categories: string[];
+  dateEnd?: _moment.Moment;
+  dateStart: _moment.Moment;
+  text: string;
 }
