@@ -11,6 +11,7 @@ import {CategoryService} from '../../../services/category.service';
 import {extractPatchFromFormGroup, getObjectFromFormGroup} from '../../../../shared/util';
 import {ProductService} from '../../../services/product.service';
 import {HttpEventType} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-modal-product-mat',
@@ -26,64 +27,54 @@ export class ModalProductMatComponent {
     btnCancel: 'Descartar',
   };
 
-  productCategs: Category[] = [];
+  categories$: Observable<Category[]>;
   freeDelivery = false;
   percentUpload = 0;
   uploadingImage = false;
+  imageTemp?: File;
   urlImageTemp?: string = this.product?.urlMainImage;
   readonly _getMsg = getMsgFront;
   readonly _sizes = productSizes;
   readonly _controlCategory = new FormControl();
-
-  readonly _controlTitle = new FormControl(
-    this.product?.title, validators.textValidator(this._sizes.titleMax, 10)
-  );
-  readonly _controlDesc = new FormControl(
-    this.product?.desc, validators.textValidator(this._sizes.descMax, 20)
-  );
-  readonly _controlCost = new FormControl(
-    this.product ? +this.product.cost.toFixed(2) : null,
-    validators.numberValidator(this._sizes.costMin, this._sizes.costMax, false)
-  );
-  readonly _controlPrice = new FormControl(
-    this.product ? +this.product.price.toFixed(2) : null,
-    validators.numberValidator(this._sizes.priceMin, this._sizes.priceMax, true)
-  );
-  readonly _controlQuantity = new FormControl(
-    this.product?.quantity,
-    validators.numberValidator(this._sizes.amountAvailableMin, this._sizes.amountAvailableMax, true)
-  );
-  readonly _controlDiscount = new FormControl(
-    this.product ? +this.product.percentOff.toFixed(2) : null,
-    validators.numberValidator(this._sizes.percentOffMin, this._sizes.percentOffMax, false)
-  );
-  readonly _controlHeight = new FormControl(
-    this.product?.height,
-    validators.numberValidator(this._sizes.heightMin, this._sizes.heightMax, true)
-  );
-  readonly _controlWidth = new FormControl(
-    this.product?.width,
-    validators.numberValidator(this._sizes.widthMin, this._sizes.widthMax, true)
-  );
-  readonly _controlLength = new FormControl(
-    this.product?.length,
-    validators.numberValidator(this._sizes.lengthMin, this._sizes.lengthMax, true)
-  );
-  readonly _controlWeight = new FormControl(
-    this.product?.weight,
-    validators.numberValidator(this._sizes.weightMin, this._sizes.weightMax, true)
-  );
   readonly _formGroup = new FormBuilder().group({
-    title: this._controlTitle,
-    desc: this._controlDesc,
-    cost: this._controlCost,
-    price: this._controlPrice,
-    quantity: this._controlQuantity,
-    percentOff: this._controlDiscount,
-    height: this._controlHeight,
-    width: this._controlWidth,
-    length: this._controlLength,
-    weight: this._controlWeight,
+    title: new FormControl(
+      this.product?.title, validators.textValidator(this._sizes.titleMax, 10)
+    ),
+    desc: new FormControl(
+      this.product?.desc, validators.textValidator(this._sizes.descMax, 20)
+    ),
+    cost: new FormControl(
+      this.product ? +this.product.cost.toFixed(2) : null,
+      validators.numberValidator(this._sizes.costMin, this._sizes.costMax, false)
+    ),
+    price: new FormControl(
+      this.product ? +this.product.price.toFixed(2) : null,
+      validators.numberValidator(this._sizes.priceMin, this._sizes.priceMax, true)
+    ),
+    quantity: new FormControl(
+      this.product?.quantity,
+      validators.numberValidator(this._sizes.amountAvailableMin, this._sizes.amountAvailableMax, true)
+    ),
+    percentOff: new FormControl(
+      this.product ? +this.product.percentOff.toFixed(2) : null,
+      validators.numberValidator(this._sizes.percentOffMin, this._sizes.percentOffMax, false)
+    ),
+    height: new FormControl(
+      this.product?.height,
+      validators.numberValidator(this._sizes.heightMin, this._sizes.heightMax, true)
+    ),
+    width: new FormControl(
+      this.product?.width,
+      validators.numberValidator(this._sizes.widthMin, this._sizes.widthMax, true)
+    ),
+    length: new FormControl(
+      this.product?.length,
+      validators.numberValidator(this._sizes.lengthMin, this._sizes.lengthMax, true)
+    ),
+    weight: new FormControl(
+      this.product?.weight,
+      validators.numberValidator(this._sizes.weightMin, this._sizes.weightMax, true)
+    )
   });
 
   @Output() closed = new EventEmitter();
@@ -94,18 +85,8 @@ export class ModalProductMatComponent {
     private readonly _categoryServ: CategoryService,
     private readonly _productServ: ProductService
   ) {
-    const categCheckeds: Category[] = [];
-    _categoryServ.get()
-      .subscribe((categories: Category[]) => {
-        this.productCategs = categories;
-        categories.forEach(
-          c => {
-            if (this.product?.categories.some(cp => c.id === cp.id)) {
-              categCheckeds.push(c);
-            }
-          });
-        this._controlCategory.setValue(categCheckeds);
-      });
+    this.categories$ = _categoryServ.get();
+    this._controlCategory.setValue(this.product?.categories);
   }
 
   static getConfig(data: IModalProductData): MatDialogConfig {
@@ -116,7 +97,8 @@ export class ModalProductMatComponent {
     };
   }
 
-  emitProduct(product?: Product) {
+  _emitProduct(product?: Product) {
+
     let productChanged;
 
     if (product) {
@@ -128,7 +110,7 @@ export class ModalProductMatComponent {
     if (productChanged) {
       const productUpdated = {
         ...productChanged,
-        categoriesId: this._controlCategory.value,
+        categoriesId: (this._controlCategory.value as Category[]).map(c => c.id),
         freeDelivery: this.freeDelivery,
         urlMainImage: this.urlImageTemp
       } as Product;
@@ -142,23 +124,39 @@ export class ModalProductMatComponent {
     }
   }
 
-  handleFileInput(event: Event) {
+  previewImage(event: Event) {
     const files = (event.target as HTMLInputElement).files;
 
     if (files?.length) {
+      const fileReader = new FileReader();
+      fileReader.onloadend = () => this.urlImageTemp = fileReader.result as string;
+      fileReader.readAsDataURL(files[0]);
+      this.imageTemp = files[0];
+    }
+  }
+
+  emitProduct(product?: Product) {
+    if (this.imageTemp) {
       this.uploadingImage = true;
-      this._productServ.uploadTempImage(files[0])
+      this._productServ.uploadTempImage(this.imageTemp)
         .subscribe(
           (eventHttp) => {
             if (eventHttp.type === HttpEventType.UploadProgress) {
-              this.percentUpload = eventHttp.loaded / files[0].size * 100;
+              this.percentUpload = eventHttp.loaded / (this.imageTemp as File).size * 100;
             } else if (eventHttp.type === HttpEventType.Response) {
               this.urlImageTemp = eventHttp?.body?.data;
               this.uploadingImage = false;
               this.percentUpload = 0;
+              setTimeout(() => this._emitProduct(product), 500);
             }
           });
+    } else {
+      this._emitProduct(product);
     }
+  }
+
+  cmpCategory(a: Category, b: Category): boolean {
+    return a.id === b.id;
   }
 }
 

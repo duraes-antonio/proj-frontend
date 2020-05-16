@@ -8,8 +8,8 @@
       <i aria-hidden="true" class="far fa-image"></i>
     </ng-template>
 
-    <input #inputFile (change)="handleFileInput($event)" (click)="$event.stopPropagation()" [hidden]="true"
-           accept="image/gif, image/png, image/jpeg" type="file">
+    <input #inputFile (change)="previewImage($event)" (click)="$event.stopPropagation()" [hidden]="true"
+           accept="image/gif, image/png, image/jpeg, image/webp" type="file">
 
     <div style="display: grid; justify-items: center;">
       <mat-progress-bar *ngIf="uploadingImage" [value]="percentUpload"
@@ -29,9 +29,9 @@
       <!-- Categorias -->
       <mat-form-field class="col s12">
         <mat-label>Categorias</mat-label>
-        <mat-select [formControl]="_controlCategory" multiple>
-          <mat-option *ngFor="let cat of productCategs" [value]="cat">
-            {{cat.title}}
+        <mat-select [compareWith]="cmpCategory" [formControl]="_controlCategory" multiple>
+          <mat-option *ngFor="let category of categories$ | async" [value]="category">
+            {{category.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -41,8 +41,10 @@
         <mat-label>Título <span style="color: red">*</span></mat-label>
         <input #fieldTitle [maxLength]="_sizes.titleMax"
                formControlName="title" matInput type="text">
-        <mat-hint align="end">{{fieldTitle.value.length}} / 100</mat-hint>
-        <mat-error *ngIf="_controlTitle.invalid">{{_getMsg(_controlTitle)}}</mat-error>
+        <mat-hint align="end">{{fieldTitle.value.length}} / {{_sizes.titleMax}}</mat-hint>
+        <mat-error *ngIf="_formGroup.controls['title'].invalid">
+          {{_getMsg(_formGroup.controls['title'])}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Descrição -->
@@ -52,7 +54,9 @@
                   cdkAutosizeMaxRows="10" cdkAutosizeMinRows="1" cdkTextareaAutosize
                   class="input" formControlName="desc" matInput></textarea>
         <mat-hint align="end">{{fieldDescription.value.length}} / {{_sizes.descMax}}</mat-hint>
-        <mat-error *ngIf="_controlDesc.invalid">{{_getMsg(_controlDesc)}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['desc'].invalid">
+          {{_getMsg(_formGroup.controls['desc'])}}
+        </mat-error>
       </mat-form-field>
 
 
@@ -62,7 +66,9 @@
         <input [max]="_sizes.costMax" [min]="_sizes.costMin" formControlName="cost" matInput
                step="0.5" type="number">
         <span matSuffix>R$</span>
-        <mat-error *ngIf="_controlCost.invalid">{{_getMsg(_controlCost, '75 ou 2.8')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['cost'].invalid">
+          {{_getMsg(_formGroup.controls['cost'], '75 ou 2.8')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Preço de venda -->
@@ -71,7 +77,9 @@
         <input [max]="_sizes.priceMax" [min]="_sizes.priceMin" formControlName="price" matInput
                step="0.5" type="number">
         <span matSuffix>R$</span>
-        <mat-error *ngIf="_controlPrice.invalid">{{_getMsg(_controlPrice, '25 ou 1.78')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['price'].invalid">
+          {{_getMsg(_formGroup.controls['price'], '25 ou 1.78')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Porcentagem de desconto -->
@@ -81,7 +89,9 @@
                step="0.5" type="number">
         <span matSuffix>%</span>
         <mat-hint align="start">Exemplo: 80 (para 80% de desconto)</mat-hint>
-        <mat-error *ngIf="_controlDiscount.invalid">{{_getMsg(_controlDiscount, '75 ou 11.7')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['percentOff'].invalid">
+          {{_getMsg(_formGroup.controls['percentOff'], '75 ou 11.7')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Unidades disponíveis -->
@@ -90,7 +100,9 @@
         <input (input)="formatNum($event.target)" [max]="_sizes.amountAvailableMax"
                [min]="_sizes.amountAvailableMin" formControlName="quantity"
                matInput type="number">
-        <mat-error *ngIf="_controlQuantity.invalid">{{_getMsg(_controlQuantity)}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['quantity'].invalid">
+          {{_getMsg(_formGroup.controls['quantity'])}}
+        </mat-error>
       </mat-form-field>
 
 
@@ -101,7 +113,9 @@
                [min]="_sizes.heightMin" formControlName="height"
                matInput step="0.5" type="number">
         <mat-hint align="start">Altura em centímetros</mat-hint>
-        <mat-error *ngIf="_controlHeight.invalid">{{_getMsg(_controlHeight, '75.85')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['height'].invalid">
+          {{_getMsg(_formGroup.controls['height'], '75.85')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Largura -->
@@ -111,7 +125,9 @@
                [min]="_sizes.widthMin" formControlName="width"
                matInput step="0.5" type="number">
         <mat-hint align="start">Largura em centímetros</mat-hint>
-        <mat-error *ngIf="_controlWidth.invalid">{{_getMsg(_controlWidth, '10.85 ou 25')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['width'].invalid">
+          {{_getMsg(_formGroup.controls['width'], '10.85 ou 25')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Comprimento -->
@@ -121,7 +137,9 @@
                [min]="_sizes.lengthMin" formControlName="length"
                matInput step="0.5" type="number">
         <mat-hint align="start">Comprimento em centímetros</mat-hint>
-        <mat-error *ngIf="_controlLength.invalid">{{_getMsg(_controlLength, '11 ou 141.14')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['length'].invalid">
+          {{_getMsg(_formGroup.controls['length'], '11 ou 141.14')}}
+        </mat-error>
       </mat-form-field>
 
       <!-- Peso -->
@@ -131,7 +149,9 @@
                [min]="_sizes.weightMin" formControlName="weight"
                matInput step="0.1" type="number">
         <mat-hint align="start">Peso em kilogramas</mat-hint>
-        <mat-error *ngIf="_controlWeight.invalid">{{_getMsg(_controlWeight, '1.25 ou 0.45 (450 gramas)')}}</mat-error>
+        <mat-error *ngIf="_formGroup.controls['weight'].invalid">
+          {{_getMsg(_formGroup.controls['weight'], '1.25 ou 0.45 (450 gramas)')}}
+        </mat-error>
       </mat-form-field>
 
     </form>
