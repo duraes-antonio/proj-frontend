@@ -3,7 +3,7 @@ import {Product} from '../app/models/product';
 import {Category} from '../app/models/category';
 import {Review} from '../app/models/review';
 import {Address} from '../app/models/address';
-import {randomBoolean, randomFloat, randomInt, util} from './util';
+import {randomBoolean, randomFloat, randomInt} from './util';
 import {User} from '../app/models/user';
 import {NotificationModel} from '../app/models/notification';
 import {Slide} from '../app/models/componentes/slide';
@@ -12,7 +12,6 @@ import {Card} from '../app/models/card';
 import {ListProduct} from '../app/models/componentes/list-product';
 import {ListMarket} from '../app/models/componentes/list-market';
 import {Order} from '../app/models/order';
-import {EStateOrder} from '../app/enum/state-order';
 import {ERole} from '../app/enum/roles';
 import {ListSlide} from '../app/models/componentes/slider';
 import {ListLink} from '../app/models/componentes/list-link';
@@ -357,61 +356,63 @@ export class DataTests {
     }
   ];
   static readonly orders: Order[] = [
-    {
-      userId: '1',
-      id: (++DataTests.orderId).toString(),
-      optionDeliveryType: DeliveryOptionType.SEDEX,
-      items: [
-        {
-          id: '1',
-          quantity: 2,
-          product: DataTests.products[0],
-          productId: DataTests.products[0].id,
-          unitPrice: DataTests.products[0].priceWithDiscount
-        }],
-      state: EStateOrder.DELIVERED,
-      costDelivery: util.randomFloat(0, 100),
-      costItems: util.randomFloat(0, 600),
-      dateDelivery: new Date(),
-      addressTargetId: DataTests.addresses[0].id,
-      date: new Date(2020, 4, 12),
-      daysForDelivery: util.randomInt(0, 100)
-    },
-    {
-      userId: '2',
-      optionDeliveryType: DeliveryOptionType.PAC,
-      id: (++DataTests.orderId).toString(),
-      items: [
-        {
-          id: '2',
-          quantity: 2,
-          product: DataTests.products[1],
-          productId: DataTests.products[1].id,
-          unitPrice: DataTests.products[1].priceWithDiscount
+    /*    {
+          createdAt: new Date(),
+          userId: '1',
+          id: (++DataTests.orderId).toString(),
+          optionDeliveryType: DeliveryOptionType.SEDEX,
+          items: [
+            {
+              id: '1',
+              quantity: 2,
+              product: DataTests.products[0],
+              productId: DataTests.products[0].id,
+              unitPrice: DataTests.products[0].priceWithDiscount
+            }],
+          state: OrderStatus.DELIVERED,
+          costDelivery: util.randomFloat(0, 100),
+          costItems: util.randomFloat(0, 600),
+          dateDelivery: new Date(),
+          addressTargetId: DataTests.addresses[0].id,
+          date: new Date(2020, 4, 12),
+          daysForDelivery: util.randomInt(0, 100)
         },
         {
-          id: '2',
-          quantity: 95,
-          product: DataTests.products[5],
-          productId: DataTests.products[5].id,
-          unitPrice: DataTests.products[5].priceWithDiscount
-        },
-        {
-          id: '3',
-          quantity: 7,
-          product: DataTests.products[3],
-          productId: DataTests.products[3].id,
-          unitPrice: DataTests.products[3].priceWithDiscount
-        }
-      ],
-      state: EStateOrder.DELIVERED,
-      costItems: util.randomFloat(0, 600),
-      costDelivery: util.randomFloat(0, 100),
-      dateDelivery: new Date(),
-      addressTargetId: DataTests.addresses[1].id,
-      date: new Date(2020, 3, 2),
-      daysForDelivery: util.randomInt(0, 100)
-    },
+          createdAt: new Date(),
+          userId: '2',
+          optionDeliveryType: DeliveryOptionType.PAC,
+          id: (++DataTests.orderId).toString(),
+          items: [
+            {
+              id: '2',
+              quantity: 2,
+              product: DataTests.products[1],
+              productId: DataTests.products[1].id,
+              unitPrice: DataTests.products[1].priceWithDiscount
+            },
+            {
+              id: '2',
+              quantity: 95,
+              product: DataTests.products[5],
+              productId: DataTests.products[5].id,
+              unitPrice: DataTests.products[5].priceWithDiscount
+            },
+            {
+              id: '3',
+              quantity: 7,
+              product: DataTests.products[3],
+              productId: DataTests.products[3].id,
+              unitPrice: DataTests.products[3].priceWithDiscount
+            }
+          ],
+          state: OrderStatus.DELIVERED,
+          costItems: util.randomFloat(0, 600),
+          costDelivery: util.randomFloat(0, 100),
+          dateDelivery: new Date(),
+          addressTargetId: DataTests.addresses[1].id,
+          date: new Date(2020, 3, 2),
+          daysForDelivery: util.randomInt(0, 100)
+        },*/
   ];
   static readonly listProducts: ListProduct[] = [
     {
