@@ -4,10 +4,10 @@ export enum EErrorType {
   CUSTOM = 'custom',
   EQUALS = 'equals',
   FORMAT = 'format',
-  MIN_LEN = 'minLen',
-  MIN_VAL = 'minVal',
-  MAX_LEN = 'maxLen',
-  MAX_VAL = 'maxVal',
+  MIN_LEN = 'min_len',
+  MIN_VAL = 'min_val',
+  MAX_LEN = 'max_len',
+  MAX_VAL = 'max_val',
   REQUIRED = 'required'
 }
 
