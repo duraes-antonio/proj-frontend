@@ -21,6 +21,8 @@ import {StarRatingModule} from '../star-rating/star-rating.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {ModalManageCategoryComponent} from './modal-manage-category/modal-manage-category.component';
+import {ModalManageOrderComponent} from './modal-manage-order/modal-manage-order.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {ModalManageCategoryComponent} from './modal-manage-category/modal-manage
     ModalShippingMatComponent,
     ModalManageAddressComponent,
     ModalManageReviewComponent,
-    ModalManageCategoryComponent
+    ModalManageCategoryComponent,
+    ModalManageOrderComponent
   ],
   exports: [
     ModalMatComponent,
@@ -58,6 +61,7 @@ import {ModalManageCategoryComponent} from './modal-manage-category/modal-manage
     StarRatingModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatDatepickerModule,
   ],
   providers: [
     MatDialog

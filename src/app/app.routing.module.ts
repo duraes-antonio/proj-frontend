@@ -8,6 +8,7 @@ import {Page404Component} from './pages/404/page404.component';
 import {ForbiddenRoutingModule} from './pages/forbidden/forbidden-routing.module';
 import {OwnerGuard} from './guards/owner.guard';
 import {CategoryRoutingModule} from './pages/category/category-routing.module';
+import {OrderRoutingModule} from './pages/order/order-routing.module';
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ const extraOptions: ExtraOptions = {
     CategoryRoutingModule,
     CheckoutRoutingModule,
     ForbiddenRoutingModule,
+    OrderRoutingModule,
     ProductRoutingModule
   ],
   exports: [RouterModule]

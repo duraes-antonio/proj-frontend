@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Order} from '../../models/order';
 import {fmtTimestamp} from '../../../shared/constants/formats';
-import {EStateOrder} from '../../enum/state-order';
+import {OrderStatus} from '../../enum/order';
 import {OrderService} from '../../services/order.service';
 import {Observable} from 'rxjs';
 
@@ -14,7 +14,7 @@ export class OrderListComponent {
 
   readonly orders$: Observable<Order[]>;
   readonly fmtTimestamp: string = fmtTimestamp;
-  readonly states = EStateOrder;
+  readonly states = OrderStatus;
 
   constructor(
     private readonly _orderServ: OrderService

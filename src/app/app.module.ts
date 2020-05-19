@@ -17,6 +17,7 @@ import {ForbiddenModule} from './pages/forbidden/forbidden.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CategoryModule} from './pages/category/category.module';
+import {OrderModule} from './pages/order/order.module';
 
 registerLocaleData(localePt);
 export const MY_FORMATS = {
@@ -46,6 +47,7 @@ export const MY_FORMATS = {
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    OrderModule,
     ProductModule,
     NgxSpinnerModule,
   ],

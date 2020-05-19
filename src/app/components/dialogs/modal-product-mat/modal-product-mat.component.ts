@@ -110,7 +110,7 @@ export class ModalProductMatComponent {
     if (productChanged) {
       const productUpdated = {
         ...productChanged,
-        categoriesId: (this._controlCategory.value as Category[]).map(c => c.id),
+        categoriesId: (this._controlCategory.value ?? []).map((c: Category) => c.id),
         freeDelivery: this.freeDelivery,
         urlMainImage: this.urlImageTemp
       } as Product;

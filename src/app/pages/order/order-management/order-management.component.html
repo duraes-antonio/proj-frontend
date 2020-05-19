@@ -1,0 +1,151 @@
+<ng-template #loading>
+  <ngx-spinner [fullScreen]="true"
+               bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
+    <p style="color: white"> Aguarde... </p>
+  </ngx-spinner>
+</ng-template>
+
+<div style="padding: 30px 10px">
+
+  <!-- título da página -->
+  <div class="page__header">
+    <div class="title-page-w-border-radius">
+      <span>Gerenciar pedidos</span>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div style="margin-bottom: 15px">
+    <form [formGroup]="formGroup" class="header-actions row" id="header-actions">
+
+      <!-- Nome cliente -->
+      <mat-form-field class="col s12 m4 l3 xl2">
+        <mat-label>Nome do cliente</mat-label>
+        <input [maxLength]="sizes.titleMax" formControlName="text" matInput type="text">
+      </mat-form-field>
+
+      <!-- Data de início de cadastro -->
+      <mat-form-field class="col s12 m4 l3 xl2">
+        <mat-label>Data de início</mat-label>
+        <input (dateChange)="search()"
+               (input)="maskDate($event, formGroup.controls['dateStart'])"
+               [matDatepicker]="picker1" formControlName="dateStart" matInput type="text">
+        <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="formGroup.controls['dateStart'].invalid">
+          {{_getMsgFront(formGroup.controls['dateStart'], '25/06/2019')}}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Data final de cadastro -->
+      <mat-form-field class="col s12 m4 l3 xl2">
+        <mat-label>Data final</mat-label>
+        <input (dateChange)="search()"
+               (input)="maskDate($event, formGroup.controls['dateEnd'])"
+               [matDatepicker]="picker2" formControlName="dateEnd" matInput>
+        <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="formGroup.controls['dateEnd'].invalid">
+          {{_getMsgFront(formGroup.controls['dateEnd'], '10/02/2020')}}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Estado da compra -->
+      <mat-form-field class="col s12 m4 l3 xl2">
+        <mat-label>Estado da compra</mat-label>
+        <mat-select [(value)]="orderStatusSelected">
+          <mat-option (click)="search()" *ngFor="let key of orderConsts.orderStatusIterable"
+                      [value]="key">
+            {{orderConsts.orderStatus[key]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Estado do pagamento -->
+      <mat-form-field class="col s12 m4 l3 xl2">
+        <mat-label>Estado do pagamento</mat-label>
+        <mat-select [(value)]="paymentStatusSelected">
+          <mat-option (click)="search()" *ngFor="let key of orderConsts.paymentStatusIterable"
+                      [value]="key">
+            {{orderConsts.paymentStatus[key]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Ordenação -->
+      <div class="sort_pagination col s12 m4 l3 xl2">
+        <mat-form-field class="col s12">
+          <mat-label>Ordenar por</mat-label>
+          <mat-select [(value)]="sortBy">
+            <mat-option (click)="search()" *ngFor="let opt of orderConsts.optionsSort" [value]="opt.key">
+              {{opt.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <!-- Pedidos -->
+  <div *ngIf="filterResult; else loading" style="width: 100%">
+    <div class="orders">
+      <div *ngFor="let item of filterResult.result" class="row order">
+
+        <!-- Imagem e dados do produto -->
+        <div class="col s12 order__data">
+
+          <!-- Dados textuais -->
+          <div class="order__user-avatar">
+            <img *ngIf="item.customerUrlImg; else noUserAvatar" [alt]="'Imagem de perfil de ' + item.customerName"
+                 [src]="item.customerUrlImg">
+            <ng-template #noUserAvatar>
+              <i aria-hidden="true" class="fa fa-user-circle" style="font-size: 50px"></i>
+            </ng-template>
+          </div>
+          <a (click)="createOrEdit(item.id)" class="col s12 m11 l11 xl11 order__props">
+
+            <!-- Nome do cliente -->
+            <div class="col s12 m4 l3 xl2 order__prop">
+              <span class="order__prop--title">Cliente</span>
+              <span>{{item.customerName}}</span>
+            </div>
+
+            <!-- Data da compra -->
+            <div class="col s12 m4 l3 xl2 order__prop">
+              <span class="order__prop--title">Data da compra</span>
+              <span>{{item.createdAt | date: fmtTimestamp}}</span>
+            </div>
+
+            <!-- Custo dos itens -->
+            <div class="col s6 m4 l3 xl2 order__prop">
+              <span class="order__prop--title">Valor dos produtos</span>
+              <span>{{item.costItems | currency: 'BRL'}}</span>
+            </div>
+
+            <!-- Custo do frete -->
+            <div class="col s6 m4 l3 xl2 order__prop">
+              <span class="order__prop--title">Valor do frete</span>
+              <span>{{item.costShipping | currency: 'BRL'}}</span>
+            </div>
+
+            <!-- Estado do pagamento -->
+            <div class="col s6 m4 l3 xl2 order__prop">
+              <span class="order__prop--title">Estado do pagamento</span>
+              <span>{{orderConsts.paymentStatus[item.paymentStatus]}}</span>
+            </div>
+
+            <!-- Estado da compra -->
+            <div class="col s6 m4 l3 xl2 order__prop">
+              <span class="order__prop--title">Estado da compra</span>
+              <span>{{orderConsts.orderStatus[item.orderStatus]}}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <app-pagination (pageSelected)="changePageSearch($event)" [perPage]="filter.perPage"
+                    [totalItems]="filterResult.count" style="width: 100%;">
+    </app-pagination>
+  </div>
+</div>

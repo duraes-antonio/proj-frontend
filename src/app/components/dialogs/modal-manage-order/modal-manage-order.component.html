@@ -1,0 +1,105 @@
+<!-- TODO: Atualizar -->
+<app-modal-mat (action)="changeStatus()" (closed)="closed.emit()"
+               [actionDisabled]="true"
+               [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
+               [modalTitle]="modalTitle">
+  <div class="icon__section">
+    <i aria-hidden="true" class="fa fa-box-open"></i>
+  </div>
+  <div class="message-section message-section--blue">
+    <i aria-hidden="true" class="fas fa-exclamation"></i>
+    <div class="message-section__text-block">
+      <span class="message-section__title">Dica:</span>
+      <span>
+        Escolha um titulo breve e sucinto para facilitar a busca de seus produtos pelos
+        seus clientes e público alvo. Não se preocupe, a categoria poderá ser editada
+        após ser criada.
+      </span>
+    </div>
+  </div>
+
+  <div class="form-container">
+
+    <!-- Data -->
+    <mat-form-field>
+      <mat-label>Data da compra</mat-label>
+      <input disabled matInput type="text" value="{{data.order.createdAt | date: dateFormat}}">
+    </mat-form-field>
+
+    <!-- Valor dos produtos -->
+    <mat-form-field>
+      <mat-label>Valor dos produtos</mat-label>
+      <input disabled matInput value="{{costItems | currency: 'BRL'}}">
+    </mat-form-field>
+
+    <!-- Valor do frete -->
+    <mat-form-field>
+      <mat-label>Valor do frete</mat-label>
+      <input disabled matInput value="{{data.order.costDelivery | currency: 'BRL'}}">
+    </mat-form-field>
+
+    <!-- Estado da compra -->
+    <mat-form-field>
+      <mat-label>Estado da compra</mat-label>
+      <mat-select [value]="data.order.state">
+        <mat-option [value]="data.order.state">
+          {{orderConsts.orderStatus[data.order.state]}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Estado do pagamento -->
+    <mat-form-field>
+      <mat-label>Estado do pagamento</mat-label>
+      <mat-select [value]="data.order.paymentStatus" disabled>
+        <mat-option [value]="data.order.paymentStatus">
+          {{orderConsts.paymentStatus[data.order.paymentStatus]}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <p class="item-preview__title ">Itens comprados</p>
+  <div *ngFor="let item of data.order.items" class="item-preview">
+
+    <!-- Imagem e dados do produto -->
+    <div class="item-preview__data">
+
+      <!-- Dados textuais -->
+      <div class="item-preview__product">
+        <img *ngIf="item.product.urlMainImage; else noProductImage"
+             [alt]="'Imagem de perfil de ' + item.product.title" [src]="item.product.urlMainImage"
+             class="item-preview__product-img">
+        <ng-template #noProductImage>
+          <i aria-hidden="true" class="fa fa-image" style="font-size: 50px"></i>
+        </ng-template>
+      </div>
+
+      <a class="item-preview__props">
+
+        <!-- Nome do produto -->
+        <div class="item-preview__prop" style="flex: 1 0 100%">
+          <span class="text--with-bg">{{item.product.title}}</span>
+        </div>
+
+        <!-- Custo unitário -->
+        <div class="item-preview__prop">
+          <span class="item-preview__prop--title">Custo unitário</span>
+          <span>{{item.unitPrice | currency: 'BRL'}}</span>
+        </div>
+
+        <!-- Quantidade -->
+        <div class="item-preview__prop">
+          <span class="item-preview__prop--title">Quantidade</span>
+          <span>{{item.quantity}}</span>
+        </div>
+
+        <!-- Custo total do item -->
+        <div class="item-preview__prop">
+          <span class="item-preview__prop--title">Total</span>
+          <span>{{item.quantity * item.unitPrice | currency: 'BRL'}}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</app-modal-mat>
