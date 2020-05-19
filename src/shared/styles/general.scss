@@ -6,6 +6,20 @@
   font-weight: 500;
 }
 
+.title-page-w-border-radius {
+  border-radius: 20px;
+  background: dimgray;
+  text-rendering: optimizeLegibility;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 15px 0;
+  position: relative;
+  padding: 8px 16px;
+}
+
 .title-page-w-border {
   color: $color-prim--light;
   font-size: x-large;
@@ -27,4 +41,11 @@
     bottom: -11px;
     margin: 0 auto;
   }
+}
+
+.text--with-bg {
+  color: white;
+  background-color: dodgerblue;
+  padding: 3px 10px;
+  border-radius: 18px;
 }
