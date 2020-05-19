@@ -57,6 +57,7 @@ export class CartComponent implements OnDestroy {
                   this._updateCost();
                 });
           } else {
+            _spinner.hide(undefined, 250);
             this.productsChosen = [];
           }
         });

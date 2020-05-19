@@ -4,7 +4,7 @@ import {routesFrontend} from '../../../shared/constants/routes-frontend';
 import {AdminGuard} from '../../guards/admin.guard';
 import {CategoryManagementComponent} from './category-management/category-management.component';
 
-const produtoRoutes: Routes = [
+const categoryRoutes: Routes = [
   {
     component: CategoryManagementComponent,
     canActivate: [AdminGuard],
@@ -13,7 +13,7 @@ const produtoRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(produtoRoutes)],
+  imports: [RouterModule.forChild(categoryRoutes)],
   exports: [RouterModule]
 })
 export class CategoryRoutingModule {
