@@ -9,6 +9,7 @@ import {ForbiddenRoutingModule} from './pages/forbidden/forbidden-routing.module
 import {OwnerGuard} from './guards/owner.guard';
 import {CategoryRoutingModule} from './pages/category/category-routing.module';
 import {OrderRoutingModule} from './pages/order/order-routing.module';
+import {UserRoutingModule} from './pages/user/user-routing.module';
 
 const routes: Routes = [
   {
@@ -70,7 +71,8 @@ const extraOptions: ExtraOptions = {
     CheckoutRoutingModule,
     ForbiddenRoutingModule,
     OrderRoutingModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    UserRoutingModule
   ],
   exports: [RouterModule]
 })

@@ -18,6 +18,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CategoryModule} from './pages/category/category.module';
 import {OrderModule} from './pages/order/order.module';
+import {UserModule} from './pages/user/user.module';
 
 registerLocaleData(localePt);
 export const MY_FORMATS = {
@@ -49,6 +50,7 @@ export const MY_FORMATS = {
     MatNativeDateModule,
     OrderModule,
     ProductModule,
+    UserModule,
     NgxSpinnerModule,
   ],
   providers: [
