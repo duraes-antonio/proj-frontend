@@ -29,6 +29,7 @@ import {SearchBarComponent} from './search-bar/search-bar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {SliderModule} from './sliders/slider.module';
 import {StarRatingModule} from './star-rating/star-rating.module';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {StarRatingModule} from './star-rating/star-rating.module';
     MatSidenavModule,
     ModalModule,
     SliderModule,
-    StarRatingModule
+    StarRatingModule,
+    MatDatepickerModule
   ],
   providers: [
     MatDialog,
