@@ -3,5 +3,4 @@ export enum UserOptionsSort {
   NEWEST = 'newest',
   OLDEST = 'oldest',
   QUANTITY_PURCHASES = 'quantity_purchases',
-  ROLE = 'role'
 }

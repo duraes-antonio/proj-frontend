@@ -270,6 +270,7 @@ export class DataTests {
       codeArea: 21,
       phone: '998227512',
       cpf: '00372313752',
+      password: '12345678'
     },
     {
       name: 'Kayba Santos',
@@ -280,6 +281,7 @@ export class DataTests {
       codeArea: 11,
       phone: '998227513',
       cpf: '11624226027',
+      password: '12345678'
     },
     {
       name: 'Cleitin O Brabo',
@@ -290,6 +292,7 @@ export class DataTests {
       codeArea: 21,
       phone: '32285937',
       cpf: '66555160055',
+      password: '12345678'
     },
     {
       name: 'Cleidimarço dos Santos',
@@ -300,6 +303,7 @@ export class DataTests {
       codeArea: 27,
       phone: '32287536',
       cpf: '52863683012',
+      password: '12345678',
     },
   ];
   static readonly markets: Market[] = [
