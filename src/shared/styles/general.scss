@@ -7,6 +7,7 @@
 }
 
 .title-page-w-border-radius {
+  width: fit-content;
   border-radius: 20px;
   background: dimgray;
   text-rendering: optimizeLegibility;
@@ -15,7 +16,7 @@
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin: 15px 0;
+  margin: 25px auto 15px;
   position: relative;
   padding: 8px 16px;
 }
