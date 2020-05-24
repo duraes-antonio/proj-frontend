@@ -69,7 +69,6 @@ export class SidenavComponent {
   }
 
   userAdmin(user?: User): boolean {
-    console.log('ADMIN');
     return !!user && user?.roles.includes(ERole.ADMIN);
   }
 }
