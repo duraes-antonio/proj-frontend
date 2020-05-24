@@ -9,7 +9,7 @@ import {ProductService} from '../../../services/product.service';
 import {forkJoin, Observable} from 'rxjs';
 import {CategoryService} from '../../../services/category.service';
 import {EProductSort} from '../../../enum/product-sort';
-import {debounceTime, distinctUntilChanged, switchMap, take} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter, switchMap, take} from 'rxjs/operators';
 import {FilterProduct, FilterProductResponse} from '../../../models/filters/filter-product';
 import {productSizes} from '../../../../shared/constants/field-size';
 import {validators} from '../../../../shared/validations/validatorsCustom';
@@ -47,36 +47,38 @@ export class ProductManagementComponent {
   countProductReturned = 0;
   _window = window;
   _getMsgFront = getMsgFront;
-  requesting = true;
+  requesting = false;
 
   constructor(
-    private readonly _dialog: MatDialog,
-    private readonly _categoryServ: CategoryService,
-    private readonly _loadingServ: NgxSpinnerService,
-    private readonly _productServ: ProductService
+      private readonly _dialog: MatDialog,
+      private readonly _categoryServ: CategoryService,
+      private readonly _loadingServ: NgxSpinnerService,
+      private readonly _productServ: ProductService
   ) {
     _loadingServ.show();
+    this._showLoading();
     this.categories$ = this._categoryServ.get();
     this._productServ.getForSearch(this.filter)
-      .subscribe(response => {
-        this.filterResult = response;
-        this.requesting = false;
-      });
+        .subscribe(response => {
+          this.filterResult = response;
+          this._hideLoading();
+        });
     this.formGroup.controls['text'].valueChanges
-      .pipe(
-        debounceTime(250),
-        distinctUntilChanged(),
-        switchMap(text => {
-          this.requesting = true;
-          return this._productServ.getForSearch(
-            this._updateFilter(this.filter, {...this.formGroup.value, text})
-          );
-        })
-      )
-      .subscribe(searchResult => {
-        this.filterResult = searchResult;
-        this.requesting = false;
-      });
+        .pipe(
+            filter(value => !!value && value.trim().length),
+            debounceTime(250),
+            distinctUntilChanged(),
+            switchMap(text => {
+              this._showLoading();
+              return this._productServ.getForSearch(
+                  this._updateFilter(this.filter, {...this.formGroup.value, text})
+              );
+            })
+        )
+        .subscribe(searchResult => {
+          this.filterResult = searchResult;
+          this._hideLoading();
+        });
   }
 
   // TODO: Remover requisição após adicionar lógica de salvar dentro do modal
@@ -84,13 +86,13 @@ export class ProductManagementComponent {
     const config = ModalProductMatComponent.getConfig({});
     const dialogRef = this._dialog.open(ModalProductMatComponent, config);
     dialogRef.componentInstance.action.subscribe(
-      (prod: ProductAdd) => {
-        const productPost$ = this._productServ.post(prod);
-        this.products$ = this._productServ.get();
-        forkJoin([productPost$, this.products$])
-          .pipe(take(1))
-          .subscribe();
-      }
+        (prod: ProductAdd) => {
+          const productPost$ = this._productServ.post(prod);
+          this.products$ = this._productServ.get();
+          forkJoin([productPost$, this.products$])
+              .pipe(take(1))
+              .subscribe();
+        }
     );
   }
 
@@ -100,21 +102,25 @@ export class ProductManagementComponent {
       const config = ModalProductMatComponent.getConfig({product: p});
       const dialogRef = this._dialog.open(ModalProductMatComponent, config);
       dialogRef.componentInstance.action
-        .pipe(take(1))
-        .subscribe(
-          (prodUpdated: Product) => {
-            this._productServ.patch(id, prodUpdated)
-              .subscribe(() => this.products$ = this._productServ.get());
-          }
-        );
+          .pipe(take(1))
+          .subscribe(
+              (prodUpdated: Product) => {
+                this._productServ.patch(id, prodUpdated)
+                    .subscribe(() => this.products$ = this._productServ.get());
+              }
+          );
     });
   }
 
   searchProduct(form: FormSearchProduct, sort?: EProductSort) {
     if (this.formGroup.valid) {
+      this._showLoading();
       this._productServ.getForSearch(
-        this._updateFilter({...this.filter, sortBy: sort}, this.formGroup.value)
-      ).subscribe(filterResponse => this.filterResult = filterResponse);
+          this._updateFilter({...this.filter, sortBy: sort}, this.formGroup.value)
+      ).subscribe(filterResponse => {
+        this.filterResult = filterResponse;
+        this._hideLoading();
+      });
     }
   }
 
@@ -145,12 +151,22 @@ export class ProductManagementComponent {
 
   deleteProduct(id: string) {
     this._productServ.delete(id)
-      .subscribe(() => this.products$ = this._productServ.get());
+        .subscribe(() => this.products$ = this._productServ.get());
   }
 
   toggleVisibility(id: string, visible: boolean) {
     this._productServ.toggleVisibility(id, visible)
-      .subscribe(() => this.products$ = this._productServ.get());
+        .subscribe(() => this.products$ = this._productServ.get());
+  }
+
+  private _hideLoading() {
+    this.requesting = false;
+    this.formGroup.enable();
+  }
+
+  private _showLoading() {
+    this.requesting = true;
+    this.formGroup.disable();
   }
 
   private _updateFilter(filterCurr: FilterProduct, formValues: FormSearchProduct): FilterProduct {
