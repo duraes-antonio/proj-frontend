@@ -1,9 +1,9 @@
-<ng-template #loading>
+<ng-container *ngIf="requesting">
   <ngx-spinner [fullScreen]="true"
                bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
     <p style="color: white"> Aguarde... </p>
   </ngx-spinner>
-</ng-template>
+</ng-container>
 
 <div style="padding: 30px 10px">
 
@@ -54,6 +54,7 @@
       <mat-form-field class="col s12 m4 l3 xl2">
         <mat-label>Estado da compra</mat-label>
         <mat-select [(value)]="orderStatusSelected">
+          <mat-option (click)="search()" [value]="null">Nenhum</mat-option>
           <mat-option (click)="search()" *ngFor="let key of orderConsts.orderStatusIterable"
                       [value]="key">
             {{orderConsts.orderStatus[key]}}
@@ -65,6 +66,7 @@
       <mat-form-field class="col s12 m4 l3 xl2">
         <mat-label>Estado do pagamento</mat-label>
         <mat-select [(value)]="paymentStatusSelected">
+          <mat-option (click)="search()" [value]="null">Nenhum</mat-option>
           <mat-option (click)="search()" *ngFor="let key of orderConsts.paymentStatusIterable"
                       [value]="key">
             {{orderConsts.paymentStatus[key]}}
@@ -87,7 +89,7 @@
   </div>
 
   <!-- Pedidos -->
-  <div *ngIf="filterResult; else loading" style="width: 100%">
+  <div *ngIf="filterResult" style="width: 100%">
     <div class="orders">
       <div *ngFor="let item of filterResult.result" class="row order">
 

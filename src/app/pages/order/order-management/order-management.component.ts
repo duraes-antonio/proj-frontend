@@ -108,7 +108,7 @@ export class OrderManagementComponent {
   }
 
   private _extractSearch(requestCategorySearch: Observable<OrderFilterFilled>) {
-    this.requesting = false;
+    this.requesting = true;
     requestCategorySearch.subscribe((filterResponse) => {
       this.filterResult = filterResponse;
       this.requesting = false;
