@@ -1,0 +1,53 @@
+@import '../../../../shared/styles/general';
+@import '../../../../shared/styles/grid_materialize';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+.header-actions {
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(calc(20% - 10px), 1fr));
+
+  @media (max-width: $width-max-x-small) {
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 10px), 1fr));
+  }
+}
+
+.users {
+  margin: 20px 0;
+
+  &__item {
+    @extend .list-basic__item;
+    @extend .list-basic__item__props;
+
+    &-avatar {
+      @extend %center-horiz-flex;
+      font-size: 50px;
+
+      @media (max-width: $width-max-x-small) {
+        @include max-size(40px);
+        font-size: 40px;
+      }
+    }
+
+    &-data {
+      display: grid;
+      grid-template-columns: repeat(4, 2fr);
+
+      @media (max-width: $width-max-small) {
+        grid-template-columns: repeat(2, 2fr);
+      }
+    }
+
+    .mat-form-field {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: $width-max-small) {
+      .mat-form-field {
+        max-width: 120px;
+      }
+    }
+  }
+}

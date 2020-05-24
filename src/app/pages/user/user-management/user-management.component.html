@@ -1,1 +1,120 @@
-<p>user-management works!</p>
+<ng-container *ngIf="requesting">
+  <ngx-spinner [fullScreen]="true"
+               bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
+    <p style="color: white"> Aguarde... </p>
+  </ngx-spinner>
+</ng-container>
+
+<div class="title-page-w-border-radius">
+  <span>Gerenciar usuários</span>
+</div>
+
+<form [formGroup]="formGroup" class="header-actions" id="header-actions">
+
+  <!-- Nome -->
+  <mat-form-field>
+    <mat-label>Nome do usuário</mat-label>
+    <input [maxLength]="sizes.nameMaxLen" formControlName="text" matInput type="text">
+  </mat-form-field>
+
+  <!-- Data de início de cadastro -->
+  <mat-form-field>
+    <mat-label>Início do cadastro</mat-label>
+    <input (dateChange)="searchUsers()"
+           (input)="maskDate($event, formGroup.controls['dateStart'])"
+           [matDatepicker]="picker1" formControlName="dateStart" matInput type="text">
+    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+    <mat-error *ngIf="formGroup.controls['dateStart'].invalid">
+      {{_getMsgError(formGroup.controls['dateStart'], '25/06/2019')}}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Data final de cadastro -->
+  <mat-form-field>
+    <mat-label>Fim do cadastro</mat-label>
+    <input (dateChange)="searchUsers()"
+           (input)="maskDate($event, formGroup.controls['dateEnd'])"
+           [matDatepicker]="picker2" formControlName="dateEnd" matInput>
+    <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+    <mat-error *ngIf="formGroup.controls['dateEnd'].invalid">
+      {{_getMsgError(formGroup.controls['dateEnd'], '10/02/2020')}}
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Papéis -->
+  <mat-form-field>
+    <mat-label>Permissões</mat-label>
+    <mat-select (selectionChange)="searchUsers()" formControlName="roles" multiple>
+      <mat-option *ngFor="let role of userConsts.userRolesIterable" [value]="role">
+        {{userConsts.userRoles[role]}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Ordenação -->
+  <mat-form-field>
+    <mat-label>Ordenar por</mat-label>
+    <mat-select [(value)]="sortBy">
+      <mat-option (click)="searchUsers()" *ngFor="let opt of userConsts.userSortIterable" [value]="opt.key">
+        {{opt.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<div *ngIf="userSearchResult" class="users">
+  <div *ngFor="let user of userSearchResult.result" class="users__item row">
+
+    <!-- Imagem -->
+    <div class="users__item-avatar col s2 m2 l2 xl1">
+      <img [src]="user.avatarUrl" alt="">
+      <img *ngIf="user.avatarUrl; else noUserAvatar" [alt]="'Imagem de perfil de ' + user.name"
+           [src]="user.avatarUrl">
+      <ng-template #noUserAvatar>
+        <i aria-hidden="true" class="fa fa-user-circle"></i>
+      </ng-template>
+    </div>
+
+    <!-- Dados textuais -->
+    <div class="users__item-data col s10 m10 l10 xl11">
+
+      <!-- Nome -->
+      <div class="list-basic__item__prop">
+        <span class="list-basic__item__prop--title">Nome</span>
+        <span>{{user.name}}</span>
+      </div>
+
+      <!-- Data de cadastro -->
+      <div class="list-basic__item__prop">
+        <span class="list-basic__item__prop--title">Data de cadastro</span>
+        <span>{{user.createdAt | date: fmtDate}}</span>
+      </div>
+
+      <!-- Número de pedidos -->
+      <div class="list-basic__item__prop">
+        <span class="list-basic__item__prop--title">Pedidos até hoje</span>
+        <span>{{user.quantityPurchases}}</span>
+      </div>
+
+      <!-- Papéis -->
+      <div class="list-basic__item__prop">
+        <span class="list-basic__item__prop--title">Papéis</span>
+        <mat-form-field>
+          <mat-select [disabled]="user.id === _currentUserId" [value]="user.roles" multiple>
+            <mat-option (click)="updateRoles(user.id, user.roles, role)"
+                        *ngFor="let role of userConsts.userRolesIterable" [value]="role">
+              {{userConsts.userRoles[role]}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <app-pagination (pageSelected)="changePageSearch($event)"
+                  [pageStart]="userSearchResult.currentPage" [perPage]="filter.perPage"
+                  [totalItems]="userSearchResult.count" style="width: 100%;">
+  </app-pagination>
+</div>
