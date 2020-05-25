@@ -74,9 +74,8 @@
   </div>
 
   <!-- Categorias -->
-  <div *ngIf="filterResult; else loading" style="width: 100%">
+  <div *ngIf="filterResult" style="width: 100%">
     <div class="categories">
-      <!-- TODO: Substituir por filterResult.result -->
       <div *ngFor="let item of filterResult.result" class="row category">
 
         <!-- Imagem e dados do produto -->
@@ -155,7 +154,6 @@
       </div>
     </div>
 
-    <!--  TODO: Substituir com count do filterResponse  -->
     <app-pagination (pageSelected)="changePageSearch($event)" [perPage]="filter.perPage"
                     [totalItems]="filterResult.count" style="width: 100%;">
     </app-pagination>
