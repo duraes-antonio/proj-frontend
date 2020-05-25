@@ -1,9 +1,9 @@
-<ng-template #loading>
+<ng-container *ngIf="requesting">
   <ngx-spinner [fullScreen]="true"
                bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
     <p style="color: white"> Aguarde... </p>
   </ngx-spinner>
-</ng-template>
+</ng-container>
 
 <div style="padding: 30px 10px">
 

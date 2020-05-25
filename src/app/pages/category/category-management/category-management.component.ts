@@ -51,13 +51,13 @@ export class CategoryManagementComponent {
     this._extractSearch(this._categoryServ.getForSearch(this.filter));
     const textChanges$ = this.formGroup.controls['text'].valueChanges
       .pipe(
-        debounceTime(250),
-        distinctUntilChanged(),
-        switchMap(text => {
-          return this._categoryServ.getForSearch(
-            this._updateFilter(this.filter, {...this.formGroup.value, text})
-          );
-        })
+          debounceTime(350),
+          distinctUntilChanged(),
+          switchMap(text => {
+            return this._categoryServ.getForSearch(
+                this._updateFilter(this.filter, {...this.formGroup.value, text})
+            );
+          })
       );
     this._extractSearch(textChanges$);
   }
@@ -108,11 +108,21 @@ export class CategoryManagementComponent {
   }
 
   private _extractSearch(requestCategorySearch: Observable<CategoryFilterFilled>) {
-    this.requesting = true;
+    this._showLoading();
     requestCategorySearch.subscribe((filterResponse) => {
       this.filterResult = filterResponse;
-      this.requesting = false;
+      this._hideLoading();
     });
+  }
+
+  private _hideLoading() {
+    this.requesting = false;
+    this.formGroup.enable();
+  }
+
+  private _showLoading() {
+    this.requesting = true;
+    this.formGroup.disable();
   }
 
   private _updateFilter(filterCurr: FilterCategory, formValues: FormSearchCategory): FilterCategory {

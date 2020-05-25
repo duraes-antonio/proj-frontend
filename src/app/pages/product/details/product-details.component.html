@@ -1,3 +1,10 @@
+<ng-container *ngIf="requesting">
+  <ngx-spinner [fullScreen]="true"
+               bdColor="rgba(0, 0, 0, .5)" color="#fff" size="default" type="ball-clip-rotate">
+    <p style="color: white"> Aguarde... </p>
+  </ngx-spinner>
+</ng-container>
+
 <div *ngIf="product" class="main-container">
 
   <!-- Colunas com preço, disponibilidade, frete, ... -->

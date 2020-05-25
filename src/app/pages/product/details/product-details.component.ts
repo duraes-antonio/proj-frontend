@@ -23,6 +23,7 @@ import {ListProductService} from '../../../services/lists/list-product.service';
 import {DeliveryOption} from '../../../models/shipping/delivery';
 import {EReviewSort} from '../../../models/filters/filter-review';
 import {util} from '../../../../shared/util';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-product-details',
@@ -45,6 +46,7 @@ export class ProductDetailsComponent implements OnDestroy {
   private readonly _routeSub$: Subscription;
   private readonly _cart$: Subscription;
   private _cartProdIds: string[] = [];
+  requesting = false;
 
   constructor(
     private readonly _route: ActivatedRoute,
@@ -52,11 +54,14 @@ export class ProductDetailsComponent implements OnDestroy {
     private readonly _dialog: MatDialog,
     private readonly _addressServ: AddressService,
     private readonly _listProductServ: ListProductService,
+    private readonly _loadingServ: NgxSpinnerService,
     private readonly _orderServ: OrderService,
     private readonly _productServ: ProductService,
     private readonly _reviewServ: ReviewService,
     private readonly _shippingServ: ShippingService,
   ) {
+    this._loadingServ.show();
+    this.requesting = true;
     this._routeSub$ = _route.params.subscribe(
       params => {
         const productId = params['id'];
@@ -92,6 +97,7 @@ export class ProductDetailsComponent implements OnDestroy {
             this.addresses = res[3];
             this.reviewUser = res[4];
             this.showButtonRate = res[5];
+            this.requesting = false;
           });
       });
     this._cart$ = CartService.productIds$.subscribe(
