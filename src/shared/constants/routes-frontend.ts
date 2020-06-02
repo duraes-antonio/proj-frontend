@@ -2,6 +2,7 @@ const manager = 'gerencia';
 const login = 'login';
 const productsView = 'produto';
 const user = 'usuario/:userId';
+const customize = 'personalizar';
 
 export const routesFrontend = {
   forbidden: '403',
@@ -16,11 +17,11 @@ export const routesFrontend = {
   loginEnter: `${login}/entrar`,
   loginRegister: `${login}/cadastrar`,
   checkout: 'finalizar-compra',
-  customize: 'personalizar',
 
   ordersManagement: `${manager}/pedido`,
   usersManagement: `${manager}/usuario`,
   categoriesManagement: `${manager}/categorias`,
+  customizeProductList: `${customize}/produtos`,
 
   // Rotas a implementar
   reviewsManagement: `${manager}/avaliacao`, // NIVEL: 3-4 [OPCIONAL]
@@ -29,7 +30,7 @@ export const routesFrontend = {
   reports: 'relatorios', // NIVEL: 3+
   forgotPass: 'redefinir-senha', // NIVEL: 2-3 [OPCIONAL]
 
-  userProfile: `${user}/perfil`, // NIVEL: 3-5 [OPCIONAL]
+  userProfile: user, // NIVEL: 3-5 [OPCIONAL]
   userOrders: `${user}/pedidos`, // NIVEL: 2-4 [OPCIONAL - PARCIAL]
   userActivities: `${user}/atividades`, // NIVEL: 2-3 [OPCIONAL]
   userSecurity: `${user}/seguranca`, // NIVEL: 2-4 [OPCIONAL]

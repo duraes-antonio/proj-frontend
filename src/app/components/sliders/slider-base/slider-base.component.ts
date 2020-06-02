@@ -50,19 +50,6 @@ export class SliderBaseComponent implements AfterViewInit {
           prevEl: '.swiper__arrow--prev',
         },
       });
-    /*    this._slideObject = new Swiper(
-          `.${this.options.id}`,
-          {
-            slidesPerView: 3,
-            spaceBetween: 1,
-            slidesPerGroup: 3,
-            loop: false,
-            loopFillGroupWithBlank: false,
-            navigation: {
-              nextEl: '.swiper__arrow--next',
-              prevEl: '.swiper__arrow--prev',
-            },
-          });*/
   }
 
   goToIndexSlide(i: number) {

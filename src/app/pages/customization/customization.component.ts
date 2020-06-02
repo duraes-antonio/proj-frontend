@@ -3,6 +3,7 @@ import {ListSlide} from '../../models/componentes/slider';
 import {ERole} from '../../enum/roles';
 import {DataTests} from '../../../shared/dataTests';
 import {ListProductConfig} from '../../components/sliders/slider-product/slider-product.component';
+import {routesFrontend} from '../../../shared/constants/routes-frontend';
 
 @Component({
   selector: 'app-customization',
@@ -33,6 +34,7 @@ export class CustomizationComponent {
   };
   readonly productList: ListProductConfig = {
     maxHeight: 170,
+    fnGetUrlProduct: productId => routesFrontend.customizeProductList,
     list: {
       id: '0',
       title: 'Lista de exemplo',

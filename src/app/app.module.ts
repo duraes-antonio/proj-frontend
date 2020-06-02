@@ -19,6 +19,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {CategoryModule} from './pages/category/category.module';
 import {OrderModule} from './pages/order/order.module';
 import {UserModule} from './pages/user/user.module';
+import {CustomizationModule} from './pages/customization/customization.module';
 
 registerLocaleData(localePt);
 export const MY_FORMATS = {
@@ -44,6 +45,7 @@ export const MY_FORMATS = {
     CategoryModule,
     CheckoutModule,
     ComponentesModule,
+    CustomizationModule,
     ForbiddenModule,
     HttpClientModule,
     MatDatepickerModule,
