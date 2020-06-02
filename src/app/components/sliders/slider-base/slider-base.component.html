@@ -1,23 +1,22 @@
-<div [id]="sliderId" class="glide">
-  <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides">
-      <ng-content></ng-content>
-    </ul>
-    <!-- Botões de Anterior e Próximo -->
-    <div class="glide__arrows" data-glide-el="controls">
-      <button class="glide__arrow glide__arrow--prev" data-glide-dir="<" mat-fab>
-        <mat-icon class="arrow__icon">keyboard_arrow_left</mat-icon>
-      </button>
-      <button class="glide__arrow glide__arrow--next" data-glide-dir=">" mat-fab>
-        <mat-icon class="arrow__icon">keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
+<div [id]="options.id" class="swiper-container {{options.id}}">
+  <div class="swiper-wrapper">
+    <ng-content></ng-content>
+  </div>
 
-    <!-- Indicadores (Bullets) -->
-    <div *ngIf="showBullets" class="glide__bullets">
-      <button (click)="goToIndexSlide(i)" *ngFor="let i of idxBullets;"
-              [ngClass]="{'glide__bullet--active': i == currIndex}"
-              class="glide__bullet"></button>
-    </div>
+  <!-- Botões de Anterior e Próximo -->
+  <div class="swiper__arrows">
+    <button class="swiper__arrow swiper__arrow--prev" mat-fab>
+      <mat-icon class="arrow__icon">keyboard_arrow_left</mat-icon>
+    </button>
+    <button class="swiper__arrow swiper__arrow--next" mat-fab>
+      <mat-icon class="arrow__icon">keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+
+  <!-- TODO: Finalizar Indicadores (Bullets) -->
+  <div *ngIf="options.pagination" class="swiper__bullets">
+    <button (click)="goToIndexSlide(i)" *ngFor="let i of idxBullets;"
+            [ngClass]="{'swiper__bullet--active': i == currIndex}"
+            class="swiper__bullet"></button>
   </div>
 </div>

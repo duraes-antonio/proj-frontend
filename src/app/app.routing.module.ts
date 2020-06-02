@@ -10,6 +10,7 @@ import {OwnerGuard} from './guards/owner.guard';
 import {CategoryRoutingModule} from './pages/category/category-routing.module';
 import {OrderRoutingModule} from './pages/order/order-routing.module';
 import {UserRoutingModule} from './pages/user/user-routing.module';
+import {CustomizationRoutingModule} from './pages/customization/customization-routing.module';
 
 const routes: Routes = [
   {
@@ -69,6 +70,7 @@ const extraOptions: ExtraOptions = {
     RouterModule.forRoot(routes, extraOptions),
     CategoryRoutingModule,
     CheckoutRoutingModule,
+    CustomizationRoutingModule,
     ForbiddenRoutingModule,
     OrderRoutingModule,
     ProductRoutingModule,

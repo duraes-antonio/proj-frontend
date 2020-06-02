@@ -16,17 +16,17 @@ export const routesFrontend = {
   loginEnter: `${login}/entrar`,
   loginRegister: `${login}/cadastrar`,
   checkout: 'finalizar-compra',
+  customize: 'personalizar',
+
+  ordersManagement: `${manager}/pedido`,
+  usersManagement: `${manager}/usuario`,
+  categoriesManagement: `${manager}/categorias`,
 
   // Rotas a implementar
-  ordersManagement: `${manager}/pedido`, // NIVEL: 2-3
   reviewsManagement: `${manager}/avaliacao`, // NIVEL: 3-4 [OPCIONAL]
-  usersManagement: `${manager}/usuario`, // NIVEL: 3-4
-  categoriesManagement: `${manager}/categorias`, // NIVEL: 2-4
-
   about: 'sobre', // NIVEL: 1-2 [OPCIONAL]
   contact: 'contato', // NIVEL: 1-2 [OPCIONAL]
   reports: 'relatorios', // NIVEL: 3+
-  customize: 'personalizar', // NIVEL: 3-5
   forgotPass: 'redefinir-senha', // NIVEL: 2-3 [OPCIONAL]
 
   userProfile: `${user}/perfil`, // NIVEL: 3-5 [OPCIONAL]

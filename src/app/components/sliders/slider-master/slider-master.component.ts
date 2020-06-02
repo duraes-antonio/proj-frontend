@@ -1,7 +1,7 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
 import {ListSlide} from '../../../models/componentes/slider';
-import {ERole} from '../../../enum/roles';
+import {SliderViewOptions} from '../slider-base/slider-base.component';
 
 @Component({
   selector: 'app-slider-master',
@@ -10,15 +10,22 @@ import {ERole} from '../../../enum/roles';
 })
 export class SliderMasterComponent implements AfterViewInit {
 
-  @Input() slider?: ListSlide;
+  sliderOptions?: SliderViewOptions;
 
-  readonly glideOptions = {
-    animationDuration: 300,
-    type: 'carousel',
-    bound: true,
-    startAt: 0,
-    perView: 1,
-  };
+  private _slider!: ListSlide;
+
+  get slider(): ListSlide {
+    return this._slider;
+  }
+
+  @Input()
+  set slider(slide: ListSlide) {
+    this._slider = slide;
+    this.sliderOptions = {
+      id: `master-${slide.id}`,
+      loop: true
+    };
+  }
 
   ngAfterViewInit(): void {
 
@@ -33,7 +40,7 @@ export class SliderMasterComponent implements AfterViewInit {
     if (sliderElem && sliderElem.parentElement) {
       sliderElem.parentElement.style.setProperty(
         '--slides-lenght',
-        `${this.slider.items.length + 2}`
+        `${this.slider.items.length}`
       );
     }
   }

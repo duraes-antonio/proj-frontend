@@ -1,7 +1,7 @@
-<app-slider-base [optionsGlide]="optionsGlide" [showBullets]="false"
-                 [sliderLength]="list.items.length">
-  <li *ngFor="let item of list.items" style="display: flex">
-    <a [routerLink]="['/' + routes.productsView, item.id]" class="product glide__slide">
+<app-slider-base [options]="sliderOptions" style="max-height: inherit;">
+  <div *ngFor="let item of listConfig.list.items" class="swiper-slide">
+    <a [ngClass]="{'product--small': listConfig.size === 'small'}" [routerLink]="fnGetUrlProduct(item.id)"
+       class="product">
 
       <!-- Etiqueta de desconto -->
       <span *ngIf="item.percentOff > 0" class="product__label-promo">
@@ -18,5 +18,5 @@
       <span *ngIf="item.percentOff > 0" class="product__price-orig">{{item.price | currency: 'BRL'}}</span>
       <span class="product__price">{{item.priceWithDiscount | currency: 'BRL'}}</span>
     </a>
-  </li>
+  </div>
 </app-slider-base>

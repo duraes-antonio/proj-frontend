@@ -12,7 +12,7 @@
 
   <div class="sequence" *ngFor="let listProd of listsProducts$ | async">
     <span class="title-page-w-border">{{listProd.title}}</span>
-    <app-slider-product [list]="listProd" style="width: 100%"></app-slider-product>
+    <app-slider-product [listConfig]="listProd" style="width: 100%"></app-slider-product>
   </div>
 
   <div class="sequence" *ngFor="let listMarket of listsMarkets$ | async">

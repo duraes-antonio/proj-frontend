@@ -1,6 +1,5 @@
-<app-slider-base [optionsGlide]="optionsGlide" [showBullets]="false"
-                 [sliderLength]="list.items.length">
-  <li *ngFor="let item of list.items" class="glide__slide">
+<app-slider-base [options]="sliderOptions">
+  <div *ngFor="let item of list.items" class="glide__slide">
     <div class="market">
 
       <!-- LOGO DA LOJA -->
@@ -17,5 +16,5 @@
       <!-- LINK PARA LOJA -->
       <a [href]="item.url" class="market__info">{{item.name}}</a>
     </div>
-  </li>
+  </div>
 </app-slider-base>

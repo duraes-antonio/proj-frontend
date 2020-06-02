@@ -1,8 +1,7 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {genSequence, randomInt} from '../../../../shared/util';
-// @ts-ignore
-import Glide from '@glidejs/glide';
+import Swiper from 'swiper';
+import {genSequence, util} from '../../../../shared/util';
 
 @Component({
   selector: 'app-slider-base',
@@ -11,49 +10,83 @@ import Glide from '@glidejs/glide';
 })
 export class SliderBaseComponent implements AfterViewInit {
 
-  @Input() sliderId = '';
-  @Input() showBullets = true;
-  @Input() maxHeight = '500px';
-  @Input() optionsGlide: any;
-
+  private _slideObject?: Swiper;
+  private _options: SliderViewOptions = {
+    id: `swiper-${util.randomInt(0, 10000)}`,
+    slidesPerView: 3,
+    slidesPerGroup: 3
+  };
   idxBullets: number[] = [];
   currIndex = 0;
-  private _glide: Glide;
-  private _sliderLen = 0;
 
-  constructor() {
-    this.sliderId = this.sliderId || randomInt().toString();
-  }
-
-  get sliderLength(): number {
-    return this._sliderLen;
+  get options(): SliderViewOptions {
+    return this._options;
   }
 
   @Input()
-  set sliderLength(len: number) {
-    this._sliderLen = len;
-    this.idxBullets = genSequence(this.sliderLength, 0);
+  set options(options: SliderViewOptions) {
+    this._options = options;
+    this.idxBullets = genSequence(4, 0);
   }
 
   ngAfterViewInit(): void {
-    const glideElem = document.getElementById(this.sliderId);
-
-    if (!glideElem) {
-      throw new Error('O elemento HTML Glide não foi encontrado!');
+    const elemSwiper = document.getElementById(this.options.id);
+    const maxHeightSlides = this.options.maxHeight ? `${this.options.maxHeight}px` : '100%';
+    if (elemSwiper) {
+      elemSwiper.style.setProperty('--slide-max-height', maxHeightSlides);
     }
-
-    glideElem.style.setProperty('--slide-max-height', this.maxHeight);
-    this._glide = new Glide(glideElem, {...this.optionsGlide, keyboard: false}).mount();
-
-    /*Após cada movimento, atualize o índice do slide atual p/ estilizar o indicador*/
-    if (this.showBullets) {
-      this._glide.on(['move.after'], () => {
-        this.currIndex = this._glide.index;
+    this._slideObject = new Swiper(
+      `.${this.options.id}`,
+      {
+        loop: this.options.loop ?? true,
+        slidesPerView: this.options.slidesPerView ?? 1,
+        slidesPerGroup: this.options.slidesPerGroup ?? 1,
+        spaceBetween: this.options.spaceBetween ?? 0,
+        speed: this.options.speed ?? 250,
+        breakpoints: this.options.breakpoints ?? undefined,
+        loopFillGroupWithBlank: false,
+        navigation: {
+          nextEl: '.swiper__arrow--next',
+          prevEl: '.swiper__arrow--prev',
+        },
       });
-    }
+    /*    this._slideObject = new Swiper(
+          `.${this.options.id}`,
+          {
+            slidesPerView: 3,
+            spaceBetween: 1,
+            slidesPerGroup: 3,
+            loop: false,
+            loopFillGroupWithBlank: false,
+            navigation: {
+              nextEl: '.swiper__arrow--next',
+              prevEl: '.swiper__arrow--prev',
+            },
+          });*/
   }
 
   goToIndexSlide(i: number) {
-    this._glide.go(`=${i}`);
+    if (this._slideObject) {
+      (this._slideObject as Swiper).slideTo(i);
+    }
   }
+}
+
+export interface SliderViewOptions {
+  id: string;
+  loop?: boolean;
+  maxHeight?: number;
+  pagination?: boolean;
+  slidesPerGroup?: number;
+  slidesPerView?: number;
+  spaceBetween?: number;
+  speed?: number;
+  breakpoints?: SliderBreakpoint;
+}
+
+export interface SliderBreakpoint {
+  [key: number]: {
+    slidesPerView: number;
+    spaceBetween?: number;
+  };
 }

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {routesFrontend} from '../../../../shared/constants/routes-frontend';
-import {ListProductService} from '../../../services/lists/list-product.service';
 
 @Component({
   selector: 'app-cart-empty',
@@ -9,8 +8,4 @@ import {ListProductService} from '../../../services/lists/list-product.service';
 })
 export class CartEmptyComponent {
   readonly routes = routesFrontend;
-  readonly productList$ = this._listProductServ.getMostPurchased();
-
-  constructor(private readonly _listProductServ: ListProductService) {
-  }
 }

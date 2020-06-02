@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {ListProduct} from '../../../models/componentes/list-product';
 import {routesFrontend} from '../../../../shared/constants/routes-frontend';
 import {ERole} from '../../../enum/roles';
+import {SliderViewOptions} from '../slider-base/slider-base.component';
 
 @Component({
   selector: 'app-slider-product',
@@ -11,63 +12,94 @@ import {ERole} from '../../../enum/roles';
 export class SliderProductComponent {
 
   readonly routes = routesFrontend;
-  optionsGlide: any;
+  sliderOptions?: SliderViewOptions;
+  fnGetUrlProduct: (productId: string) => string = this._getUrlProduct;
 
   constructor() {
-    this._list = {
-      id: '',
-      title: '',
-      items: [],
-      itemsId: [],
-      readRole: ERole.UNKNOWN
+    this._listConfig = {
+      list: {
+        id: '',
+        title: '',
+        items: [],
+        itemsId: [],
+        readRole: ERole.UNKNOWN
+      },
+      size: 'default'
     };
   }
 
-  private _list: ListProduct;
+  private _listConfig: ListProductConfig;
 
-  get list(): ListProduct {
-    return this._list;
+  get listConfig(): ListProductConfig {
+    return this._listConfig;
   }
 
   @Input()
-  set list(list: ListProduct) {
-    this._list = list;
-    this.optionsGlide = this._getOptionsGlid(list.items.length);
+  set listConfig(config: ListProductConfig) {
+    if (config.perView || config.size === 'small') {
+      this.sliderOptions = {
+        id: `slider-product-${config.list.id}`,
+        maxHeight: config.maxHeight,
+        slidesPerView: 3,
+        spaceBetween: 5,
+        breakpoints: {
+          796: {
+            slidesPerView: Math.min(3, config.list.items.length)
+          },
+          600: {
+            slidesPerView: Math.min(4, config.list.items.length)
+          }
+        }
+      };
+    } else {
+      this.sliderOptions = this._getOptionsGlid(config.list);
+    }
+    this.fnGetUrlProduct = config.fnGetUrlProduct ?? this._getUrlProduct;
+    this._listConfig = config;
   }
 
-  private _getOptionsGlid(countItens: number): any {
+  private _getUrlProduct(productId: string): string {
+    return routesFrontend.productView.replace(':id', productId);
+  }
+
+  private _getOptionsGlid(list: ListProduct): SliderViewOptions {
     return {
-      animationDuration: 300,
-      type: 'slider',
-      bound: true,
-      startAt: 0,
-      perView: Math.min(8, countItens),
+      id: `slider-product-${list.id}`,
+      slidesPerView: Math.min(8, list.items.length),
       breakpoints: {
         1620: {
-          perView: Math.min(8, countItens)
+          slidesPerView: Math.min(8, list.items.length)
         },
         1440: {
-          perView: Math.min(7, countItens)
+          slidesPerView: Math.min(7, list.items.length)
         },
         1366: {
-          perView: Math.min(6, countItens)
+          slidesPerView: Math.min(6, list.items.length)
         },
         1200: {
-          perView: Math.min(5, countItens)
+          slidesPerView: Math.min(5, list.items.length)
         },
         992: {
-          perView: Math.min(4, countItens)
+          slidesPerView: Math.min(4, list.items.length)
         },
         600: {
-          perView: Math.min(3, countItens)
+          slidesPerView: Math.min(3, list.items.length)
         },
         420: {
-          perView: Math.min(2, countItens)
+          slidesPerView: Math.min(2, list.items.length)
         },
         320: {
-          perView: Math.min(1, countItens)
+          slidesPerView: Math.min(1, list.items.length)
         }
       }
     };
   }
+}
+
+export interface ListProductConfig {
+  fnGetUrlProduct?: (productId: string) => string;
+  list: ListProduct;
+  maxHeight?: number;
+  perView?: number;
+  size: 'small' | 'default';
 }

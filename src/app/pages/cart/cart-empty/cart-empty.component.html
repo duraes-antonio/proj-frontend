@@ -3,11 +3,11 @@
     <p class="page__title">Eita!</p>
     <p class="page__subtitle">Seu carrinho ainda não possui produtos.</p>
     <p class="page__desc">
-      Que tal dar uma olhada nos presentes abaixo?
-      <i aria-hidden="true" class="fa fa-gift page__desc-icon" style="margin-top: 15px"></i>
+      <a [routerLink]="'/' + routes.productsView">
+        Que tal dar uma olhada nos presentes abaixo?
+        <i aria-hidden="true" class="fa fa-gift page__desc-icon" style="margin-top: 15px"></i>
+      </a>
     </p>
   </div>
 </div>
-<span class="title-page-w-border">{{(productList$ | async).title}}</span>
-<app-slider-product [list]="productList$ | async"></app-slider-product>
 

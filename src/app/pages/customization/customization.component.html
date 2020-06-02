@@ -1,0 +1,42 @@
+<div class="title-page-w-border-radius">
+  <span>Customização</span>
+</div>
+
+<div class="widgets">
+
+  <!-- widget links -->
+  <div class="widget">
+    <span class="widget__title">Links</span>
+    <div class="widget__box">
+      <i aria-hidden="true" class="fa fa-link" style="font-size: 40px"></i>
+    </div>
+    <span class="widget__description">
+      Edite e crie listas de links que serão exibidas no rodapé da loja para que seus
+      clientes tenham acesso fácil e rápido a informações relevantes.
+    </span>
+  </div>
+
+  <!-- widget slides -->
+  <div class="widget">
+    <span class="widget__title">Slides</span>
+    <div class="widget__box">
+      <app-slider-master [slider]="sliderExample" style="width: 100%; max-height: inherit;"></app-slider-master>
+    </div>
+    <span class="widget__description">
+      Crie slides para exibir promoções, produtos destaques ou avisos, tudo de forma rica,
+      com um visual atrativo.
+    </span>
+  </div>
+
+  <!-- widget lista de produtos -->
+  <div class="widget">
+    <span class="widget__title">Lista de produtos</span>
+    <div class="widget__box product-list">
+      <app-slider-product [listConfig]="productList" style="width: 100%; max-height: inherit;"></app-slider-product>
+    </div>
+    <span class="widget__description">
+      Impulsione a visibilidade de produtos específicos ou de uma determinada categoria.
+    </span>
+  </div>
+
+</div>

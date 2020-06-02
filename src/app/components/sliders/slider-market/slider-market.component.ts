@@ -9,7 +9,7 @@ import {ERole} from '../../../enum/roles';
 })
 export class SliderMarketComponent {
 
-  optionsGlide: any;
+  sliderOptions: any;
 
   constructor() {
     this._list = {
@@ -32,7 +32,7 @@ export class SliderMarketComponent {
     this._list = list;
 
     if (list) {
-      this.optionsGlide = this._getOptionsGlid(list.items.length);
+      this.sliderOptions = this._getOptionsGlid(list.items.length);
     }
   }
 
