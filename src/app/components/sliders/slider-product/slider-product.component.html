@@ -1,7 +1,7 @@
 <app-slider-base [options]="sliderOptions" style="max-height: inherit;">
   <div *ngFor="let item of listConfig.list.items" class="swiper-slide">
-    <a [ngClass]="{'product--small': listConfig.size === 'small'}" [routerLink]="fnGetUrlProduct(item.id)"
-       class="product">
+    <a [ngClass]="{'product--small': listConfig.size === 'small'}"
+       [routerLink]="'/' + fnGetUrlProduct(item.id)" class="product">
 
       <!-- Etiqueta de desconto -->
       <span *ngIf="item.percentOff > 0" class="product__label-promo">

@@ -3,15 +3,7 @@
 @import '../../../../shared/styles/variables';
 @import '../../../../../node_modules/swiper/swiper';
 
-:root {
-  --slide-max-height: 100%;
-}
-
 .swiper {
-
-  &-slide {
-    height: var(--slide-max-height) !important;
-  }
 
   &-wrapper {
     max-height: inherit;
@@ -19,6 +11,7 @@
   }
 
   &-container {
+    @extend %center-vert-flex;
     width: 100%;
     height: 100%;
     max-height: inherit;
@@ -29,7 +22,8 @@
     @extend %center-flex;
     z-index: 1;
     width: 100%;
-    top: 50%;
+    max-width: var(--max-width);
+    // top: 50%;
     position: absolute;
   }
 

@@ -10,14 +10,13 @@ import {genSequence, util} from '../../../../shared/util';
 })
 export class SliderBaseComponent implements AfterViewInit {
 
-  private _slideObject?: Swiper;
+  _slideObject?: Swiper;
   private _options: SliderViewOptions = {
     id: `swiper-${util.randomInt(0, 10000)}`,
     slidesPerView: 3,
     slidesPerGroup: 3
   };
   idxBullets: number[] = [];
-  currIndex = 0;
 
   get options(): SliderViewOptions {
     return this._options;
@@ -38,10 +37,10 @@ export class SliderBaseComponent implements AfterViewInit {
     this._slideObject = new Swiper(
       `.${this.options.id}`,
       {
-        loop: this.options.loop ?? true,
+        loop: false,
         slidesPerView: this.options.slidesPerView ?? 1,
         slidesPerGroup: this.options.slidesPerGroup ?? 1,
-        spaceBetween: this.options.spaceBetween ?? 0,
+        spaceBetween: this.options.spaceBetween ?? 15,
         speed: this.options.speed ?? 250,
         breakpoints: this.options.breakpoints ?? undefined,
         loopFillGroupWithBlank: false,

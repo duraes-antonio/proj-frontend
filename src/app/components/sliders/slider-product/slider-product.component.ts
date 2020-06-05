@@ -53,6 +53,7 @@ export class SliderProductComponent {
       };
     } else {
       this.sliderOptions = this._getOptionsGlid(config.list);
+      this.sliderOptions.maxHeight = this.sliderOptions.maxHeight ?? 265;
     }
     this.fnGetUrlProduct = config.fnGetUrlProduct ?? this._getUrlProduct;
     this._listConfig = config;

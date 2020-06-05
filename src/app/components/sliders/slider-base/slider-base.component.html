@@ -5,18 +5,18 @@
 
   <!-- Botões de Anterior e Próximo -->
   <div class="swiper__arrows">
-    <button class="swiper__arrow swiper__arrow--prev" mat-fab>
+    <button *ngIf="!_slideObject?.isBeginning" class="swiper__arrow swiper__arrow--prev" mat-fab>
       <mat-icon class="arrow__icon">keyboard_arrow_left</mat-icon>
     </button>
-    <button class="swiper__arrow swiper__arrow--next" mat-fab>
+    <button *ngIf="!_slideObject?.isEnd" class="swiper__arrow swiper__arrow--next" mat-fab>
       <mat-icon class="arrow__icon">keyboard_arrow_right</mat-icon>
     </button>
   </div>
 
   <!-- TODO: Finalizar Indicadores (Bullets) -->
-  <div *ngIf="options.pagination" class="swiper__bullets">
-    <button (click)="goToIndexSlide(i)" *ngFor="let i of idxBullets;"
-            [ngClass]="{'swiper__bullet--active': i == currIndex}"
-            class="swiper__bullet"></button>
-  </div>
+  <!--  <div *ngIf="options.pagination" class="swiper__bullets">
+      <button (click)="goToIndexSlide(i)" *ngFor="let i of idxBullets;"
+              [ngClass]="{'swiper__bullet&#45;&#45;active': i == currIndex}"
+              class="swiper__bullet"></button>
+    </div>-->
 </div>
