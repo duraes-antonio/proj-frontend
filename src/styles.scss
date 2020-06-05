@@ -20,14 +20,10 @@ a {
 }
 
 .btn-general {
-  // color: white;
-  // background-color: $color-prim--light;
   text-transform: uppercase;
 
   span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @extend %center-flex;
   }
 
   i {
