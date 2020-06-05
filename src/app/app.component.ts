@@ -27,9 +27,11 @@ export class AppComponent implements AfterViewInit {
     const body = document.getElementById(this.pseudoBodyId) as HTMLElement;
     const headerHeight = document.getElementById('navbar')?.clientHeight;
     const footerHeight = document.getElementById('footer')?.clientHeight;
+    const bodyInnetWidth = document.getElementById('body-inner')?.clientWidth;
     if (body) {
       const minSize = window.innerHeight - (headerHeight ?? 0) - (footerHeight ?? 0);
       body.style.minHeight = `${minSize}px`;
+      body.style.setProperty('--max-width', `${(bodyInnetWidth ?? body.clientWidth) - 8}px`);
     }
   }
 
