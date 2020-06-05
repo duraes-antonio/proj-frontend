@@ -4,12 +4,18 @@ import {routesFrontend} from '../../../shared/constants/routes-frontend';
 import {AuthGuard} from '../../guards/auth.guard';
 import {AdminGuard} from '../../guards/admin.guard';
 import {CustomizationComponent} from './customization.component';
+import {CustomListProductComponent} from './custom-list-product/custom-list-product.component';
 
 const routes: Routes = [
   {
     canActivate: [AuthGuard, AdminGuard],
     component: CustomizationComponent,
-    path: routesFrontend.customize
+    path: routesFrontend.customize,
+  },
+  {
+    canActivate: [AuthGuard, AdminGuard],
+    component: CustomListProductComponent,
+    path: routesFrontend.customizeProductList
   }
 ];
 

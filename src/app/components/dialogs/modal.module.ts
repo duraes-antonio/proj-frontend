@@ -23,6 +23,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {ModalManageCategoryComponent} from './modal-manage-category/modal-manage-category.component';
 import {ModalManageOrderComponent} from './modal-manage-order/modal-manage-order.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {ModalListProductComponent} from './modal-list-product/modal-list-product.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {ComponentesModule} from '../componentes.module';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -36,7 +40,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     ModalManageAddressComponent,
     ModalManageReviewComponent,
     ModalManageCategoryComponent,
-    ModalManageOrderComponent
+    ModalManageOrderComponent,
+    ModalListProductComponent
   ],
   exports: [
     ModalMatComponent,
@@ -62,6 +67,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatCheckboxModule,
     MatProgressBarModule,
     MatDatepickerModule,
+    MatExpansionModule,
+    ComponentesModule,
+    MatIconModule,
   ],
   providers: [
     MatDialog

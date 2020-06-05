@@ -1,0 +1,39 @@
+@import '../../../../shared/styles/general';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+.form-container {
+  display: grid;
+}
+
+.product-item {
+  @extend %base_model_block;
+  @extend %center-vert-flex;
+
+  &__img-container {
+    @include circle(50px, white);
+    border: 2px solid #ddd;
+    text-align: center;
+  }
+
+  &__img {
+    @include max-size(45px);
+  }
+
+  &__title {
+    font-size: .85rem;
+    color: $color-prim--light;
+    margin: 0 1rem;
+  }
+}
+
+app-pagination {
+  .main-container {
+    margin: 0 !important;
+  }
+}
+
+.center {
+  @extend %center-flex;
+}

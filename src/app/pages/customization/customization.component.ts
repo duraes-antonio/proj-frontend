@@ -34,7 +34,7 @@ export class CustomizationComponent {
   };
   readonly productList: ListProductConfig = {
     maxHeight: 170,
-    fnGetUrlProduct: productId => routesFrontend.customizeProductList,
+    fnGetUrlProduct: productId => `/${routesFrontend.customizeProductList}`,
     list: {
       id: '0',
       title: 'Lista de exemplo',
