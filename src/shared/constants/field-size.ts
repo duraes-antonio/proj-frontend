@@ -20,6 +20,11 @@ export const categorySizes = {
   titleMax: 64
 };
 
+export const listSizes = {
+  titleMin: 2,
+  titleMax: 64
+};
+
 export const productSizes = {
   amountAvailableMax: Number.MAX_SAFE_INTEGER,
   amountAvailableMin: 0,

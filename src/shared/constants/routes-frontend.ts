@@ -10,7 +10,6 @@ export const routesFrontend = {
 
   productsView: productsView,
   productView: `${productsView}/:id`,
-  productsManagement: `${manager}/produto`,
   cart: 'carrinho',
   home: 'home',
   login: login,
@@ -18,9 +17,14 @@ export const routesFrontend = {
   loginRegister: `${login}/cadastrar`,
   checkout: 'finalizar-compra',
 
+  /*Rotas para gerência de itens*/
+  productsManagement: `${manager}/produto`,
   ordersManagement: `${manager}/pedido`,
   usersManagement: `${manager}/usuario`,
   categoriesManagement: `${manager}/categorias`,
+
+  /*Rotas para personalização de componentesvisuais*/
+  customize: customize,
   customizeProductList: `${customize}/produtos`,
 
   // Rotas a implementar
