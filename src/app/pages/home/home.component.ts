@@ -6,6 +6,7 @@ import {ListProductService} from '../../services/lists/list-product.service';
 import {ListSlideService} from '../../services/lists/list-slide.service';
 import {Observable} from 'rxjs';
 import {ListMarketService} from '../../services/lists/list-market.service';
+import {ListProductConfig} from '../../components/sliders/slider-product/slider-product.component';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent {
 
   readonly listsSlides$: Observable<ListSlide[]>;
   // public readonly cartoes: ListCard[] = [new ListCard(1)];
-  readonly listsProducts$: Observable<ListProduct[]>;
+  listsProducts: ListProductConfig[] = [];
   readonly listsMarkets$: Observable<ListMarket[]>;
 
   constructor(
@@ -25,7 +26,13 @@ export class HomeComponent {
     private readonly _listMarketServ: ListMarketService
   ) {
     this.listsMarkets$ = _listMarketServ.get();
-    this.listsProducts$ = _listProductServ.get();
     this.listsSlides$ = _listSlideServ.get();
+    _listProductServ.get()
+      .subscribe((lists: ListProduct[]) => {
+        this.listsProducts = lists.map(l => ({
+          list: l,
+          size: 'default',
+        }));
+      });
   }
 }

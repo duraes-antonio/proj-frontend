@@ -10,9 +10,9 @@
   <!--  </app-lista-cartao>-->
   <!--</div>-->
 
-  <div class="sequence" *ngFor="let listProd of listsProducts$ | async">
-    <span class="title-page-w-border">{{listProd.title}}</span>
-    <app-slider-product [listConfig]="listProd" style="width: 100%"></app-slider-product>
+  <div *ngFor="let listConfig of listsProducts" class="sequence">
+    <span class="title-page-w-border">{{listConfig.list.title}}</span>
+    <app-slider-product [listConfig]="listConfig" style="width: 100%; max-height: 300px"></app-slider-product>
   </div>
 
   <div class="sequence" *ngFor="let listMarket of listsMarkets$ | async">
