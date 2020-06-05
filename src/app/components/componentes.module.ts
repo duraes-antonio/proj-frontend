@@ -21,7 +21,6 @@ import {FilterProductComponent} from './filter-product/filter-product.component'
 import {FooterComponent} from './footer/footer.component';
 import {InputNumberComponent} from './input/input-number/input-number.component';
 import {ListaCartaoComponent} from './lista-cartao/lista-cartao.component';
-import {ModalModule} from './dialogs/modal.module';
 import {NavbarComponent} from './navbar/navbar.component';
 import {PaginationComponent} from './pagination/pagination.component';
 import {RatingListComponent} from './rating-list/rating-list.component';
@@ -30,6 +29,8 @@ import {SidenavComponent} from './sidenav/sidenav.component';
 import {SliderModule} from './sliders/slider.module';
 import {StarRatingModule} from './star-rating/star-rating.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {LoadingScreenComponent} from './loading-screen/loading-screen.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     PaginationComponent,
     RatingListComponent,
     InputNumberComponent,
+    LoadingScreenComponent,
   ],
   exports: [
     NavbarComponent,
@@ -53,6 +55,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     PaginationComponent,
     RatingListComponent,
     InputNumberComponent,
+    LoadingScreenComponent,
   ],
   imports: [
     CommonModule,
@@ -72,10 +75,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatBadgeModule,
     MatListModule,
     MatSidenavModule,
-    ModalModule,
     SliderModule,
     StarRatingModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    NgxSpinnerModule,
   ],
   providers: [
     MatDialog,

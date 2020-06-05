@@ -7,6 +7,7 @@ import {CustomListProductComponent} from './custom-list-product/custom-list-prod
 import {MatButtonModule} from '@angular/material/button';
 import {EmptyListPageComponent} from './empty-list-page/empty-list-page.component';
 import {ComponentesModule} from '../../components/componentes.module';
+import {ModalModule} from '../../components/dialogs/modal.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {ComponentesModule} from '../../components/componentes.module';
     SliderModule,
     ProductModule,
     MatButtonModule,
+    ModalModule,
     ComponentesModule
   ]
 })
