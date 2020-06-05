@@ -18,7 +18,7 @@ export class PaginationComponent {
     _breakpointObserver.observe([Breakpoints.XSmall])
       .subscribe(result => {
         this._mobile = result.matches;
-        this.lengthPages = this.perPage / this.totalItems;
+        this.lengthPages = Math.ceil(this.totalItems / this.perPage);
         this.selectPage(this.pageStart);
       });
   }
