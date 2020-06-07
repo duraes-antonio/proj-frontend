@@ -28,5 +28,12 @@ export class CustomListProductComponent {
       ModalListProductComponent,
       ModalListProductComponent.getConfig({listProduct: list})
     );
+    dialogRef.componentInstance.action
+      .subscribe(() => this.lists$ = this._listServ.get());
+  }
+
+  deleteList(id: string) {
+    this._listServ.delete(id)
+      .subscribe(() => this.lists$ = this._listServ.get());
   }
 }

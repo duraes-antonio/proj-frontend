@@ -6,6 +6,17 @@
   font-weight: 500;
 }
 
+.text-rounded {
+  width: fit-content;
+  border-radius: 20px;
+  background: dimgray;
+  text-rendering: optimizeLegibility;
+  color: white;
+  font-weight: 400;
+  position: relative;
+  padding: 3px 10px;
+}
+
 .title-page-w-border-radius {
   display: block;
   width: fit-content;

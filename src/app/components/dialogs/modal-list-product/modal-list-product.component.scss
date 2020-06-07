@@ -7,9 +7,15 @@
   display: grid;
 }
 
-.product-item {
+.products {
+  display: grid;
+  grid-row-gap: 10px;
+}
+
+.product {
   @extend %base_model_block;
-  @extend %center-vert-flex;
+  @extend %grid-center-vert;
+  grid-template-columns: auto 1fr auto;
 
   &__img-container {
     @include circle(50px, white);

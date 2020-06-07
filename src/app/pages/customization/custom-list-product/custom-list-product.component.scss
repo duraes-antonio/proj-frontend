@@ -1,1 +1,94 @@
 @import '../../../../shared/styles/general';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+%_border-grey {
+  border-style: solid;
+  border-color: $block-border-color;
+
+  @media (max-width: $width-768) {
+    border: none;
+  }
+
+  @media (min-width: $width-768 + 1) {
+    border-width: 0 0 0 1px;
+  }
+}
+
+.lists {
+  margin-top: 20px;
+}
+
+.list {
+  @extend %base_model_block;
+  @extend %center-grid;
+  grid-gap: 10px;
+  margin-bottom: 1rem;
+
+  &__btn {
+    @extend %_border-grey;
+    @extend %center-flex;
+    @include size(100%);
+    margin: 0 15px;
+
+    .btn-general {
+      margin: 0 5px;
+    }
+  }
+
+  &__product-image {
+    max-height: 100px;
+  }
+
+  &__images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 55px);
+    grid-gap: 10px;
+    width: 100%;
+    justify-self: baseline;
+
+    .list__product {
+      @include circle(55px, white);
+      text-align: center;
+      border: 2px solid #ddd;
+
+      &-image {
+        @include max-size(55px);
+
+        @media (max-width: $width-768) {
+          @include max-size(40px);
+        }
+      }
+
+      @media (max-width: $width-768) {
+        @include circle(40px, white);
+      }
+    }
+  }
+
+  &__title {
+    @extend %_border-grey;
+    @extend %center-flex;
+    @include size(100%);
+
+    &-text {
+      background: $block-border-color;
+      border-radius: $border-radius-default;
+      color: $color-prim;
+      margin: 0 15px;
+      padding: 4px 12px;
+      text-align: center;
+      display: block;
+      font-size: .85rem;
+    }
+
+    @media (min-width: $width-768) {
+      margin: 10px 0;
+    }
+  }
+
+  @media (min-width: $width-768) {
+    grid-template-columns: 5fr 2fr 1fr;
+  }
+}

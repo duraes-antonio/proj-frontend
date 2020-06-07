@@ -1,4 +1,3 @@
-<!-- TODO: Atualizar -->
 <app-modal-mat (action)="save()" (closed)="closed.emit()"
                [actionDisabled]="listFormGroup.invalid"
                [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
@@ -20,7 +19,7 @@
       </mat-error>
     </mat-form-field>
 
-    <div *ngIf="products$ | async as products; else loading" style="padding: 1rem 0">
+    <div style="padding: 1rem 0">
 
       <!-- Produtos na lista -->
       <mat-accordion>
@@ -31,17 +30,17 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <ng-container *ngIf="showProducts">
-            <div *ngFor="let product of dataAdd.items" class="product-item">
-              <div class="product-item__img-container">
-                <img [alt]="product.title" [src]="product.urlMainImage" class="product-item__img">
+          <div *ngIf="showProducts" class="products">
+            <div *ngFor="let product of dataAdd.items" class="product">
+              <div class="product__img-container">
+                <img [alt]="product.title" [src]="product.urlMainImage" class="product__img">
               </div>
-              <span class="product-item__title">{{product.title}}</span>
+              <span class="product__title">{{product.title}}</span>
               <button (click)="toggleItem(dataAdd, product)" class="center" color="warn" mat-icon-button>
                 <mat-icon>remove_circle</mat-icon>
               </button>
             </div>
-          </ng-container>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
 
@@ -54,33 +53,38 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <!-- Título -->
-          <mat-form-field style="width: 100%">
-            <mat-label>Título do produto</mat-label>
-            <input [maxLength]="listSizes.titleMax" formControlName="textSearch" matInput type="text">
-            <mat-hint align="start">Busque pelo título de um produto</mat-hint>
-          </mat-form-field>
+          <ng-container *ngIf="loaded; else loading">
+            <!-- Título -->
+            <mat-form-field style="width: 100%">
+              <mat-label>Título do produto</mat-label>
+              <input [maxLength]="listSizes.titleMax" formControlName="textSearch" id="input-title" matInput
+                     type="text">
+              <mat-hint align="start">Busque pelo título de um produto</mat-hint>
+            </mat-form-field>
 
-          <div *ngIf="showProducts" style="margin-top: 1rem">
-            <div *ngFor="let product of products" class="product-item">
-              <div class="product-item__img-container">
-                <img [alt]="product.title" [src]="product.urlMainImage" class="product-item__img">
-              </div>
-              <span class="product-item__title">{{product.title}}</span>
+            <div *ngIf="showProducts" class="products">
+              <div *ngFor="let product of resultSearchProducts.result" class="product">
+                <div class="product__img-container">
+                  <img [alt]="product.title" [src]="product.urlMainImage" class="product__img">
+                </div>
+                <span class="product__title">{{product.title}}</span>
 
-              <button (click)="toggleItem(dataAdd, product)"
-                      *ngIf="!mapProductIdInList.get(product.id); else productNotIn" color="primary" mat-icon-button>
-                <mat-icon>add</mat-icon>
-              </button>
-
-              <ng-template #productNotIn>
-                <button (click)="toggleItem(dataAdd, product)" class="center" color="warn" mat-icon-button>
-                  <mat-icon>remove_circle</mat-icon>
+                <button (click)="toggleItem(dataAdd, product)"
+                        *ngIf="!mapProductIdInList.get(product.id); else productNotIn" color="primary" mat-icon-button>
+                  <mat-icon>add</mat-icon>
                 </button>
-              </ng-template>
+
+                <ng-template #productNotIn>
+                  <button (click)="toggleItem(dataAdd, product)" class="center" color="warn" mat-icon-button>
+                    <mat-icon>remove_circle</mat-icon>
+                  </button>
+                </ng-template>
+              </div>
             </div>
-          </div>
-          <app-pagination [pageStart]="1" [perPage]="10" [totalItems]="25"></app-pagination>
+            <app-pagination (pageSelected)="changePage($event)" [pageStart]="1"
+                            [perPage]="10" [totalItems]="resultSearchProducts.count">
+            </app-pagination>
+          </ng-container>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

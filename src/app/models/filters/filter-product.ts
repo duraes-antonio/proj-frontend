@@ -20,6 +20,7 @@ export interface FilterProductResponse extends FilterBasic {
   avgReview: number[];
   categories: Category[];
   categoriesId: string[];
+  count: number;
   discounts: [number, number][];
   freeDelivery: boolean;
   priceMax: number;

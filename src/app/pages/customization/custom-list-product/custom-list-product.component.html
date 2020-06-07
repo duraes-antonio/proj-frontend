@@ -5,20 +5,35 @@
 <ng-container *ngIf="lists$ | async as lists; else loading">
   <span class="title-page-w-border-radius">Listas de produtos</span>
 
+  <button (click)="openDialogManageList()" class="btn-general" color="primary" mat-raised-button>
+    <mat-icon>add</mat-icon>
+    Nova lista
+  </button>
+
   <div *ngIf="lists.length; else noLists" class="lists">
-    <div (click)="openDialogManageList(list)" *ngFor="let list of lists" class="list">
+    <div *ngFor="let list of lists" class="list">
 
-      <div class="list__title-imgs">
-        <span class="list__title">{{list.title}}</span>
-
-        <div class="list__images">
-          <div *ngFor="let product of list.items" class="list__product">
-            <img [alt]="product.title" [src]="product.urlMainImage">
-          </div>
+      <!-- Imagens de produtos -->
+      <div class="list__images">
+        <div *ngFor="let product of list.items" class="list__product">
+          <img [alt]="product.title" [src]="product.urlMainImage" class="list__product-image">
         </div>
       </div>
 
-      <button class="btn-general" color="primary" mat-flat-button>Editar</button>
+      <!-- Título da lista -->
+      <div class="list__title">
+        <span class="list__title-text">{{list.title}}</span>
+      </div>
+
+      <!-- Botão para edição -->
+      <div class="list__btn">
+        <button (click)="openDialogManageList(list)" class="btn-general" color="primary" mat-flat-button>
+          Editar
+        </button>
+        <button (click)="deleteList(list.id)" class="btn-general" color="warn" mat-flat-button>
+          Excluir
+        </button>
+      </div>
     </div>
   </div>
 

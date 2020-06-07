@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {EmptyListPageComponent} from './empty-list-page/empty-list-page.component';
 import {ComponentesModule} from '../../components/componentes.module';
 import {ModalModule} from '../../components/dialogs/modal.module';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {ModalModule} from '../../components/dialogs/modal.module';
     ProductModule,
     MatButtonModule,
     ModalModule,
-    ComponentesModule
+    ComponentesModule,
+    MatIconModule
   ]
 })
 export class CustomizationModule {
