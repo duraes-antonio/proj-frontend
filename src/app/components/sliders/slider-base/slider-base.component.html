@@ -5,10 +5,10 @@
 
   <!-- Botões de Anterior e Próximo -->
   <div class="swiper__arrows">
-    <button *ngIf="!_slideObject?.isBeginning" class="swiper__arrow swiper__arrow--prev" mat-fab>
+    <button [disabled]="!allowPrev()" class="swiper__arrow swiper__arrow--prev" mat-fab>
       <mat-icon class="arrow__icon">keyboard_arrow_left</mat-icon>
     </button>
-    <button *ngIf="!_slideObject?.isEnd" class="swiper__arrow swiper__arrow--next" mat-fab>
+    <button [disabled]="!allowNext()" class="swiper__arrow swiper__arrow--next" mat-fab>
       <mat-icon class="arrow__icon">keyboard_arrow_right</mat-icon>
     </button>
   </div>

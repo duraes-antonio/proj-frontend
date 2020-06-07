@@ -26,6 +26,23 @@ export class SliderBaseComponent implements AfterViewInit {
   set options(options: SliderViewOptions) {
     this._options = options;
     this.idxBullets = genSequence(4, 0);
+    setTimeout(() => {
+      this._slideObject = new Swiper(
+        `.${this.options.id}`,
+        {
+          loop: false,
+          slidesPerView: this.options.slidesPerView ?? 1,
+          slidesPerGroup: this.options.slidesPerGroup ?? 1,
+          spaceBetween: this.options.spaceBetween ?? 15,
+          speed: this.options.speed ?? 250,
+          breakpoints: this.options.breakpoints ?? undefined,
+          loopFillGroupWithBlank: false,
+          navigation: {
+            nextEl: '.swiper__arrow--next',
+            prevEl: '.swiper__arrow--prev',
+          },
+        });
+    });
   }
 
   ngAfterViewInit(): void {
@@ -34,27 +51,20 @@ export class SliderBaseComponent implements AfterViewInit {
     if (elemSwiper) {
       elemSwiper.style.setProperty('--slide-max-height', maxHeightSlides);
     }
-    this._slideObject = new Swiper(
-      `.${this.options.id}`,
-      {
-        loop: false,
-        slidesPerView: this.options.slidesPerView ?? 1,
-        slidesPerGroup: this.options.slidesPerGroup ?? 1,
-        spaceBetween: this.options.spaceBetween ?? 15,
-        speed: this.options.speed ?? 250,
-        breakpoints: this.options.breakpoints ?? undefined,
-        loopFillGroupWithBlank: false,
-        navigation: {
-          nextEl: '.swiper__arrow--next',
-          prevEl: '.swiper__arrow--prev',
-        },
-      });
   }
 
   goToIndexSlide(i: number) {
     if (this._slideObject) {
       (this._slideObject as Swiper).slideTo(i);
     }
+  }
+
+  allowNext(): boolean {
+    return !!this._slideObject && !this._slideObject.isEnd;
+  }
+
+  allowPrev(): boolean {
+    return !!this._slideObject && !this._slideObject.isBeginning;
   }
 }
 
