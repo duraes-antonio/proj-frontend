@@ -1,14 +1,16 @@
 'use strict';
 
-export interface SlideAdd {
-  readonly btnTitle?: string;
-  readonly desc?: string;
-  readonly imageUrl: string;
-  readonly title?: string;
-  readonly url: string;
+export interface SlideBase {
   readonly index: number;
+  readonly title: string;
+  readonly url: string;
 }
 
-export interface Slide extends SlideAdd {
-  id: string;
+export interface SlideAdd extends SlideBase {
+  readonly image: File;
+}
+
+export interface Slide extends SlideBase {
+  readonly id: string;
+  readonly imageUrl?: string;
 }

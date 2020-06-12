@@ -9,10 +9,12 @@ import {EmptyListPageComponent} from './empty-list-page/empty-list-page.componen
 import {ComponentesModule} from '../../components/componentes.module';
 import {ModalModule} from '../../components/dialogs/modal.module';
 import {MatIconModule} from '@angular/material/icon';
+import {CustomListSlideComponent} from './custom-list-slide/custom-list-slide.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
-  declarations: [CustomizationComponent, CustomListProductComponent, EmptyListPageComponent],
+  declarations: [CustomizationComponent, CustomListProductComponent, EmptyListPageComponent, CustomListSlideComponent],
   imports: [
     CommonModule,
     SliderModule,
@@ -20,7 +22,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     ModalModule,
     ComponentesModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ]
 })
 export class CustomizationModule {

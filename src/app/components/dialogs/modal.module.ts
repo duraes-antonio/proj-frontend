@@ -27,6 +27,7 @@ import {ModalListProductComponent} from './modal-list-product/modal-list-product
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ComponentesModule} from '../componentes.module';
 import {MatIconModule} from '@angular/material/icon';
+import {ModalListSlideComponent} from './modal-list-slides/modal-list-slide.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {MatIconModule} from '@angular/material/icon';
     ModalManageReviewComponent,
     ModalManageCategoryComponent,
     ModalManageOrderComponent,
-    ModalListProductComponent
+    ModalListProductComponent,
+    ModalListSlideComponent
   ],
   exports: [
     ModalMatComponent,

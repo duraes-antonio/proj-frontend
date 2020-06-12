@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-empty-list-page',
@@ -6,5 +6,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./empty-list-page.component.scss']
 })
 export class EmptyListPageComponent {
+  @Input() title = 'Parece que essa será sua primeira lista.';
+  @Input() titleButton = 'Criar Lista';
   @Output() action = new EventEmitter();
 }

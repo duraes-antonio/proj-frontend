@@ -6,14 +6,12 @@ import {Address} from '../app/models/address';
 import {randomBoolean, randomFloat, randomInt} from './util';
 import {User} from '../app/models/user';
 import {NotificationModel} from '../app/models/notification';
-import {Slide} from '../app/models/componentes/slide';
 import {Market} from '../app/models/componentes/market';
 import {Card} from '../app/models/card';
 import {ListProduct} from '../app/models/componentes/list-product';
 import {ListMarket} from '../app/models/componentes/list-market';
 import {Order} from '../app/models/order';
 import {ERole} from '../app/enum/roles';
-import {ListSlide} from '../app/models/componentes/slider';
 import {ListLink} from '../app/models/componentes/list-link';
 import {routesFrontend} from './constants/routes-frontend';
 import {DeliveryOption, DeliveryOptionType} from '../app/models/shipping/delivery';
@@ -213,7 +211,7 @@ export class DataTests {
       date: new Date(2020, 1, 1)
     }
   ];
-  static readonly slides: Slide[] = [
+  /*static readonly slides: Slide[] = [
     {
       url: 'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
       imageUrl: 'https://www.dvdplanetstore.pk/wp-content/uploads/2018/05/ti0CRprP9iSg9IDadTZ3TFnuczS.jpg',
@@ -249,16 +247,16 @@ export class DataTests {
       id: '5',
       title: 'Deck Inicial: Decifrador de código'
     },
-  ];
-  static readonly sliders: ListSlide[] = [
-    {
-      id: '1',
-      itemsId: DataTests.slides.map(s => s.id),
-      readRole: ERole.UNKNOWN,
-      items: DataTests.slides,
-      title: 'Melhores ofertas!'
-    }
-  ];
+  ];*/
+  /*  static readonly sliders: ListSlide[] = [
+      {
+        id: '1',
+        itemsId: DataTests.slides.map(s => s.id),
+        readRole: ERole.UNKNOWN,
+        items: DataTests.slides,
+        title: 'Melhores ofertas!'
+      }
+    ];*/
   static readonly users: User[] = [
     // tslint:disable-next-line:max-line-length
     {

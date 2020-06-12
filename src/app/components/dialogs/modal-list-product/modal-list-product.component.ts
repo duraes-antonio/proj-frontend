@@ -43,8 +43,8 @@ export class ModalListProductComponent {
             this.data.listProduct?.title,
             validators.textValidator(listSizes.titleMax, listSizes.titleMin)
         ),
-        products: new FormControl(
-            this.dataAdd.itemsId, Validators.minLength(1)
+        slides: new FormControl(
+          this.dataAdd.itemsId, Validators.minLength(1)
         )
     });
     readonly mapProductIdInList = new Map<string, boolean>();

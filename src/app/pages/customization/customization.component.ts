@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {ListSlide} from '../../models/componentes/slider';
 import {ERole} from '../../enum/roles';
 import {DataTests} from '../../../shared/dataTests';
 import {ListProductConfig} from '../../components/sliders/slider-product/slider-product.component';
 import {routesFrontend} from '../../../shared/constants/routes-frontend';
+import {Sequence} from '../../models/componentes/sequence';
+import {Slide} from '../../models/componentes/slide';
 
 @Component({
   selector: 'app-customization',
@@ -12,7 +13,7 @@ import {routesFrontend} from '../../../shared/constants/routes-frontend';
 })
 export class CustomizationComponent {
   readonly l = ['Links', 'Slides', 'Cards', 'Lojas parceiras', 'Lista de produtos'];
-  readonly sliderExample: ListSlide = {
+  readonly sliderExample: Sequence<Slide> = {
     title: 'Exemplo',
     readRole: ERole.ADMIN,
     id: '1',
@@ -22,12 +23,14 @@ export class CustomizationComponent {
         id: '1',
         index: 1,
         url: '',
+        title: 'slide 1',
         imageUrl: 'https://ms.yugipedia.com//thumb/9/9e/YuGiOhTheDarksideofDimensionsPoster.png/300px-YuGiOhTheDarksideofDimensionsPoster.png'
       },
       {
         id: '2',
         index: 2,
         url: '',
+        title: 'slide 2',
         imageUrl: 'https://img.elo7.com.br/product/zoom/1F3113E/big-poster-anime-yu-gi-oh-tamanho-90x-0-cm-lo23-cartaz.jpg'
       }
     ]

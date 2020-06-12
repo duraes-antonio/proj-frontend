@@ -1,0 +1,74 @@
+<app-modal-mat (action)="save()" (closed)="closed.emit()"
+               [actionDisabled]="listFormGroup.invalid" [btnAcceptTitle]="btnAcceptTitle"
+               [btnCancelTitle]="btnCancelTitle" [modalTitle]="modalTitle">
+  <form [formGroup]="listFormGroup" class="form-container">
+
+    <!-- Título do slider -->
+    <mat-form-field>
+      <mat-label>Título <span style="color: red">*</span></mat-label>
+      <input #title [maxLength]="listSizes.titleMax" formControlName="title" matInput type="text">
+      <mat-hint align="start">Identifique o slider brevemente</mat-hint>
+      <mat-hint align="end">{{title.value.length}} / {{listSizes.titleMax}}</mat-hint>
+      <mat-error *ngIf="listFormGroup.controls['title'].invalid">
+        {{getMsg(listFormGroup.controls['title'])}}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Slides e Botão de criar novo-->
+    <ng-container *ngIf="dataClone?.title">
+      <div class="slides" style="padding: 1rem 0">
+        <div *ngFor="let slide of dataClone.items" class="slide">
+          <input #inputFile (change)="previewImage($event, slide.id, dataClone)"
+                 (click)="$event.stopPropagation()" [accept]="formatsImageAccept" [hidden]="true" type="file">
+
+          <!-- Imagem e botões -->
+          <div class="slide__image-actions">
+            <img [alt]="slide.title" [src]="slide.imageUrl" class="slide__img">
+
+            <div class="slide__actions">
+              <button (click)="inputFile.click()" class="slide__actions-btn"
+                      mat-mini-fab title="Substituir imagem">
+                <i aria-hidden="true" class="fas fa-sync"></i>
+              </button>
+
+              <button (click)="deleteSlide(slide.id, dataClone)" class="slide__actions-btn"
+                      color="warn" mat-mini-fab title="Excluir slide">
+                <i aria-hidden="true" class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Título do slide e URL para redirecionamento-->
+
+          <form [formGroup]="slideIdFormGroup.get(slide.id)" class="slide__form">
+
+            <!-- Título -->
+            <mat-form-field>
+              <mat-label>Título <span style="color: red">*</span></mat-label>
+              <input #slideTitle [maxLength]="slideSizes.titleMax" formControlName="title" matInput type="text">
+              <mat-hint align="end">{{slideTitle.value.length}} / {{slideSizes.titleMax}}</mat-hint>
+              <mat-error *ngIf="slideIdFormGroup.get(slide.id).controls['title'].invalid">
+                {{getMsg(slideIdFormGroup.get(slide.id).controls['title'])}}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- URL p/ redirecionamento -->
+            <mat-form-field>
+              <mat-label>Link de redirecionamento <span style="color: red">*</span></mat-label>
+              <input #slideUrl [maxLength]="slideSizes.urlMax" formControlName="url" matInput type="text">
+              <mat-hint align="end">{{slideUrl.value.length}} / {{slideSizes.urlMax}}</mat-hint>
+              <mat-error *ngIf="slideIdFormGroup.get(slide.id).controls['url'].invalid">
+                {{getMsg(slideIdFormGroup.get(slide.id).controls['url'])}}
+              </mat-error>
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
+
+      <button (click)="createSlide(dataClone)" class="btn-general" color="primary" mat-button>
+        Novo slide
+      </button>
+    </ng-container>
+  </form>
+
+</app-modal-mat>

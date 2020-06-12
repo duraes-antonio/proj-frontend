@@ -1,7 +1,7 @@
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
 
-$_slide-height: 200px;
+$_slide-height: 275px;
 
 .swiper-slide {
   @extend %center-flex;
@@ -12,14 +12,14 @@ $_slide-height: 200px;
 
   img {
     max-width: 100%;
-    max-height: calc(#{$_slide-height} - 20px);
-    box-shadow: 1px 2px 6px rgba(black, .5);
+    max-height: calc(#{$_slide-height} - 40px);
+    box-shadow: 1px 2px 6px rgba(black, .1);
   }
 }
 
 .bg-blur {
   @extend %center-flex;
-  @include min-size(100%);
+  @include min-size(calc(100% - 60px));
   position: absolute;
   background-size: cover;
   background-position: center;
@@ -27,6 +27,6 @@ $_slide-height: 200px;
   max-width: calc(100% / var(--slides-lenght));
 
   z-index: -1;
-  filter: blur(8px);
+  filter: blur(20px);
   opacity: .7;
 }

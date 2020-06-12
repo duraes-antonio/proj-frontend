@@ -1,0 +1,110 @@
+@import '../../../../shared/styles/general';
+@import '../../../../shared/styles/mixins';
+@import '../../../../shared/styles/placeholders';
+@import '../../../../shared/styles/variables';
+
+%_border-grey {
+  border-style: solid;
+  border-color: $block-border-color;
+
+  @media (max-width: $width-768) {
+    border: none;
+  }
+
+  @media (min-width: $width-768 + 1) {
+    border-width: 0 0 0 1px;
+  }
+}
+
+.lists {
+  margin-top: 20px;
+}
+
+.list {
+  @extend %base_model_block;
+  @extend %grid-center-vert;
+  padding-right: 10px;
+  margin-bottom: 1rem;
+
+  &__img-title {
+    @extend %center-grid;
+    grid-gap: 10px;
+
+    .list__btn {
+      @extend %_border-grey;
+      @extend %center-flex;
+      @include size(100%);
+      margin: 0 15px;
+
+      .btn-general {
+        margin: 0 5px;
+      }
+    }
+
+    .list__product-image {
+      max-height: 100px;
+    }
+
+    .list__images {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 170px);
+      grid-gap: 10px;
+      width: 100%;
+      justify-self: baseline;
+
+      .list__product {
+        width: 170px;
+        height: 96px;
+        overflow: hidden;
+        border-radius: 5px;
+        background-color: white;
+        text-align: center;
+        border: 2px solid dodgerblue;
+
+        &-image {
+          height: 100%;
+        }
+      }
+
+      @media (max-width: $width-max-x-small) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .list__title {
+      @extend %_border-grey;
+      @extend %center-flex;
+      @include size(100%);
+
+      &-text {
+        background: $block-border-color;
+        border-radius: $border-radius-default;
+        color: $color-prim;
+        margin: 0 15px;
+        padding: 4px 12px;
+        text-align: center;
+        display: block;
+        font-size: .85rem;
+      }
+
+      @media (min-width: $width-768) {
+        margin: 10px 0;
+      }
+    }
+
+    @media (min-width: $width-768) {
+      grid-template-columns: 5fr 2fr;
+    }
+  }
+
+  grid-template-columns: 1fr 40px;
+}
+
+.button-icon {
+  @extend %center-vert-flex;
+
+  mat-icon {
+    @extend %center-flex;
+    font-size: 18px;
+  }
+}

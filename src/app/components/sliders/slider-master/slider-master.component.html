@@ -1,6 +1,6 @@
 <ng-container *ngIf="slider">
   <app-slider-base [options]="sliderOptions">
-    <a *ngFor="let slide of slider.items" [href]="slide.url" [title]="slide.title || 'Sem título'"
+    <a *ngFor="let slide of slider.items" [href]="'//' + slide.url" [title]="slide.title || 'Sem título'"
        class="swiper-slide" id="slide-{{slider.id}}">
       <div [style.backgroundImage]="'url('+ slide.imageUrl +')'" class="bg-blur"></div>
       <img [alt]="slide.title" [src]="slide.imageUrl">

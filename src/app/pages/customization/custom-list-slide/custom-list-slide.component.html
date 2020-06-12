@@ -1,0 +1,63 @@
+<ng-template #loading>
+  <app-loading-screen></app-loading-screen>
+</ng-template>
+
+<ng-container *ngIf="lists$ | async as lists; else loading">
+  <span class="title-page-w-border-radius">Sliders</span>
+
+  <button (click)="openDialogManageList()" *ngIf="lists.length" class="btn-general" color="primary" mat-raised-button>
+    <mat-icon>add</mat-icon>
+    Novo slider
+  </button>
+
+  <div *ngIf="lists.length; else noLists" class="lists">
+    <div *ngFor="let list of lists" class="list">
+
+      <div class="list__img-title">
+
+        <!-- Imagens de produtos -->
+        <div class="list__images">
+          <div *ngFor="let slide of list.items" class="list__product">
+            <img [alt]="slide.title" [src]="slide.imageUrl" class="list__product-image">
+          </div>
+        </div>
+
+        <!-- Título da lista -->
+        <div class="list__title">
+          <span class="list__title-text">{{list.title}}</span>
+        </div>
+      </div>
+
+      <!-- Menu contextual -->
+      <div>
+        <button [matMenuTriggerFor]="menu" aria-label="Menu de opções para slides"
+                color="primary" mat-icon-button title="Menu de opções para lista de slides">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="menu">
+          <ng-template matMenuContent>
+            <button (click)="openDialogManageList(list)" class="button-icon" mat-menu-item>
+              <mat-icon>
+                <i aria-hidden="true" class="fas fa-pencil-alt"></i>
+              </mat-icon>
+              <span>Editar</span>
+            </button>
+
+            <button (click)="deleteSlide(list.id)" class="button-icon" mat-menu-item>
+              <mat-icon>
+                <i aria-hidden="true" class="fas fa-trash-alt"></i>
+              </mat-icon>
+              <span>Excluir</span>
+            </button>
+          </ng-template>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noLists>
+    <app-empty-list-page (action)="openDialogManageList()" [titleButton]="titleBtnCreate"
+                         [title]="titlePageNoResult">
+    </app-empty-list-page>
+  </ng-template>
+</ng-container>

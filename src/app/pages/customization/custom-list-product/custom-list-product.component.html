@@ -5,7 +5,7 @@
 <ng-container *ngIf="lists$ | async as lists; else loading">
   <span class="title-page-w-border-radius">Listas de produtos</span>
 
-  <button (click)="openDialogManageList()" class="btn-general" color="primary" mat-raised-button>
+  <button (click)="openDialogManageList()" *ngIf="lists.length" class="btn-general" color="primary" mat-raised-button>
     <mat-icon>add</mat-icon>
     Nova lista
   </button>
