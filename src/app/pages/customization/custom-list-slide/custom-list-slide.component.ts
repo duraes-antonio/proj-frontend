@@ -27,7 +27,7 @@ export class CustomListSlideComponent {
   openDialogManageList(list?: Sequence<Slide>) {
     const dialogRef = this._dialog.open(
       ModalListSlideComponent,
-      ModalListSlideComponent.getConfig({sequenceSlides: list})
+      ModalListSlideComponent.getConfig({sequence: list})
     );
     dialogRef.componentInstance.action
       .subscribe(() => this.lists$ = this._listServ.get());

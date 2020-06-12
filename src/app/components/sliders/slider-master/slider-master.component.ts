@@ -1,7 +1,8 @@
 'use strict';
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {ListSlide} from '../../../models/componentes/slider';
 import {SliderViewOptions} from '../slider-base/slider-base.component';
+import {Sequence} from '../../../models/componentes/sequence';
+import {Slide} from '../../../models/componentes/slide';
 
 @Component({
   selector: 'app-slider-master',
@@ -12,14 +13,14 @@ export class SliderMasterComponent implements AfterViewInit {
 
   sliderOptions?: SliderViewOptions;
 
-  private _slider!: ListSlide;
+  private _slider!: Sequence<Slide>;
 
-  get slider(): ListSlide {
+  get slider(): Sequence<Slide> {
     return this._slider;
   }
 
   @Input()
-  set slider(slide: ListSlide) {
+  set slider(slide: Sequence<Slide>) {
     this._slider = slide;
     this.sliderOptions = {
       id: `master-${slide.id}`,

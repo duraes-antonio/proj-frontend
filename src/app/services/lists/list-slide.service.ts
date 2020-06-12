@@ -4,7 +4,8 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth.service';
 import {httpService} from '../generic-http.service';
-import {ListSlide, ListSlideAdd} from '../../models/componentes/slider';
+import {Sequence, SequenceAdd} from '../../models/componentes/sequence';
+import {Slide} from '../../models/componentes/slide';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +21,19 @@ export class ListSlideService {
     return httpService.delete(this._endpoint, id, this._http, AuthService.getHeaders);
   }
 
-  get(): Observable<ListSlide[]> {
+  get(): Observable<Sequence<Slide>[]> {
     return httpService.get(this._endpoint, this._http, AuthService.getHeaders);
   }
 
-  getById(id: string): Observable<ListSlide | undefined> {
+  getById(id: string): Observable<Sequence<Slide> | undefined> {
     return httpService.getById(this._endpoint, id, this._http, AuthService.getHeaders);
   }
 
-  patch(listPatch: object, id: string): Observable<ListSlide> {
+  patch(listPatch: object, id: string): Observable<Sequence<Slide>> {
     return httpService.patch(this._endpoint, id, this._http, AuthService.getHeaders, listPatch);
   }
 
-  post(list: ListSlideAdd): Observable<ListSlide> {
+  post(list: SequenceAdd<Slide>): Observable<Sequence<Slide>> {
     return httpService.post(this._endpoint, this._http, AuthService.getHeaders, list);
   }
 }

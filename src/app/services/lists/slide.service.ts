@@ -4,7 +4,7 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth.service';
 import {httpService} from '../generic-http.service';
-import {Slide, SlideAdd} from '../../models/componentes/slide';
+import {Slide, SlideBase} from '../../models/componentes/slide';
 import {take} from 'rxjs/operators';
 
 @Injectable({
@@ -37,7 +37,7 @@ export class SlideService {
     ).pipe(take(1));
   }
 
-  post(slideAdd: SlideAdd): Observable<Slide> {
+  post(slideAdd: SlideBase): Observable<Slide> {
     return httpService.post(this._endpoint, this._http, AuthService.getHeaders, slideAdd);
   }
 }

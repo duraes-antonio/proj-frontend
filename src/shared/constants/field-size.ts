@@ -65,8 +65,6 @@ export const slideSizes = {
   btnTitleMax: 64,
   descMin: 4,
   descMax: 512,
-  imageUrlMin: 16,
-  imageUrlMax: 2048,
   indexMin: 0,
   indexMax: 16,
   titleMin: 4,

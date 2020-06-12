@@ -2,16 +2,16 @@ import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {Sequence} from '../../../models/componentes/sequence';
 import {getMsgFront} from '../../../../shared/validations/msgErrorFunctionsFront';
 import {ERole} from '../../../enum/roles';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {validators} from '../../../../shared/validations/validatorsCustom';
 import {MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import {Slide} from '../../../models/componentes/slide';
 import {listSizes, slideSizes} from '../../../../shared/constants/field-size';
 import {ListSlideService} from '../../../services/lists/list-slide.service';
 import {SlideService} from '../../../services/lists/slide.service';
-
-// @ts-ignore
-const _ = require('lodash');
+import * as _ from 'lodash';
+import {debounceTime, distinctUntilChanged, filter, switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-modal-list-slides',
@@ -26,16 +26,16 @@ export class ModalListSlideComponent {
   readonly slideSizes = slideSizes;
   readonly formatsImageAccept = 'image/gif, image/png, image/jpeg, image/webp';
 
-  readonly btnAcceptTitle = this.data.sequenceSlides ? undefined : 'Criar slider';
-  readonly btnCancelTitle = this.data.sequenceSlides ? 'OK' : 'Descartar alterações';
-  readonly modalTitle = `${this.data.sequenceSlides ? 'Edição' : 'Registro'} de lista de slides`;
+  readonly btnAcceptTitle = this.data.sequence ? undefined : 'Criar slider';
+  readonly btnCancelTitle = this.data.sequence ? 'OK' : 'Descartar alterações';
+  readonly modalTitle = `${this.data.sequence ? 'Edição' : 'Registro'} de lista de slides`;
 
-  readonly dataClone?: Sequence<Slide> = this.data.sequenceSlides
-    ? _.cloneDeep(this.data.sequenceSlides) : undefined;
+  readonly dataClone?: Sequence<Slide> = this.data.sequence
+    ? _.cloneDeep(this.data.sequence) : undefined;
   readonly slideIdFormGroup = new Map<string, FormGroup>();
   readonly listFormGroup = new FormGroup({
     title: new FormControl(
-      this.data.sequenceSlides?.title,
+      this.data.sequence?.title,
       validators.textValidator(listSizes.titleMax, listSizes.titleMin)
     ),
     slides: new FormControl(
@@ -49,9 +49,11 @@ export class ModalListSlideComponent {
     private readonly _slideServ: SlideService
   ) {
     if (this.dataClone?.items) {
-      this.dataClone.items.forEach(
-        s => this.slideIdFormGroup.set(s.id, this._formFromSlide(s))
-      );
+      this.dataClone.items.forEach(s => {
+        const formGroup = this._formFromSlide(s);
+        this.slideIdFormGroup.set(s.id, formGroup);
+        this._watchFormGroupSlide(s.id, formGroup);
+      });
     }
   }
 
@@ -81,32 +83,23 @@ export class ModalListSlideComponent {
     }
   }
 
-  // TODO: Finalizar função
   createSlide(listSlide?: Sequence<Slide>) {
     if (listSlide) {
-      fetch('https://vignette.wikia.nocookie.net/yugioh/images/1/16/MagicalHats-OW.png/revision/latest?cb=20140611023822')
-        .then(res => res.blob())
-        .then(blob => {
-          this._slideServ.post({
-            image: new File([blob], 'imagem_teste.png'),
-            url: 'www.google.com',
-            title: `${(listSlide.items.length ?? 0) + 1}º Slide`,
-            index: listSlide.items.length ?? 0,
-          }).subscribe((s: Slide) => {
-            listSlide.items.push(s);
-            listSlide.itemsId.push(s.id);
-            this.slideIdFormGroup.set(s.id, this._formFromSlide(s));
-            this._listSlideServ
-              .patch({itemsId: listSlide.itemsId}, listSlide.id)
-              .subscribe();
-          });
-        });
+      this._slideServ.post({
+        url: 'www.google.com',
+        title: `${(listSlide.items.length ?? 0) + 1}º Slide`,
+        index: listSlide.items.length ?? 0,
+      }).subscribe((s: Slide) => {
+        listSlide.items.push(s);
+        listSlide.itemsId.push(s.id);
+        const formGroup = this._formFromSlide(s);
+        this.slideIdFormGroup.set(s.id, formGroup);
+        this._watchFormGroupSlide(s.id, formGroup);
+        this._listSlideServ
+          .patch({itemsId: listSlide.itemsId}, listSlide.id)
+          .subscribe();
+      });
     }
-  }
-
-  // TODO: Finalizar função
-  updateSlide(id: string) {
-    // TODO: Chamar serviço de slide p/ atualizar
   }
 
   deleteSlide(slideId: string, listSlides: Sequence<Slide>) {
@@ -140,22 +133,39 @@ export class ModalListSlideComponent {
 
   private _formFromSlide(slide: Slide): FormGroup {
     return new FormGroup({
-      imageUrl: new FormControl(
-        slide.imageUrl,
-        validators.textValidator(slideSizes.titleMax, slideSizes.titleMin)
-      ),
       title: new FormControl(
         slide.title,
         validators.textValidator(slideSizes.titleMax, slideSizes.titleMin)
       ),
       url: new FormControl(
         slide.url,
-        validators.textValidator(slideSizes.titleMax, slideSizes.titleMin)
+        validators.textValidator(slideSizes.urlMax, slideSizes.urlMin)
       )
     });
+  }
+
+  private _watchFormGroupSlide(slideId: string, form: FormGroup) {
+    this._watchFormControl(form.controls['title'], (title: string) =>
+      this._slideServ.patch({title}, slideId)
+    ).subscribe();
+    this._watchFormControl(form.controls['url'], (url: string) =>
+      this._slideServ.patch({url}, slideId)
+    ).subscribe();
+  }
+
+  private _watchFormControl(
+    formCtrl: AbstractControl, cb: (text: string) => Observable<Slide>
+  ): Observable<Slide> {
+    return formCtrl.valueChanges
+      .pipe(
+        filter(value => !!value && value.trim().length),
+        debounceTime(250),
+        distinctUntilChanged(),
+        switchMap(text => cb(text))
+      );
   }
 }
 
 export interface ModalListSlideData {
-  sequenceSlides?: Sequence<Slide>;
+  sequence?: Sequence<Slide>;
 }

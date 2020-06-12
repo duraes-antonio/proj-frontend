@@ -17,10 +17,8 @@ import {routesFrontend} from './constants/routes-frontend';
 import {DeliveryOption, DeliveryOptionType} from '../app/models/shipping/delivery';
 
 export class DataTests {
-  private static itemOrderId = 0;
   private static marketId = 0;
   private static notificId = 0;
-  private static orderId = 0;
   private static productId = 0;
 
   static readonly addresses: Address[] = [

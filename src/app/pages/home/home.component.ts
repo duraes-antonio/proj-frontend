@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {ListSlide} from '../../models/componentes/slider';
 import {ListProduct} from '../../models/componentes/list-product';
 import {ListMarket} from '../../models/componentes/list-market';
 import {ListProductService} from '../../services/lists/list-product.service';
@@ -7,6 +6,8 @@ import {ListSlideService} from '../../services/lists/list-slide.service';
 import {Observable} from 'rxjs';
 import {ListMarketService} from '../../services/lists/list-market.service';
 import {ListProductConfig} from '../../components/sliders/slider-product/slider-product.component';
+import {Slide} from '../../models/componentes/slide';
+import {Sequence} from '../../models/componentes/sequence';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ import {ListProductConfig} from '../../components/sliders/slider-product/slider-
 })
 export class HomeComponent {
 
-  readonly listsSlides$: Observable<ListSlide[]>;
+  readonly listsSlides$: Observable<Sequence<Slide>[]>;
   // public readonly cartoes: ListCard[] = [new ListCard(1)];
   listsProducts: ListProductConfig[] = [];
   readonly listsMarkets$: Observable<ListMarket[]>;
