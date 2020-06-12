@@ -26,6 +26,7 @@ export const routesFrontend = {
   /*Rotas para personalização de componentesvisuais*/
   customize: customize,
   customizeProductList: `${customize}/produtos`,
+  customizeSlider: `${customize}/slides`,
 
   // Rotas a implementar
   reviewsManagement: `${manager}/avaliacao`, // NIVEL: 3-4 [OPCIONAL]
