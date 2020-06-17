@@ -42,6 +42,11 @@
 
   &__img {
     width: inherit;
+
+    &-empty {
+      background-color: lightgrey;
+      color: $color-prim--light;
+    }
   }
 
   &__title {

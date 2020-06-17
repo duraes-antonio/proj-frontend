@@ -38,6 +38,7 @@ export class ListProductService {
     );
   }
 
+  /*TODO: Subsituir dados mockados por consulta*/
   getMostPurchased(): Observable<ListProduct> {
     return of(DataTests.listProducts[0]).pipe(take(1));
     /*    return httpService.getById(

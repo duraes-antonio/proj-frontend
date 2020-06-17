@@ -23,7 +23,14 @@
 
           <!-- Imagem e botões -->
           <div class="slide__image-actions">
-            <img [alt]="slide.title" [src]="slide.imageUrl" class="slide__img">
+            <img *ngIf="slide.imageUrl; else noImgSlide" [alt]="slide.title" [src]="slide.imageUrl" class="slide__img">
+
+            <ng-template #noImgSlide>
+              <div class="slide__image-empty">
+                <i aria-hidden="true" class="fas fa-image"></i>
+                <span>Ops! Ainda na há imagem por aqui.</span>
+              </div>
+            </ng-template>
 
             <div class="slide__actions">
               <button (click)="inputFile.click()" class="slide__actions-btn"

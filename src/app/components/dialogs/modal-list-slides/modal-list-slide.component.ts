@@ -48,8 +48,13 @@ export class ModalListSlideComponent {
     private readonly _listSlideServ: ListSlideService,
     private readonly _slideServ: SlideService
   ) {
-    if (this.dataClone?.items) {
-      this.dataClone.items.forEach(s => {
+    const cloneList: Sequence<Slide> | undefined = this.dataClone;
+    if (cloneList) {
+      this._watchFormControlText(
+        this.listFormGroup.controls['title'],
+        (title: string) => this._listSlideServ.patch({title}, cloneList.id)
+      ).subscribe();
+      cloneList.items.forEach(s => {
         const formGroup = this._formFromSlide(s);
         this.slideIdFormGroup.set(s.id, formGroup);
         this._watchFormGroupSlide(s.id, formGroup);
@@ -145,17 +150,17 @@ export class ModalListSlideComponent {
   }
 
   private _watchFormGroupSlide(slideId: string, form: FormGroup) {
-    this._watchFormControl(form.controls['title'], (title: string) =>
+    this._watchFormControlText(form.controls['title'], (title: string) =>
       this._slideServ.patch({title}, slideId)
     ).subscribe();
-    this._watchFormControl(form.controls['url'], (url: string) =>
+    this._watchFormControlText(form.controls['url'], (url: string) =>
       this._slideServ.patch({url}, slideId)
     ).subscribe();
   }
 
-  private _watchFormControl(
-    formCtrl: AbstractControl, cb: (text: string) => Observable<Slide>
-  ): Observable<Slide> {
+  private _watchFormControlText<T>(
+    formCtrl: AbstractControl, cb: (text: string) => Observable<T>
+  ): Observable<T> {
     return formCtrl.valueChanges
       .pipe(
         filter(value => !!value && value.trim().length),
