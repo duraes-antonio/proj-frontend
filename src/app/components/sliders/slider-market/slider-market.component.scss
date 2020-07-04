@@ -1,7 +1,7 @@
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
 
-.glide__slide {
+.swiper-slide {
   display: block;
   height: fit-content;
   text-align: center;
@@ -45,6 +45,7 @@
       &-img {
         max-width: 85%;
         max-height: 75%;
+        filter: drop-shadow(1px 1px 1px rgba(black, 0.35));
       }
     }
   }

@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ListMarket} from '../../../models/componentes/list-market';
 import {ERole} from '../../../enum/roles';
+import {SliderViewOptions} from "../slider-base/slider-base.component";
 
 @Component({
   selector: 'app-slider-market',
@@ -23,7 +24,7 @@ export class SliderMarketComponent {
 
   private _list: ListMarket;
 
-  get list() {
+  get list(): ListMarket {
     return this._list;
   }
 
@@ -32,35 +33,38 @@ export class SliderMarketComponent {
     this._list = list;
 
     if (list) {
-      this.sliderOptions = this._getOptionsGlid(list.items.length);
+      this.sliderOptions = this._getOptionsGlid(list);
     }
   }
 
-  private _getOptionsGlid(countItens: number): any {
+  private _getOptionsGlid(list: ListMarket): SliderViewOptions {
     return {
-      animationDuration: 300,
-      type: 'slider',
-      bound: true,
-      startAt: 0,
-      perView: Math.min(4, countItens),
+      id: `slider-market-${list.id}`,
+      slidesPerView: Math.min(8, list.items.length),
       breakpoints: {
         1620: {
-          perView: Math.min(6, countItens)
+          slidesPerView: Math.min(8, list.items.length)
         },
         1440: {
-          perView: Math.min(5, countItens)
+          slidesPerView: Math.min(7, list.items.length)
+        },
+        1366: {
+          slidesPerView: Math.min(6, list.items.length)
         },
         1200: {
-          perView: Math.min(4, countItens)
+          slidesPerView: Math.min(5, list.items.length)
         },
         992: {
-          perView: Math.min(3, countItens)
-        },
-        768: {
-          perView: Math.min(2, countItens)
+          slidesPerView: Math.min(4, list.items.length)
         },
         600: {
-          perView: 1
+          slidesPerView: Math.min(3, list.items.length)
+        },
+        420: {
+          slidesPerView: Math.min(2, list.items.length)
+        },
+        320: {
+          slidesPerView: Math.min(1, list.items.length)
         }
       }
     };
