@@ -12,7 +12,7 @@
   grid-row-gap: 10px;
 }
 
-.slide {
+.product {
   @extend %base_model_block;
   @extend %grid-center-vert;
   grid-template-columns: auto 1fr auto;

@@ -3,6 +3,7 @@
 
 .components {
   @extend %flex-col;
+  margin: 20px 0;
 
   .sequence {
     display: contents;

@@ -23,7 +23,7 @@
 
       <!-- Produtos na lista -->
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel (afterExpand)="showProducts = true">
           <mat-expansion-panel-header>
             <mat-panel-description>
               Produtos na lista

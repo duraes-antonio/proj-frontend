@@ -1,5 +1,5 @@
 'use strict';
-import {Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {forkJoin, Observable, Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
@@ -24,13 +24,14 @@ import {DeliveryOption} from '../../../models/shipping/delivery';
 import {EReviewSort} from '../../../models/filters/filter-review';
 import {util} from '../../../../shared/util';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {utilDOM} from "../../../../shared/util.dom";
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnDestroy {
+export class ProductDetailsComponent implements AfterViewInit, OnDestroy {
 
   product?: Product;
   deliveryChosen?: DeliveryOption;
@@ -111,6 +112,10 @@ export class ProductDetailsComponent implements OnDestroy {
   ngOnDestroy(): void {
     this._routeSub$.unsubscribe();
     this._cart$.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    utilDOM.setBodyBackgroundColor('white');
   }
 
   showModalShipp(zipcode: string) {
