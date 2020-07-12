@@ -3,6 +3,7 @@
 .body-content {
   @extend %center-horiz-flex;
   align-items: flex-start;
+  background-color: white;
 }
 
 .body-inner {
