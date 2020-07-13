@@ -18,7 +18,11 @@
         <!-- Imagens de produtos -->
         <div class="list__images">
           <div *ngFor="let slide of list.items" class="list__product">
-            <img [alt]="slide.title" [src]="slide.imageUrl" class="list__product-image">
+            <img *ngIf="slide.imageUrl; else noImage" [alt]="slide.title" [src]="slide.imageUrl"
+                 class="list__product-image">
+            <ng-template #noImage>
+              <app-blank-image></app-blank-image>
+            </ng-template>
           </div>
         </div>
 
@@ -30,12 +34,18 @@
 
       <!-- Menu contextual -->
       <div>
+
+        <!-- Botão -->
         <button [matMenuTriggerFor]="menu" aria-label="Menu de opções para slides"
                 color="primary" mat-icon-button title="Menu de opções para lista de slides">
           <mat-icon>more_vert</mat-icon>
         </button>
+
+        <!-- Conteúdo do menu -->
         <mat-menu #menu="matMenu" class="menu">
           <ng-template matMenuContent>
+
+            <!-- Editar -->
             <button (click)="openDialogManageList(list)" class="button-icon" mat-menu-item>
               <mat-icon>
                 <i aria-hidden="true" class="fas fa-pencil-alt"></i>
@@ -43,6 +53,7 @@
               <span>Editar</span>
             </button>
 
+            <!-- Remover -->
             <button (click)="deleteSlide(list.id)" class="button-icon" mat-menu-item>
               <mat-icon>
                 <i aria-hidden="true" class="fas fa-trash-alt"></i>

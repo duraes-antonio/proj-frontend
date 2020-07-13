@@ -26,10 +26,7 @@
             <img *ngIf="slide.imageUrl; else noImgSlide" [alt]="slide.title" [src]="slide.imageUrl" class="slide__img">
 
             <ng-template #noImgSlide>
-              <div class="slide__image-empty">
-                <i aria-hidden="true" class="fas fa-image"></i>
-                <span>Ops! Ainda na há imagem por aqui.</span>
-              </div>
+              <app-blank-image></app-blank-image>
             </ng-template>
 
             <div class="slide__actions">

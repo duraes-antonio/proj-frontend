@@ -71,6 +71,7 @@
       }
     }
 
+    /*TODO: Compartilhar estilos com outras listas*/
     .list__title {
       @extend %_border-grey;
       @extend %center-flex;
