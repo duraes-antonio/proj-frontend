@@ -1,0 +1,20 @@
+@import './src/shared/styles/placeholders';
+
+.container {
+  @extend %center-flex;
+  flex-direction: column;
+  background-color: #eee;
+  color: darkgrey;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+
+  &__icon {
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    text-rendering: optimizeLegibility;
+    font-weight: 100;
+  }
+}

@@ -26,11 +26,11 @@ import {PaginationComponent} from './pagination/pagination.component';
 import {RatingListComponent} from './rating-list/rating-list.component';
 import {SearchBarComponent} from './search-bar/search-bar.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
-import {SliderModule} from './sliders/slider.module';
 import {StarRatingModule} from './star-rating/star-rating.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LoadingScreenComponent} from './loading-screen/loading-screen.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {BlankImageComponent} from "./blank-image/blank-image.component";
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     RatingListComponent,
     InputNumberComponent,
     LoadingScreenComponent,
+    BlankImageComponent,
   ],
   exports: [
     NavbarComponent,
@@ -56,6 +57,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     RatingListComponent,
     InputNumberComponent,
     LoadingScreenComponent,
+    BlankImageComponent,
   ],
   imports: [
     CommonModule,
@@ -75,7 +77,6 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     MatBadgeModule,
     MatListModule,
     MatSidenavModule,
-    SliderModule,
     StarRatingModule,
     MatDatepickerModule,
     NgxSpinnerModule,

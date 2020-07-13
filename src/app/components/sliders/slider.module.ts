@@ -7,6 +7,7 @@ import {SliderProductComponent} from './slider-product/slider-product.component'
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterModule} from '@angular/router';
+import {ComponentesModule} from "../componentes.module";
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {RouterModule} from '@angular/router';
     MatIconModule,
     MatButtonModule,
     RouterModule,
+    ComponentesModule,
   ]
 })
 export class SliderModule {
