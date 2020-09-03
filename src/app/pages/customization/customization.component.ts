@@ -13,6 +13,7 @@ import {Slide} from '../../models/componentes/slide';
 })
 export class CustomizationComponent {
   readonly l = ['Links', 'Slides', 'Cards', 'Lojas parceiras', 'Lista de produtos'];
+  readonly routes = routesFrontend;
   readonly sliderExample: Sequence<Slide> = {
     title: 'Exemplo',
     readRole: ERole.ADMIN,

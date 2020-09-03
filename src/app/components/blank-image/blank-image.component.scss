@@ -1,4 +1,5 @@
-@import './src/shared/styles/placeholders';
+//@import './src/shared/styles/placeholders';
+@import '../../../shared/styles/placeholders';
 
 .container {
   @extend %center-flex;

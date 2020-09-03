@@ -11,6 +11,7 @@ import {ModalModule} from '../../components/dialogs/modal.module';
 import {MatIconModule} from '@angular/material/icon';
 import {CustomListSlideComponent} from './custom-list-slide/custom-list-slide.component';
 import {MatMenuModule} from '@angular/material/menu';
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {MatMenuModule} from '@angular/material/menu';
     ModalModule,
     ComponentesModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterModule
   ]
 })
 export class CustomizationModule {

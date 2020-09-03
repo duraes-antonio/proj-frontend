@@ -1,6 +1,7 @@
 <div class="components">
   <!-- TODO: Tornar o conteúdo dinâmico -->
-  <div class="sequence" *ngFor="let listSlides of listsSlides$ | async">
+  <div *ngFor="let listSlides of listsSlides$ | async" class="sequence">
+    <span class="title-page-w-border-radius">{{listSlides.title}}</span>
     <app-slider-master [slider]="listSlides" style="width: 100%;"></app-slider-master>
   </div>
 
@@ -15,7 +16,7 @@
     <app-slider-product [listConfig]="listConfig" style="width: 100%; max-height: 300px"></app-slider-product>
   </div>
 
-  <div class="sequence" *ngFor="let listMarket of listsMarkets$ | async">
+  <div *ngFor="let listMarket of listsMarkets$ | async" class="sequence">
     <span class="title-page-w-border-radius">{{listMarket.title}}</span>
     <app-slider-market [list]="listMarket" style="width: 100%"></app-slider-market>
   </div>
