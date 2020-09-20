@@ -1,7 +1,7 @@
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/placeholders';
 
-$_slide-height: 275px;
+$_slide-height: 310px;
 
 .swiper-slide {
   @extend %center-flex;
@@ -27,6 +27,6 @@ $_slide-height: 275px;
   max-width: calc(100% / var(--slides-lenght));
 
   z-index: -1;
-  filter: blur(20px);
+  filter: blur(10px);
   opacity: .7;
 }
