@@ -91,7 +91,7 @@ export class ModalListSlideComponent {
   createSlide(listSlide?: Sequence<Slide>) {
     if (listSlide) {
       this._slideServ.post({
-        url: 'www.google.com',
+        url: 'https://www.google.com',
         title: `${(listSlide.items.length ?? 0) + 1}º Slide`,
         index: listSlide.items.length ?? 0,
       }).subscribe((s: Slide) => {

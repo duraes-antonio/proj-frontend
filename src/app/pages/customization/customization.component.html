@@ -20,8 +20,9 @@
   <div class="widget">
     <span class="widget__title">Slides</span>
     <div class="widget__box">
-      <app-slider-master [routerLink]="'/' + routes.customizeSlider" [slider]="sliderExample"
-                         style="width: 100%; max-height: inherit;"></app-slider-master>
+      <app-slider-master [externalUrls]="false" [slider]="sliderExample"
+                         style="width: 100%; max-height: inherit;">
+      </app-slider-master>
     </div>
     <span class="widget__description">
       Crie slides para exibir promoções, produtos destaques ou avisos, tudo de forma rica,

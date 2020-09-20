@@ -15,6 +15,8 @@ export class SliderMasterComponent implements AfterViewInit {
 
   private _slider!: Sequence<Slide>;
 
+  @Input() externalUrls = true;
+
   get slider(): Sequence<Slide> {
     return this._slider;
   }
@@ -44,5 +46,14 @@ export class SliderMasterComponent implements AfterViewInit {
         `${this.slider.items.length}`
       );
     }
+  }
+
+  formatUrl(url: string, external = true): string {
+    const prefix = 'https://'
+    return external ? (url.startsWith(prefix) ? url : `${prefix}${url}`) : url;
+  }
+
+  openUrl(url: string, external = false) {
+    window.open(url, external ? '_blank' : '_self');
   }
 }

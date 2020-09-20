@@ -23,14 +23,14 @@ export class CustomizationComponent {
       {
         id: '1',
         index: 1,
-        url: '',
+        url: this.routes.customizeSlider,
         title: 'slide 1',
         imageUrl: 'https://ms.yugipedia.com//thumb/9/9e/YuGiOhTheDarksideofDimensionsPoster.png/300px-YuGiOhTheDarksideofDimensionsPoster.png'
       },
       {
         id: '2',
         index: 2,
-        url: '',
+        url: this.routes.customizeSlider,
         title: 'slide 2',
         imageUrl: 'https://img.elo7.com.br/product/zoom/1F3113E/big-poster-anime-yu-gi-oh-tamanho-90x-0-cm-lo23-cartaz.jpg'
       }
