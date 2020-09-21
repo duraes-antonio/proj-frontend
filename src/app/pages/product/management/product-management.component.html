@@ -26,7 +26,7 @@
       <!-- Data de início de cadastro -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Início do cadastro</mat-label>
-        <input (dateChange)="searchProduct(formGroup.value)"
+        <input (dateChange)="searchProduct()"
                (input)="maskDate($event, formGroup.controls['dateStart'])"
                [matDatepicker]="picker1" formControlName="dateStart" matInput type="text">
         <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
@@ -39,7 +39,7 @@
       <!-- Data final de cadastro -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Fim do cadastro</mat-label>
-        <input (dateChange)="searchProduct(formGroup.value)"
+        <input (dateChange)="searchProduct()"
                (input)="maskDate($event, formGroup.controls['dateEnd'])"
                [matDatepicker]="picker2" formControlName="dateEnd" matInput>
         <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
@@ -52,7 +52,7 @@
       <!-- Categorias -->
       <mat-form-field class="col s12 m6 l3 xl3">
         <mat-label>Categorias</mat-label>
-        <mat-select (selectionChange)="searchProduct(formGroup.value)"
+        <mat-select (selectionChange)="searchProduct()"
                     formControlName="categories" multiple>
           <mat-option *ngFor="let categ of categories$ | async" [value]="categ.id">
             {{categ.title}}
@@ -72,9 +72,8 @@
         <!-- Ordenação -->
         <mat-form-field class="col s12">
           <mat-label>Ordenar por</mat-label>
-          <mat-select>
-            <mat-option (click)="searchProduct(formGroup.value, opt.key)"
-                        *ngFor="let opt of optsSort" [value]="opt.key">
+          <mat-select [(value)]="sortBy">
+            <mat-option (click)="searchProduct(opt.key)" *ngFor="let opt of optsSort" [value]="opt.key">
               {{opt.name}}
             </mat-option>
           </mat-select>
@@ -194,7 +193,8 @@
       </div>
     </div>
 
-    <app-pagination [perPage]="filter.perPage" [totalItems]="countProductReturned" style="width: 100%;">
+    <app-pagination (pageSelected)="changePageSearch($event, sortBy)" [perPage]="filter.perPage"
+                    [totalItems]="filterResult.count" style="width: 100%;">
     </app-pagination>
   </div>
 </div>

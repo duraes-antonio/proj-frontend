@@ -33,7 +33,7 @@ export class ProductManagementComponent {
     {key: EProductSort.PRICE_HIGH, name: 'Maior preço'},
     {key: EProductSort.PRICE_LOW, name: 'Menor preço'}
   ];
-  readonly filter: FilterProduct = {perPage: 15, currentPage: 1};
+  readonly filter: FilterProduct = {perPage: 10, currentPage: 1};
   readonly sizes = productSizes;
   readonly formGroup = new FormGroup({
     categories: new FormControl([]),
@@ -48,6 +48,7 @@ export class ProductManagementComponent {
   _window = window;
   _getMsgFront = getMsgFront;
   requesting = false;
+  sortBy = EProductSort.DEFAULT;
 
   constructor(
       private readonly _dialog: MatDialog,
@@ -112,16 +113,20 @@ export class ProductManagementComponent {
     });
   }
 
-  searchProduct(form: FormSearchProduct, sort?: EProductSort) {
+  searchProduct(sort?: EProductSort, filter?: FilterProduct) {
     if (this.formGroup.valid) {
       this._showLoading();
       this._productServ.getForSearch(
-          this._updateFilter({...this.filter, sortBy: sort}, this.formGroup.value)
+        this._updateFilter({...(filter || this.filter), sortBy: sort}, this.formGroup.value)
       ).subscribe(filterResponse => {
         this.filterResult = filterResponse;
         this._hideLoading();
       });
     }
+  }
+
+  changePageSearch(pageTarget: number, sortOpt?: EProductSort) {
+    this.searchProduct(sortOpt, {...this.filter, currentPage: pageTarget});
   }
 
   maskDate(event: Event, control: AbstractControl) {

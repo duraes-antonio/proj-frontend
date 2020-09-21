@@ -44,7 +44,7 @@ export class ModalProductMatComponent {
       this.product?.desc, validators.textValidator(this._sizes.descMax, 20)
     ),
     cost: new FormControl(
-      this.product ? +this.product.cost.toFixed(2) : null,
+      this.product ? +this.product.cost.toFixed(2) : undefined,
       validators.numberValidator(this._sizes.costMin, this._sizes.costMax, false)
     ),
     price: new FormControl(
