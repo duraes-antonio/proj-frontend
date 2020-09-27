@@ -9,13 +9,13 @@
     "e2e": "ng e2e",
     "ci": "run-s build:prod ci:cy-run",
     "ci:cy-run": "start-server-and-test ci:start-server http://localhost:4200 cy:run",
-    "ci:start-server": "angular-http-server --path ./dist/CypressCi -p 4200 --silent",
+    "ci:start-server": "angular-http-server --path ./dist/proj-frontend -p 4200 --silent",
     "cy:run": "cypress run",
     "cy:verify": "cypress verify",
     "lint": "ng lint",
     "ng": "ng",
-    "postinstall": "ng build --output-path angularapp --aot --prod",
     "start": "node server.js",
+    "start:ci": "serve --no-clipboard --listen 8080",
     "test": "ng test"
   },
   "private": true,
@@ -42,6 +42,7 @@
     "ngx-spinner": "^9.0.2",
     "path": "^0.12.7",
     "rxjs": "~6.5.3",
+    "serve": "^11.3.2",
     "swiper": "^5.4.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
