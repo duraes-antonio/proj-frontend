@@ -111,16 +111,26 @@
         </div>
 
         <!-- Botões de Comprar e Add. ao Carrinho -->
-        <button (click)="buy(product)" class="btn-general btn-general--full" color="primary" mat-raised-button>
+        <button (click)="buy(product)" class="btn-general btn-general--full" color="primary"
+                data-cy="produto-bt-comprar" mat-raised-button>
           <i aria-hidden="true" class="fa fa-gift"></i>
           Comprar
         </button>
 
-        <button (click)="prodInCart ? remFromCart(product.id) : addToCart(product.id)"
-                class="btn-general btn-general--full" color="primary" mat-stroked-button>
-          <i [ngClass]="prodInCart ? 'fa-shopping-cart' : 'fa-cart-plus'" aria-hidden="true" class="fas "></i>
+        <button (click)="remFromCart(product.id)" *ngIf="prodInCart; else btRemoveFromCart"
+                class="btn-general btn-general--full" color="primary" data-cy="produto-bt-remover-carrinho"
+                mat-stroked-button>
+          <i aria-hidden="true" class="fas fa-shopping-cart"></i>
           {{prodInCart ? 'Remover do' : 'Adicionar ao'}} Carrinho
         </button>
+
+        <ng-template #btRemoveFromCart>
+          <button (click)="addToCart(product.id)" class="btn-general btn-general--full" color="primary"
+                  data-cy="produto-bt-adicionar-carrinho" mat-stroked-button>
+            <i aria-hidden="true" class="fas fa-cart-plus"></i>
+            {{prodInCart ? 'Remover do' : 'Adicionar ao'}} Carrinho
+          </button>
+        </ng-template>
       </div>
 
       <!-- Produto INDISPONÍVEL -->
