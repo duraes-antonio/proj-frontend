@@ -3,15 +3,18 @@
   <!-- EMAIL -->
   <mat-form-field class="col">
     <mat-label>Email</mat-label>
-    <input [formControl]="_controlEmail" [maxLength]="_sizes.emailMaxLen" matInput type="email">
-    <mat-error *ngIf="_controlEmail.invalid">{{_getMsg(_controlEmail, 'teste@gmail.com')}}</mat-error>
+    <input [formControl]="_controlEmail" [maxLength]="_sizes.emailMaxLen" data-cy="login-input-email" matInput
+           type="email">
+    <mat-error *ngIf="_controlEmail.invalid"
+               data-cy="login-input-email-error">{{_getMsg(_controlEmail, 'teste@gmail.com')}}</mat-error>
   </mat-form-field>
 
   <!-- SENHA -->
   <mat-form-field class="col">
     <mat-label>Senha</mat-label>
-    <input [formControl]="_controlPass" [maxLength]="_sizes.passwordMaxLen" matInput type="password">
-    <mat-error *ngIf="_controlPass.invalid">{{_getMsg(_controlPass)}}</mat-error>
+    <input [formControl]="_controlPass" [maxLength]="_sizes.passwordMaxLen" data-cy="login-input-senha" matInput
+           type="password">
+    <mat-error *ngIf="_controlPass.invalid" data-cy="login-input-pass-error">{{_getMsg(_controlPass)}}</mat-error>
   </mat-form-field>
 
   <div style="text-align: right;">
@@ -20,7 +23,7 @@
 
   <button (click)="signIn()" [class.spinner]="requesting"
           [disabled]="_controlEmail.invalid || _controlPass.invalid || requesting"
-          class="btn-general" color="primary" mat-raised-button>
+          class="btn-general" color="primary" data-cy="login-bt-entrar" mat-raised-button>
     {{requesting ? '.' : 'Entrar'}}
   </button>
 

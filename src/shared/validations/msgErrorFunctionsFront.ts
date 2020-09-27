@@ -36,7 +36,7 @@ export const buildErrorMsg = {
   },
 
   msgInvalidFormat(example: string): string {
-    const exampleTrim = example ? ` Exemplo: ${example}` : '';
+    const exampleTrim = example ? `Exemplo: ${example}` : '';
     return `Formato inválido. ${exampleTrim}`;
   },
 };

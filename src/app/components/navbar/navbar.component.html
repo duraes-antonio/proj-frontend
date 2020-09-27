@@ -4,7 +4,7 @@
 
       <!-- LOGO E MENU HAMBURGER -->
       <div class="col s6 m3 l3 xl3 navbar__col--left">
-        <a (click)="sidenavShow.emit()" *ngIf="userLogged" class="icon-action--white">
+        <a (click)="sidenavShow.emit()" *ngIf="userLogged" class="icon-action--white" data-cy="icone-sidebar">
           <i aria-hidden="true" class="fas fa-bars" style="margin-right: 20px"></i>
         </a>
         <a [routerLink]="routes.home">
@@ -22,7 +22,7 @@
         <!-- CARRINHO -->
         <a [routerLink]="routes.cart" class="icon-action--white" title="Carrinho">
           <i [matBadgeHidden]="cartProdsIds.length < 1" aria-hidden="true"
-             class="fas fa-shopping-cart"
+             class="fas fa-shopping-cart" data-cy="carrinho-numero-produtos"
              matBadge="{{cartProdsIds.length < 100 ? cartProdsIds.length : '+99'}}" matBadgeColor="warn"></i>
         </a>
         <ng-container *ngIf="userLogged; else userUnknown">
@@ -71,7 +71,7 @@
           </div>
 
           <!-- LOGOUT -->
-          <a (click)="logout()" class="icon-action--white" title="Sair">
+          <a (click)="logout()" class="icon-action--white" data-cy="icone-sair" title="Sair">
             <i aria-hidden="true" class="fas fa-sign-out-alt"></i>
           </a>
         </ng-container>
@@ -83,7 +83,8 @@
           </a>
 
           <!-- LOGIN -->
-          <a *ngIf="!userLogged" [routerLink]="routes.loginEnter" class="icon-action--white" title="Entrar (login)">
+          <a *ngIf="!userLogged" [routerLink]="routes.loginEnter" class="icon-action--white" data-cy="icone-logar"
+             title="Entrar (login)">
             <i aria-hidden="true" class="fas fa-sign-in-alt"></i>
           </a>
         </ng-template>

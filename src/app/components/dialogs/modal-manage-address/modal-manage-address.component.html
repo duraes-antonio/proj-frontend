@@ -3,13 +3,13 @@
                [actionDisabled]="addressFormGroup.invalid"
                [btnAcceptTitle]="btnActionTitle" [btnCancelTitle]="btnCancelTitle"
                [modalDesc]="desc" [modalTitle]="title">
-  <form [formGroup]="addressFormGroup" class="address-form">
+  <form [formGroup]="addressFormGroup" class="address-form" data-cy="endereco-modal-registrar">
 
     <!-- CEP -->
     <mat-form-field class="col s6">
       <mat-label>CEP <span style="color: red">*</span></mat-label>
       <input (input)="formatCEP($event.target)" [max]="sizes.zipCodeMax"
-             aria-label="Number" formControlName="zipCode" matInput type="text">
+             aria-label="Number" data-cy="endereco-input-cep" formControlName="zipCode" matInput type="text">
       <mat-hint>Digite somente os digítos. Ex: 29264699</mat-hint>
       <mat-error *ngIf="addressFormGroup.controls['zipCode'].invalid">
         {{getMsg(addressFormGroup.controls['zipCode'], '29161699')}}
@@ -19,7 +19,7 @@
     <!-- Estados -->
     <mat-form-field class="col s6">
       <mat-label>Estado <span style="color: red">*</span></mat-label>
-      <input [matAutocomplete]="auto" [max]="2" aria-label="Number"
+      <input [matAutocomplete]="auto" [max]="2" aria-label="Number" data-cy="endereco-input-estado"
              formControlName="state" matInput type="text">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let state of filteredStates | async" [value]="state.initials">
@@ -34,7 +34,8 @@
     <!-- Cidade -->
     <mat-form-field class="col s12">
       <mat-label>Cidade <span style="color: red">*</span></mat-label>
-      <input #city [maxLength]="sizes.cityMax" formControlName="city" matInput type="text">
+      <input #city [maxLength]="sizes.cityMax" data-cy="endereco-input-cidade" formControlName="city" matInput
+             type="text">
       <mat-hint align="end">{{city.value.length}} / {{sizes.cityMax}}</mat-hint>
       <mat-error *ngIf="addressFormGroup.controls['city'].invalid">
         {{getMsg(addressFormGroup.controls['city'])}}
@@ -44,7 +45,7 @@
     <!-- Bairro -->
     <mat-form-field class="col s12">
       <mat-label>Bairro <span style="color: red">*</span></mat-label>
-      <input #neighborhood [maxLength]="sizes.neighborhoodMax"
+      <input #neighborhood [maxLength]="sizes.neighborhoodMax" data-cy="endereco-input-bairro"
              formControlName="neighborhood" matInput type="text">
       <mat-hint align="end">{{neighborhood.value.length}} / {{sizes.neighborhoodMax}}</mat-hint>
       <mat-error *ngIf="addressFormGroup.controls['neighborhood'].invalid">
@@ -55,7 +56,8 @@
     <!-- Logradouro -->
     <mat-form-field class="col s12">
       <mat-label>Logradouro <span style="color: red">*</span></mat-label>
-      <input #street [maxLength]="sizes.streetMax" formControlName="street" matInput type="text">
+      <input #street [maxLength]="sizes.streetMax" data-cy="endereco-input-logradouro" formControlName="street" matInput
+             type="text">
       <mat-hint align="end">{{street.value.length}} / {{sizes.streetMax}}</mat-hint>
       <mat-error *ngIf="addressFormGroup.controls['street'].invalid">
         {{getMsg(addressFormGroup.controls['street'])}}
@@ -66,7 +68,7 @@
     <mat-form-field class="col s6">
       <mat-label>Número <span style="color: red">*</span></mat-label>
       <input (input)="formatNumber($event.target)" [max]="sizes.numberMax"
-             [min]="sizes.numberMin" formControlName="number" matInput type="number">
+             [min]="sizes.numberMin" data-cy="endereco-input-numero" formControlName="number" matInput type="number">
       <mat-error *ngIf="addressFormGroup.controls['number'].invalid">
         {{getMsg(addressFormGroup.controls['number'], '13')}}
       </mat-error>
