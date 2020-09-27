@@ -16,5 +16,5 @@ addons:
 before_script:
   - yarn install
 script:
-  - cypress run --record
+  - cypress run
   - sonar-scanner
